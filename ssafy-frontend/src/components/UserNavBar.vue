@@ -94,6 +94,7 @@ export default {
       appTitle: "ㅇㅇㅇ님 공간",
       sidebar: false,
       userName: "userName",
+      userInfo: null,
       overlay: false,
       menuItems: [
         {
@@ -117,9 +118,23 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.getUsername();
+    alert(userName + " 호출,,");
+  },
   methods: {
     logout() {
       this.$store.dispatch("logout");
+    },
+    getUsername() {
+      alert("zzz");
+      axios
+        .get("http://192.168.100.92:8080/api/user")
+        .then(response => {
+          alert(response);
+          this.userInfo = response.data;
+        })
+        .bind(this);
     }
   }
 };

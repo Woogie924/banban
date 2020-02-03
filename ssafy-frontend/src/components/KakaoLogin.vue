@@ -74,7 +74,7 @@ export default {
                       }
                     });
                   } else {
-                    router.push({ name: "UserMainPage" });
+                    router.push({ path: "/UserMainPage" });
                   }
                 });
             }
