@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-
+import createPersistedState from "vuex-persistedstate"
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     user: null,
     userType: null,
@@ -14,16 +14,12 @@ export default new Vuex.Store({
   mutations: {
     SET_USER_DATA(state, userData) {
       if (userData.token !== null) {
-        state.user = userData
+        state.user = userData.token
         state.userType = userData.data.chk
         state.userName = userData.data.id
-        localStorage.setItem('userType', JSON.stringify(userData.data.chk))
-        localStorage.setItem('userName', JSON.stringify(userData.data.userName))
-        localStorage.setItem('user', JSON.stringify(userData.token))
-        localStorage.setItem('userName', JSON.stringify(userData.data.id))
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${userData.token}`
+        ] = `Bearer ${store.state.user}`
       }
     },
     SET_SOCIAL_DATA(state, userData) {
@@ -32,12 +28,16 @@ export default new Vuex.Store({
         localStorage.setItem('user', JSON.stringify(userData.token))
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${userData.token}`
+        ] = `Bearer ${state.user}`
       }
     },
     CLEAR_USER_DATA(state) {
       localStorage.clear()
       location.reload()
+      state.user = null
+      state.userType = null
+      state.userName = null
+
     }
   },
   actions: {
@@ -119,5 +119,8 @@ export default new Vuex.Store({
     loggedIn(state) {
       return !!state.user
     }
-  }
+  },
+  plugins: [createPersistedState()]
 })
+
+export default store
