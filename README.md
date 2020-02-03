@@ -64,6 +64,69 @@
 - Firebase - [Firebase 공식 웹사이트](https://firebase.google.com/?hl=ko)를 방문하여 공식 메뉴얼 진행합니다
 - Jira - [SSAFY jira](https://jira.ssafy.com/secure/Dashboard.jspa)를 사용합니다. jira를 통해 issue 및 WorkFlow 등 전반적인 스프린트를 관리합니다.
 
+## 🥨Commit/Branch Rules
+### Commit
+> #### Commit Message 7 Rules
+> 1. 제목과 본문을 한 줄 띄워 분리하기
+> 2. 제목은 영문 기준 50자 이내로
+> 3. 제목 첫글자를 대문자로
+> 4. 제목 끝에 . 금지
+> 5. 제목은 명령조로
+> 6. 본문은 영문 기준 72자마다 줄 바꾸기
+> 7. 본문은 어떻게보다 무엇을, 왜에 맞춰 작성하기
+
+> #### 단어 목록
+> ##### > 기본적으로 [타입] "무엇을" + "왜" 형식으로 관리
+> **1. 수정 :: fix**
+> ```
+> //비정상적 동작일 때, 
+> //버그 잡을 때,
+> [Fix] "무엇을" + ("왜")
+> ```
+
+> **2. 수정 :: update**
+> ```
+> //정상적으로 동작할 때, 수정,추가,보완할 때
+> [Update] "무엇을" + ("왜")
+> ```
+
+> **3. 추가 :: add**
+> ```
+> [Add] "무엇을" + ("왜")
+> ```
+
+> **4. 삭제 :: remove**
+> ```
+> [Remove] "무엇을" + ("왜")
+> ```
+
+> **5. 전면 수정 :: refactor**
+> ```
+> [Refactor] "무엇을" + ("왜")
+> ```
+
+### Branch Naming (브랜치 명명 규칙)
+> ##### > Gitlab에는 master와 develop 브랜치, 그리고 master 브랜치의 TAG만 관리한다.
+
+> #### 개발자 PC
+> **개발자는 PC에 release, hotfix, feature, issue 브랜치를 생성하여 작업을 진행한다.**
+> **작업이 완료된 브랜치는 병합후 삭제 가능하며, Gitlab에 반영하지 않는다.**
+
+> #### release 브랜치
+> - **develop 브랜치로부터 생성하는 브랜치이다.**
+> - **명명 규칙 : release/버젼넘버**
+>    ex) `release/X.X.X`
+> - **브랜치 생성 후에는 버그 픽스만 반영한다.**
+> - **최종 확정 후에는 develop, master 브랜치에 병합한다.**
+
+> #### feature 브랜치
+> - **develop 브랜치로부터 생성하는 브랜치이다.**
+> - **명명 규칙 : 년월일_feature_짧은설명**
+>    ex) `년월일_feature_<짧은설명>`
+> - **완료 후 develop 브랜치에 병합한다.**
+
+
+
 ## 🎫 프로젝트 수행 목록
 <table>
 <tr><td>1. 프로젝트 개발 환경 설정</tr></td>
