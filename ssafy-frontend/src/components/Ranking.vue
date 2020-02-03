@@ -4,10 +4,10 @@
       <p class="headline grey--text font-weight-bold text-center">실시간 순위</p>
       <v-list>
         <v-list-item-group v-model="list" color="primary">
-          <v-list-item v-for="value in list" :key="value.index">
-            <p class="headline font-italic grey--text font-weight-bold">{{value.index}}</p>
+          <v-list-item v-for="(value, idx) in list" :key="value.id">
+            <p class="headline font-italic grey--text font-weight-bold">{{idx+1}}</p>
             <div id="rank">
-              <v-list-title class="black--text">{{ value.title }}</v-list-title>
+              <v-list-title class="black--text">{{ value.name }}</v-list-title>
             </div>
           </v-list-item>
         </v-list-item-group>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Ranking",
   data() {
@@ -34,6 +35,35 @@ export default {
         { index: "10", title: "치킨5" }
       ]
     };
+  },
+  created() {},
+  mounted() {
+    this.fetchRank();
+
+    // this.interval = setInterval(
+    //   function() {
+    //     this.fetchRank();
+    //   }.bind(this),
+    //   3000
+    // );
+  },
+  methods: {
+    fetchRank() {
+      axios
+        .get("http://192.168.100.92:8080/shopkeeper/countLikes")
+        .then(response => {
+          this.list = response.data;
+          console.log(response.data);
+        })
+        .bind(this);
+    }
+  },
+  computed: {
+    getIntervalRank() {
+      var result = null;
+
+      return this.result;
+    }
   }
 };
 </script>
@@ -62,7 +92,7 @@ export default {
     left: 0px;
   }
   to {
-    left: 4vw;
+    left: 5vw;
   }
 }
 
@@ -72,7 +102,7 @@ export default {
     left: 0px;
   }
   to {
-    left: 4vw;
+    left: 5vw;
   }
 }
 </style>

@@ -89,7 +89,7 @@ const router = new Router({
 			name: 'StoreMainPage',
 			component: StoreMainPage,
 			meta: {
-				requireAuth: true
+				// requireAuth: true
 			}
 		},
 		{
@@ -97,7 +97,7 @@ const router = new Router({
 			name: 'UserMainPage',
 			component: UserMainPage,
 			meta: {
-				requireAuth: true
+				// requireAuth: true
 			}
 		},
 		{
@@ -105,7 +105,7 @@ const router = new Router({
 			name: 'MenuManagement',
 			component: MenuManagement,
 			meta: {
-				requireAuth: true
+				// requireAuth: true
 			}
 		},
 		{
