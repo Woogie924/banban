@@ -1,8 +1,15 @@
 <template>
-  <v-card>
-    <v-card-title>주문 가능</v-card-title>
-    <v-card-text v-for="value in StoreList" :key="value.index">{{value.data}}</v-card-text>
-  </v-card>
+  <div>
+    <v-toolbar dense>
+      <v-text-field hide-details prepend-icon="search" single-line></v-text-field>
+    </v-toolbar>
+    <v-card>
+      <v-card-title>주문 가능</v-card-title>
+      <v-divider></v-divider>
+
+      <v-card-text v-for="value in StoreList" :key="value.index">{{value.data}}</v-card-text>
+    </v-card>
+  </div>
 </template>
 
 <script>
