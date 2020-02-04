@@ -127,7 +127,6 @@ export default {
       this.$store.dispatch("logout");
     },
     getUsername() {
-      alert("zzz");
       axios
         .get("http://192.168.100.92:8080/api/user")
         .then(response => {

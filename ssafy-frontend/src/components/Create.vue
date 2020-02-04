@@ -1,7 +1,11 @@
 <template>
   <div v-if="userName !== writer && index !==undefined">
-    <p>올바른 접근 방식이 아닙니다.</p>
+    <p>올바른 접근 방식이 아닙니다</p>
     <v-btn small color="primary" @click="move()">글목록</v-btn>
+    <v-snackbar v-model="snackbar">
+      잘못된 접근입니다.{{ countDown}}초후 글목록 페이지로 이동합니다.
+      <v-btn color="pink" @click="snackbar = false">close</v-btn>
+    </v-snackbar>
   </div>
   <div v-else-if="index !==undefined">
     <p>
@@ -24,6 +28,10 @@
       @click="index !== undefined? updated() : write()"
     >{{index !== undefined ? '수정': '작성'}}</v-btn>
     <v-btn small color="primary" @click="move()">글목록</v-btn>
+    <v-snackbar v-model="snackbar">
+      여기는 게시글 수정 페이지 입니다.
+      <v-btn color="pink" @click="snackbar = false">close</v-btn>
+    </v-snackbar>
   </div>
   <div v-else>
     <select v-model="category">
@@ -47,6 +55,10 @@
       @click="index !== undefined? updated() : write()"
     >{{index !== undefined ? '수정': '작성'}}</v-btn>
     <v-btn small color="primary" @click="move()">글목록</v-btn>
+    <v-snackbar v-model="snackbar">
+      여기는 게시글 작성 페이지 입니다.
+      <v-btn color="pink" @click="snackbar = false">close</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -58,6 +70,8 @@ export default {
   name: "Create",
   mounted() {
     this.get_info();
+    this.ischeck();
+    this.start();
     console.log(this.userName + "userName");
   },
 
@@ -73,10 +87,33 @@ export default {
       address: "",
       writer: "",
       title: "",
-      body: ""
+      body: "",
+      snackbar: false,
+      countDown: 3
     };
   },
   methods: {
+    ischeck() {
+      if (this.userName != this.writer && this.index != null) {
+        console.log(this.userName);
+        console.log(1222222222222123123);
+        this.countDownTimer();
+      }
+    },
+    countDownTimer() {
+      if (this.countDown > 0) {
+        setTimeout(() => {
+          this.countDown -= 1;
+          this.countDownTimer();
+        }, 1000);
+      }
+      if (this.countDown == 0) {
+        this.move();
+      }
+    },
+    start() {
+      this.snackbar = true;
+    },
     move() {
       this.$router.push({
         name: "Read"
@@ -127,7 +164,6 @@ export default {
                 this.writer = this.board[i].writer;
                 this.title = this.board[i].title;
                 this.body = this.board[i].body;
-                console.log(112312312312312);
               }
             }
           }
