@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-tabs v-model="tab" fluid>
+    <v-tabs v-model="tab">
       <v-tab v-for="item in MenuList" :key="item.index">{{item.data}}</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">

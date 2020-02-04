@@ -2,67 +2,53 @@
   <div>
     <v-card fluid>
       <p class="headline grey--text font-weight-bold text-center">실시간 순위</p>
-      <v-list>
-        <v-list-item-group v-model="list" color="primary">
-          <v-list-item v-for="(value, idx) in list" :key="value.id">
-            <p class="headline font-italic grey--text font-weight-bold">{{idx+1}}</p>
-            <div id="rank">
-              <v-list-title class="black--text">{{ value.name }}</v-list-title>
-            </div>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+      <v-card>
+        <v-card-text id="rankText" v-for="(value, idx) in list" :key="value.id">
+          <div>
+            <div class="rankNum font-italic grey--text font-weight-bold">{{idx+1}}</div>
+            <div id="rank" class="rankValue black--text display-5">{{ value }}</div>
+          </div>
+        </v-card-text>
+      </v-card>
     </v-card>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import store from "@/vuex/store.js";
 export default {
   name: "Ranking",
   data() {
     return {
-      list: [
-        { index: "1", title: "양념치킨" },
-        { index: "2", title: "간장치킨" },
-        { index: "3", title: "반반치킨" },
-        { index: "4", title: "불고기피자" },
-        { index: "5", title: "고구마피자" },
-        { index: "6", title: "치킨1" },
-        { index: "7", title: "치킨32" },
-        { index: "8", title: "치킨3" },
-        { index: "9", title: "치킨4" },
-        { index: "10", title: "치킨5" }
-      ]
+      list: []
     };
   },
   created() {},
   mounted() {
     this.fetchRank();
 
-    // this.interval = setInterval(
-    //   function() {
-    //     this.fetchRank();
-    //   }.bind(this),
-    //   3000
-    // );
+    this.interval = setInterval(
+      function() {
+        this.fetchRank();
+      }.bind(this),
+      3000
+    );
   },
   methods: {
     fetchRank() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.user}`;
       axios
         .get("http://192.168.100.92:8080/shopkeeper/countLikes")
         .then(response => {
-          this.list = response.data;
-          console.log(response.data);
-        })
-        .bind(this);
-    }
-  },
-  computed: {
-    getIntervalRank() {
-      var result = null;
-
-      return this.result;
+          this.list = [];
+          for (let index = 0; index < response.data.length; index++) {
+            this.$set(this.list, index, response.data[index].name);
+          }
+          console.log(this.list);
+        });
     }
   }
 };
@@ -104,5 +90,14 @@ export default {
   to {
     left: 5vw;
   }
+}
+.rankNum,
+.rankValue {
+  display: inline-block;
+  margin: 0;
+}
+#rankText {
+  margin: 0;
+  padding: 0;
 }
 </style>

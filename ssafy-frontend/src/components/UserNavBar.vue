@@ -11,7 +11,7 @@
         </v-label>
       </v-toolbar-title>
       <v-spacer>
-        <v-text class="font-weight-bold">{{userName}}님 공간</v-text>
+        <v-text class="font-weight-bold">{{userInfo}}님 공간</v-text>
       </v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">
@@ -87,6 +87,8 @@
 </template>
  
 <script>
+import axios from "axios";
+import store from "@/vuex/store.js";
 export default {
   name: "main-header",
   data() {
@@ -120,20 +122,18 @@ export default {
   },
   mounted() {
     this.getUsername();
-    alert(userName + " 호출,,");
   },
   methods: {
     logout() {
       this.$store.dispatch("logout");
     },
     getUsername() {
-      axios
-        .get("http://192.168.100.92:8080/api/user")
-        .then(response => {
-          alert(response);
-          this.userInfo = response.data;
-        })
-        .bind(this);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.user}`;
+      axios.get("http://192.168.100.92:8080/api/user").then(response => {
+        this.userInfo = response.data;
+      });
     }
   }
 };
