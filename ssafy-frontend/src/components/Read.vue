@@ -8,6 +8,10 @@
     <v-btn @click="search('치킨')">치킨</v-btn>
     <v-btn @click="search('피자')">피자</v-btn>
     <v-btn @click="search('족발')">족발</v-btn>
+    <v-snackbar v-model="snackbar">
+      여기는 게시글 페이지 입니다.
+      <v-btn color="pink" @click="snackbar = false">close</v-btn>
+    </v-snackbar>
     <v-simple-table dark>
       <template v-slot:default>
         <thead>
@@ -34,7 +38,6 @@
     </v-simple-table>
     <v-btn small color="error" @click="write">글쓰기</v-btn>
     <v-btn small color="primary" @click="get_info">테스트</v-btn>
-    <p>{{this.$store.state.user.data}}</p>
   </div>
 </template>
 
@@ -49,11 +52,15 @@ export default {
   name: "Read",
   data() {
     return {
-      board: []
+      board: [],
+      snackbar: false
     };
   },
 
   methods: {
+    start() {
+      this.snackbar = true;
+    },
     write() {
       this.$router.push({
         path: "Create/"
@@ -90,6 +97,7 @@ export default {
   },
   mounted() {
     this.get_info();
+    this.start();
   }
   // beforeDestroy() {
   //   this.get_info();
