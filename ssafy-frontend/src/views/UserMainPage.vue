@@ -35,11 +35,6 @@ export default {
     UserNavBar,
     OrderPossible,
     temp
-  },
-  methods: {
-    test() {
-      console.log(localStorage.user);
-    }
   }
 };
 </script>

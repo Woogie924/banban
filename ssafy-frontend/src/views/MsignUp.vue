@@ -86,7 +86,9 @@ export default {
       point: 0,
       signupDate: 214,
       zipcode: "",
-      address2: ""
+      address2: "",
+      lat: 123,
+      lon: 123
     };
   },
   methods: {
@@ -101,7 +103,9 @@ export default {
           address: this.address,
           chk: this.chk,
           point: this.point,
-          signupDate: this.signupDate
+          signupDate: this.signupDate,
+          latitude: this.lat,
+          longtitude: this.lon
         })
         .then(() => {
           this.$router.push({ path: "/" });
@@ -148,6 +152,20 @@ export default {
           this.zipcode = data.zonecode;
           this.address = fullRoadAddr;
           this.address2 = data.jibunAddress;
+          var geocoder = new kakao.maps.services.Geocoder();
+          // console.log(this.address);
+          geocoder.addressSearch(
+            this.address,
+            function(result, status) {
+              if (status == kakao.maps.services.Status.OK) {
+                // console.log(result[0].y + " " + result[0].x);
+                // console.log(result[0].x);
+                this.lat = result[0].y;
+                this.lon = result[0].x;
+                console.log(this.lat + " " + this.lon);
+              }
+            }.bind(this)
+          );
         }.bind(this)
       }).open();
     }

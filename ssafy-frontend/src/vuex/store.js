@@ -8,13 +8,17 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     user: null,
-    token: null,
+    userType: null,
+    userName: null,
+    userAddr: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
       if (userData.token !== null) {
-        state.user = userData.data
-        state.token = userData.token
+        state.user = userData.token
+        state.userType = userData.data.chk
+        state.userName = userData.data.id
+        state.userAddr = userData.data.address
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${store.state.token}`
@@ -35,6 +39,7 @@ const store = new Vuex.Store({
       state.user = null
       state.userType = null
       state.userName = null
+      state.userAddr = null
     }
   },
   actions: {
@@ -54,11 +59,6 @@ const store = new Vuex.Store({
     }, credentials) {
       return axios
         .post('http://192.168.100.92:8080/api/user', credentials)
-        .then(({
-          data
-        }) => {
-          commit('SET_USER_DATA', data)
-        })
     },
     Sregister({
       commit
@@ -90,7 +90,6 @@ const store = new Vuex.Store({
         .then(({
           data
         }) => {
-          console.log(data)
           commit('SET_USER_DATA', data)
         })
     },
