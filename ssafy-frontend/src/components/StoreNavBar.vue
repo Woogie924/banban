@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
       <v-toolbar-title>
         <v-label>
-          <router-link to="/StoreMainPage" tag="span" style="cursor: pointer">
+          <router-link to="/StoreMainPage" tag="span" style="cursor:pointer;">
             <v-img src="../assets/홈3.png" width="300" text aspect-ratio="7.0"></v-img>
           </router-link>
         </v-label>

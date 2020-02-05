@@ -23,7 +23,9 @@
           <br />
           <v-btn color="blue-grey" dark text textclass="ma-2" @click="dialog2= !dialog2">메뉴 등록하기</v-btn>
         </v-card-text>
-        <div style="flex: 1 1 auto;"></div>
+        <div>
+          <v-card></v-card>
+        </div>
       </v-card>
     </v-dialog>
     <v-dialog v-model="dialog2" max-width="800">
@@ -32,11 +34,12 @@
         <v-card-text>
           <v-container>
             <v-flex>
-              <v-text-field label="음식명" :rules="rules" hide-details="auto"></v-text-field>
-              <v-text-field label="가격"></v-text-field>
+              <v-text-field v-model="foodName" label="음식명" :rules="rules" hide-details="auto"></v-text-field>
+              <v-text-field v-model="foodPrice" label="가격"></v-text-field>
             </v-flex>
             <v-flex>
               <v-textarea
+                v-model="foodText"
                 name="input-7-1"
                 label="Default style"
                 value="'반반한 동네'
@@ -66,23 +69,22 @@
                   name="test"
                   ref="pond"
                   label-idle="Drop files here..."
-                  allow-multiple="true"
+                  v-bind:allow-multiple="false"
                   accepted-file-types="image/jpeg, image/png"
-                  :server="server"
+                  :server="serverConfig"
                   v-bind:files="myFiles"
                   v-on:init="handleFilePondInit"
+                  v-bind:instantUpload="true"
+                  v-on:processFile="test"
                 />
               </div>
+              <!-- <button @click="test()">sssdsd</button> -->
             </v-flex>
           </v-container>
-          <!-- <v-select
-                    :items="select"
-                    label="A Select List"
-                    item-value="text"
-          ></v-select>-->
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" text @click="dialog2 = false">Close</v-btn>
+          <v-btn color="green" text @click="submit">Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -106,11 +108,14 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 // Create component
+
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview
 );
 
+import axios from "axios";
+import store from "@/vuex/store.js";
 export default {
   name: "MenuManagement",
   components: {
@@ -124,43 +129,71 @@ export default {
       console.log("FilePond has initialized");
 
       // FilePond instance methods are available on `this.$refs.pond`
+    },
+    test(r) {
+      // console.log(this.server);
+      console.log("r :" + r);
+    },
+    submit() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.user}`;
+      this.temp = "";
+      for (let index = 0; index < this.values.length; index++) {
+        this.temp += this.values[index] + "<";
+      }
+      axios({
+        method: "POST",
+        url: "http://192.168.100.92:8080/shopkeeper/menu",
+        data: {
+          id: this.myId,
+          name: this.foodName,
+          cost: this.foodPrice,
+          tip: this.foodText,
+          tag: this.temp,
+          img: localStorage.getItem("path")
+        }
+      }).then(() => {
+        alert("완료되었습니다");
+      });
     }
   },
   data() {
     return {
+      temp: "",
       dialog: false,
       dialog2: false,
-      myFiles: [],
-      server: {
-        // url: "https://api.imgur.com/3/image",
-        url: "http://192.168.100.92:8080/Img/insertImg",
-        method: "POST",
-        header: {
-          "x-customheader": "Hello world",
-          "Test-Header": "bb"
-        },
-        onload() {
-          response => response.key;
-          window.console.log(response);
-        },
-        onerror: response => response.data,
-        ondata: formData => {
-          formData.append("Hello", "World");
-          formData.append("aa", "bb");
-          return formData;
-        }
-      },
+      path: "패쓰,,",
+      foodName: "",
+      foodPrice: "",
+      foodText: "",
+      myId: "666",
       tags: ["치킨", "피자", "야식", "혼밥"],
       values: ["치킨", "야식"],
       value: null,
       rules: [
         value => !!value || "반드시 입력해주세요.",
         value => (value && value.length >= 3) || "Min 3 characters"
-      ]
+      ],
+
+      myFiles: [],
+      serverConfig: {
+        url: "http://192.168.100.92:8080/Img/insertImg",
+        process: {
+          method: "POST",
+          withCredentials: false,
+          headers: { test: "zz" },
+          onload: response => {
+            console.log("response:  " + response);
+            // localStorage에 임시 경로 받아오기
+            localStorage.setItem("path", response);
+            return response;
+          }
+        }
+      }
     };
   },
-  props: ["flag", "icon", "start"],
-  mounted() {}
+  props: ["flag", "icon", "start"]
 };
 </script>
 
