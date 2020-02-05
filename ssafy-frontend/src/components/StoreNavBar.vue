@@ -10,7 +10,7 @@
         </v-label>
       </v-toolbar-title>
       <v-spacer>
-        <v-text class="font-weight-bold">사장님 공간</v-text>
+        <v-text class="font-weight-bold">{{userInfo}}사장님 공간</v-text>
       </v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">
@@ -91,6 +91,7 @@ export default {
       appTitle: "'반반한 동네' 사장님 공간",
       sidebar: false,
       overlay: false,
+      userInfo: null,
       menuItems: [
         {
           title: "게시판",

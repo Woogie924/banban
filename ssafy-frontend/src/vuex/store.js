@@ -10,12 +10,14 @@ const store = new Vuex.Store({
     userName: null,
     token: null,
     userType: null,
+    userAddr: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
       if (userData.token !== null) {
         state.userName = userData.data.id
         state.userType = userData.data.chk
+        state.userAddr = userData.data.address
         state.token = userData.token
         axios.defaults.headers.common[
           'Authorization'
@@ -76,6 +78,12 @@ const store = new Vuex.Store({
     }, credentials) {
       return axios
         .post('http://192.168.100.92:8080/api/loginCheck', credentials)
+        .then(({
+          data
+        }) => {
+          console.log(data)
+          commit('SET_USER_DATA', data)
+        })
     },
     Slogin({
       commit
