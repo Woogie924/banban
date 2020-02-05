@@ -12,7 +12,6 @@ import UserMainPage from './views/UserMainPage'
 import StoreLogin from './components/StoreLogin'
 import SsignUp from './views/SsignUp'
 import MenuManagement from './components/MenuManagement'
-import main from './views/main'
 import store from '@/vuex/store.js'
 
 Vue.use(Router)
@@ -104,14 +103,6 @@ const router = new Router({
 			component: MenuManagement,
 			meta: {
 				requireAuth: true
-			}
-		},
-		{
-			path: '/ani',
-			name: 'ani',
-			componet: ani,
-			meta: {
-
 			}
 		}
 	]
