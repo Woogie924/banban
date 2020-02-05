@@ -86,7 +86,9 @@ export default {
       point: 0,
       signupDate: 214,
       zipcode: "",
-      address2: ""
+      address2: "",
+      longitude: 0,
+      latitude: 0
     };
   },
   methods: {
@@ -99,11 +101,14 @@ export default {
           tel: this.tel,
           email: this.email,
           address: this.address,
+          latitude: this.latitude,
+          longitude: this.longitude,
           chk: this.chk,
           point: this.point,
           signupDate: this.signupDate
         })
         .then(() => {
+          console.log(this.$store.state.user);
           this.$router.push({ path: "/" });
         });
     },

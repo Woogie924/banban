@@ -13,6 +13,7 @@ import StoreLogin from './components/StoreLogin'
 import SsignUp from './views/SsignUp'
 import MenuManagement from './components/MenuManagement'
 import main from './views/main'
+import store from '@/vuex/store.js'
 
 Vue.use(Router)
 
@@ -22,17 +23,14 @@ const router = new Router({
 	routes: [{
 			path: '/read',
 			name: 'Read',
-			component: Read,
-			meta: {
-				// requireAuth: true
-			}
+			component: Read
 		},
 		{
 			path: '/create/',
 			name: 'Create',
 			component: Create,
 			meta: {
-				// requireAuth: true
+				requireAuth: true,
 			}
 		},
 		{
@@ -41,7 +39,7 @@ const router = new Router({
 			component: Detail,
 			props: true,
 			meta: {
-				// requireAuth: true
+				requireAuth: true,
 			}
 		},
 		{
@@ -50,7 +48,7 @@ const router = new Router({
 			component: Create,
 			props: true,
 			meta: {
-				// requireAuth: true
+				requireAuth: true,
 			}
 		},
 
@@ -89,7 +87,7 @@ const router = new Router({
 			name: 'StoreMainPage',
 			component: StoreMainPage,
 			meta: {
-				// requireAuth: true
+				requireAuth: true,
 			}
 		},
 		{
@@ -97,7 +95,7 @@ const router = new Router({
 			name: 'UserMainPage',
 			component: UserMainPage,
 			meta: {
-				// requireAuth: true
+				// requireAuth: true,
 			}
 		},
 		{
@@ -105,7 +103,7 @@ const router = new Router({
 			name: 'MenuManagement',
 			component: MenuManagement,
 			meta: {
-				// requireAuth: true
+				requireAuth: true
 			}
 		},
 		{
@@ -117,26 +115,18 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-	const loggedIn = localStorage.getItem('user')
-	const userType = localStorage.getItem('userType')
-
+	const loggedIn = store.state.token
+	const userType = store.state.user !== null ? store.state.user.chk : 98765;
 	if (to.matched.some(record => record.meta.requireAuth)) {
-		if (!loggedIn) {
-			if (userType == 1) {
-				next('mlogin')
-			} else if (userType === 2) {
-				next('StoreLogin')
-			} else if (userType === 3) {
-				next('/')
-			} else {
-				next('/')
-			}
+		// 로그인 되어있지 않을 때
+		if (loggedIn === null) {
+			alert('권한이 없습니다. 로그인 해주세요.')
+			next('/')
 		} else {
 			next()
 		}
 	} else {
 		next()
 	}
-});
-
+})
 export default router

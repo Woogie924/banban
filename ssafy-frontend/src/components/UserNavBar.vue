@@ -18,8 +18,13 @@
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <v-btn text @click="logout">
+        <v-btn v-if="userState==true" text @click="logout">
           <v-icon left dark>folder_open</v-icon>로그아웃
+        </v-btn>
+        <v-btn v-else text @click="login">
+          <router-link :to="{ name: 'Mlogin'}">
+            <v-icon left dark>folder_open</v-icon>로그인
+          </router-link>
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -85,7 +90,7 @@
     </v-navigation-drawer>
   </div>
 </template>
- 
+
 <script>
 import axios from "axios";
 import store from "@/vuex/store.js";
@@ -98,6 +103,7 @@ export default {
       userName: "userName",
       userInfo: null,
       overlay: false,
+      userState: null,
       menuItems: [
         {
           title: "게시판",
@@ -122,6 +128,11 @@ export default {
   },
   mounted() {
     this.getUsername();
+    if (this.store.state.userName) {
+      this.userState = true;
+    } else {
+      this.userState = false;
+    }
   },
   methods: {
     logout() {
@@ -130,9 +141,9 @@ export default {
     getUsername() {
       axios.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${store.state.user}`;
+      ] = `Bearer ${store.state.token}`;
       axios.get("http://192.168.100.92:8080/api/user").then(response => {
-        this.userInfo = response.data;
+        this.userInfo = this.$store.state.user.id;
       });
     }
   }

@@ -66,13 +66,13 @@
 import axios from "axios";
 import test from "../services/test";
 import Read from "./Read";
+import store from "@/vuex/store.js";
 export default {
   name: "Create",
   mounted() {
     this.get_info();
     this.ischeck();
     this.start();
-    console.log(this.userName + "userName");
   },
 
   data() {
@@ -120,6 +120,9 @@ export default {
       });
     },
     write() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
       axios({
         method: "post",
         url: "http://192.168.100.92:8080/notice/board",
@@ -128,7 +131,7 @@ export default {
           address: this.address,
           title: this.title,
           body: this.body,
-          writer: localStorage.userName
+          writer: this.$store.state.user.id
         }
       }).then(() => {
         this.$router.push({ name: "Read" });
