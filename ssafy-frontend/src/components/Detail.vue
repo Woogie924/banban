@@ -32,6 +32,8 @@
         </li>
       </ul>
       <h3>댓글</h3>
+      <input v-model="comment_body" placeholder="댓글 내용작성" />
+      <v-btn @click="comment_create()" small color="error">댓글 생성</v-btn>
       <v-simple-table dark>
         <template v-slot:default>
           <thead>
@@ -46,6 +48,24 @@
               <td>{{value.cnum}}</td>
               <td>{{value.writer}}</td>
               <td>{{value.body}}</td>
+              <v-btn
+                v-if="userName ===  value.writer"
+                @click="comment_delete(value.cnum)"
+                small
+                color="error"
+              >댓글 삭제</v-btn>
+              <v-btn v-if="userName === value.writer" @click="tooltipActive = value.cnum">댓글 수정</v-btn>
+              <input
+                v-if="tooltipActive == value.cnum"
+                v-model="comment_update_body"
+                placeholder="댓글 내용 수정"
+              />
+              <v-btn
+                v-if="tooltipActive == value.cnum"
+                @click="comment_update(value.cnum, value.bnum)"
+                small
+                color="error"
+              >수정</v-btn>
             </tr>
           </tbody>
         </template>
@@ -69,16 +89,20 @@ export default {
   data() {
     return {
       board: [],
-      userName: localStorage.userName,
+      userName: this.$store.state.user.id,
       snackbar: false,
-      comment: []
+      comment: [],
+      comment_body: "",
+      comment_update_body: "",
+      writer: "",
+      tooltipActive: -1
     };
   },
   methods: {
     get_comment(func) {
       axios.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${store.state.user}`;
+      ] = `Bearer ${store.state.token}`;
       axios({
         method: "get",
         url: `http://192.168.100.92:8080/notice/comment/${this.contentId}`
@@ -93,7 +117,7 @@ export default {
     get_info(func) {
       axios.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${store.state.user}`;
+      ] = `Bearer ${store.state.token}`;
       axios({
         method: "get",
         url: `http://192.168.100.92:8080/notice/board/${this.contentId}`
@@ -107,6 +131,9 @@ export default {
       });
     },
     deleteTest(num) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
       axios({
         method: "Delete",
         url: `http://192.168.100.92:8080/notice/board/${num}`
@@ -116,6 +143,52 @@ export default {
       this.$router.push({
         path: `../Create/${num}`
       });
+    },
+    comment_create() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      axios({
+        method: "post",
+        url: `http://192.168.100.92:8080/notice/comment`,
+        data: {
+          cnum: 0,
+          bnum: this.contentId,
+          body: this.comment_body,
+          writer: this.$store.state.user.id,
+          reg_date: null
+        }
+      })
+        .then(res => this.get_comment())
+        .then((this.comment_body = ""));
+    },
+    comment_delete(num) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      axios({
+        method: "Delete",
+        url: `http://192.168.100.92:8080/notice/comment/${num}`
+      }).then(res => this.get_comment());
+    },
+    comment_update(cnum, bnum) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      axios({
+        method: "PUT",
+        url: `http://192.168.100.92:8080/notice/comment/`,
+        data: {
+          cnum: cnum,
+          bnum: bnum,
+          body: this.comment_update_body,
+          writer: this.$store.state.user.id,
+          reg_date: null
+        }
+      })
+        .then(res => this.get_comment())
+        .then((this.comment_update_body = ""))
+        .then((this.tooltipActive = -1));
     }
   }
 };

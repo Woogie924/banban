@@ -21,7 +21,7 @@ const store = new Vuex.Store({
         state.userAddr = userData.data.address
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${store.state.user}`
+        ] = `Bearer ${store.state.token}`
       }
     },
     SET_SOCIAL_DATA(state, userData) {
