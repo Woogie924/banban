@@ -5,7 +5,7 @@ export default {
     backendService(success, ereorCallback) {
         axios.defaults.headers.common[
             'Authorization'
-        ] = `Bearer ${store.state.user}`
+        ] = `Bearer ${store.state.token}`
         axios.get('http://192.168.100.92:8080/notice/allboards')
             .then(function (response) {
                 success(response.data);

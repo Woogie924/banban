@@ -8,18 +8,16 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     user: null,
-    userType: null,
-    userName: null
+    token: null,
   },
   mutations: {
     SET_USER_DATA(state, userData) {
       if (userData.token !== null) {
-        state.user = userData.token
-        state.userType = userData.data.chk
-        state.userName = userData.data.id
+        state.user = userData.data
+        state.token = userData.token
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${store.state.user}`
+        ] = `Bearer ${store.state.token}`
       }
     },
     SET_SOCIAL_DATA(state, userData) {
@@ -37,7 +35,6 @@ const store = new Vuex.Store({
       state.user = null
       state.userType = null
       state.userName = null
-
     }
   },
   actions: {
