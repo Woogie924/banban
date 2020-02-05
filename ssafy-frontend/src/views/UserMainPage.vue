@@ -27,6 +27,7 @@ import Ranking from "../components/Ranking";
 import Menu from "../components/Menu";
 import OrderPossible from "../components/OrderPossible";
 import temp from "../components/temp";
+import store from "@/vuex/store.js";
 export default {
   name: "UserMainPage",
   components: {

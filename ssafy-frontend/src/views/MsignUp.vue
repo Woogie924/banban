@@ -101,6 +101,8 @@ export default {
           tel: this.tel,
           email: this.email,
           address: this.address,
+          latitude: this.latitude,
+          longitude: this.longitude,
           chk: this.chk,
           point: this.point,
           signupDate: this.signupDate,
@@ -108,6 +110,7 @@ export default {
           longtitude: this.lon
         })
         .then(() => {
+          console.log(this.$store.state.user);
           this.$router.push({ path: "/" });
         });
     },

@@ -103,7 +103,10 @@ export default {
           chk: this.chk,
           point: this.point,
           signup_date: this.signupDate,
-          likes: this.likes
+          likes: this.likes,
+          longitude: 0,
+          latitude: 0,
+          category: 0
         })
         .then(() => {
           this.$router.push({ name: "StoreMainPage" });

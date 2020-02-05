@@ -7,18 +7,16 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    user: null,
-    userType: null,
     userName: null,
-    userAddr: null
+    token: null,
+    userType: null,
   },
   mutations: {
     SET_USER_DATA(state, userData) {
       if (userData.token !== null) {
-        state.user = userData.token
-        state.userType = userData.data.chk
         state.userName = userData.data.id
-        state.userAddr = userData.data.address
+        state.userType = userData.data.chk
+        state.token = userData.token
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${store.state.token}`
@@ -26,8 +24,9 @@ const store = new Vuex.Store({
     },
     SET_SOCIAL_DATA(state, userData) {
       if (userData.token !== null) {
-        state.user = userData
-        localStorage.setItem('user', JSON.stringify(userData.token))
+        state.userName = userData.data.id
+        state.userType = userData.data.chk
+        state.token = userData.token
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${state.user}`
@@ -36,10 +35,9 @@ const store = new Vuex.Store({
     CLEAR_USER_DATA(state) {
       localStorage.clear()
       location.reload()
-      state.user = null
-      state.userType = null
+      state.token = null
       state.userName = null
-      state.userAddr = null
+      state.userType = null
     }
   },
   actions: {
@@ -57,6 +55,7 @@ const store = new Vuex.Store({
     Mregister({
       commit
     }, credentials) {
+      console.log(credentials + "! ");
       return axios
         .post('http://192.168.100.92:8080/api/user', credentials)
     },
@@ -65,33 +64,18 @@ const store = new Vuex.Store({
     }, credentials) {
       return axios
         .post('http://192.168.100.92:8080/shopkeeper/store', credentials)
-        .then(({
-          data
-        }) => {
-          commit('SET_USER_DATA', data)
-        })
     },
     socialRegister({
       commit
     }, credentials) {
       return axios
         .post('http://192.168.100.92:8080/api/user', credentials)
-        .then(({
-          data
-        }) => {
-          commit('SET_SOCIAL_DATA', data)
-        })
     },
     Mlogin({
       commit
     }, credentials) {
       return axios
         .post('http://192.168.100.92:8080/api/loginCheck', credentials)
-        .then(({
-          data
-        }) => {
-          commit('SET_USER_DATA', data)
-        })
     },
     Slogin({
       commit

@@ -111,7 +111,9 @@ export default {
           address: this.address,
           chk: this.chk,
           point: this.point,
-          signupDate: this.signupDate
+          signupDate: this.signupDate,
+          latitude: 0,
+          longitude: 0
         })
         .then(() => {
           this.$router.push({ name: "UserMainPage" });
