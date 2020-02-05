@@ -107,9 +107,12 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/main',
-			name: 'main',
-			component: main
+			path: '/ani',
+			name: 'ani',
+			componet: ani,
+			meta: {
+
+			}
 		}
 	]
 })
