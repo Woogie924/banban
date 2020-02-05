@@ -44,7 +44,7 @@
 <script>
 import axios from "axios";
 import test from "../services/test";
-import UserNavBar from "@/components/UserNavBar.vue";
+import UserNavBar from "../components/UserNavBar";
 export default {
   components: {
     UserNavBar

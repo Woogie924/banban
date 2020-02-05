@@ -11,7 +11,7 @@
         </v-label>
       </v-toolbar-title>
       <v-spacer>
-        <v-text class="font-weight-bold">{{userInfo}}님 공간</v-text>
+        <v-text name="UserNavBar" class="font-weight-bold">{{userInfo}}님 공간</v-text>
       </v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">
@@ -21,7 +21,7 @@
         <v-btn v-if="userState==true" text @click="logout">
           <v-icon left dark>folder_open</v-icon>로그아웃
         </v-btn>
-        <v-btn v-else text @click="login">
+        <v-btn v-else text>
           <router-link :to="{ name: 'Mlogin'}">
             <v-icon left dark>folder_open</v-icon>로그인
           </router-link>
@@ -95,13 +95,13 @@
 import axios from "axios";
 import store from "@/vuex/store.js";
 export default {
-  name: "main-header",
+  name: "UserNavBar",
   data() {
     return {
       appTitle: "ㅇㅇㅇ님 공간",
       sidebar: false,
       userName: "userName",
-      userInfo: null,
+      userInfo: this.$store.state.userName,
       overlay: false,
       userState: null,
       menuItems: [
@@ -128,7 +128,7 @@ export default {
   },
   mounted() {
     this.getUsername();
-    if (this.store.state.userName) {
+    if (this.$store.state.token) {
       this.userState = true;
     } else {
       this.userState = false;
@@ -142,11 +142,7 @@ export default {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${store.state.token}`;
-      axios.get("http://192.168.100.92:8080/api/user").then(response => {
-        // console.log(response.data);
-        // this.userInfo = this.$store.state.user.id;
-        this.userInfo = response.data;
-      });
+      axios.get("http://192.168.100.92:8080/api/user");
     }
   }
 };
