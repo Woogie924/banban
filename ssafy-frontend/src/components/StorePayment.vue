@@ -4,7 +4,7 @@
       <v-card-title class="display-1 font-weight-black">정산 예정 금액</v-card-title>
 
       <v-card-text>
-        <h1>{{credit}} 원</h1>
+        <h1>{{store.point}} 원</h1>
       </v-card-text>
       <v-card-subtitle>
         현재 기준으로 등록하신 2개 가게의 합계 금액이며,
@@ -40,34 +40,29 @@
 
 <script>
 import axios from "axios";
+import store from "@/vuex/store.js";
 export default {
   name: "StorePayment",
   data() {
     return {
       store: [],
-      credit: 0,
       value: [423, 446, 675, 510, 590, 800, 760]
     };
   },
 
-  method: {
-    init() {
-      alert("init들어옴");
-      axios({
-        method: "get",
-        url: "http://192.168.100.92:8080/shopkeeper/store/111"
-      }).then(() => {
-        console.log(res.data);
-        this.store = res.data;
-        console.log(this.store);
-        alert(this.store);
-      });
-    }
-  },
+  method: {},
   mounted() {
-    this.init();
-    alert("zzz");
-    window.console.log("ㅅㅂ");
+    alert("mounted");
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${store.state.user}`;
+    axios
+      .get("http://192.168.100.92:8080/shopkeeper/store/111")
+      .then(response => {
+        this.store = response.data;
+
+        console.log(this.store);
+      });
   }
 };
 </script>

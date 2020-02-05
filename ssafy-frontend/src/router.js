@@ -12,8 +12,7 @@ import UserMainPage from './views/UserMainPage'
 import StoreLogin from './components/StoreLogin'
 import SsignUp from './views/SsignUp'
 import MenuManagement from './components/MenuManagement'
-import main from './views/main'
-
+import ani from './views/animation'
 Vue.use(Router)
 
 const router = new Router({
@@ -109,9 +108,12 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/main',
-			name: 'main',
-			component: main
+			path: '/ani',
+			name: 'ani',
+			componet: ani,
+			meta: {
+
+			}
 		}
 	]
 })
