@@ -76,6 +76,12 @@
             </div>
             <div align="left" v-if="board.writer !==  value.writer">
               <v-chip>{{value.body}}</v-chip>
+              <v-btn
+                v-if="userName ===  value.writer || userName === board.writer"
+                @click="comment_delete(value.cnum)"
+                small
+                color="error"
+              >댓글 삭제</v-btn>
             </div>
           </div>
         </template>
