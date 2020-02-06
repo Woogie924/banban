@@ -11,20 +11,18 @@
         </v-label>
       </v-toolbar-title>
       <v-spacer>
-        <v-text name="UserNavBar" class="font-weight-bold">{{userInfo}}님 공간</v-text>
+        <span class="font-weight-bold">{{userInfo}}님 공간</span>
       </v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <v-btn v-if="userState==true" text @click="logout">
+        <v-btn v-if="userState === true" text @click="logout">
           <v-icon left dark>folder_open</v-icon>로그아웃
         </v-btn>
-        <v-btn v-else text>
-          <router-link :to="{ name: 'Mlogin'}">
-            <v-icon left dark>folder_open</v-icon>로그인
-          </router-link>
+        <v-btn v-else text @click="login">
+          <v-icon left dark>folder_open</v-icon>로그인
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -94,6 +92,7 @@
 <script>
 import axios from "axios";
 import store from "@/vuex/store.js";
+import router from "@/router.js";
 export default {
   name: "UserNavBar",
   data() {
@@ -133,10 +132,14 @@ export default {
     } else {
       this.userState = false;
     }
+    this.getUsername();
   },
   methods: {
     logout() {
       this.$store.dispatch("logout");
+    },
+    login() {
+      this.$router.push("Mlogin");
     },
     getUsername() {
       axios.defaults.headers.common[

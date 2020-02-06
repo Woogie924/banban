@@ -48,6 +48,7 @@ const store = new Vuex.Store({
       state.userName = null
       state.userType = null
       state.userAddr = null
+      state.checkInit = 1
     }
   },
   actions: {

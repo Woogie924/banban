@@ -12,7 +12,6 @@
                 <v-text-field
                   v-model="id"
                   id="id"
-                  :rules="idRules"
                   :counter="10"
                   height="3em"
                   label="아이디"
@@ -68,9 +67,6 @@ import KakaoLogin from "@/components/KakaoLogin.vue";
 import GoogleLogin from "@/components/GoogleLogin.vue";
 
 export default {
-  mounted() {
-    Kakao.init("fbcfc2c16e96eebe28169faaaa5191cf");
-  },
   components: {
     KakaoLogin,
     GoogleLogin

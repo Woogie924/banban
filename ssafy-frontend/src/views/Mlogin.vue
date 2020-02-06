@@ -12,7 +12,6 @@
                 <v-text-field
                   v-model="id"
                   id="id"
-                  :rules="idRules"
                   :counter="10"
                   height="3em"
                   label="아이디"

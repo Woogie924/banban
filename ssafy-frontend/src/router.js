@@ -86,6 +86,7 @@ const router = new Router({
 			component: StoreMainPage,
 			meta: {
 				requireAuth: true,
+				type: 2,
 			}
 		},
 		{
@@ -110,16 +111,32 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
 	const loggedIn = store.state.token
 	const userType = store.state.userType
+	// 권한 체크가 필요할 때
 	if (to.matched.some(record => record.meta.requireAuth)) {
 		// 로그인 되어있지 않을 때
 		if (loggedIn === null) {
 			alert('권한이 없습니다. 로그인 해주세요.')
 			next('/')
 		} else {
-			next()
+			// 로그인이 되어 있을 때
+			if (userType === to.matched.some(record => record.meta.type)) {
+				next();
+			} else {
+				if (userType === 1) {
+					alert('권한이 없습니다. 로그인 해주세요.')
+					next('Mlogin')
+				} else if (userType === 2) {
+					alert('권한이 없습니다. 로그인 해주세요.')
+					next('StoreLogin')
+				} else {
+					alert('권한이 없습니다. 로그인 해주세요.')
+					next('/')
+				}
+			}
 		}
+		// 권한 체크가 필요 없을 때
 	} else {
 		next()
 	}
-})
+});
 export default router
