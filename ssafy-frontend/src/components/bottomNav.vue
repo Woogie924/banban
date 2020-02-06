@@ -1,10 +1,11 @@
 <template>
-  <v-bottom-navigation fixed :value="activeBtn" grow hide-on-scroll>
-    <v-card v-for="item in items" :key="item.title" link>
+  <v-bottom-navigation fixed grow hide-on-scroll>
+    <!-- <v-card v-for="item in items" :key="item.title" link>
       <template>
         <MenuManagement :flag="item.title" :icon="item.icon"></MenuManagement>
       </template>
-    </v-card>
+    </v-card>-->
+    <MenuManagement :flag="item.title" :icon="item.icon"></MenuManagement>
   </v-bottom-navigation>
 </template>
 
@@ -16,10 +17,14 @@ export default {
   components: {
     MenuManagement
   },
+  props: {},
   data() {
     return {
       dialog: false,
-
+      item: {
+        title: "메뉴 관리",
+        icon: "mdi-history"
+      },
       items: [
         { title: "메뉴 관리", icon: "mdi-history" },
         { title: "메뉴 품절", icon: "mdi-heart" },

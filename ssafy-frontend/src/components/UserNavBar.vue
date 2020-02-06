@@ -128,7 +128,7 @@ export default {
   },
   mounted() {
     this.getUsername();
-    if (this.$store.state.token) {
+    if (this.$store.state.userName) {
       this.userState = true;
     } else {
       this.userState = false;
