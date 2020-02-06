@@ -2,10 +2,10 @@
   <v-flex>
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <template v-slot:activator="{on}">
-        <v-btn v-on="on">
+        <div v-on="on">
           <span>{{flag}}</span>
           <v-icon>{{icon}}</v-icon>
-        </v-btn>
+        </div>
       </template>
       <v-card>
         <v-toolbar dark color="grey">
@@ -30,7 +30,7 @@
                 :name="item.name"
                 :cost="item.cost"
                 :tip="item.tip"
-                :tag="item.tags"
+                :tag="item.tag"
                 class="ma-3"
               ></menuCard>
             </v-flex>
@@ -173,7 +173,7 @@ export default {
           withCredentials: false,
           headers: { test: "zz" },
           onload: response => {
-            console.log("response:  " + response);
+            // console.log("response:  " + response);
             // localStorage에 임시 경로 받아오기
             localStorage.setItem("path", response);
             return response;
@@ -222,15 +222,15 @@ export default {
     },
     // 내 아이디를 주고, 관련된 메뉴 객체 정보 받아오기
     getMyImage() {
-      console.log("getMyImage start" + this.myId);
+      // console.log("getMyImage start" + this.myId);
       test.getImage(
         this.myId,
         response => {
           for (let index = 0; index < response.data.length; index++) {
-            console.log(response.data[index]);
+            // console.log(response.data[index]);
             this.list[index] = response.data[index];
           }
-          console.log("menuManage getmyImage " + this.list);
+          // console.log("menuManage getmyImage " + this.list);
           // console.log(response.data[0].img);
           // this.childId = response.data[0].id;
           // this.childName = response.data[0].name;
@@ -249,7 +249,7 @@ export default {
       test.getUserInfo(
         async response => {
           this.myId = await response.data.id;
-          console.log(response);
+          // console.log(response);
           this.getMyImage();
         },
         errorcallback => {

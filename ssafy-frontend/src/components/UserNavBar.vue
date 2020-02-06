@@ -126,13 +126,13 @@ export default {
     };
   },
   mounted() {
-    this.getUsername();
-    if (this.$store.state.userName) {
+    // this.getUsername();
+    if (this.$store.state.token) {
       this.userState = true;
     } else {
       this.userState = false;
     }
-    this.getUsername();
+    // this.getUsername();
   },
   methods: {
     logout() {
@@ -140,13 +140,13 @@ export default {
     },
     login() {
       this.$router.push("Mlogin");
-    },
-    getUsername() {
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${store.state.token}`;
-      axios.get("http://192.168.100.92:8080/api/user");
     }
+    // getUsername() {
+    //   axios.defaults.headers.common[
+    //     "Authorization"
+    //   ] = `Bearer ${store.state.token}`;
+    //   axios.get("http://192.168.100.92:8080/api/user");
+    // }
   }
 };
 </script>

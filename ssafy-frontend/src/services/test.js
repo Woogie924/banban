@@ -15,15 +15,15 @@ export default {
             })
     },
     getImage(myId, callback, ereorCallback) {
-        console.log("management  getMyImage start");
+        // console.log("management  getMyImage start");
         axios.defaults.headers.common[
             "Authorization"
         ] = `Bearer ${store.state.token}`;
-        console.log("management  mounted getMyImage gg" + myId);
+        // console.log("management  mounted getMyImage gg" + myId);
         axios
             .get("http://192.168.100.92:8080/shopkeeper/menu/" + myId)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 callback(response);
                 // console.log(response);
                 // // console.log(response.data[0].img);
@@ -44,7 +44,7 @@ export default {
         axios.defaults.headers.common[
             "Authorization"
         ] = `Bearer ${store.state.token}`;
-        console.log("test.js getUserInfo start");
+        // console.log("test.js getUserInfo start");
         axios
             .get("http://192.168.100.92:8080/shopkeeper/store")
             .then(response => {
