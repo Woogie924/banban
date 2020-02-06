@@ -13,7 +13,7 @@ import StoreLogin from './components/StoreLogin'
 import SsignUp from './views/SsignUp'
 import MenuManagement from './components/MenuManagement'
 import store from '@/vuex/store.js'
-
+import index from './views/index'
 Vue.use(Router)
 
 const router = new Router({
@@ -24,21 +24,14 @@ const router = new Router({
 			name: 'Read',
 			component: Read
 		},
-		{
-			path: '/create/',
-			name: 'Create',
-			component: Create,
-			meta: {
-				requireAuth: true,
-			}
-		},
+
 		{
 			path: '/detail/:contentId',
 			name: 'Detail',
 			component: Detail,
 			props: true,
 			meta: {
-				requireAuth: true,
+				// requireAuth: true,
 			}
 		},
 		{
@@ -47,7 +40,7 @@ const router = new Router({
 			component: Create,
 			props: true,
 			meta: {
-				requireAuth: true,
+				// requireAuth: true,
 			}
 		},
 		{
@@ -66,7 +59,7 @@ const router = new Router({
 			component: StoreLogin
 		},
 		{
-			path: '/',
+			path: '/visit',
 			name: 'VisitPage',
 			component: visit
 		},
@@ -85,7 +78,7 @@ const router = new Router({
 			name: 'StoreMainPage',
 			component: StoreMainPage,
 			meta: {
-				requireAuth: true,
+				// requireAuth: true,
 				type: 2,
 			}
 		},
@@ -104,6 +97,10 @@ const router = new Router({
 			meta: {
 				requireAuth: true
 			}
+		}, {
+			path: '/',
+			name: 'index',
+			component: index
 		}
 	]
 })
@@ -118,23 +115,8 @@ router.beforeEach((to, from, next) => {
 			alert('권한이 없습니다. 로그인 해주세요.')
 			next('/')
 		} else {
-			// 로그인이 되어 있을 때
-			if (userType === to.matched.some(record => record.meta.type)) {
-				next();
-			} else {
-				if (userType === 1) {
-					alert('권한이 없습니다. 로그인 해주세요.')
-					next('Mlogin')
-				} else if (userType === 2) {
-					alert('권한이 없습니다. 로그인 해주세요.')
-					next('StoreLogin')
-				} else {
-					alert('권한이 없습니다. 로그인 해주세요.')
-					next('/')
-				}
-			}
+			next()
 		}
-		// 권한 체크가 필요 없을 때
 	} else {
 		next()
 	}

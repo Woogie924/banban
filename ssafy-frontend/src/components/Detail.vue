@@ -6,6 +6,7 @@
         <v-btn color="pink" @click="snackbar = false">close</v-btn>
       </v-snackbar>
       <h1>Detail</h1>
+      <h1>{{this.party_member}}</h1>
       <ul>
         <li>
           <h2>제목: {{board.title}}</h2>
@@ -15,78 +16,101 @@
 
           <p>내용: {{board.body}}</p>
           <p>글쓴이 id: {{board.writer}}</p>
+          <p>남은 파티원 수:{{this.party }}</p>
 
           <v-btn
             v-if="userName === board.writer"
-            small
-            color="error"
+            text
+            icon
+            color="red"
             @click="deleteTest(board.num)"
-          >글삭제</v-btn>
+          >
+            <v-icon>{{ icons.mdiDelete }}</v-icon>
+          </v-btn>
           <v-btn
             v-if="userName === board.writer"
-            small
-            color="danger"
+            text
+            icon
+            color="blue"
             @click="updateData(board.num)"
-          >글수정</v-btn>
-          <v-btn small color="primary" @click="move()">글목록</v-btn>
+          >
+            <v-icon>fas fa-edit</v-icon>
+          </v-btn>
+          <v-btn text icon color="green" @click="move()">
+            <v-icon>fas fa-list</v-icon>
+          </v-btn>
+          <div v-if="-1 !== party_member.indexOf(userName)">
+            <v-btn>나가기</v-btn>
+            <v-btn @click="showcomment = !showcomment">파티 보기</v-btn>
+          </div>
+          <div v-else-if="this.party !== 0">
+            <v-badge color="green" :content="len" @click="join_party(userName)">
+              <v-icon
+                large
+                color="blue darken-2"
+                @click="showcomment = !showcomment"
+              >mdi-message-text</v-icon>
+            </v-badge>
+          </div>
         </li>
       </ul>
-      <v-badge color="green" :content="len">
-        <v-icon large color="blue darken-2" @click="showcomment = !showcomment">mdi-message-text</v-icon>
-      </v-badge>
+
       <v-navigation-drawer v-model="showcomment" absolute temporary right color="black" width="500">
         <template>
           <div v-for="(value, index) in comment" :key="index">
             <div align="right" v-if="board.writer ===  value.writer">
               <v-chip>{{value.body}}</v-chip>
-
               <v-btn
+                text
+                icon
+                color="indigo"
                 v-if="userName ===  value.writer"
                 @click="comment_delete(value.cnum)"
-                small
-                color="error"
-              >댓글 삭제</v-btn>
+              >
+                <v-icon>{{ icons.mdiDelete }}</v-icon>
+              </v-btn>
+
               <v-btn
                 v-if="userName === value.writer"
-                class="mx-3"
-                fab
-                dark
-                large
-                color="cyan"
-                height="50%"
-                width="50"
+                text
+                icon
+                color="deep-orange"
                 @click="tooltipActive = value.cnum"
               >
                 <v-icon dark @click="tooltipActive = value.cnum">mdi-pencil</v-icon>
               </v-btn>
 
               <input v-if="tooltipActive == value.cnum" v-model="comment_update_body" />
-              <v-btn
-                v-if="tooltipActive == value.cnum"
-                class="mx-3"
-                fab
-                dark
-                large
-                color="cyan"
-                height="50%"
-                width="50"
-              >
+              <v-btn v-if="tooltipActive == value.cnum" text icon color="green">
                 <v-icon dark @click="comment_update(value.cnum, value.bnum)">mdi-pencil</v-icon>
               </v-btn>
             </div>
             <div align="left" v-if="board.writer !==  value.writer">
               <v-chip>{{value.body}}</v-chip>
+              <v-btn
+                v-if="userName ===  value.writer || userName === board.writer"
+                @click="comment_delete(value.cnum)"
+                text
+                icon
+                color="pink"
+              >
+                <v-icon>{{ icons.mdiDelete }}</v-icon>
+              </v-btn>
             </div>
           </div>
         </template>
         <input v-model="comment_body" placeholder="댓글 내용작성" color="dark" />
-        <v-btn @click="comment_create()" small color="error">댓글 생성</v-btn>
+        <v-btn @click="comment_create()" text icon color="red">
+          <v-icon>fas fa-edit</v-icon>
+        </v-btn>
       </v-navigation-drawer>
     </div>
   </v-parallax>
 </template>
 
 <script>
+import "@fortawesome/fontawesome-free/css/all.css";
+import { mdiAccount, mdiPencil, mdiShareVariant, mdiDelete } from "@mdi/js";
 import axios from "axios";
 import test from "../services/test";
 import store from "@/vuex/store.js";
@@ -100,8 +124,10 @@ export default {
   props: ["contentId"],
   data() {
     return {
+      party_member: [this.$store.state.userName],
       board: [],
       userName: this.$store.state.userName,
+      party: null,
       snackbar: false,
       comment: [],
       comment_body: "",
@@ -109,7 +135,14 @@ export default {
       writer: "",
       tooltipActive: -1,
       showcomment: false,
-      len: ""
+      title: null,
+      len: "",
+      icons: {
+        mdiAccount,
+        mdiPencil,
+        mdiShareVariant,
+        mdiDelete
+      }
     };
   },
   methods: {
@@ -138,6 +171,19 @@ export default {
         url: `http://192.168.100.92:8080/notice/board/${this.contentId}`
       }).then(res => {
         this.board = res.data;
+        this.party_member = res.data.party;
+        this.get_members();
+      });
+    },
+    get_members() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      axios({
+        method: "get",
+        url: `http://192.168.100.92:8080/notice/getmembers/${this.board.num}`
+      }).then(res => {
+        this.party_member = res.data;
       });
     },
     move() {
@@ -204,6 +250,10 @@ export default {
         .then(res => this.get_comment())
         .then((this.comment_update_body = ""))
         .then((this.tooltipActive = -1));
+    },
+    join_party(user) {
+      this.party_member.push(user);
+      this.party -= 1;
     }
   }
 };
