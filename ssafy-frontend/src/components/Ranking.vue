@@ -32,7 +32,7 @@ export default {
       function() {
         this.fetchRank();
       }.bind(this),
-      3000
+      30000
     );
   },
   methods: {

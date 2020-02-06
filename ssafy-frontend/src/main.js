@@ -4,21 +4,20 @@ import 'vuetify/dist/vuetify.min.css'
 import VueSimplemde from 'vue-simplemde'
 import 'simplemde/dist/simplemde.min.css'
 import 'font-awesome/css/font-awesome.min.css'
-import VueResizeText from 'vue-resize-text';
-
-
-
+import VueResizeText from 'vue-resize-text'
 import App from './App.vue'
 import router from './router'
 import store from './vuex/store'
 import './registerServiceWorker'
+import VueCookies from 'vue-cookies'
+
 
 Vue.config.productionTip = false
 
 Vue.use(VueSimplemde)
 Vue.use(Vuetify)
 Vue.use(VueResizeText)
-
+Vue.use(VueCookies)
 
 new Vue({
 	router,

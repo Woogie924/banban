@@ -10,7 +10,7 @@ const store = new Vuex.Store({
     userName: null,
     token: null,
     userType: null,
-    userAddr: null
+    userAddr: null,
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -40,6 +40,8 @@ const store = new Vuex.Store({
       state.token = null
       state.userName = null
       state.userType = null
+      state.userAddr = null
+      state.checkInit = 1
     }
   },
   actions: {
