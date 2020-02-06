@@ -33,14 +33,17 @@
                     />
                   </v-row>
                   <v-row>
-                    <v-text-field
-                      v-model="email"
-                      label="이메일"
-                      name="email"
-                      type="email"
-                      outlined
-                      dense
-                    ></v-text-field>
+                    <!-- 카테고리 -->
+                    <v-container fluid>
+                      <v-layout row wrap>
+                        <v-flex xs6>
+                          <v-subheader>카테고리</v-subheader>
+                        </v-flex>
+                        <v-flex xs6>
+                          <v-select :items="items" v-model="category" label="Select" single-line></v-select>
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
                   </v-row>
                   <v-row>
                     <v-btn @click="sample4_execDaumPostcode()" width="100%" outlined dense>우편번호찾기</v-btn>
@@ -87,16 +90,30 @@ export default {
     return {
       id: "",
       pw: "",
-      name: "",
+      category: "",
       tel: "",
-      email: "",
+      name: "",
       zipcode: "",
       address: "",
       address2: "",
+      lat: 123,
+      lon: 123,
       chk: 2,
       point: 0,
       signupDate: null,
-      likes: 0
+      likes: 0,
+      items: [
+        { text: "치킨" },
+        { text: "피자" },
+        { text: "한식" },
+        { text: "분식" },
+        { text: "디저트" },
+        { text: "일식" },
+        { text: "패스트푸드" },
+        { text: "야식" },
+        { text: "중국집" },
+        { text: "족발,보쌈" }
+      ]
     };
   },
   methods: {
@@ -105,10 +122,12 @@ export default {
         .dispatch("Sregister", {
           id: this.id,
           pw: this.pw,
-          name: this.name,
+          category: this.category,
           tel: this.tel,
-          email: this.email,
+          name: this.name,
           address: this.address,
+          latitude: this.lat,
+          longtitude: this.lon,
           chk: this.chk,
           point: this.point,
           signup_date: this.signupDate,
@@ -159,6 +178,20 @@ export default {
           this.zipcode = data.zonecode;
           this.address = fullRoadAddr;
           this.address2 = data.jibunAddress;
+          var geocoder = new kakao.maps.services.Geocoder();
+          // console.log(this.address);
+          geocoder.addressSearch(
+            this.address,
+            function(result, status) {
+              if (status == kakao.maps.services.Status.OK) {
+                // console.log(result[0].y + " " + result[0].x);
+                // console.log(result[0].x);
+                this.lat = result[0].y;
+                this.lon = result[0].x;
+                console.log(this.lat + " " + this.lon);
+              }
+            }.bind(this)
+          );
         }.bind(this)
       }).open();
     }

@@ -50,7 +50,6 @@ const router = new Router({
 				requireAuth: true,
 			}
 		},
-
 		{
 			path: '/Mlogin',
 			name: 'Mlogin',
@@ -110,7 +109,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
 	const loggedIn = store.state.token
-	const userType = store.state.user !== null ? store.state.user.chk : 98765;
+	const userType = store.state.userType
 	if (to.matched.some(record => record.meta.requireAuth)) {
 		// 로그인 되어있지 않을 때
 		if (loggedIn === null) {
