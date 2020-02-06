@@ -143,9 +143,7 @@ export default {
         "Authorization"
       ] = `Bearer ${store.state.token}`;
       axios.get("http://192.168.100.92:8080/api/user").then(response => {
-        // console.log(response.data);
-        // this.userInfo = this.$store.state.user.id;
-        this.userInfo = response.data;
+        this.userInfo = this.$store.state.user.id;
       });
     }
   }

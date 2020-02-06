@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "core-js": "^3.6.2",
     "filepond": "^4.9.5",
     "filepond-plugin-file-validate-type": "^1.2.4",

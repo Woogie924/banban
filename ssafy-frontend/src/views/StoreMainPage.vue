@@ -8,7 +8,6 @@
     <!-- StorePayment.vue + OrderList.vue -->
 
     <v-container>
-      
       <v-layout row wrap>
         <v-card elevation="6">
           <v-toolbar>
@@ -43,6 +42,7 @@ import OrderList from "../components/OrderList";
 import StoreMenuList from "../components/StoreMenuList";
 import MenuManagement from "../components/MenuManagement";
 import bottomNav from "../components/bottomNav";
+
 export default {
   name: "StoreMainPage",
   components: {
@@ -53,6 +53,7 @@ export default {
     MenuManagement,
     bottomNav
   },
+  mounted() {},
   methods: {},
   data() {
     return {};

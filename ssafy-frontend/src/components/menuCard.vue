@@ -1,12 +1,28 @@
 <template>
   <v-layout py-6 h-100>
-    <v-flex row>
-      <div id="date" class="caption">{{formatedDate}}</div>
-      <h2 id="title" class="color-333 headline font-weight-light">{{title}}</h2>
-      <br />
-      <br />
-      <p id="body" class="mb-1 color-666 font-weight-light subheading">{{body}}</p>
-    </v-flex>
+    <v-card class="mx-auto" max-width="344">
+      <v-img :src="imageUrl" />
+
+      <v-card-title>{{name}}</v-card-title>
+      <v-card-title>{{imageUrl}}</v-card-title>
+
+      <v-card-subtitle>{{cost}}원</v-card-subtitle>
+
+      <v-spacer></v-spacer>
+      <v-card-actions>
+        <v-btn icon @click="show = !show">
+          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        </v-btn>
+      </v-card-actions>
+
+      <v-expand-transition>
+        <div v-show="show">
+          <v-divider></v-divider>
+
+          <v-card-text>{{tip}}</v-card-text>
+        </div>
+      </v-expand-transition>
+    </v-card>
   </v-layout>
 </template>
 
@@ -14,65 +30,24 @@
 export default {
   name: "menuCard",
   props: {
-    title: { type: String },
-    body: { type: String }
+    imageUrl: { type: String },
+    name: { type: String },
+    cost: { type: Number },
+    tip: { type: String }
+    // tag: { type: String }
   },
   data() {
-    return {};
+    return {
+      show: false
+    };
   },
-  mounted() {},
+  mounted() {
+    console.log(this.imageUrl + "-menuCard image");
+  },
   methods: {}
 };
 </script>
 
 <style>
-.color-666 {
-  color: #666;
-}
-.color-333 {
-  color: #333;
-}
-.h-100 {
-  height: 100%;
-}
-#title {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  line-height: 1.2;
-  height: 1.2em;
-  text-align: left;
-  word-wrap: break-word;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#body {
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  line-height: 1.2;
-  height: 4.8em;
-  text-align: left;
-  word-wrap: break-word;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#date {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  line-height: 1.2;
-  height: 2.4em;
-  text-align: left;
-  word-wrap: break-word;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 </style>
 
