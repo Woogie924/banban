@@ -4006,7 +4006,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
                 Kakao.init = function (appKey) {
                     if (_k.RUNTIME.appKey) {
-                        throw new _k.KakaoError('Kakao.init: Already initialized.');
+                        // throw new _k.KakaoError('Kakao.init: Already initialized.');
                     }
 
                     if (!_.isString(appKey) || appKey === _k.DUMMY_KEY) {
