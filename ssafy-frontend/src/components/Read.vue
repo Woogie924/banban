@@ -36,12 +36,16 @@
         </tbody>
       </template>
     </v-simple-table>
-    <v-btn small color="error" @click="write">글쓰기</v-btn>
+    <v-btn text icon color="pink" @click="write">
+      <v-icon>fas fa-edit</v-icon>
+    </v-btn>
     <v-btn small color="primary" @click="get_info">테스트</v-btn>
+    <v-btn color="success" class="mt-12" @click="overlay = !overlay">Show Overlay</v-btn>
   </div>
 </template>
 
 <script>
+import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import test from "../services/test";
 import UserNavBar from "../components/UserNavBar";

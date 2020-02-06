@@ -24,14 +24,7 @@ const router = new Router({
 			name: 'Read',
 			component: Read
 		},
-		{
-			path: '/create/',
-			name: 'Create',
-			component: Create,
-			meta: {
-				// requireAuth: true,
-			}
-		},
+
 		{
 			path: '/detail/:contentId',
 			name: 'Detail',

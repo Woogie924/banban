@@ -32,6 +32,7 @@
     "vuex-persistedstate": "^2.7.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1",
     "@mdi/js": "^4.9.95",
     "@vue/cli-plugin-babel": "^4.1.2",
     "@vue/cli-plugin-pwa": "^4.1.2",
