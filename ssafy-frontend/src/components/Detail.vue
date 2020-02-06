@@ -31,45 +31,57 @@
           <v-btn small color="primary" @click="move()">글목록</v-btn>
         </li>
       </ul>
-      <h3>댓글</h3>
-      <input v-model="comment_body" placeholder="댓글 내용작성" />
-      <v-btn @click="comment_create()" small color="error">댓글 생성</v-btn>
-      <v-simple-table dark>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <td>num</td>
-              <td>작성자</td>
-              <td>댓글내용</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(value, index) in comment" :key="index">
-              <td>{{value.cnum}}</td>
-              <td>{{value.writer}}</td>
-              <td>{{value.body}}</td>
+      <v-badge color="green" :content="len">
+        <v-icon large color="blue darken-2" @click="showcomment = !showcomment">mdi-message-text</v-icon>
+      </v-badge>
+      <v-navigation-drawer v-model="showcomment" absolute temporary right color="black" width="500">
+        <template>
+          <div v-for="(value, index) in comment" :key="index">
+            <div align="right" v-if="board.writer ===  value.writer">
+              <v-chip>{{value.body}}</v-chip>
+
               <v-btn
                 v-if="userName ===  value.writer"
                 @click="comment_delete(value.cnum)"
                 small
                 color="error"
               >댓글 삭제</v-btn>
-              <v-btn v-if="userName === value.writer" @click="tooltipActive = value.cnum">댓글 수정</v-btn>
-              <input
-                v-if="tooltipActive == value.cnum"
-                v-model="comment_update_body"
-                placeholder="댓글 내용 수정"
-              />
+              <v-btn
+                v-if="userName === value.writer"
+                class="mx-3"
+                fab
+                dark
+                large
+                color="cyan"
+                height="50%"
+                width="50"
+                @click="tooltipActive = value.cnum"
+              >
+                <v-icon dark @click="tooltipActive = value.cnum">mdi-pencil</v-icon>
+              </v-btn>
+
+              <input v-if="tooltipActive == value.cnum" v-model="comment_update_body" />
               <v-btn
                 v-if="tooltipActive == value.cnum"
-                @click="comment_update(value.cnum, value.bnum)"
-                small
-                color="error"
-              >수정</v-btn>
-            </tr>
-          </tbody>
+                class="mx-3"
+                fab
+                dark
+                large
+                color="cyan"
+                height="50%"
+                width="50"
+              >
+                <v-icon dark @click="comment_update(value.cnum, value.bnum)">mdi-pencil</v-icon>
+              </v-btn>
+            </div>
+            <div align="left" v-if="board.writer !==  value.writer">
+              <v-chip>{{value.body}}</v-chip>
+            </div>
+          </div>
         </template>
-      </v-simple-table>
+        <input v-model="comment_body" placeholder="댓글 내용작성" color="dark" />
+        <v-btn @click="comment_create()" small color="error">댓글 생성</v-btn>
+      </v-navigation-drawer>
     </div>
   </v-parallax>
 </template>
@@ -89,13 +101,15 @@ export default {
   data() {
     return {
       board: [],
-      userName: this.$store.state.user.id,
+      userName: this.$store.state.userName,
       snackbar: false,
       comment: [],
       comment_body: "",
       comment_update_body: "",
       writer: "",
-      tooltipActive: -1
+      tooltipActive: -1,
+      showcomment: false,
+      len: ""
     };
   },
   methods: {
@@ -108,7 +122,8 @@ export default {
         url: `http://192.168.100.92:8080/notice/comment/${this.contentId}`
       }).then(res => {
         this.comment = res.data;
-        console.log(this.comment);
+        this.len = res.data.length;
+        console.log(this.len);
       });
     },
     start() {
@@ -155,7 +170,7 @@ export default {
           cnum: 0,
           bnum: this.contentId,
           body: this.comment_body,
-          writer: this.$store.state.user.id,
+          writer: this.$store.state.userName,
           reg_date: null
         }
       })
@@ -182,7 +197,7 @@ export default {
           cnum: cnum,
           bnum: bnum,
           body: this.comment_update_body,
-          writer: this.$store.state.user.id,
+          writer: this.$store.state.userName,
           reg_date: null
         }
       })
@@ -193,3 +208,4 @@ export default {
   }
 };
 </script>
+
