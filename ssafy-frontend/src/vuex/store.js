@@ -10,25 +10,32 @@ const store = new Vuex.Store({
     userName: null,
     token: null,
     userType: null,
-    userAddr: null
+    userAddr: null,
+    res: []
   },
   mutations: {
     SET_USER_DATA(state, userData) {
       if (userData.token !== null) {
         state.userName = userData.data.id
+        state.token = userData.token
         state.userType = userData.data.chk
         state.userAddr = userData.data.address
-        state.token = userData.token
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${store.state.token}`
       }
     },
+    SET_STORE_DATA(state, storeData) {
+      if (storeData.token !== null) {
+        state.res.push(response)
+      }
+    },
     SET_SOCIAL_DATA(state, userData) {
       if (userData.token !== null) {
         state.userName = userData.data.id
-        state.userType = userData.data.chk
         state.token = userData.token
+        state.userType = userData.data.chk
+        state.userAddr = userData.data.address
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${state.user}`
@@ -40,6 +47,7 @@ const store = new Vuex.Store({
       state.token = null
       state.userName = null
       state.userType = null
+      state.userAddr = null
     }
   },
   actions: {
@@ -51,6 +59,17 @@ const store = new Vuex.Store({
         .then(({
           data
         }) => {
+          commit('SET_USER_DATA', data)
+          axios.post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
+            .then(function (response) {
+              //success(response.data);
+              // alert(response)
+              // console.log(response)
+              commit('SET_STORE_DATA', response)
+            })
+            .catch(function (error) {
+              errorCallback();
+            })
           return data;
         })
     },
@@ -81,8 +100,19 @@ const store = new Vuex.Store({
         .then(({
           data
         }) => {
-          console.log(data)
+          console.log(data.data)
           commit('SET_USER_DATA', data)
+          axios.post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
+            .then(function (response) {
+              //success(response.data);
+              // alert(response)
+              // console.log(response)
+              commit('SET_STORE_DATA', response)
+              // return response;
+            })
+            .catch(function (error) {
+              errorCallback();
+            })
         })
     },
     Slogin({

@@ -39,6 +39,20 @@ export default {
   mounted() {
     Kakao.init("fbcfc2c16e96eebe28169faaaa5191cf");
   },
+  data() {
+    return {
+      id: "",
+      pw: "",
+      name: 123,
+      tel: 123,
+      email: 123,
+      address: 123,
+      chk: 0,
+      point: 0,
+      signupDate: 214,
+      error: null
+    };
+  },
   methods: {
     kakaoLogin() {
       // 로그인 창을 띄웁니다.
@@ -74,7 +88,8 @@ export default {
                       }
                     });
                   } else {
-                    router.push({ path: "/UserMainPage" });
+                    console.log(data);
+                    router.push({ path: "/UserMainPage", params: { data } });
                   }
                 });
             }

@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '@/vuex/store.js'
 export default {
 
-    backendService(success, ereorCallback) {
+    backendService(success, errorCallback) {
         axios.defaults.headers.common[
             'Authorization'
         ] = `Bearer ${store.state.token}`
@@ -11,7 +11,7 @@ export default {
                 success(response.data);
             })
             .catch(function (error) {
-                ereorCallback();
+                errorCallback();
             })
     },
     getImage(myId, callback, ereorCallback) {
