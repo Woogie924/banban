@@ -22,6 +22,21 @@
         <v-card-text>
           <br />
           <v-btn color="blue-grey" dark text textclass="ma-2" @click="dialog2= !dialog2">메뉴 등록하기</v-btn>
+
+          <v-layout mt-5 wrap>
+            <v-flex v-for="item in list" :key="item.id">
+              <menuCard
+                :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
+                :name="item.name"
+                :cost="item.cost"
+                :tip="item.tip"
+                :tag="item.tags"
+                class="ma-3"
+              ></menuCard>
+            </v-flex>
+          </v-layout>
+
+          <!-- <menuCard :imageUrl="childImg" :name="childName" :cost="childCost" :tip="childTip"></menuCard> -->
         </v-card-text>
         <div>
           <v-card></v-card>
@@ -116,50 +131,24 @@ const FilePond = vueFilePond(
 
 import axios from "axios";
 import store from "@/vuex/store.js";
+import menuCard from "../components/menuCard";
+import test from "../services/test";
 export default {
   name: "MenuManagement",
   components: {
-    FilePond
-  },
-  methods: {
-    cancel() {
-      this.dialog = !this.dialog;
-    },
-    handleFilePondInit() {
-      console.log("FilePond has initialized");
-
-      // FilePond instance methods are available on `this.$refs.pond`
-    },
-    test(r) {
-      // console.log(this.server);
-      console.log("r :" + r);
-    },
-    submit() {
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${store.state.user}`;
-      this.temp = "";
-      for (let index = 0; index < this.values.length; index++) {
-        this.temp += this.values[index] + "<";
-      }
-      axios({
-        method: "POST",
-        url: "http://192.168.100.92:8080/shopkeeper/menu",
-        data: {
-          id: this.myId,
-          name: this.foodName,
-          cost: this.foodPrice,
-          tip: this.foodText,
-          tag: this.temp,
-          img: localStorage.getItem("path")
-        }
-      }).then(() => {
-        alert("완료되었습니다");
-      });
-    }
+    FilePond,
+    menuCard
   },
   data() {
     return {
+      // menuCard Component용
+      childId: null,
+      childName: null,
+      childCost: null,
+      childTip: null,
+      childImg: null,
+      list: [],
+      // dialog용
       temp: "",
       dialog: false,
       dialog2: false,
@@ -167,7 +156,7 @@ export default {
       foodName: "",
       foodPrice: "",
       foodText: "",
-      myId: "666",
+      myId: "",
       tags: ["치킨", "피자", "야식", "혼밥"],
       values: ["치킨", "야식"],
       value: null,
@@ -193,6 +182,109 @@ export default {
       }
     };
   },
+  mounted() {
+    this.getUserInfo();
+  },
+  methods: {
+    cancel() {
+      this.dialog = !this.dialog;
+      // childId = null;
+      // childName = null;
+      // childCost = null;
+      // childTip = null;
+      // childImg = null;
+      // // dialog용
+      // temp = "";
+      // dialog = false;
+      // dialog2 = false;
+      // path = "패쓰,,";
+      // foodName = "";
+      // foodPrice = "";
+      // foodText = "";
+      // myId = "";
+      // tags = ["치킨", "피자", "야식", "혼밥"];
+      // values = ["치킨", "야식"];
+      // value = null;
+      // rules = [
+      //   value => !!value || "반드시 입력해주세요.",
+      //   value => (value && value.length >= 3) || "Min 3 characters"
+      // ];
+      // myFiles = [];
+    },
+    handleFilePondInit() {
+      console.log("FilePond has initialized");
+
+      // FilePond instance methods are available on `this.$refs.pond`
+    },
+    test(r) {
+      // console.log(this.server);
+      console.log("r :" + r);
+    },
+    // 내 아이디를 주고, 관련된 메뉴 객체 정보 받아오기
+    getMyImage() {
+      console.log("getMyImage start" + this.myId);
+      test.getImage(
+        this.myId,
+        response => {
+          for (let index = 0; index < response.data.length; index++) {
+            console.log(response.data[index]);
+            this.list[index] = response.data[index];
+          }
+          console.log("menuManage getmyImage " + this.list);
+          // console.log(response.data[0].img);
+          // this.childId = response.data[0].id;
+          // this.childName = response.data[0].name;
+          // this.childCost = response.data[0].cost;
+          // this.childTip = response.data[0].tip;
+          // this.childImg = "192.168.100.92:8080/" + response.data[0].img;
+          // console.log("이미지 경로:" + this.childImg);
+        },
+        errorcallback => {
+          console.log("error:" + errorcallback);
+        }
+      );
+    },
+    //  token이용해서, 내 아이디 받아오기
+    getUserInfo() {
+      test.getUserInfo(
+        async response => {
+          this.myId = await response.data.id;
+          console.log(response);
+          this.getMyImage();
+        },
+        errorcallback => {
+          console.log("error:" + errorcallback);
+        }
+      );
+    },
+    submit() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+
+      for (let index = 0; index < this.values.length; index++) {
+        this.temp += this.values[index] + "<";
+      }
+      alert("태그 정보:" + this.temp);
+      axios({
+        method: "POST",
+        url: "http://192.168.100.92:8080/shopkeeper/menu",
+        data: {
+          id: this.myId,
+          name: this.foodName,
+          cost: this.foodPrice,
+          tip: this.foodText,
+          tag: this.temp,
+          img: localStorage.getItem("path")
+        }
+      }).then(response => {
+        console.log("메뉴 등록 응답 : " + response);
+        // console.log("메뉴 등록 응답(2) : " + response.data);
+        alert("완료되었습니다");
+      });
+    }
+  },
+
   props: ["flag", "icon", "start"]
 };
 </script>

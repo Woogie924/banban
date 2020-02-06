@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Map from "../components/Map";
 import store from "@/vuex/store.js";
 export default {
@@ -25,6 +26,7 @@ export default {
   },
   data() {
     return {
+      Mlist: [],
       tab: true,
       MenuList: [
         { index: "1", data: "치킨" },
@@ -57,7 +59,7 @@ export default {
       // 정상적으로 검색이 완료됐으면
       if (status == kakao.maps.services.Status.OK) {
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        console.log(result[0].y + " " + result[0].x);
+        // console.log(result[0].y + " " + result[0].x);
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new kakao.maps.Marker({
           map: map,

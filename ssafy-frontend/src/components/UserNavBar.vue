@@ -94,13 +94,13 @@ import axios from "axios";
 import store from "@/vuex/store.js";
 import router from "@/router.js";
 export default {
-  name: "main-header",
+  name: "UserNavBar",
   data() {
     return {
       appTitle: "ㅇㅇㅇ님 공간",
       sidebar: false,
       userName: "userName",
-      userInfo: null,
+      userInfo: this.$store.state.userName,
       overlay: false,
       userState: null,
       menuItems: [
@@ -126,7 +126,8 @@ export default {
     };
   },
   mounted() {
-    if (this.$store.state.token) {
+    this.getUsername();
+    if (this.$store.state.userName) {
       this.userState = true;
     } else {
       this.userState = false;
@@ -144,11 +145,7 @@ export default {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${store.state.token}`;
-      axios.get("http://192.168.100.92:8080/api/user").then(response => {
-        // console.log(response.data);
-        // this.userInfo = this.$store.state.user.id;
-        this.userInfo = response.data;
-      });
+      axios.get("http://192.168.100.92:8080/api/user");
     }
   }
 };

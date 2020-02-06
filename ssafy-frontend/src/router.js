@@ -50,7 +50,6 @@ const router = new Router({
 				requireAuth: true,
 			}
 		},
-
 		{
 			path: '/Mlogin',
 			name: 'Mlogin',

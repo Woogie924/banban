@@ -49,11 +49,7 @@
     <p>
       <input v-model="body" placeholder="body" />
     </p>
-    <v-btn
-      small
-      color="error"
-      @click="index !== undefined? updated() : write()"
-    >{{index !== undefined ? '수정': '작성'}}</v-btn>
+    <v-btn small color="error" @click="write()">{{'작성'}}</v-btn>
     <v-btn small color="primary" @click="move()">글목록</v-btn>
     <v-snackbar v-model="snackbar">
       여기는 게시글 작성 페이지 입니다.
@@ -71,7 +67,6 @@ export default {
   name: "Create",
   mounted() {
     this.get_info();
-    this.ischeck();
     this.start();
   },
 
@@ -96,7 +91,7 @@ export default {
     ischeck() {
       if (this.userName != this.writer && this.index != null) {
         console.log(this.userName);
-        console.log(1222222222222123123);
+        console.log(this.writer);
         this.countDownTimer();
       }
     },
@@ -131,13 +126,16 @@ export default {
           address: this.address,
           title: this.title,
           body: this.body,
-          writer: this.$store.state.user.id
+          writer: this.$store.state.userName
         }
       }).then(() => {
         this.$router.push({ name: "Read" });
       });
     },
     updated() {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
       axios({
         method: "put",
         url: "http://192.168.100.92:8080/notice/board",
@@ -154,7 +152,7 @@ export default {
       });
     },
     get_info() {
-      this.userName = localStorage.userName;
+      this.userName = this.$store.state.userName;
       test.backendService(
         res => {
           this.board = res;
@@ -162,11 +160,11 @@ export default {
             for (var i = 0; i < res.length; i++) {
               if (res[i].num == this.index) {
                 this.num = this.board[i].num;
-
                 this.address = this.board[i].address;
                 this.writer = this.board[i].writer;
                 this.title = this.board[i].title;
                 this.body = this.board[i].body;
+                this.ischeck();
               }
             }
           }
