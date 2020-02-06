@@ -22,6 +22,9 @@
     <p>
       <input v-model="body" placeholder="body" />
     </p>
+    <p>
+      <input v-model="party" placeholder="같이먹을 인원수 입력(본인포함)" />
+    </p>
     <v-btn
       small
       color="error"
@@ -49,16 +52,24 @@
     <p>
       <input v-model="body" placeholder="body" />
     </p>
-    <v-btn small color="error" @click="write()">{{'작성'}}</v-btn>
-    <v-btn small color="primary" @click="move()">글목록</v-btn>
+    <p>
+      <input v-model="party" placeholder="인원수 입력(본인포함)" />
+    </p>
+    <v-btn text icon color="red" @click="write()">
+      <v-icon>fas fa-edit</v-icon>
+    </v-btn>
+    <v-btn text icon color="green" @click="move()">
+      <v-icon>fas fa-list</v-icon>
+    </v-btn>
     <v-snackbar v-model="snackbar">
       여기는 게시글 작성 페이지 입니다.
-      <v-btn color="pink" @click="snackbar = false">close</v-btn>
+      <v-btn color="pink" @click="snackbar = false, move()">close</v-btn>
     </v-snackbar>
   </div>
 </template>
 
 <script>
+import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import test from "../services/test";
 import Read from "./Read";
@@ -83,6 +94,7 @@ export default {
       writer: "",
       title: "",
       body: "",
+      party: null,
       snackbar: false,
       countDown: 3
     };
@@ -120,7 +132,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "post",
-        url: "http://192.168.100.92:8080/notice/board",
+        url: `http://192.168.100.92:8080/notice/board/${this.party}`,
         data: {
           category: this.category,
           address: this.address,
@@ -138,7 +150,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "put",
-        url: "http://192.168.100.92:8080/notice/board",
+        url: `http://192.168.100.92:8080/notice/board/${this.party}`,
         data: {
           num: this.num,
           category: this.category,

@@ -24,21 +24,14 @@ const router = new Router({
 			name: 'Read',
 			component: Read
 		},
-		{
-			path: '/create/',
-			name: 'Create',
-			component: Create,
-			meta: {
-				requireAuth: true,
-			}
-		},
+
 		{
 			path: '/detail/:contentId',
 			name: 'Detail',
 			component: Detail,
 			props: true,
 			meta: {
-				requireAuth: true,
+				// requireAuth: true,
 			}
 		},
 		{
@@ -47,7 +40,7 @@ const router = new Router({
 			component: Create,
 			props: true,
 			meta: {
-				requireAuth: true,
+				// requireAuth: true,
 			}
 		},
 		{
