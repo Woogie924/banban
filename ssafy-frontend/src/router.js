@@ -16,13 +16,24 @@ import store from '@/vuex/store.js'
 
 Vue.use(Router)
 
+const requireAuth = () => (to, from, next) => {
+	if (store.state.accessToken !== '') {
+		return next();
+	}
+	next('/login');
+};
+
+
 const router = new Router({
 	mode: 'history',
 	base: process.env.BASE_URL,
 	routes: [{
 			path: '/read',
 			name: 'Read',
-			component: Read
+			component: Read,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/create/',
@@ -86,7 +97,6 @@ const router = new Router({
 			component: StoreMainPage,
 			meta: {
 				requireAuth: true,
-				type: 2,
 			}
 		},
 		{
@@ -94,7 +104,7 @@ const router = new Router({
 			name: 'UserMainPage',
 			component: UserMainPage,
 			meta: {
-				// requireAuth: true,
+				requireAuth: true
 			}
 		},
 		{
@@ -109,30 +119,20 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-	const loggedIn = store.state.token
-	const userType = store.state.userType
+	let loggedIn = store.state.token
+	let userType = store.state.userType
 	// 권한 체크가 필요할 때
+	// 내 권한 타입
+	// user info state :    0-> 비로그인, 1->일반 유저, 2->가게 유저
+	console.log(to.matched.values(record => record.meta.requireAuth));
 	if (to.matched.some(record => record.meta.requireAuth)) {
 		// 로그인 되어있지 않을 때
 		if (loggedIn === null) {
 			alert('권한이 없습니다. 로그인 해주세요.')
 			next('/')
+			// 로그인 되어 있을 때
 		} else {
-			// 로그인이 되어 있을 때
-			if (userType === to.matched.some(record => record.meta.type)) {
-				next();
-			} else {
-				if (userType === 1) {
-					alert('권한이 없습니다. 로그인 해주세요.')
-					next('Mlogin')
-				} else if (userType === 2) {
-					alert('권한이 없습니다. 로그인 해주세요.')
-					next('StoreLogin')
-				} else {
-					alert('권한이 없습니다. 로그인 해주세요.')
-					next('/')
-				}
-			}
+			next()
 		}
 		// 권한 체크가 필요 없을 때
 	} else {

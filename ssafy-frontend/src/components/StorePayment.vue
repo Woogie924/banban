@@ -52,7 +52,6 @@ export default {
 
   method: {},
   mounted() {
-    alert("mounted");
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${store.state.user}`;

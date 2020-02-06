@@ -10,15 +10,18 @@
         </v-label>
       </v-toolbar-title>
       <v-spacer>
-        <v-text class="font-weight-bold">{{userInfo}}사장님 공간</v-text>
+        <span class="font-weight-bold">{{userInfo}}사장님 공간</span>
       </v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <v-btn text @click="logout">
+        <v-btn v-if="userState === true" text @click="logout">
           <v-icon left dark>folder_open</v-icon>로그아웃
+        </v-btn>
+        <v-btn v-else text @click="login">
+          <v-icon left dark>folder_open</v-icon>로그인
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -84,6 +87,7 @@
 </template>
 
 <script>
+import store from "@/vuex/store.js";
 export default {
   name: "main-header",
   data() {
@@ -91,7 +95,8 @@ export default {
       appTitle: "'반반한 동네' 사장님 공간",
       sidebar: false,
       overlay: false,
-      userInfo: null,
+      userInfo: this.$store.state.userName,
+      userState: null,
       menuItems: [
         {
           title: "게시판",
@@ -113,6 +118,13 @@ export default {
         }
       ]
     };
+  },
+  mounted() {
+    if (this.$store.state.userName) {
+      this.userState = true;
+    } else {
+      this.userState = false;
+    }
   },
   methods: {
     logout() {

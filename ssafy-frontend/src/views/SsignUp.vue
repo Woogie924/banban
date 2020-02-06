@@ -65,7 +65,6 @@
                       type="submit"
                       large
                       color="primary"
-                      @click="Sregister()"
                       width="100%"
                       height="50"
                       fill="#0076ff"

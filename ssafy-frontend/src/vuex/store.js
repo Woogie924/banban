@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from "vuex-persistedstate"
+import router from '@/router.js'
 
 Vue.use(Vuex)
 
@@ -49,6 +50,7 @@ const store = new Vuex.Store({
       state.userType = null
       state.userAddr = null
       state.checkInit = 1
+      router.push('/')
     }
   },
   actions: {
@@ -103,13 +105,9 @@ const store = new Vuex.Store({
         }) => {
           console.log(data.data)
           commit('SET_USER_DATA', data)
-          axios.post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
+          axios.get('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
             .then(function (response) {
-              //success(response.data);
-              // alert(response)
-              // console.log(response)
               commit('SET_STORE_DATA', response)
-              // return response;
             })
             .catch(function (error) {
               errorCallback();
