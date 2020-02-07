@@ -37,6 +37,8 @@
     </v-btn>
     <v-btn small color="primary" @click="get_info">테스트</v-btn>
     <v-btn color="success" class="mt-12" @click="overlay = !overlay">Show Overlay</v-btn>
+
+    <v-btn @click="move">메인페이지로 이동하기</v-btn>
   </div>
 </template>
 
@@ -57,6 +59,11 @@ export default {
   },
 
   methods: {
+    move() {
+      this.$router.push({
+        path: "UserMainpage"
+      });
+    },
     start() {
       this.snackbar = true;
     },

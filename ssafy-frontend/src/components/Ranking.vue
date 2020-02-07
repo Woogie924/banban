@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card fluid>
+    <v-card fluid elevation="24">
       <p class="headline grey--text font-weight-bold text-center">실시간 순위</p>
       <v-card>
         <v-card-text id="rankText" v-for="(value, idx) in list" :key="value.id">

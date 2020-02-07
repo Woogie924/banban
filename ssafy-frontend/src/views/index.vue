@@ -65,11 +65,13 @@
 </template>
 
 <script>
+import { setInterval } from "../../Kakao";
 export default {
   name: "index",
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      value: 0
     };
   },
   methods: {
@@ -78,6 +80,14 @@ export default {
         path: "/visit"
       });
     }
+  },
+  mounted() {
+    this.interval = setInterval(
+      function() {
+        this.value = this.value + 10;
+      }.bind(this),
+      1000
+    );
   }
 };
 </script>
