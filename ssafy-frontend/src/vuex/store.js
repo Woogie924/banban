@@ -110,7 +110,7 @@ const store = new Vuex.Store({
             .then(function (response) {
               //success(response.data);
               // alert(response)
-              // console.log(response)
+              console.log(response)
               commit('SET_STORE_DATA', response)
               // return response;
             })

@@ -7,7 +7,7 @@
       <v-card-title>주문 가능</v-card-title>
       <v-divider></v-divider>
 
-      <v-card-text v-for="value in this.$store.state.res.data" :key="value.index">{{value.name}}</v-card-text>
+      <v-card-text v-for="value in this.$store.state.res" :key="value.index">{{value.name}}</v-card-text>
     </v-card>
   </div>
 </template>
@@ -16,7 +16,7 @@
 export default {
   name: "OrderPossible",
   data() {
-    return {};
+    return;
   }
 };
 </script>
