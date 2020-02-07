@@ -46,27 +46,31 @@
 
 ## 🤲 OverView<br> 
 ### Goal
- - SPA(Single Page Application)의 개념을 이해 
- - 반응형 웹(Responsive Web)의 특징을 파악 
- - 사용자 친화적이고 다양한 디바이스에 최적화 된 웹을 구현하는 것
+> - SPA(Single Page Application)의 개념을 이해 
+> - 반응형 웹(Responsive Web)의 특징을 파악 
+> - 사용자 친화적이고 다양한 디바이스에 최적화 된 웹을 구현하는 것
 
 ### Used Technology
-- Vue.js (FrontEnd)
-    - 컴포넌트 단위의 관리로 유지보수와 재사용성이 높은 Vue.js 활용
-- FireBase (BackEnd)
-    - 구조를 단순화하고 초기 개발 시간을 단축하는 데에 도움이 되는 Firebase 활용
+>- Vue.js (FrontEnd)
+>    - 컴포넌트 단위의 관리로 유지보수와 재사용성이 높은 Vue.js 활용
+>- FireBase (BackEnd)
+>    - 구조를 단순화하고 초기 개발 시간을 단축하는 데에 도움이 되는 Firebase 활용
+>- MySQL (BackEnd DB)
+>- Spring Boot(BackEnd)
 
 ## ✨ Prequuisited<br>
 ### develop machine Spec
-- Gitlab - SSAFY gitlab 사용합니다. 문제 발생시 [gitLab docs](https://lab.ssafy.com/help)를 활용합니다.
-- Vue.js - VS Code 설치 및 [Vue.js 공식 웹사이트](https://kr.vuejs.org/index.html) 및 [StackOverflow](https://stackoverflow.com/)를 통해 시작합니다
-- Node.js - Node.js 및 npm 패키지 관리자 다운로드 설치합니다
-- Firebase - [Firebase 공식 웹사이트](https://firebase.google.com/?hl=ko)를 방문하여 공식 메뉴얼 진행합니다
-- Jira - [SSAFY jira](https://jira.ssafy.com/secure/Dashboard.jspa)를 사용합니다. jira를 통해 issue 및 WorkFlow 등 전반적인 스프린트를 관리합니다.
+>- Gitlab - SSAFY gitlab 사용합니다. 문제 발생시 [gitLab docs](https://lab.ssafy.com/help)를 활용합니다.
+>- Vue.js - VS Code 설치 및 [Vue.js 공식 웹사이트](https://kr.vuejs.org/index.html) 및 [StackOverflow](https://stackoverflow.com/)를 통해 시작합니다
+>- Node.js - Node.js 및 npm 패키지 관리자 다운로드 설치합니다
+>- Firebase - [Firebase 공식 웹사이트](https://firebase.google.com/?hl=ko)를 방문하여 공식 메뉴얼 진행합니다
+>- Jira - [SSAFY jira](https://jira.ssafy.com/secure/Dashboard.jspa)를 사용합니다. jira를 통해 issue 및 WorkFlow 등 전반적인 스프린트를 관리합니다.
+>- MySQL
+>- Spring Boot
 
 ## 🥨Commit/Branch Rules
 ### Commit
-> #### Commit Message 7 Rules
+ #### Commit Message 7 Rules
 > 1. 제목과 본문을 한 줄 띄워 분리하기
 > 2. 제목은 영문 기준 50자 이내로
 > 3. 제목 첫글자를 대문자로
@@ -75,8 +79,8 @@
 > 6. 본문은 영문 기준 72자마다 줄 바꾸기
 > 7. 본문은 어떻게보다 무엇을, 왜에 맞춰 작성하기
 
-> #### 단어 목록
-> ##### > 기본적으로 [타입] "무엇을" + "왜" 형식으로 관리
+ #### 단어 목록
+> ##### 기본적으로 [타입] "무엇을" + "왜" 형식으로 관리
 > **1. 수정 :: fix**
 > ```
 > //비정상적 동작일 때, 
@@ -129,16 +133,30 @@
 
 ## 🎫 프로젝트 수행 목록
 <table>
-<tr><td>1. 프로젝트 개발 환경 설정</tr></td>
-<tr><td>2. Firebase 연동</tr></td>
-<tr><td>3. About Me 리사이징</tr></td>
-<tr><td>4. Portfolio 리사이징</tr></td>
-<tr><td>5. 이미지 배너 리사이징</tr></td>
-<tr><td>6. 네비게이션 바</tr></td>
-<tr><td>7. 모바일 사이드 바</tr></td>
-<tr><td>8. 사용자 정보 Drawer</tr></td>
-<tr><td>9. FrontEnd 배포</tr></td>
-<tr><td>10. 기능 테스트</tr></td>
+<tr><th>Sprint 01</th><th>Sprint 02</th></tr>
+<tr><td>1. 프로젝트 개발 환경 설정</td><td>1. 필요한 API항목 도출</td></tr>
+<tr><td>2. Firebase 연동</td><td>2. 로그인</td></tr>
+<tr><td>3. About Me 리사이징</td><td>3. 소셜 로그인</td></tr>
+<tr><td>4. Portfolio 리사이징</td><td>4. 권한 관련 기능</td></tr>
+<tr><td>5. 이미지 배너 리사이징</td><td>5. 이미지 업로더 기능</td></tr>
+<tr><td>6. 네비게이션 바</td><td>6. 게시판 CRUD</td></tr>
+<tr><td>7. 모바일 사이드 바</td><td>7. 게시판 상세페이지</td></tr>
+<tr><td>8. 사용자 정보 Drawer</td><td>8.게시판 백엔드 연동</td></tr>
+<tr><td>9. FrontEnd 배포</td><td>9. 회원 가입</td></tr>
+<tr><td>10. 기능 테스트</td><td>10. 최종 결과물을 master 가 master Branch 로 합병</td></tr>
+</table>
+<table>
+<tr><th>Sprint 03</th></tr>
+<tr><td>1. 필요한 API 항목 도출 및 정의</td></tr>
+<tr><td>2. 프로젝트 소개 페이지(Intro) 추가</td></tr>
+<tr><td>3. 신규 카테고리 추가</td></tr>
+<tr><td>4. ERD 작성</td></tr>
+<tr><td>5. 오프라인 기능 구현</td></tr>
+<tr><td>6. 관리자 기능</td></tr>
+<tr><td>7. Daum 주소 API, 카카오 지도 API 연동</td></tr>
+<tr><td>8. UI 레이아웃 및 CSS 개선</td></tr>
+<tr><td>9. FrontEnd 배포</td></tr>
+<tr><td>10. 기능 테스트</td></tr>
 </table>
 <br>
 
@@ -222,6 +240,8 @@ $ npm install filepond-plugin-image-preview --save
 > firebase init
 > firebase deploy
 ```
+
 7. Firebase 대시보드에서 배포 결과 및 URL 확인
 8. 해당 URL로 접속하여 웹 페이지 확인
+
 
