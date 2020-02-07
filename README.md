@@ -68,67 +68,6 @@
 >- MySQL
 >- Spring Boot
 
-## 🥨Commit/Branch Rules
-### Commit
- #### Commit Message 7 Rules
-> 1. 제목과 본문을 한 줄 띄워 분리하기
-> 2. 제목은 영문 기준 50자 이내로
-> 3. 제목 첫글자를 대문자로
-> 4. 제목 끝에 . 금지
-> 5. 제목은 명령조로
-> 6. 본문은 영문 기준 72자마다 줄 바꾸기
-> 7. 본문은 어떻게보다 무엇을, 왜에 맞춰 작성하기
-
- #### 단어 목록
-> ##### 기본적으로 [타입] "무엇을" + "왜" 형식으로 관리
-> **1. 수정 :: fix**
-> ```
-> //비정상적 동작일 때, 
-> //버그 잡을 때,
-> [Fix] "무엇을" + ("왜")
-> ```
-
-> **2. 수정 :: update**
-> ```
-> //정상적으로 동작할 때, 수정,추가,보완할 때
-> [Update] "무엇을" + ("왜")
-> ```
-
-> **3. 추가 :: add**
-> ```
-> [Add] "무엇을" + ("왜")
-> ```
-
-> **4. 삭제 :: remove**
-> ```
-> [Remove] "무엇을" + ("왜")
-> ```
-
-> **5. 전면 수정 :: refactor**
-> ```
-> [Refactor] "무엇을" + ("왜")
-> ```
-
-### Branch Naming (브랜치 명명 규칙)
-> ##### > Gitlab에는 master와 develop 브랜치, 그리고 master 브랜치의 TAG만 관리한다.
-
-> #### 개발자 PC
-> **개발자는 PC에 release, hotfix, feature, issue 브랜치를 생성하여 작업을 진행한다.**
-> **작업이 완료된 브랜치는 병합후 삭제 가능하며, Gitlab에 반영하지 않는다.**
-
-> #### release 브랜치
-> - **develop 브랜치로부터 생성하는 브랜치이다.**
-> - **명명 규칙 : release/버젼넘버**
->    ex) `release/X.X.X`
-> - **브랜치 생성 후에는 버그 픽스만 반영한다.**
-> - **최종 확정 후에는 develop, master 브랜치에 병합한다.**
-
-> #### feature 브랜치
-> - **develop 브랜치로부터 생성하는 브랜치이다.**
-> - **명명 규칙 : 년월일_feature_짧은설명**
->    ex) `년월일_feature_<짧은설명>`
-> - **완료 후 develop 브랜치에 병합한다.**
-
 
 
 ## 🎫 프로젝트 수행 목록
@@ -161,22 +100,21 @@
 <br>
 
 ## 🎲 파일/디렉터리 구조
-- assets
-    - 프로젝트에 필요한 정적 리소스가 위치하는 디렉토리
-    - 이미지, 외부 css, 외부 js등
-- components
-    - 페이지 단위 컴포넌트에서 쓰이는 소규모 컴포넌트가 위치하는 디렉토리
-- services
-    - 프로젝트에 필요한 로직과 관련된 함수 js 파일이 위치하는 디렉토리
-- views
-    - 페이지 단위의 컴포넌트가 위치하는 디렉토리
+> - assets
+>    - 프로젝트에 필요한 정적 리소스가 위치하는 디렉토리
+>    - 이미지, 외부 css, 외부 js등
+> - components
+>    - 페이지 단위 컴포넌트에서 쓰이는 소규모 컴포넌트가 위치하는 디렉토리
+> - services
+>    - 프로젝트에 필요한 로직과 관련된 함수 js 파일이 위치하는 디렉토리
+> - views
+>    - 페이지 단위의 컴포넌트가 위치하는 디렉토리
 
-- router.js : 라우터 설정 관련 파일
-- store.js : vuex 파일
-- App.vue : 최상위 컴포넌트
-- main.js : 최상위 컴포넌트를 최초 호출하는 JavaScript 파일
+> - router.js : 라우터 설정 관련 파일
+> - store.js : vuex 파일
+> - App.vue : 최상위 컴포넌트
+> - main.js : 최상위 컴포넌트를 최초 호출하는 JavaScript 파일
 
-- - -
 
 ## 🤦 SetUp
 ### NPM 설치
@@ -189,59 +127,168 @@
 ```
 
 ### Vue.js, Vue-cli, Firebase 패키지 설치
-```cmd
-C:\> cd webmobile-skeleton
-C:\webmobile-skeleton> npm install
-C:\webmobile-skeleton> npm install -g yarn
-C:\webmobile-skeleton> npm install -g @vue/cli
-C:\webmobile-skeleton> npm install vue
-C:\webmobile-skeleton> npm install -g firebase-tools
-C:\webmobile-skeleton> npm list
-```
+> ```cmd
+> C:\> cd webmobile-skeleton
+> C:\webmobile-skeleton> npm install
+> C:\webmobile-skeleton> npm install -g yarn
+> C:\webmobile-skeleton> npm install -g @vue/cli
+> C:\webmobile-skeleton> npm install vue
+> C:\webmobile-skeleton> npm install -g firebase-tools
+> C:\webmobile-skeleton> npm list
+> ```
 
 ### npm 이미지 업로더
-```cmd
-//1. vue-filepond filepond 설치
-$ npm install vue-filepond filepond --save
+> ```cmd
+> //1. vue-filepond filepond 설치
+> $ npm install vue-filepond filepond --save
+> 
+> //2. 플러그인 설치 옵션 사항
+> $ npm install filepond-plugin-file-validate-type --save
+> $ npm install filepond-plugin-image-preview --save
+> ```
 
-//2. 플러그인 설치 옵션 사항
-$ npm install filepond-plugin-file-validate-type --save
-$ npm install filepond-plugin-image-preview --save
-```
+### axios
+> ```cmd
+> npm install axios
+> ```
+
+### Vuex
+> ```cmd
+> npm install --save vue-session
+> npm install --save vuex-persistedstate
+> ```
+
+### icon & font
+> ```cmd
+> npm install @fortawesome/fontawesome-free -D
+> npm install @mdi/js -D
+> ```
+
 
 ## 😆 Run
 ### 프로젝트 실행
-"App running" 메시지 확인
-```cmd
+> "App running" 메시지 확인
+> ```cmd
 > npm run serve
-```
+> ```
 
 ### 프로젝트 로컬 실행
-1. 명령 프롬프트(cmd)에서 아래 커맨드 수행
-```cmd
+> 1. 명령 프롬프트(cmd)에서 아래 커맨드 수행
+> ```cmd
 > vuejs-paginator@1.0.0 dev <프로젝트 경로>
 > node build/dev-server.js
-```
+> ```
 
 2. 웹 브라우저에서 http://localhost:8080 접속
 
 
 
 ## 👌 Deploy 
-### Firebase 서버 배포
-1. [](https://firebase.google.com) 접속 및 로그인
-2. firebase 프로젝트 시작하기 버튼 클릭
-3. 프로젝트 생성
-4. 생성된 프로젝트의 웹 속성 탭으로 이동
-5. 본인의 firebase SDK 확인 및 태그 첨부
-6. 로컬 개발 환경에서 명령 프롬프트(cmd) 실행 후 Deploy
-```cmd
+ ### Firebase 서버 배포
+> 1. [](https://firebase.google.com) 접속 및 로그인
+> 2. firebase 프로젝트 시작하기 버튼 클릭
+> 3. 프로젝트 생성
+> 4. 생성된 프로젝트의 웹 속성 탭으로 이동
+> 5. 본인의 firebase SDK 확인 및 태그 첨부
+> 6. 로컬 개발 환경에서 명령 프롬프트(cmd) 실행 후 Deploy
+> ```cmd
 > firebase login
 > firebase init
 > firebase deploy
-```
+> ```
 
-7. Firebase 대시보드에서 배포 결과 및 URL 확인
-8. 해당 URL로 접속하여 웹 페이지 확인
+> 7. Firebase 대시보드에서 배포 결과 및 URL 확인
+> 8. 해당 URL로 접속하여 웹 페이지 확인
+
+### AWS 서버 배포(예정)
+
+- - -
+
+## 🥨Commit/Branch Rules
+### Commit
+ #### Commit Message 7 Rules
+> 1. 제목과 본문을 한 줄 띄워 분리하기
+> 2. 제목은 영문 기준 50자 이내로
+> 3. 제목 첫글자를 대문자로
+> 4. 제목 끝에 . 금지
+> 5. 제목은 명령조로
+> 6. 본문은 영문 기준 72자마다 줄 바꾸기
+> 7. 본문은 어떻게보다 무엇을, 왜에 맞춰 작성하기
+
+ #### 단어 목록
+> ##### 기본적으로 [타입] "무엇을" + "왜" 형식으로 관리
+> 1. 수정 :: fix
+> ```
+> //비정상적 동작일 때, 
+> //버그 잡을 때,
+> [Fix] "무엇을" + ("왜")
+> ```
+
+> 2. 수정 :: update
+> ```
+> //정상적으로 동작할 때, 수정,추가,보완할 때
+> [Update] "무엇을" + ("왜")
+> ```
+
+> 3. 추가 :: add
+> ```
+> [Add] "무엇을" + ("왜")
+> ```
+
+> 4. 삭제 :: remove
+> ```
+> [Remove] "무엇을" + ("왜")
+> ```
+
+> 5. 전면 수정 :: refactor
+> ```
+> [Refactor] "무엇을" + ("왜")
+> ```
+
+### Branch Naming (브랜치 명명 규칙)
+> ##### > Gitlab에는 master와 develop 브랜치, 그리고 master 브랜치의 TAG만 관리한다.
+
+> #### 개발자 PC
+> 개발자는 PC에 release, hotfix, feature, issue 브랜치를 생성하여 작업을 진행한다.
+> 작업이 완료된 브랜치는 병합후 삭제 가능하며, Gitlab에 반영하지 않는다.
+
+> #### release 브랜치
+> - develop 브랜치로부터 생성하는 브랜치이다.
+> - 명명 규칙 : release/버젼넘버
+>    ex) `release/2.0.0`
+> - 브랜치 생성 후에는 버그 픽스만 반영한다.
+> - 최종 확정 후에는 develop, master 브랜치에 병합한다.
+
+> #### feature 브랜치
+> - develop 브랜치로부터 생성하는 브랜치이다.
+> - 명명 규칙 : 년월일_feature_짧은설명
+>    ex) `200207_feature_BoardTransition`
+> - 완료 후 develop 브랜치에 병합한다.
+
+
+## 🎵 Entity-RelationShip Diagram
+<img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+
+
+## 🍧 Interface
+> - 링크 : [인터페이스(Swagger)](http://192.168.100.92:8080/swagger-ui.html#/user-rest-controller)
+<tr>
+    <td>
+        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+    </td>
+    <td>
+        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+    </td>
+    <td>
+        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+    </td>
+    <td>
+        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+    </td>
+    <td>
+        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+    </td>
+
+</tr>
 
 
