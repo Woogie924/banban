@@ -1,38 +1,20 @@
 <template>
   <div>
     <v-tabs v-model="tab">
-      <v-tab v-for="item in MenuList" :key="item.index" @click="mapapi(item.index-1)">{{item.data}}</v-tab>
+      <v-tab v-for="item in MenuList" :key="item.index" @click="mapapi(item.index-1)">{{item.food}}</v-tab>
     </v-tabs>
     <Map></Map>
 
     <tbody>
       <tr v-for="(value, index) in this.$store.state.res.data" :key="index">
-        <div v-if="MenuList[menuIdx].data==value.category">
-          <td>{{value.name}}</td>
-          <td>{{value.tel}}</td>
-          <td>{{value.address}}</td>
-          <td>{{value.category}}</td>
-        </div>
+        <!-- <div v-if="MenuList[this.menuIdx].food == value.category"> -->
+        <td>{{value.name}}</td>
+        <td>{{value.tel}}</td>
+        <td>{{value.address}}</td>
+        <td>{{value.category}}</td>
+        <!-- </div> -->
       </tr>
     </tbody>
-    <!-- <template>
-      <thead>
-        <tr>
-          <td>가게이름</td>
-          <td>전화번호</td>
-          <td>주소</td>
-          <td>카테고리</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(value, index) in this.$store.state.res.data" :key="index">
-          <td>{{value.name}}</td>
-          <td>{{value.tel}}</td>
-          <td>{{value.address}}</td>
-          <td>{{value.category}}</td>
-        </tr>
-      </tbody>
-    </template>-->
   </div>
 </template>
 
@@ -47,19 +29,19 @@ export default {
   },
   data() {
     return {
-      tab: true,
+      tab: null,
       menuIdx: { default: 0 },
       MenuList: [
-        { index: "1", data: "치킨" },
-        { index: "2", data: "피자" },
-        { index: "3", data: "한식" },
-        { index: "4", data: "분식" },
-        { index: "5", data: "디저트" },
-        { index: "6", data: "일식" },
-        { index: "7", data: "패스트푸드" },
-        { index: "8", data: "야식" },
-        { index: "9", data: "중국집" },
-        { index: "10", data: "족발,보쌈" }
+        { index: "1", food: "치킨" },
+        { index: "2", food: "피자" },
+        { index: "3", food: "한식" },
+        { index: "4", food: "분식" },
+        { index: "5", food: "디저트" },
+        { index: "6", food: "일식" },
+        { index: "7", food: "패스트푸드" },
+        { index: "8", food: "야식" },
+        { index: "9", food: "중국집" },
+        { index: "10", food: "족발,보쌈" }
       ]
     };
   },
