@@ -106,13 +106,13 @@ export default {
       menuItems: [
         {
           title: "게시판",
-          path: "/read",
+          path: "/Read",
           icon: "account_circle",
           info: "이것은 게시판입니다."
         },
         {
           title: "내 정보",
-          path: "/read",
+          path: "/",
           icon: "folder_open",
           info: "이것은 내 정보입니다."
         },
