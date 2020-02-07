@@ -6,7 +6,7 @@
         <v-btn color="pink" @click="snackbar = false">close</v-btn>
       </v-snackbar>
       <h1>Detail</h1>
-      <h1>{{this.party_member}}</h1>
+
       <ul>
         <li>
           <h2>제목: {{board.title}}</h2>
@@ -39,19 +39,6 @@
           <v-btn text icon color="green" @click="move()">
             <v-icon>fas fa-list</v-icon>
           </v-btn>
-          <div v-if="-1 !== party_member.indexOf(userName)">
-            <v-btn>나가기</v-btn>
-            <v-btn @click="showcomment = !showcomment">파티 보기</v-btn>
-          </div>
-          <div v-else-if="this.party !== 0">
-            <v-badge color="green" :content="len" @click="join_party(userName)">
-              <v-icon
-                large
-                color="blue darken-2"
-                @click="showcomment = !showcomment"
-              >mdi-message-text</v-icon>
-            </v-badge>
-          </div>
         </li>
       </ul>
 
