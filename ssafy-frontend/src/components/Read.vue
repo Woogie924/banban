@@ -1,9 +1,5 @@
 <template>
   <div>
-    <UserNavBar></UserNavBar>
-    <br />
-    <br />
-    <br />
     <v-btn @click="get_info()">전체보기</v-btn>
     <v-btn @click="search('치킨')">치킨</v-btn>
     <v-btn @click="search('피자')">피자</v-btn>
@@ -48,11 +44,8 @@
 import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import test from "../services/test";
-import UserNavBar from "../components/UserNavBar";
 export default {
-  components: {
-    UserNavBar
-  },
+  components: {},
   name: "Read",
   data() {
     return {
