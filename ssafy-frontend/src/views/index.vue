@@ -30,7 +30,7 @@
     </div>
 
     <div id="inner">
-      <h1 id="main_h1" class="cssanimation leSnake sequence">반반한 동네</h1>
+      <h1 id="main_h1" class="animated infinite tada delay-1s">반반한 동네</h1>
     </div>
 
     <!-- <div id="down_Body">
@@ -44,7 +44,7 @@
         style="cursor:pointer;"
         @click="move"
       >
-        <h1 id="next_h1">로그인 하기(Click me!)</h1>
+        <h1 id="next_h1" class="animated rubberBand delay-3s">로그인 하기(Click me!)</h1>
       </div>
     </div>
     <br />
