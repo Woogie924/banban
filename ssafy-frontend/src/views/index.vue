@@ -28,6 +28,7 @@
       <br />
       <!-- <Visit></Visit> -->
     </div>
+
     <div id="inner">
       <h1 id="main_h1" class="cssanimation leSnake sequence">반반한 동네</h1>
     </div>
@@ -46,6 +47,20 @@
         <h1 id="next_h1">로그인 하기(Click me!)</h1>
       </div>
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
@@ -53,7 +68,9 @@
 export default {
   name: "index",
   data() {
-    return {};
+    return {
+      isOpen: false
+    };
   },
   methods: {
     move() {
@@ -66,6 +83,7 @@ export default {
 </script>
 
 <style scoped>
+/* animation */
 #inner {
   width: 100%;
   position: absolute;
@@ -94,29 +112,7 @@ export default {
   text-align: center;
 }
 
-.cssanimation,
-.cssanimation span {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-}
-
-.cssanimation span {
-  display: inline-block;
-}
-
-.leSnake span {
-  animation: leSnake 1.5s ease-in-out;
-  animation-iteration-count: infinite;
-}
-@keyframes leSnake {
-  from,
-  to {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(30px);
-  }
-}
+/* intro 애니메이션 */
 #in_body {
   background: #009688;
   overflow: hidden;
