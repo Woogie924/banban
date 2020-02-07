@@ -267,26 +267,26 @@
 
 
 ## 🎵 Entity-RelationShip Diagram
-<img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+![SubPJT3_erd모델링](https://user-images.githubusercontent.com/58671945/74000750-856df580-49ac-11ea-9d12-f590243215ec.png)
 
 
 ## 🍧 Interface
 > - 링크 : [인터페이스(Swagger)](http://192.168.100.92:8080/swagger-ui.html#/user-rest-controller)
 <tr>
     <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+        ![file-rest-Controller](https://user-images.githubusercontent.com/58671945/74000688-5c4d6500-49ac-11ea-80e9-69601975ec51.png)
     </td>
     <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+        ![order-rest-Controller](https://user-images.githubusercontent.com/58671945/74000689-5ce5fb80-49ac-11ea-9f70-d6a7f771feff.png)
     </td>
     <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+        ![store-rest-Controller](https://user-images.githubusercontent.com/58671945/74000690-5d7e9200-49ac-11ea-8678-1b7cafd741d1.png)
     </td>
     <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+        ![user-rest-Controller](https://user-images.githubusercontent.com/58671945/74000693-5e172880-49ac-11ea-97e1-1ad7caa937c6.png)
     </td>
     <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg">
+        ![board-rest-Controller](https://user-images.githubusercontent.com/58671945/74000694-5eafbf00-49ac-11ea-9151-f8e3b67d4d61.png)
     </td>
 
 </tr>
