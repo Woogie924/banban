@@ -5,7 +5,7 @@
         <MenuManagement :flag="item.title" :icon="item.icon"></MenuManagement>
       </template>
     </v-card>-->
-    <v-btn v-on="on">
+    <v-btn>
       <MenuManagement :flag="item.title" :icon="item.icon">dsdsd</MenuManagement>
     </v-btn>
   </v-bottom-navigation>

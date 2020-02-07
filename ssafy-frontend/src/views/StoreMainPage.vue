@@ -42,6 +42,8 @@ import OrderList from "../components/OrderList";
 import StoreMenuList from "../components/StoreMenuList";
 import MenuManagement from "../components/MenuManagement";
 import bottomNav from "../components/bottomNav";
+import store from "@/vuex/store.js";
+import router from "@/router.js";
 
 export default {
   name: "StoreMainPage",
@@ -53,7 +55,12 @@ export default {
     MenuManagement,
     bottomNav
   },
-  mounted() {},
+  mounted() {
+    if (this.$store.state.userType !== 2) {
+      alert("권한이 없습니다. 로그인해주세요");
+      this.$router.push("/StoreLogin");
+    }
+  },
   methods: {},
   data() {
     return {};

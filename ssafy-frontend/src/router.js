@@ -113,10 +113,25 @@ router.beforeEach((to, from, next) => {
 		// 로그인 되어있지 않을 때
 		if (loggedIn === null) {
 			alert('권한이 없습니다. 로그인 해주세요.')
-			next('/')
+			next('/visit')
 		} else {
-			next()
+			// 로그인이 되어 있을 때
+			if (userType === to.matched.some(record => record.meta.type)) {
+				next();
+			} else {
+				if (userType === 1) {
+					alert('권한이 없습니다. 로그인 해주세요.')
+					next('Mlogin')
+				} else if (userType === 2) {
+					alert('권한이 없습니다. 로그인 해주세요.')
+					next('StoreLogin')
+				} else {
+					alert('권한이 없습니다. 로그인 해주세요.')
+					next('/visit')
+				}
+			}
 		}
+		// 권한 체크가 필요 없을 때
 	} else {
 		next()
 	}
