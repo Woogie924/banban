@@ -44,6 +44,8 @@
 import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import test from "../services/test";
+import router from "@/router.js";
+import store from "@/vuex/store.js";
 export default {
   components: {},
   name: "Read",
@@ -95,10 +97,14 @@ export default {
   mounted() {
     this.get_info();
     this.start();
+    if (this.$store.state.userType !== 1) {
+      alert("권한이 없습니다. 로그인해주세요");
+      this.$router.push("/Mlogin");
+    }
+    // beforeDestroy() {
+    //   this.get_info();
+    // }
   }
-  // beforeDestroy() {
-  //   this.get_info();
-  // }
 };
 </script>
 

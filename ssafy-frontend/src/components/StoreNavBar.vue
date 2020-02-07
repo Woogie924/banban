@@ -10,7 +10,7 @@
         </v-label>
       </v-toolbar-title>
       <v-spacer>
-        <v-text class="font-weight-bold">{{userInfo}}사장님 공간</v-text>
+        <span class="font-weight-bold">{{userInfo}}사장님 공간</span>
       </v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">

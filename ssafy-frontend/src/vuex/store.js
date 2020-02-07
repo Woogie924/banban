@@ -28,9 +28,6 @@ const store = new Vuex.Store({
     SET_STORE_DATA(state, storeData) {
       if (storeData.token !== null) {
         state.res = storeData
-        axios.state.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${store.state.token}`
       }
     },
     SET_SOCIAL_DATA(state, userData) {
@@ -113,9 +110,6 @@ const store = new Vuex.Store({
               console.log(response)
               commit('SET_STORE_DATA', response)
               // return response;
-            })
-            .catch(function (error) {
-              errorCallback();
             })
         })
     },
