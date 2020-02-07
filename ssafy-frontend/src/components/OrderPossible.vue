@@ -15,7 +15,9 @@
 <script>
 export default {
   name: "OrderPossible",
-  data() {}
+  data() {
+    return {};
+  }
 };
 </script>
 
