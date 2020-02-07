@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card elevation="24">
       <v-card-title class="display-1 font-weight-black">정산 예정 금액</v-card-title>
 
       <v-card-text>
@@ -12,7 +12,8 @@
       </v-card-subtitle>
     </v-card>
 
-    <v-card class="text-center" color="transparent">
+    <br />
+    <v-card class="text-center" color="transparent" elevation="24">
       <v-card-title class="display-1">주간 매출</v-card-title>
 
       <v-card-text>

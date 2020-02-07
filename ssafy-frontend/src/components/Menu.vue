@@ -1,20 +1,26 @@
 <template>
   <div>
-    <v-tabs v-model="tab">
-      <v-tab v-for="item in MenuList" :key="item.index" @click="mapapi(item.index-1)">{{item.food}}</v-tab>
-    </v-tabs>
-    <Map></Map>
+    <v-card elevation="24">
+      <v-tabs v-model="tab">
+        <v-tab
+          v-for="item in MenuList"
+          :key="item.index"
+          @click="mapapi(item.index-1)"
+        >{{item.food}}</v-tab>
+      </v-tabs>
+      <Map></Map>
 
-    <tbody>
-      <tr v-for="(value, index) in this.$store.state.res.data" :key="index">
-        <!-- <div v-if="MenuList[this.menuIdx].food == value.category"> -->
-        <td>{{value.name}}</td>
-        <td>{{value.tel}}</td>
-        <td>{{value.address}}</td>
-        <td>{{value.category}}</td>
-        <!-- </div> -->
-      </tr>
-    </tbody>
+      <tbody>
+        <tr v-for="(value, index) in this.$store.state.res.data" :key="index">
+          <!-- <div v-if="MenuList[this.menuIdx].food == value.category"> -->
+          <td>{{value.name}}</td>
+          <td>{{value.tel}}</td>
+          <td>{{value.address}}</td>
+          <td>{{value.category}}</td>
+          <!-- </div> -->
+        </tr>
+      </tbody>
+    </v-card>
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- 네비게이션 바(유저) -->
-    <v-toolbar width="100%" absolute dense style="position:fixed;">
-      <v-app-bar-nav-icon @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
+    <v-app-bar absolute dense color="#009688">
+      <v-app-bar-nav-icon dark @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
       <v-toolbar-title>
         <v-label>
           <router-link to="/UserMainPage" tag="span" style="cursor: pointer">
@@ -13,19 +13,25 @@
       <v-spacer>
         <span class="font-weight-bold">{{userInfo}}님 공간</span>
       </v-spacer>
+      <v-spacer />
+      <!-- 검색바 -->
+      <v-toolbar flat dense color="#009688" dark>
+        <v-text-field hide-details prepend-icon="search" single-line></v-text-field>
+      </v-toolbar>
+      <!-- 메뉴 -->
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">
+        <v-btn dark text v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <v-btn v-if="userState === true" text @click="logout">
+        <v-btn dark v-if="userState === true" text @click="logout">
           <v-icon left dark>folder_open</v-icon>로그아웃
         </v-btn>
-        <v-btn v-else text @click="login">
+        <v-btn dark v-else text @click="login">
           <v-icon left dark>folder_open</v-icon>로그인
         </v-btn>
       </v-toolbar-items>
-    </v-toolbar>
+    </v-app-bar>
 
     <!-- 메뉴 아이콘 클릭 -->
     <v-overlay :value="overlay">

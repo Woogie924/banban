@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card>
+    <v-card elevation="24">
       <v-card-title>주문 현황</v-card-title>
       <v-card-text>
         <v-card v-for="item in list" :key="item.onum">

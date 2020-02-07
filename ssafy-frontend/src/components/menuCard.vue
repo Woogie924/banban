@@ -1,6 +1,6 @@
 <template>
   <v-layout py-6 h-100>
-    <v-card class="mx-auto" max-width="344">
+    <v-card class="mx-auto" max-width="344" elevation="24">
       <v-img :src="imageUrl" height="200px" aspect-ratio="3.0" />
 
       <v-card-title>{{name}}</v-card-title>

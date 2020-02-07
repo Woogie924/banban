@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-toolbar width="100%" absolute dense style="position:fixed;">
-      <v-app-bar-nav-icon @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
+    <v-toolbar width="100%" absolute dense style="position:fixed;" color="#009688">
+      <v-app-bar-nav-icon dark @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
       <v-toolbar-title>
         <v-label>
           <router-link to="/StoreMainPage" tag="span" style="cursor:pointer;">
@@ -9,15 +9,22 @@
           </router-link>
         </v-label>
       </v-toolbar-title>
+      <!-- 닉네임 -->
       <v-spacer>
         <span class="font-weight-bold">{{userInfo}}사장님 공간</span>
       </v-spacer>
+      <v-spacer></v-spacer>
+      <!-- 검색바 -->
+      <v-toolbar flat dense color="#009688" dark>
+        <v-text-field hide-details prepend-icon="search" single-line></v-text-field>
+      </v-toolbar>
+      <!-- 메뉴 -->
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">
+        <v-btn dark text v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <v-btn text @click="logout">
+        <v-btn dark text @click="logout">
           <v-icon left dark>folder_open</v-icon>로그아웃
         </v-btn>
       </v-toolbar-items>
