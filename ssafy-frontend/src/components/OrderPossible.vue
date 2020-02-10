@@ -8,9 +8,7 @@
           <p>주문 가능한 매장이 없습니다.</p>
         </div>
         <div v-else>
-          <v-card-text v-for="value in this.$store.state.res.data" :key="value.index">
-            <v-btn>{{value.name}}</v-btn>
-          </v-card-text>
+          <v-card-text v-for="value in this.$store.state.res.data" :key="value.index">{{value.name}}</v-card-text>
         </div>
       </v-card>
     </v-card>
