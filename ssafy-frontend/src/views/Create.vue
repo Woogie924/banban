@@ -72,7 +72,7 @@
 import "@fortawesome/fontawesome-free/css/all.css";
 import axios from "axios";
 import test from "../services/test";
-import Read from "./Read";
+import Read from "@/components/Read";
 import store from "@/vuex/store.js";
 export default {
   name: "Create",
