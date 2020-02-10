@@ -39,6 +39,9 @@
           <v-btn text icon color="green" @click="move()">
             <v-icon>fas fa-list</v-icon>
           </v-btn>
+          <v-btn text icon color="green" @click="showcomment = !showcomment">
+            <v-icon>fas fa-list</v-icon>
+          </v-btn>
         </li>
       </ul>
 

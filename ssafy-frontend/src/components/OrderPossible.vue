@@ -4,8 +4,14 @@
       <v-card>
         <v-card-title>주문 가능</v-card-title>
         <v-divider></v-divider>
-
-        <v-card-text v-for="value in this.$store.state.res" :key="value.index">{{value.name}}</v-card-text>
+        <div v-if="this.$store.state.res.data.length === 0">
+          <p>주문 가능한 매장이 없습니다.</p>
+        </div>
+        <div v-else>
+          <v-card-text v-for="value in this.$store.state.res.data" :key="value.index">
+            <v-btn>{{value.name}}</v-btn>
+          </v-card-text>
+        </div>
       </v-card>
     </v-card>
   </div>
@@ -18,4 +24,3 @@ export default {
 </script>
 
 <style>
-</style>
