@@ -11,15 +11,20 @@ const store = new Vuex.Store({
     token: null,
     userType: null,
     userAddr: null,
-    res: []
+    res: [],
+    lat: null,
+    lon: null,
   },
   mutations: {
     SET_USER_DATA(state, userData) {
       if (userData.token !== null) {
+        console.log(userData.data)
         state.userName = userData.data.id
         state.token = userData.token
         state.userType = userData.data.chk
         state.userAddr = userData.data.address
+        state.lat = userData.data.latitude
+        state.lon = userData.data.longitude
         axios.defaults.headers.common[
           'Authorization'
         ] = `Bearer ${store.state.token}`
@@ -41,6 +46,15 @@ const store = new Vuex.Store({
         ] = `Bearer ${state.user}`
       }
     },
+    getLocation(state) {
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          state.lat = pos.coords.latitude
+          state.lon = pos.coords.longitude
+          alert(`위치가 갱신되었습니다.`)
+        }
+      );
+    },
     CLEAR_USER_DATA(state) {
       localStorage.clear()
       location.reload()
@@ -48,7 +62,9 @@ const store = new Vuex.Store({
       state.userName = null
       state.userType = null
       state.userAddr = null
-      state.checkInit = 1
+      state.checkInit = null
+      state.lon = null
+      state.lat = null
     }
   },
   actions: {
@@ -101,13 +117,11 @@ const store = new Vuex.Store({
         .then(({
           data
         }) => {
-          console.log(data.data)
           commit('SET_USER_DATA', data)
           axios.post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
             .then(function (response) {
               //success(response.data);
               // alert(response)
-              console.log(response)
               commit('SET_STORE_DATA', response)
               // return response;
             })

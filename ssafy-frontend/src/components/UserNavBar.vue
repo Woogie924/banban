@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- 네비게이션 바(유저) -->
-    <!-- #009688 -->
     <v-app-bar absolute dense color="#009688">
       <v-app-bar-nav-icon dark @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
       <v-toolbar-title>
@@ -21,6 +20,9 @@
       </v-toolbar>
       <!-- 메뉴 -->
       <v-toolbar-items class="hidden-xs-only">
+        <v-btn dark text @click="getLocation">
+          <v-icon left dark>mdi-wrench</v-icon>위치받기
+        </v-btn>
         <v-btn dark text v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
@@ -142,6 +144,9 @@ export default {
     // this.getUsername();
   },
   methods: {
+    getLocation() {
+      this.$store.commit("getLocation");
+    },
     logout() {
       this.$store.dispatch("logout");
     },
@@ -169,7 +174,9 @@ export default {
 [class^="link-"] {
   display: inline-block;
 }
-
+.toolbarSize {
+  width: 30px;
+}
 .link-7 #effect:before {
   content: "";
   border-bottom: solid 1px white;

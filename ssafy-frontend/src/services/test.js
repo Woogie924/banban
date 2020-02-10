@@ -6,7 +6,7 @@ export default {
         axios.defaults.headers.common[
             'Authorization'
         ] = `Bearer ${store.state.token}`
-        axios.get('http://192.168.100.92:8080/notice/allboards')
+        axios.get(`http://192.168.100.92:8080/notice/allboards/${store.state.lon}/${store.state.lat}`)
             .then(function (response) {
                 success(response.data);
             })
