@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Read from './components/Read'
-import Create from './components/Create'
-import Detail from './components/Detail'
+import Create from './views/Create'
+import Detail from './views/Detail'
 import Mlogin from './views/Mlogin'
 import visit from './views/VisitPage.vue'
 import MsignUp from './views/MsignUp'
 import KsignUp from './views/KsignUp'
 import StoreMainPage from './views/StoreMainPage'
 import UserMainPage from './views/UserMainPage'
-import StoreLogin from './components/StoreLogin'
+import StoreLogin from './views/StoreLogin'
 import SsignUp from './views/SsignUp'
 import MenuManagement from './components/MenuManagement'
 import store from '@/vuex/store.js'
@@ -97,11 +97,12 @@ const router = new Router({
 			meta: {
 				requireAuth: true
 			}
-		}, {
+		},
+		{
 			path: '/',
 			name: 'index',
 			component: index
-		}
+		},
 	]
 })
 
