@@ -65,7 +65,6 @@
 </template>
 
 <script>
-import { setInterval } from "../../Kakao";
 export default {
   name: "index",
   data() {
@@ -80,14 +79,6 @@ export default {
         path: "/visit"
       });
     }
-  },
-  mounted() {
-    this.interval = setInterval(
-      function() {
-        this.value = this.value + 10;
-      }.bind(this),
-      1000
-    );
   }
 };
 </script>

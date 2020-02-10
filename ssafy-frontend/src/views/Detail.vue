@@ -1,98 +1,141 @@
 <template>
-  <v-parallax height="1000" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
-    <div>
-      <v-snackbar v-model="snackbar">
-        여기는 상세 게시글 페이지 입니다.
-        <v-btn color="pink" @click="snackbar = false">close</v-btn>
-      </v-snackbar>
-      <h1>Detail</h1>
+  <div>
+    <v-layout my-5>
+      <UserNavBar></UserNavBar>
+    </v-layout>
+    <v-snackbar v-model="snackbar">
+      여기는 상세 게시글 페이지 입니다.
+      <v-btn color="pink" @click="snackbar = false">close</v-btn>
+    </v-snackbar>
+    <!-- Detail -->
+    <br />
+    <div :model="board">
+      <v-layout my-5 fluid v-for="item in board " :key="item">
+        <v-flex class="display-1">
+          <v-card>{{item}}</v-card>
+        </v-flex>
+      </v-layout>
+    </div>
 
-      <ul>
-        <li>
-          <h2>제목: {{board.title}}</h2>
-          <p>글번호: {{board.num}}</p>
-          <p>메뉴: {{board.category}}</p>
-          <p>주소: {{board.address}}</p>
+    <v-hover v-model="hover">
+      <v-card-text style="height:100px; position:relative">
+        <v-btn absolute dark fab top right color="teal lighten-3" @click="showChat=!showChat">
+          <v-icon>mdi-message-text</v-icon>
+        </v-btn>
+      </v-card-text>
+    </v-hover>
 
-          <p>내용: {{board.body}}</p>
-          <p>글쓴이 id: {{board.writer}}</p>
-          <p>남은 파티원 수:{{this.party }}</p>
+    <v-navigation-drawer v-model="showChat" right app width="30vw" height="90vh">
+      <!-- 다른 유저일때 -->
+      <v-row fluid>
+        <v-col>
+          <v-avatar color="teal" size="48">
+            <span class="white--text headline">id</span>
+          </v-avatar>
+          <v-card elevation="1" class="ps-12">다른사람 채팅</v-card>
+        </v-col>
+        <v-col></v-col>
+      </v-row>
+      <!-- 나 일때 -->
+      <v-row fluid>
+        <v-col></v-col>
+        <v-col>
+          <v-card class="pr-12">
+            <v-avatar color="teal" size="48">
+              <span class="white--text headline">id</span>
+            </v-avatar>
+            <v-card-text>내채팅</v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+      <!-- 채팅 텍스트 박스 -->
+      <v-bottom-navigation absolute>
+        <v-toolbar fluid elevation="0">
+          <v-text-field label="Outlined" dense filled placeholder="캬캬캬" outlined color="teal"></v-text-field>
+          <v-btn text dark color="teal" rounded class>전송</v-btn>
+        </v-toolbar>
+      </v-bottom-navigation>
+    </v-navigation-drawer>
 
-          <v-btn
-            v-if="userName === board.writer"
-            text
-            icon
-            color="red"
-            @click="deleteTest(board.num)"
-          >
-            <v-icon>{{ icons.mdiDelete }}</v-icon>
-          </v-btn>
-          <v-btn
-            v-if="userName === board.writer"
-            text
-            icon
-            color="blue"
-            @click="updateData(board.num)"
-          >
-            <v-icon>fas fa-edit</v-icon>
-          </v-btn>
-          <v-btn text icon color="green" @click="move()">
-            <v-icon>fas fa-list</v-icon>
-          </v-btn>
-        </li>
-      </ul>
+    <v-navigation-drawer v-model="showcomment" app clipped right color="blue" width="500">
+      <template>
+        <div v-for="(value, index) in comment" :key="index">
+          <div align="right" v-if="board.writer ===  value.writer">
+            <v-chip>{{value.body}}</v-chip>
+            <v-btn
+              text
+              icon
+              color="indigo"
+              v-if="userName ===  value.writer"
+              @click="comment_delete(value.cnum)"
+            >
+              <v-icon>{{ icons.mdiDelete }}</v-icon>
+            </v-btn>
 
-      <v-navigation-drawer v-model="showcomment" absolute temporary right color="black" width="500">
-        <template>
-          <div v-for="(value, index) in comment" :key="index">
-            <div align="right" v-if="board.writer ===  value.writer">
-              <v-chip>{{value.body}}</v-chip>
-              <v-btn
-                text
-                icon
-                color="indigo"
-                v-if="userName ===  value.writer"
-                @click="comment_delete(value.cnum)"
-              >
-                <v-icon>{{ icons.mdiDelete }}</v-icon>
-              </v-btn>
+            <v-btn
+              v-if="userName === value.writer"
+              text
+              icon
+              color="deep-orange"
+              @click="tooltipActive = value.cnum"
+            >
+              <v-icon dark @click="tooltipActive = value.cnum">mdi-pencil</v-icon>
+            </v-btn>
 
-              <v-btn
-                v-if="userName === value.writer"
-                text
-                icon
-                color="deep-orange"
-                @click="tooltipActive = value.cnum"
-              >
-                <v-icon dark @click="tooltipActive = value.cnum">mdi-pencil</v-icon>
-              </v-btn>
-
-              <input v-if="tooltipActive == value.cnum" v-model="comment_update_body" />
-              <v-btn v-if="tooltipActive == value.cnum" text icon color="green">
-                <v-icon dark @click="comment_update(value.cnum, value.bnum)">mdi-pencil</v-icon>
-              </v-btn>
-            </div>
-            <div align="left" v-if="board.writer !==  value.writer">
-              <v-chip>{{value.body}}</v-chip>
-              <v-btn
-                v-if="userName ===  value.writer || userName === board.writer"
-                @click="comment_delete(value.cnum)"
-                text
-                icon
-                color="pink"
-              >
-                <v-icon>{{ icons.mdiDelete }}</v-icon>
-              </v-btn>
-            </div>
+            <input v-if="tooltipActive == value.cnum" v-model="comment_update_body" />
+            <v-btn v-if="tooltipActive == value.cnum" text icon color="green">
+              <v-icon dark @click="comment_update(value.cnum, value.bnum)">mdi-pencil</v-icon>
+            </v-btn>
           </div>
-        </template>
-        <input v-model="comment_body" placeholder="댓글 내용작성" color="dark" />
-        <v-btn @click="comment_create()" text icon color="red">
+          <div align="left" v-if="board.writer !==  value.writer">
+            <v-chip>{{value.body}}</v-chip>
+            <v-btn
+              v-if="userName ===  value.writer || userName === board.writer"
+              @click="comment_delete(value.cnum)"
+              text
+              icon
+              color="pink"
+            >
+              <v-icon>{{ icons.mdiDelete }}</v-icon>
+            </v-btn>
+          </div>
+        </div>
+      </template>
+      <input v-model="comment_body" placeholder="댓글 내용작성" color="dark" />
+      <v-btn @click="comment_create()" text icon color="red">
+        <v-icon>fas fa-edit</v-icon>
+      </v-btn>
+    </v-navigation-drawer>
+
+    <ul>
+      <li>
+        <v-btn
+          v-if="userName === board.writer"
+          text
+          icon
+          color="red"
+          @click="deleteTest(board.num)"
+        >
+          <v-icon>{{ icons.mdiDelete }}</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="userName === board.writer"
+          text
+          icon
+          color="blue"
+          @click="updateData(board.num)"
+        >
           <v-icon>fas fa-edit</v-icon>
         </v-btn>
-      </v-navigation-drawer>
-    </div>
-  </v-parallax>
+        <v-btn text icon color="green" @click="move()">
+          <v-icon>fas fa-list</v-icon>
+        </v-btn>
+        <v-btn text icon color="red" @click="showcomment = !showcomment">
+          <v-icon>fas fa-list</v-icon>
+        </v-btn>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -101,6 +144,7 @@ import { mdiAccount, mdiPencil, mdiShareVariant, mdiDelete } from "@mdi/js";
 import axios from "axios";
 import test from "../services/test";
 import store from "@/vuex/store.js";
+import UserNavBar from "../components/UserNavBar";
 export default {
   name: "Detail",
   mounted() {
@@ -108,9 +152,14 @@ export default {
     this.start();
     this.get_comment();
   },
+  components: {
+    UserNavBar
+  },
   props: ["contentId"],
   data() {
     return {
+      hover: false,
+      showChat: false,
       party_member: [this.$store.state.userName],
       board: [],
       userName: this.$store.state.userName,
