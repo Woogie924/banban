@@ -14,6 +14,7 @@ import SsignUp from './views/SsignUp'
 import MenuManagement from './components/MenuManagement'
 import store from '@/vuex/store.js'
 import index from './views/index'
+import StoreInfoPage from './views/StoreInfoPage'
 Vue.use(Router)
 
 const router = new Router({
@@ -101,6 +102,10 @@ const router = new Router({
 			path: '/',
 			name: 'index',
 			component: index
+		}, {
+			path: '/StoreInfoPage',
+			name: 'StoreInfoPage',
+			component: StoreInfoPage
 		}
 	]
 })

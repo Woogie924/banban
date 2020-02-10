@@ -16,36 +16,7 @@
             <OrderPossible></OrderPossible>
           </v-flex>
         </v-layout>
-      </v-container>d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      dd
-      d
-      <br />d
-      <br />
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />d
-      <br />
+      </v-container>
     </v-layout>
   </div>
 </template>

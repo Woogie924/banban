@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- 네비게이션 바(유저) -->
+    <!-- #009688 -->
     <v-app-bar absolute dense color="#009688">
       <v-app-bar-nav-icon dark @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
       <v-toolbar-title>

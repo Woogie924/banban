@@ -4,7 +4,7 @@
       <v-card-title class="display-1 font-weight-black">정산 예정 금액</v-card-title>
 
       <v-card-text>
-        <h1>{{store.point}} 원</h1>
+        <h1 class="counter">12345 원</h1>
       </v-card-text>
       <v-card-subtitle>
         현재 기준으로 등록하신 2개 가게의 합계 금액이며,
