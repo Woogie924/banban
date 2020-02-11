@@ -1,6 +1,7 @@
 {
   "name": "ssafy",
   "short_name": "ssafy",
+  "gcm_sender_id": "103953800507",
   "icons": [{
       "src": "\/android-icon-36x36.png",
       "sizes": "36x36",
