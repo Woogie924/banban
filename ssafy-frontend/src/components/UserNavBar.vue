@@ -127,7 +127,7 @@ export default {
         },
         {
           title: "고객 센터",
-          path: "/",
+          path: "/StoreInfoPage",
           icon: "folder_open",
           info: "이것은 고객센터입니다."
         }
