@@ -3,6 +3,7 @@
     <v-flex xs12 sm6 md4 lg3 xl2>
       <!-- 메뉴 이미지 -->
       <v-layout>
+        <!-- 사진 카드에 나타내는 로직 -->
         <v-card max-width="400">
           <v-img
             class="white--text align-end"
@@ -35,6 +36,7 @@
       <v-layout>
         <p>
           수량
+          <!-- minus 하면 숫자가 깎임. plus 하면 숫자가 추가됨 -->
           <v-btn class="mx-2" fab dark small color="primary" @click="minus()">
             <v-icon dark>mdi-minus</v-icon>
           </v-btn>

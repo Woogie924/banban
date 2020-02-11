@@ -127,7 +127,7 @@ export default {
           name: this.name,
           address: this.address,
           latitude: this.lat,
-          longtitude: this.lon,
+          longitude: this.lon,
           chk: this.chk,
           point: this.point,
           signup_date: this.signupDate,

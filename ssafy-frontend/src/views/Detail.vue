@@ -9,6 +9,7 @@
     </v-snackbar>
     <!-- Detail -->
     <br />
+
     <div :model="board">
       <v-layout my-5 fluid v-for="item in board " :key="item">
         <v-flex class="display-1">
@@ -25,34 +26,76 @@
       </v-card-text>
     </v-hover>
 
-    <v-navigation-drawer v-model="showChat" right app width="30vw" height="90vh">
+    <v-navigation-drawer
+      v-model="showChat"
+      right
+      app
+      width="30vw"
+      height="90vh"
+      style="padding-bottom: 64px;"
+    >
       <!-- 다른 유저일때 -->
-      <v-row fluid>
-        <v-col>
-          <v-avatar color="teal" size="48">
-            <span class="white--text headline">id</span>
-          </v-avatar>
-          <v-card elevation="1" class="ps-12">다른사람 채팅</v-card>
-        </v-col>
-        <v-col></v-col>
-      </v-row>
-      <!-- 나 일때 -->
-      <v-row fluid>
-        <v-col></v-col>
-        <v-col>
-          <v-card class="pr-12">
-            <v-avatar color="teal" size="48">
-              <span class="white--text headline">id</span>
-            </v-avatar>
-            <v-card-text>내채팅</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+      <v-container id="scroll-target" style="max-height: 400px" class="overflow-y-auto">
+        <div v-scroll:#scroll-target="onScroll" style="height: 400px;">
+          <div v-for="(value, index) in comment" :key="index">
+            <div v-if="value.bnum == board.num">
+              <v-row fluid v-if="value.writer != userName">
+                <v-col>
+                  <v-avatar color="teal" size="48">
+                    <span class="white--text headline">{{value.writer}}</span>
+                  </v-avatar>
+                  <v-card elevation="1" class="ps-12">{{value.body}}</v-card>
+                  <v-btn
+                    v-if="userName === value.writer"
+                    text
+                    icon
+                    color="red"
+                    @click="comment_delete(value.cnum)"
+                  >
+                    <v-icon>{{ icons.mdiDelete }}</v-icon>
+                  </v-btn>
+                </v-col>
+                <v-col></v-col>
+              </v-row>
+              <!-- 나 일때 -->
+              <v-row fluid v-else>
+                <v-col></v-col>
+                <v-col>
+                  <v-card class="pr-12">
+                    <v-avatar color="teal" size="48">
+                      <span class="white--text headline">{{userName}}}</span>
+                    </v-avatar>
+                    <v-card-text>{{value.body}}</v-card-text>
+                    <v-btn
+                      v-if="userName === value.writer"
+                      text
+                      icon
+                      color="red"
+                      @click="comment_delete(value.cnum)"
+                    >
+                      <v-icon>{{ icons.mdiDelete }}</v-icon>
+                    </v-btn>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </div>
+          </div>
+        </div>
+      </v-container>
       <!-- 채팅 텍스트 박스 -->
-      <v-bottom-navigation absolute>
+      <v-bottom-navigation absolute mt-1>
         <v-toolbar fluid elevation="0">
-          <v-text-field label="Outlined" dense filled placeholder="캬캬캬" outlined color="teal"></v-text-field>
-          <v-btn text dark color="teal" rounded class>전송</v-btn>
+          <v-text-field
+            v-model="comment_body"
+            label="Outlined"
+            dense
+            filled
+            placeholder="캬캬캬"
+            outlined
+            color="teal"
+            @keyup.enter="comment_create()"
+          ></v-text-field>
+          <v-btn text dark color="teal" rounded class @click="comment_create()">전송</v-btn>
         </v-toolbar>
       </v-bottom-navigation>
     </v-navigation-drawer>
@@ -178,7 +221,8 @@ export default {
         mdiPencil,
         mdiShareVariant,
         mdiDelete
-      }
+      },
+      offsetTop: 0
     };
   },
   methods: {
@@ -290,6 +334,11 @@ export default {
     join_party(user) {
       this.party_member.push(user);
       this.party -= 1;
+    },
+
+    onScroll(e) {
+      console.log(e.target.scrollTop);
+      this.offsetTop = e.target.scrollBottom;
     }
   }
 };
