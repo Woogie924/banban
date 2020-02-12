@@ -101,12 +101,6 @@ export default {
       userInfo: null,
       menuItems: [
         {
-          title: "게시판",
-          path: "/read",
-          icon: "account_circle",
-          info: "게시판 가고싶으면 클릭!!"
-        },
-        {
           title: "내 정보",
           path: "/read",
           icon: "folder_open",

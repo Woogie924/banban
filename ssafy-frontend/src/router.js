@@ -16,6 +16,7 @@ import store from '@/vuex/store.js'
 import index from './views/index'
 import SelectedMenuPage from './views/SelectedMenuPage'
 import StoreInfoPage from './views/StoreInfoPage'
+import MyCartPage from './views/MyCartPage'
 Vue.use(Router)
 
 const router = new Router({
@@ -113,6 +114,14 @@ const router = new Router({
 			path: '/StoreInfoPage',
 			name: 'StoreInfoPage',
 			component: StoreInfoPage,
+			meta: {
+
+			}
+		},
+		{
+			path: '/MyCartPage',
+			name: 'MyCartPage',
+			component: MyCartPage,
 			meta: {
 
 			}

@@ -11,7 +11,22 @@
           <v-row fluid>
             <v-col cols="8" fluid>
               <v-container>
-                <v-card-title id="title" class="display-2">{{name}}</v-card-title>
+                <v-card-title id="title" class="display-2">
+                  {{name}}
+                  <v-card-text>
+                    <v-btn
+                      v-for="idx in tags.length >=2 ? tags.length-1 : 1"
+                      :key="idx"
+                      label
+                      :color="color[idx]"
+                      dark
+                      class="ma-2"
+                    >
+                      <v-icon dark left large>{{svgPath}}</v-icon>
+                      {{tags[idx-1]}}
+                    </v-btn>
+                  </v-card-text>
+                </v-card-title>
                 <v-card-title id="body" class="display-1">{{cost}}</v-card-title>
               </v-container>
             </v-col>
@@ -30,7 +45,7 @@
 
 <script>
 import router from "@/router.js";
-
+import { mdiMusicAccidentalSharp } from "@mdi/js";
 export default {
   name: "deliveryMenuInfo",
   props: {
@@ -44,7 +59,8 @@ export default {
     return {
       color: ["indigo", "orange", "primary", "green", "teal"],
       tags: [],
-      hover: false
+      hover: false,
+      svgPath: mdiMusicAccidentalSharp
     };
   },
   created() {
@@ -52,7 +68,7 @@ export default {
   },
   mounted() {
     // console.log("menuinfo mounted");
-    // this.splitTag();
+    this.splitTag();
   },
   updated() {
     // console.log("menuinfo updated");

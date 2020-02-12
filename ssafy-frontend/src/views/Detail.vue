@@ -19,11 +19,11 @@
     </div>
 
     <v-hover v-model="hover">
-      <v-card-text style="height:100px; position:relative">
+      <div style="height:50vh; position:relative">
         <v-btn absolute dark fab top right color="teal lighten-3" @click="showChat=!showChat">
           <v-icon>mdi-message-text</v-icon>
         </v-btn>
-      </v-card-text>
+      </div>
     </v-hover>
 
     <v-navigation-drawer
