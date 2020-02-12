@@ -1,49 +1,9 @@
-import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
-import 'firebase/messaging'
+import store from '@/vuex/store.js'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
-
-// Setup Firebase
-// Do change to your own firebase configuration
-var firebaseConfig = {
-	apiKey: "AIzaSyBDfQIXMxZdiJceuWb4kSAvQKi-xe7P1KM",
-	authDomain: "push-91a2a.firebaseapp.com",
-	databaseURL: "https://push-91a2a.firebaseio.com",
-	projectId: "push-91a2a",
-	storageBucket: "push-91a2a.appspot.com",
-	messagingSenderId: "1039314123355",
-	appId: "1:1039314123355:web:dd56826d06af953ec91d7e",
-	measurementId: "G-K9C3LJHZ9V"
-};
-firebase.initializeApp(firebaseConfig)
-
-const firestore = firebase.firestore()
-
-const messaging = firebase.messaging()
-
-messaging.usePublicVapidKey('BMX-Sqmz9DmeWaBzd0hp9Y9MskEj0_G3oHyOUlTl0wHIFOtGmEBTjnncO0Dudn5wDAEuasVbKT1MhhRIDObjnoA')
-
-// 알림 수신을 위한 사용자 권한 요청
-Notification.requestPermission()
-	.then((permission) => {
-		console.log('permission ', permission)
-		if (permission !== 'granted') {
-			alert('알림을 허용해주세요')
-		}
-	})
-
-// TODO: Send token to server for send notification
-messaging.getToken()
-	.then(console.log)
-
-// Handle received push notification at foreground
-messaging.onMessage(payload => {
-	console.log(payload)
-	alert(payload.data.message)
-})
 
 export default {
 	getPosts() {
