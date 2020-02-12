@@ -15,6 +15,7 @@ import MenuManagement from './components/MenuManagement'
 import store from '@/vuex/store.js'
 import index from './views/index'
 import SelectedMenuPage from './views/SelectedMenuPage'
+import StoreInfoPage from './views/StoreInfoPage'
 Vue.use(Router)
 
 const router = new Router({
@@ -106,11 +107,16 @@ const router = new Router({
 		{
 			path: '/SelectedMenuPage',
 			name: 'SelectedMenuPage',
-			component: SelectedMenuPage,
-			meta: {
-				// requireAuth: true,
-			}
+			component: SelectedMenuPage
 		},
+		{
+			path: '/StoreInfoPage',
+			name: 'StoreInfoPage',
+			component: StoreInfoPage,
+			meta: {
+
+			}
+		}
 	]
 })
 

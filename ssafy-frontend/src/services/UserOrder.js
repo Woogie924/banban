@@ -2,8 +2,8 @@ import axios from 'axios'
 import store from '@/vuex/store.js'
 export default {
 
-    getImage(storeId, callback, ereorCallback) {
-        // console.log("management  getMyImage start");
+    getStoreMenuList(storeId, callback, ereorCallback) {
+        console.log("UserOrder  getStoreMenuList start");
         axios.defaults.headers.common[
             "Authorization"
         ] = `Bearer ${store.state.token}`;
@@ -17,7 +17,7 @@ export default {
             })
             .catch(error => {
                 ereorCallback();
-                console.log("UserOrder  mounted getMyImage error");
+                console.log("UserOrder getStoreMenuList error");
             });
 
     }
