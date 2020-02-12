@@ -88,8 +88,15 @@ export default {
               clickable: true
             });
             marker.setMap(map);
-            var iwContent = store.state.res.data[i].name, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-              iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+            var iwContent =
+              '<div class="customoverlay">' +
+              "<a href=StoreInfoPage/" +
+              store.state.res.data[i].id +
+              ">" +
+              store.state.res.data[i].name +
+              "</a>" +
+              "</div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
             var infowindow = new kakao.maps.InfoWindow({
               content: iwContent,
               removable: iwRemoveable
@@ -129,7 +136,8 @@ export default {
         { index: "8", food: "야식" },
         { index: "9", food: "중국집" },
         { index: "10", food: "족발,보쌈" }
-      ]
+      ],
+      test: "fwef"
     };
   },
   methods: {
@@ -209,32 +217,66 @@ export default {
               // 마커를 생성합니다
               // 마커 이미지의 이미지 크기 입니다
               var imageSize = new kakao.maps.Size(40, 50);
-
               // 마커 이미지를 생성합니다
               var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
               var marker = new kakao.maps.Marker({
                 position: position, // 마커를 표시할 위치
-                title: store.state.res.data[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                // title: store.state.res.data[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                 image: markerImage,
                 clickable: true
               });
               marker.setMap(map);
-              var iwContent = store.state.res.data[i].name, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+              var iwContent = store.state.res.data[i].name;
+              // '<div class="customoverlay">' +
+              // "<a href=StoreInfoPage/" +
+              // store.state.res.data[i].id +
+              // ">" +
+              // store.state.res.data[i].name +
+              // "</a>" +
+              // "</div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+              var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
               var infowindow = new kakao.maps.InfoWindow({
                 content: iwContent,
                 removable: iwRemoveable,
                 clickable: true
               });
+
+              kakao.maps.event.addListener(
+                marker,
+                "mouseover",
+                makeOverListener(map, marker, infowindow)
+              );
+
+              kakao.maps.event.addListener(
+                marker,
+                "mouseout",
+                makeOutListener(infowindow)
+              );
+
               kakao.maps.event.addListener(
                 marker,
                 "click",
                 makeClickListener(map, marker, infowindow)
               );
+
               // 마커 위에 인포윈도우를 표시합니다
               function makeClickListener(map, marker, infowindow) {
                 return function() {
+                  //infowindow.open(map, marker);
+                  // alert(store.state.res.data[i].name);
+                };
+              }
+              // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+              function makeOverListener(map, marker, infowindow) {
+                return function() {
                   infowindow.open(map, marker);
+                };
+              }
+
+              // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+              function makeOutListener(infowindow) {
+                return function() {
+                  infowindow.close();
                 };
               }
             }
@@ -242,6 +284,9 @@ export default {
         }
       });
       this.menuIdx = idx;
+    },
+    ddd(id) {
+      alert(id);
     }
   }
 };

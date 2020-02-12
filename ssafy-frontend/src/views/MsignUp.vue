@@ -107,7 +107,7 @@ export default {
           point: this.point,
           signupDate: this.signupDate,
           latitude: this.lat,
-          longtitude: this.lon
+          longitude: this.lon
         })
         .then(() => {
           console.log(this.$store.state.user);
