@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- 네비게이션 바(유저) -->
-    <v-app-bar absolute dense color="#009688">
+    <!-- #009688 -->
+    <v-app-bar fixed dense color="teal lighten-1">
       <v-app-bar-nav-icon dark @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
       <v-toolbar-title>
         <v-label>
@@ -15,7 +16,7 @@
       </v-spacer>
       <v-spacer />
       <!-- 검색바 -->
-      <v-toolbar flat dense color="#009688" dark>
+      <v-toolbar flat dense color="teal lighten-1" dark>
         <v-text-field hide-details prepend-icon="search" single-line></v-text-field>
       </v-toolbar>
       <!-- 메뉴 -->

@@ -1,13 +1,12 @@
 <template>
-  <v-bottom-navigation fixed grow hide-on-scroll>
+  <v-bottom-navigation fixed hide-on-scroll height="6vh" width="50vw">
     <!-- <v-card v-for="item in items" :key="item.title" link>
       <template>
         <MenuManagement :flag="item.title" :icon="item.icon"></MenuManagement>
       </template>
     </v-card>-->
-    <v-btn>
-      <MenuManagement :flag="item.title" :icon="item.icon">dsdsd</MenuManagement>
-    </v-btn>
+
+    <MenuManagement :flag="item.title" :icon="item.icon"></MenuManagement>
   </v-bottom-navigation>
 </template>
 

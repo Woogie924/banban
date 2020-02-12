@@ -43,7 +43,9 @@
       <v-card-actions class="justify-center">
         <v-btn block text>상세 보기</v-btn>
       </v-card-actions>
-    </v-card>
+    </v-card>dasdasd
+    <br />asdasdas
+    <br />
   </div>
 </template>
 

@@ -3,8 +3,10 @@
     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <template v-slot:activator="{on}">
         <div v-on="on">
-          <span>{{flag}}</span>
-          <v-icon>{{icon}}</v-icon>
+          <v-btn>
+            {{flag}}
+            <v-icon>{{icon}}</v-icon>
+          </v-btn>
         </div>
       </template>
       <v-card>
