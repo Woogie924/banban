@@ -13,39 +13,30 @@
           여기는 게시글 페이지 입니다.
           <v-btn color="pink" @click="snackbar = false">close</v-btn>
         </v-snackbar>
-        <v-simple-table dense>
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <td>num</td>
-                <td>category</td>
-                <td>주소</td>
-                <td>제목</td>
-                <td>글내용</td>
-                <td>작성자</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(value, index) in board" @click="detail(value.num)" :key="index">
-                <td>{{value.num}}</td>
-                <td>{{value.category}}</td>
-                <td>{{value.address}}</td>
-                <td>{{value.title}}</td>
-                <td>{{value.body}}</td>
-                <td>{{value.writer}}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-        <v-btn text icon color="pink" @click="write">
-          <v-icon>fas fa-edit</v-icon>
-        </v-btn>
-        <v-btn small color="primary" @click="get_info">테스트</v-btn>
-        <v-btn color="success" class="mt-12" @click="overlay = !overlay">Show Overlay</v-btn>
-
-        <v-btn @click="move">메인페이지로 이동하기</v-btn>
       </v-container>
     </v-layout>
+    <v-card-title>
+      게시판
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search_find"
+        append-icon="search"
+        label="search_find"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table :headers="headers" :items="board" :search="search_find" class="elevation-1">
+      <template v-slot:top>
+        <v-toolbar flat color="white"></v-toolbar>
+      </template>
+    </v-data-table>
+
+    <v-btn text icon color="pink" @click="write">
+      <v-icon>fas fa-edit</v-icon>
+    </v-btn>
+
+    <v-btn @click="move">메인페이지로 이동하기</v-btn>
   </div>
 </template>
 
@@ -64,11 +55,28 @@ export default {
   data() {
     return {
       board: [],
-      snackbar: false
+      snackbar: false,
+      search_find: "",
+      headers: [
+        {
+          text: "category",
+          align: "left",
+          sortable: false,
+          value: "category"
+        },
+        { text: "등록일", value: "regDate" },
+        { text: "주소", value: "address" },
+        { text: "제목 ", value: "title" },
+
+        { text: "writer", value: "writer" }
+      ]
     };
   },
 
   methods: {
+    test() {
+      console.log(11);
+    },
     move() {
       this.$router.push({
         path: "UserMainpage"
@@ -83,6 +91,7 @@ export default {
       });
     },
     detail(index) {
+      console.log(index);
       this.$router.push({
         path: `Detail/${index}`
       });
