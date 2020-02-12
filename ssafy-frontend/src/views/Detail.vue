@@ -35,16 +35,36 @@
       style="padding-bottom: 64px;"
     >
       <!-- 다른 유저일때 -->
-      <v-container id="scroll-target" style="max-height: 400px" class="overflow-y-auto">
-        <div v-scroll:#scroll-target="onScroll" style="height: 400px;">
-          <div v-for="(value, index) in comment" :key="index">
-            <div v-if="value.bnum == board.num">
-              <v-row fluid v-if="value.writer != userName">
-                <v-col>
+      <div id="container" style="max-height:750px; overflow-y: auto;">
+        <div v-for="(value, index) in comment" :key="index">
+          <div v-if="value.bnum == board.num">
+            <v-row fluid v-if="value.writer != userName">
+              <v-col>
+                <v-avatar color="teal" size="48">
+                  <span class="white--text headline">{{value.writer}}</span>
+                </v-avatar>
+                <v-card elevation="1" class="ps-12">{{value.body}}</v-card>
+                <v-btn
+                  v-if="userName === value.writer"
+                  text
+                  icon
+                  color="red"
+                  @click="comment_delete(value.cnum)"
+                >
+                  <v-icon>{{ icons.mdiDelete }}</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col></v-col>
+            </v-row>
+            <!-- 나 일때 -->
+            <v-row fluid v-else>
+              <v-col></v-col>
+              <v-col>
+                <v-card class="pr-12">
                   <v-avatar color="teal" size="48">
-                    <span class="white--text headline">{{value.writer}}</span>
+                    <span class="white--text headline">{{userName}}}</span>
                   </v-avatar>
-                  <v-card elevation="1" class="ps-12">{{value.body}}</v-card>
+                  <v-card-text>{{value.body}}</v-card-text>
                   <v-btn
                     v-if="userName === value.writer"
                     text
@@ -54,100 +74,28 @@
                   >
                     <v-icon>{{ icons.mdiDelete }}</v-icon>
                   </v-btn>
-                </v-col>
-                <v-col></v-col>
-              </v-row>
-              <!-- 나 일때 -->
-              <v-row fluid v-else>
-                <v-col></v-col>
-                <v-col>
-                  <v-card class="pr-12">
-                    <v-avatar color="teal" size="48">
-                      <span class="white--text headline">{{userName}}}</span>
-                    </v-avatar>
-                    <v-card-text>{{value.body}}</v-card-text>
-                    <v-btn
-                      v-if="userName === value.writer"
-                      text
-                      icon
-                      color="red"
-                      @click="comment_delete(value.cnum)"
-                    >
-                      <v-icon>{{ icons.mdiDelete }}</v-icon>
-                    </v-btn>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </div>
+                </v-card>
+              </v-col>
+            </v-row>
           </div>
         </div>
-      </v-container>
-      <!-- 채팅 텍스트 박스 -->
-      <v-bottom-navigation absolute mt-1>
-        <v-toolbar fluid elevation="0">
-          <v-text-field
-            v-model="comment_body"
-            label="Outlined"
-            dense
-            filled
-            placeholder="캬캬캬"
-            outlined
-            color="teal"
-            @keyup.enter="comment_create()"
-          ></v-text-field>
-          <v-btn text dark color="teal" rounded class @click="comment_create()">전송</v-btn>
-        </v-toolbar>
-      </v-bottom-navigation>
-    </v-navigation-drawer>
-
-    <v-navigation-drawer v-model="showcomment" app clipped right color="blue" width="500">
-      <template>
-        <div v-for="(value, index) in comment" :key="index">
-          <div align="right" v-if="board.writer ===  value.writer">
-            <v-chip>{{value.body}}</v-chip>
-            <v-btn
-              text
-              icon
-              color="indigo"
-              v-if="userName ===  value.writer"
-              @click="comment_delete(value.cnum)"
-            >
-              <v-icon>{{ icons.mdiDelete }}</v-icon>
-            </v-btn>
-
-            <v-btn
-              v-if="userName === value.writer"
-              text
-              icon
-              color="deep-orange"
-              @click="tooltipActive = value.cnum"
-            >
-              <v-icon dark @click="tooltipActive = value.cnum">mdi-pencil</v-icon>
-            </v-btn>
-
-            <input v-if="tooltipActive == value.cnum" v-model="comment_update_body" />
-            <v-btn v-if="tooltipActive == value.cnum" text icon color="green">
-              <v-icon dark @click="comment_update(value.cnum, value.bnum)">mdi-pencil</v-icon>
-            </v-btn>
-          </div>
-          <div align="left" v-if="board.writer !==  value.writer">
-            <v-chip>{{value.body}}</v-chip>
-            <v-btn
-              v-if="userName ===  value.writer || userName === board.writer"
-              @click="comment_delete(value.cnum)"
-              text
-              icon
-              color="pink"
-            >
-              <v-icon>{{ icons.mdiDelete }}</v-icon>
-            </v-btn>
-          </div>
-        </div>
-      </template>
-      <input v-model="comment_body" placeholder="댓글 내용작성" color="dark" />
-      <v-btn @click="comment_create()" text icon color="red">
-        <v-icon>fas fa-edit</v-icon>
-      </v-btn>
+        <!-- 채팅 텍스트 박스 -->
+        <v-bottom-navigation absolute mt-1>
+          <v-toolbar fluid elevation="0">
+            <v-text-field
+              v-model="comment_body"
+              label="Outlined"
+              dense
+              filled
+              placeholder="캬캬캬"
+              outlined
+              color="teal"
+              @keyup.enter="test()"
+            ></v-text-field>
+            <v-btn text dark color="teal" rounded class @click="test()">전송</v-btn>
+          </v-toolbar>
+        </v-bottom-navigation>
+      </div>
     </v-navigation-drawer>
 
     <ul>
@@ -180,7 +128,7 @@
     </ul>
   </div>
 </template>
-
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
 import "@fortawesome/fontawesome-free/css/all.css";
 import { mdiAccount, mdiPencil, mdiShareVariant, mdiDelete } from "@mdi/js";
@@ -213,7 +161,7 @@ export default {
       comment_update_body: "",
       writer: "",
       tooltipActive: -1,
-      showcomment: false,
+
       title: null,
       len: "",
       icons: {
@@ -226,11 +174,11 @@ export default {
     };
   },
   methods: {
-    get_comment(func) {
+    async get_comment(func) {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${store.state.token}`;
-      axios({
+      await axios({
         method: "get",
         url: `http://192.168.100.92:8080/notice/comment/${this.contentId}`
       }).then(res => {
@@ -252,20 +200,9 @@ export default {
       }).then(res => {
         this.board = res.data;
         this.party_member = res.data.party;
-        this.get_members();
       });
     },
-    get_members() {
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${store.state.token}`;
-      axios({
-        method: "get",
-        url: `http://192.168.100.92:8080/notice/getmembers/${this.board.num}`
-      }).then(res => {
-        this.party_member = res.data;
-      });
-    },
+
     move() {
       this.$router.push({
         name: "Read"
@@ -285,11 +222,15 @@ export default {
         path: `../Create/${num}`
       });
     },
-    comment_create() {
+    async test() {
+      await this.comment_create();
+      this.scrollToEnd();
+    },
+    async comment_create() {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${store.state.token}`;
-      axios({
+      return await axios({
         method: "post",
         url: `http://192.168.100.92:8080/notice/comment`,
         data: {
@@ -300,8 +241,10 @@ export default {
           reg_date: null
         }
       })
-        .then(res => this.get_comment())
-        .then((this.comment_body = ""));
+        .then(async res => await this.get_comment())
+        .then(() => {
+          this.comment_body = "";
+        });
     },
     comment_delete(num) {
       axios.defaults.headers.common[
@@ -336,9 +279,12 @@ export default {
       this.party -= 1;
     },
 
-    onScroll(e) {
-      console.log(e.target.scrollTop);
-      this.offsetTop = e.target.scrollBottom;
+    addItem: function() {
+      this.items.push("Item #" + this.items.length);
+    },
+    scrollToEnd: function() {
+      var container = this.$el.querySelector("#container");
+      container.scrollTop = container.scrollHeight;
     }
   }
 };
