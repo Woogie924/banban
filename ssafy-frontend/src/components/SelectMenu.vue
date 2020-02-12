@@ -66,7 +66,7 @@
           </div>
         </v-expand-transition>
       </v-card>
-      <v-card class="my-5">
+      <v-card class="my-5 justify-center">
         <!-- 총가격 -->
         <v-list-item>
           <v-list-item-content>
@@ -77,7 +77,15 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-btn block large dark color="teal lighten-2" @click="addCart()">
+        <v-btn
+          fixed
+          bottom
+          large
+          dark
+          color="teal lighten-2"
+          @click="addCart()"
+          class="justify-center"
+        >
           <v-spacer />
           {{this.num}}개 담기
           <v-spacer />

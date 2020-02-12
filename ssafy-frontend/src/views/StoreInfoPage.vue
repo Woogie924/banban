@@ -3,11 +3,17 @@
     <v-layout class="my-5">
       <UserNavBar></UserNavBar>
     </v-layout>
-    <v-container class="my-5">sdasdasdsa</v-container>
+    <v-container fluid>
+      <v-layout class="my-5 justify-center">
+        <v-flex xs12 sm3 md3 lg3 class="pb-2">
+          <StoreInfo></StoreInfo>
+        </v-flex>
+      </v-layout>
+    </v-container>
     <!-- Store Info Component -->
-    <v-container class="my-5">
-      <v-layout wrap>
-        <v-flex v-for="(item,i) in list" :key="i">
+    <v-container fluid>
+      <v-layout wrap class="justify-center">
+        <v-flex v-for="(item,i) in list" :key="i" xs12 sm8 md8 lg8 class="ma-0 pa-0">
           <deliveryMenuInfo
             :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
             :name="item.name"
@@ -43,11 +49,14 @@ import deliveryMenuInfo from "../components/deliveryMenuInfo";
 import UserOrder from "../services/UserOrder";
 import { mdiCart } from "@mdi/js";
 import UserCartService from "../services/UserCartService";
+import StoreInfo from "../components/StoreInfo";
+
 export default {
   name: "StoreInfoPage",
   components: {
     UserNavBar,
-    deliveryMenuInfo
+    deliveryMenuInfo,
+    StoreInfo
   },
   data() {
     return {
