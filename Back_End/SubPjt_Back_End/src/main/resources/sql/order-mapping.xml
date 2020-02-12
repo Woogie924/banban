@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="OrderFood">
+	<insert id="insertOrder" parameterType="orderFood">
+		INSERT INTO orderFood(onum, menu, userid, storeid, price, address,peonum)
+		VALUES(#{onum},  #{menu}, #{userid}, #{storeid}, #{price}, #{address}, #{peonum})
+	</insert>
+	
+	<insert id="insertPayment" parameterType="payment">
+		INSERT INTO payment(pnum, peonum, request, price, orderer, paytype, storeid, onum) 
+		VALUES(#{pnum}, #{peonum}, #{request}, #{price}, #{orderer}, #{paytype}, #{storeid}, #{onum})
+	</insert>
+	
+	<delete id="deleteOrderFood" parameterType="int">
+		DELETE FROM orderFood WHERE onum = #{value}
+	</delete>
+	
+	<delete id="deletePayment" parameterType="int">
+		DELETE FROM payment WHERE pnum = #{value}
+	</delete>
+	
+	<select id="getOrderByOnum" parameterType="int" resultType="orderFood">
+		SELECT onum, menu, userid, storeid, price, address, peonum
+		FROM orderFood
+		WHERE onum = #{value}
+	</select>
+
+</mapper>

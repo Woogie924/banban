@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+
+	<select id="allUsers" resultType="user">	
+		SELECT id, pw,tel, name, email, address, point, signup_date signupDate, chk, longitude, latitude  FROM user
+	</select>
+	
+	<select id="loginCheck" parameterType="user" resultType="user">
+		SELECT id, pw, tel, name, email, address, point, signup_date signupDate, chk, longitude, latitude  
+		FROM user
+		WHERE id like #{id} and pw like #{pw}
+	</select>
+	
+	<select id="socialLogin" parameterType="user" resultType="user">
+	SELECT id, pw, tel, name, email, address, point, signup_date signDate, chk, longitude, latitude
+	FROM user
+	WHERE id like #{email}
+	</select>
+	
+	<select id="getUser" parameterType="string" resultType="user">
+		SELECT id, pw, tel, name, email, address, point, signup_date signupDate, chk, longitude, latitude  
+		FROM user
+		WHERE id like #{value}
+	</select>
+	
+	<insert id="addUser" parameterType="user">
+		INSERT INTO
+		user(id, pw, tel, name, email, address, point, chk, longitude, latitude)
+		Values(#{id}, #{pw}, #{tel}, #{name}, #{email}, #{address}, 0, 1, #{longitude}, #{latitude})
+	</insert>
+	
+	<insert id="insertUsercart" parameterType="usercart">
+		INSERT INTO
+		usercart(userid, storeid, menuname, price, quantity)
+		VALUES(#{userid}, #{storeid}, #{menuname}, #{price}, #{quantity})
+	</insert>
+	
+	<delete id="deleteUsercart" parameterType="int">
+		DELETE FROM usercart WHERE unum = #{value}
+	</delete>
+	
+	<select id="getUsercart" parameterType="string" resultType="usercart">
+		SELECT unum, userid, menuname, storeid, price, quantity
+		FROM usercart
+		WHERE userid = #{value}
+	</select>
+	
+</mapper>

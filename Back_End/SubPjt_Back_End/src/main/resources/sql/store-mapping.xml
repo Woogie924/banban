@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Store">
+
+	<insert id="addStore" parameterType="store">
+		INSERT INTO
+		store(id, pw,
+		tel, name, address, point, chk, longitude, latitude, category)
+		Values(#{id}, #{pw}, #{tel},
+		#{name}, #{address}, 0, 2, #{longitude}, #{latitude}, #{category})
+	</insert>
+
+	<select id="loginCheck" parameterType="store" resultType="store">
+		SELECT
+		id, pw, tel, name, address, point, chk, signup_date signupDate, longitude, latitude, category
+		FROM store
+		WHERE id like #{id} and pw like #{pw}
+	</select>
+
+	<select id="socialLogin" parameterType="string"
+		resultType="store">
+		SELECT id, pw, tel, name, address, point, chk, signup_date signupDate, longitude, latitude, category
+		FROM store
+		WHERE id = #{value}
+	</select>
+
+	<select id="countLikes" resultType="likes">
+		select storeid  from likes group by storeid ORDER BY
+		count(*) DESC LIMIT 10;
+	</select>
+
+	<select id="getMenu" parameterType="string" resultType="menu">
+		SELECT
+		m.id id, m.name name, m.cost cost, m.img img, m.tag tag, m.tip tip
+		FROM menu m LEFT JOIN store	s
+		ON s.id = m. id
+		WHERE m.id = #{value}
+	</select>
+
+	<select id="getStore" parameterType="string" resultType="store">
+		SELECT
+		id, pw, tel, address, name, point, signup_date signupDate, chk, longitude, latitude, category
+		FROM store
+		WHERE id = #{value}
+	</select>
+	
+	<select id="getAllLikes" parameterType="string" resultType="likes">
+		SELECT id, userid, storeid FROM likes WHERE userid = #{value}
+		
+	</select>
+	
+	<select id="getAllStores" resultType="store">
+		SELECT 
+		id, pw, tel, address, name, point, signup_date signupDate, chk, longitude, latitude, category
+		FROM store
+	</select>
+
+	
+	<insert id="insertMenu" parameterType="menu">
+		INSERT INTO menu(id, name, cost, img, tag, tip)
+		VALUES(#{id}, #{name}, #{cost}, #{img}, #{tag}, #{tip})
+	</insert>
+	
+	<!-- <insert id="insertBillingHistory" parameterType="orderFood">
+		INSERT INTO billingHistroy(id, price, onum, menuname, address, orderer )
+		VALUES(#{storeid}, #{price}, #{onum}, #{menuname}, #{address}, #{userid})
+	</insert> -->
+	
+	<insert id="upLikes" parameterType="likes">
+		INSERT INTO likes(userid, storeid) 
+		VALUES(#{userid}, #{storeid})
+	</insert>
+	
+	<delete id="downLikes" parameterType="likes">
+		DELETE FROM likes
+		WHERE userid = #{userid} and storeid = #{storeid}
+	</delete>
+	
+	 <select id="getRecentProfit" parameterType="string" resultType="billingHistory">
+		SELECT sum(price) price, id, payment_date paymentDate 
+		FROM billingHistory
+		WHERE id = #{value} and payment_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+        GROUP BY  date_format(payment_date,'%Y%m%d');
+	</select> 
+	
+	
+	<!-- <resultMap type="store" id="storeWithLikes">
+		<id column="id" property="id" />
+		<result column="pw" property="pw" />
+		<result column="category" property="category" />
+		<result column="tel" property="tel" />
+		<result column="name" property="name" />
+		<result column="address" property="address" />
+		<result column="latitude" property="latitude" />
+		<result column="longitude" property="longitude" />
+		<result column="point" property="point" />
+		<result column="signup_date" property="signup_date" />
+		<result column="chk" property="chk" />
+		<collection property="likes" resultMap="likes"/>
+	</resultMap>
+
+	<resultMap type="party" id="party">
+		<id column="id" property="id" />
+		<result column="userid" property="userid" />
+		<result column="storeid" property="storeid" />
+	</resultMap> -->
+	
+</mapper>
