@@ -7,16 +7,19 @@
     </v-card>-->
 
     <MenuManagement :flag="item.title" :icon="item.icon"></MenuManagement>
+    <StoreInfo></StoreInfo>
   </v-bottom-navigation>
 </template>
 
 
 <script>
 import MenuManagement from "../components/MenuManagement";
+import StoreInfo from "../components/StoreInfo";
 export default {
   name: "bottomeNav",
   components: {
-    MenuManagement
+    MenuManagement,
+    StoreInfo
   },
   props: {},
   data() {

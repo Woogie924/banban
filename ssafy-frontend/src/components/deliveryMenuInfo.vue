@@ -6,6 +6,7 @@
           :elevation="hover?16:1"
           width="80vw"
           style="cursor:pointer;"
+          background-color="transparent"
           @click="moveSelectedMenu()"
         >
           <v-row fluid>
