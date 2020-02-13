@@ -15,6 +15,7 @@ const store = new Vuex.Store({
     lat: null,
     lon: null,
     mToken: null,
+    order: 0,
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -66,9 +67,17 @@ const store = new Vuex.Store({
       state.checkInit = null
       state.lon = null
       state.lat = null
+      state.order = 0
     },
-    M_TOKEN_SAVE(mToken) {
+    M_TOKEN_SAVE(state, mToken) {
       state.mToken = mToken
+    },
+    ORDER_PLUS(state) {
+      state.order += 1
+      return state.order
+    },
+    CLEAR_ORDER(state) {
+      state.order = 0
     }
   },
   actions: {

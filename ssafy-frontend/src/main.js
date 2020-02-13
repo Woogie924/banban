@@ -51,6 +51,7 @@ messaging.requestPermission()
 messaging.onMessage(payload => {
 	console.log(payload.data.status)
 	alert(payload.data.status)
+	store.commit('ORDER_PLUS')
 })
 
 Vue.config.productionTip = false
