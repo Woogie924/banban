@@ -13,15 +13,15 @@ import VueCookies from 'vue-cookies'
 import firebase from 'firebase/app'
 import 'firebase/messaging'
 
-const firebaseConfig = {
+var firebaseConfig = {
 	apiKey: "AIzaSyBs1shcJNlZqmCO9_negDiPoXZ8Vlahip8",
 	authDomain: "sub-pjt-1-1ce19.firebaseapp.com",
 	databaseURL: "https://sub-pjt-1-1ce19.firebaseio.com",
 	projectId: "sub-pjt-1-1ce19",
 	storageBucket: "sub-pjt-1-1ce19.appspot.com",
 	messagingSenderId: "265895080563",
-	appId: "1:265895080563:web:d996de3b6e41c9a755f006",
-	measurementId: "G-99SVHW1MMX"
+	appId: "1:265895080563:web:fc6e4195a9d3f0d155f006",
+	measurementId: "G-890ZWRM6V7"
 };
 
 firebase.initializeApp(firebaseConfig)
