@@ -34,7 +34,13 @@
             <v-col cols="4">
               <v-layout style="max-width: 200px;
     margin: auto;">
-                <v-img :src="imageUrl" height="200px" aspect-ratio="3.0" />
+                <v-img
+                  :src="imageUrl"
+                  class="mr-4"
+                  max-width="200"
+                  min-width="200"
+                  aspect-ratio="1.0"
+                />
               </v-layout>
             </v-col>
           </v-row>
