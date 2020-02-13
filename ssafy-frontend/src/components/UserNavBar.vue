@@ -7,12 +7,15 @@
       <v-toolbar-title>
         <v-label>
           <router-link to="/UserMainPage" tag="span" style="cursor: pointer">
-            <v-img src="../assets/홈3.png" width="300" text aspect-ratio="7.0"></v-img>
+            <v-img src="../assets/배너.png" width="200" text aspect-ratio="5.0"></v-img>
           </router-link>
         </v-label>
       </v-toolbar-title>
       <v-spacer>
-        <span class="font-weight-bold">{{userInfo}}님 공간</span>
+        <v-icon dark>{{quoteopen}}</v-icon>
+
+        <span class="font-weight-bold white--text lighten-3">{{userInfo}}님 공간</span>
+        <v-icon dark>{{quoteclose}}</v-icon>
       </v-spacer>
       <v-spacer />
       <!-- 검색바 -->
@@ -103,11 +106,14 @@
 import axios from "axios";
 import store from "@/vuex/store.js";
 import router from "@/router.js";
+import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 export default {
   name: "UserNavBar",
   data() {
     return {
       appTitle: "ㅇㅇㅇ님 공간",
+      quoteclose: mdiFormatQuoteClose,
+      quoteopen: mdiFormatQuoteOpen,
       sidebar: false,
       userName: "userName",
       userInfo: this.$store.state.userName,

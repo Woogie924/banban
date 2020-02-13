@@ -16,7 +16,7 @@
                 readonly
                 class="my-0"
               ></v-rating>
-              <span class="grey--text text--lighten-1 caption">({{list.point}})</span>
+              <span class="grey--text text--lighten-1 caption">({{list.point.toFixed(1)}})</span>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
