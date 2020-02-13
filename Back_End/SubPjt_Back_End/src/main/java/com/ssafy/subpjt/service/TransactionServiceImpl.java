@@ -13,7 +13,10 @@ import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
 import com.ssafy.subpjt.vo.Party;
 import com.ssafy.subpjt.vo.PartyMember;
+import com.ssafy.subpjt.vo.Starpoint;
 import com.ssafy.subpjt.vo.Store;
+import com.ssafy.subpjt.vo.Storeinfo;
+import com.ssafy.subpjt.vo.Storestarpoint;
 
 
 @Service
@@ -119,5 +122,30 @@ public class TransactionServiceImpl implements TransactionService{
 		System.out.println(store);
 		return store;
 	}
+
+
+	@Transactional
+	@Override
+	public Storeinfo getStoreinfo(String storeid) throws Exception {
+		Storeinfo storeinfo = null;
+		Store store = null;
+		List<Starpoint> list = null;
+		List<Storestarpoint> slist = null;
+		double sum = 0;
+		store = storeDao.getStore(storeid);
+		storeinfo = storeDao.getStoreinfo(storeid);
+		list = storeDao.getAllStarpoint(storeid);
+		slist = storeDao.getAllStorestarpoint(storeid);
+		for(Starpoint point : list) {
+			sum += point.getStarpoint();
+		}
+		sum /= list.size();
+		storeinfo.setStorename(store.getName());
+		storeinfo.setStarpoint(list);
+		storeinfo.setStorestarpoint(slist);
+		storeinfo.setPoint(sum);
+		return storeinfo;
+	}
+
 
 }

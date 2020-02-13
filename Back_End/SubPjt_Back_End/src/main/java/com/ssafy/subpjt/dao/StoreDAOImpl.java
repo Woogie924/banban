@@ -9,7 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.ssafy.subpjt.vo.BillingHistory;
 import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
+import com.ssafy.subpjt.vo.Starpoint;
 import com.ssafy.subpjt.vo.Store;
+import com.ssafy.subpjt.vo.Storeinfo;
+import com.ssafy.subpjt.vo.Storestarpoint;
 
 @Repository
 public class StoreDAOImpl implements StoreDAO{
@@ -77,6 +80,61 @@ public class StoreDAOImpl implements StoreDAO{
 	@Override
 	public List<Likes> getAllLikes(String userid) throws Exception {
 		return sqlSession.selectList(ns+"getAllLikes", userid);
+	}
+
+	@Override
+	public int insertStoreinfo(Storeinfo storeinfo) throws Exception {
+		return sqlSession.insert(ns+"insertStoreinfo", storeinfo);
+	}
+
+	@Override
+	public int updateStoreinfo(Storeinfo storeinfo) throws Exception {
+		return sqlSession.update(ns+"updateStoreinfo", storeinfo);
+	}
+
+	@Override
+	public int insertStarpoint(Starpoint starpoint) throws Exception {
+		return sqlSession.insert(ns+"insertStarpoint",starpoint);
+	}
+
+	@Override
+	public int updateStarpoint(Starpoint starpoint) throws Exception {
+		return sqlSession.insert(ns+"updateStarpoint", starpoint);
+	}
+
+	@Override
+	public List<Starpoint> getAllStarpoint(String storeid) throws Exception {
+		return sqlSession.selectList(ns+"getAllStarpoint", storeid);
+	}
+
+	@Override
+	public Storeinfo getStoreinfo(String storeid) throws Exception {
+		return sqlSession.selectOne(ns + "getStoreinfo", storeid);
+	}
+
+	@Override
+	public List<Storestarpoint> getAllStorestarpoint(String storeid) throws Exception {
+		return sqlSession.selectList(ns+"getAllStorestarpoint", storeid);
+	}
+
+	@Override
+	public int insertStorestarpoint(Storestarpoint storestarpoint) throws Exception {
+		return sqlSession.insert(ns+"insertStorestarpoint", storestarpoint);
+	}
+
+	@Override
+	public int updateStorestarpoint(Storestarpoint storestarpoint) throws Exception {
+		return sqlSession.update(ns+"updateStorestarpoint", storestarpoint);
+	}
+
+	@Override
+	public int deleteStarpoint(Starpoint starpoint) throws Exception {
+		return sqlSession.delete(ns + "deleteStarpoint", starpoint);
+	}
+
+	@Override
+	public int deleteStorestarpoint(Storestarpoint storestarpoint) throws Exception {
+		return sqlSession.delete(ns+"deleteStorestarpoint", storestarpoint);
 	}
 
 }

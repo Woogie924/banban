@@ -5,14 +5,14 @@
 <mapper namespace="Board">
 
 	<select id="getAllBoards" resultMap="boardWithUser">
-		SELECT b.num, b.category, b.address, b.title, b.body, b.writer,  b.reg_date , u.id, u.latitude, u.longitude, u.address, u.signup_date, u.email, u.name  
+		SELECT b.num, b.category, b.title, b.body, b.writer,  b.reg_date , u.id, u.latitude, u.longitude, u.address, u.signup_date, u.email, u.name  
 		FROM board b JOIN user u ON b.writer = u.id
 		ORDER BY reg_date DESC
 	</select>
 
 	<select id="getBoardByNum" parameterType="int"
 		resultType="board">
-		SELECT num, category, address, title, body, writer,
+		SELECT num, category, title, body, writer,
 		reg_date regDate
 		FROM board
 		WHERE num = #{value}
@@ -20,7 +20,7 @@
 
 	<select id="getBoardById" parameterType="board"
 		resultType="board">
-		SELECT num, category, address, title, body, writer,
+		SELECT num, category, title, body, writer,
 		reg_date regDate
 		FROM board
 		WHERE writer = #{writer} and body = #{body}
@@ -37,8 +37,8 @@
 
 	<insert id="insertBoard" parameterType="board">
 		INSERT INTO
-		board(category, address, title, body, writer)
-		VALUES(#{category},#{address},#{title}, #{body}, #{writer})
+		board(category,  title, body, writer)
+		VALUES(#{category},#{title}, #{body}, #{writer})
 	</insert>
 
 	<delete id="deleteBoard" parameterType="int">
@@ -133,7 +133,6 @@
 	<resultMap type="board" id="boardWithUser">
 		<id column="num" property="num" />
 		<result column="category" property="category" />
-		<result column="address" property="address" />
 		<result column="title" property="title" />
 		<result column="body" property="body" />
 		<result column="writer" property="writer" />
