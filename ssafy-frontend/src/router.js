@@ -111,9 +111,10 @@ const router = new Router({
 			component: SelectedMenuPage
 		},
 		{
-			path: '/StoreInfoPage',
+			path: '/StoreInfoPage/:StoreId',
 			name: 'StoreInfoPage',
 			component: StoreInfoPage,
+			props: true,
 			meta: {
 
 			}

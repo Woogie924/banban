@@ -60,7 +60,6 @@ export default {
   },
   data() {
     return {
-      storeId: "asia924",
       list: [],
       icons: {
         mdiCart
@@ -71,6 +70,7 @@ export default {
   },
 
   mounted() {
+    console.log(this.$route.params.StoreId);
     this.getMenuList();
     this.getCartList();
     console.log("mounted ");
@@ -81,7 +81,7 @@ export default {
     async getMenuList() {
       // console.log("getMyImage start" + this.myId);
       await UserOrder.getStoreMenuList(
-        this.storeId,
+        this.$route.params.StoreId,
         response => {
           console.log("[USER ORDER API]deliveryInfo Start:");
           console.log(response);
