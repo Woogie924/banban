@@ -48,9 +48,7 @@
           <option>피자</option>
           <option>족발</option>
         </select>
-        <p>
-          <input v-model="address" placeholder="address" />
-        </p>
+        <p></p>
         <p>
           <input v-model="title" placeholder="title" />
         </p>
@@ -146,7 +144,6 @@ export default {
         url: `http://192.168.100.92:8080/notice/board/${this.party}`,
         data: {
           category: this.category,
-          address: this.address,
           title: this.title,
           body: this.body,
           writer: this.$store.state.userName

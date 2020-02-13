@@ -17,7 +17,34 @@
         </v-flex>
       </v-layout>
     </div>
-
+    <ul>
+      <li>
+        <v-btn
+          v-if="userName === board.writer"
+          text
+          icon
+          color="red"
+          @click="deleteTest(board.num)"
+        >
+          <v-icon>{{ icons.mdiDelete }}</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="userName === board.writer"
+          text
+          icon
+          color="blue"
+          @click="updateData(board.num)"
+        >
+          <v-icon>fas fa-edit</v-icon>
+        </v-btn>
+        <v-btn text icon color="green" @click="move()">
+          <v-icon>fas fa-list</v-icon>
+        </v-btn>
+        <v-btn text icon color="red" @click="showcomment = !showcomment">
+          <v-icon>fas fa-list</v-icon>
+        </v-btn>
+      </li>
+    </ul>
     <v-hover v-model="hover">
       <div style="height:50vh; position:relative">
         <v-btn absolute dark fab top right color="teal lighten-3" @click="showChat=!showChat">
@@ -32,10 +59,10 @@
       app
       width="30vw"
       height="90vh"
-      style="padding-bottom: 64px;"
+      style="padding-bottom: 64px"
     >
       <!-- 다른 유저일때 -->
-      <div id="container" style="max-height:750px; overflow-y: auto;">
+      <div id="container" style="max-height:750px; overflow-y: auto;overflow-x:hidden">
         <div v-for="(value, index) in comment" :key="index">
           <div v-if="value.bnum == board.num">
             <v-row fluid v-if="value.writer != userName">
@@ -97,35 +124,6 @@
         </v-bottom-navigation>
       </div>
     </v-navigation-drawer>
-
-    <ul>
-      <li>
-        <v-btn
-          v-if="userName === board.writer"
-          text
-          icon
-          color="red"
-          @click="deleteTest(board.num)"
-        >
-          <v-icon>{{ icons.mdiDelete }}</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="userName === board.writer"
-          text
-          icon
-          color="blue"
-          @click="updateData(board.num)"
-        >
-          <v-icon>fas fa-edit</v-icon>
-        </v-btn>
-        <v-btn text icon color="green" @click="move()">
-          <v-icon>fas fa-list</v-icon>
-        </v-btn>
-        <v-btn text icon color="red" @click="showcomment = !showcomment">
-          <v-icon>fas fa-list</v-icon>
-        </v-btn>
-      </li>
-    </ul>
   </div>
 </template>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
