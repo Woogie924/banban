@@ -3,20 +3,20 @@
     <v-layout my-5>
       <UserNavBar></UserNavBar>
     </v-layout>
-    <v-layout my-5>
-      <v-container>
-        <v-btn small text @click="get_info()">전체보기</v-btn>
-        <v-btn small text @click="search('치킨')">치킨</v-btn>
-        <v-btn small text @click="search('피자')">피자</v-btn>
-        <v-btn small text @click="search('족발')">족발</v-btn>
-        <v-snackbar v-model="snackbar">
-          여기는 게시글 페이지 입니다.
-          <v-btn color="pink" @click="snackbar = false">close</v-btn>
-        </v-snackbar>
-      </v-container>
-    </v-layout>
+
     <v-card-title>
-      게시판
+      <v-layout my-5>
+        <v-container>
+          <v-btn small text @click="get_info()">전체보기</v-btn>
+          <v-btn small text @click="search('치킨')">치킨</v-btn>
+          <v-btn small text @click="search('피자')">피자</v-btn>
+          <v-btn small text @click="search('족발')">족발</v-btn>
+          <v-snackbar v-model="snackbar">
+            여기는 게시글 페이지 입니다.
+            <v-btn color="pink" @click="snackbar = false">close</v-btn>
+          </v-snackbar>
+        </v-container>
+      </v-layout>
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search_find"
@@ -26,9 +26,13 @@
         hide-details
       ></v-text-field>
     </v-card-title>
+
     <v-data-table :headers="headers" :items="board" :search="search_find" class="elevation-1">
-      <template v-slot:top>
-        <v-toolbar flat color="white"></v-toolbar>
+      <template v-slot:item.distance="{ item }">
+        <p>{{Math.floor(item.distance + 1) }} km이내</p>
+      </template>
+      <template v-slot:item.action="{ item }">
+        <v-icon text icon color="pink" @click="detail(item.num)">fas fa-search</v-icon>
       </template>
     </v-data-table>
 
@@ -65,11 +69,13 @@ export default {
           value: "category"
         },
         { text: "등록일", value: "regDate" },
-        { text: "주소", value: "address" },
+        { text: "거리", value: "distance" },
         { text: "제목 ", value: "title" },
 
-        { text: "writer", value: "writer" }
-      ]
+        { text: "작성자", value: "writer" },
+        { text: "자세히 보기", value: "action", sortable: false }
+      ],
+      dialog: true
     };
   },
 
@@ -91,9 +97,8 @@ export default {
       });
     },
     detail(index) {
-      console.log(index);
       this.$router.push({
-        path: `Detail/${index}`
+        path: `/Detail/${index}`
       });
     },
     get_info() {
@@ -127,9 +132,6 @@ export default {
       alert("권한이 없습니다. 로그인해주세요");
       this.$router.push("/Mlogin");
     }
-    // beforeDestroy() {
-    //   this.get_info();
-    // }
   }
 };
 </script>
