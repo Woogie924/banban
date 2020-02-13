@@ -6,7 +6,7 @@
     <v-container fluid>
       <v-layout class="my-5 justify-center">
         <v-flex xs12 sm6 md6 lg3 class="pb-2">
-          <StoreInfo :storeId="storeId"></StoreInfo>
+          <StoreInfo :storeId="this.$route.params.StoreId"></StoreInfo>
         </v-flex>
       </v-layout>
     </v-container>
@@ -63,7 +63,7 @@
       <v-layout v-show="ReviewVisible" wrap class="justify-center">
         <!-- 리뷰 -->
         <v-flex xs12 sm7 md7 lg4>
-          <Review :storeId="storeId"></Review>
+          <Review :storeId="this.$route.params.StoreId"></Review>
         </v-flex>
       </v-layout>
     </v-container>

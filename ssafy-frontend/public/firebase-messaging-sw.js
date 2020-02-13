@@ -4,15 +4,15 @@
 importScripts('https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.8.1/firebase-messaging.js');
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBDfQIXMxZdiJceuWb4kSAvQKi-xe7P1KM",
-  authDomain: "push-91a2a.firebaseapp.com",
-  databaseURL: "https://push-91a2a.firebaseio.com",
-  projectId: "push-91a2a",
-  storageBucket: "push-91a2a.appspot.com",
-  messagingSenderId: "1039314123355",
-  appId: "1:1039314123355:web:dd56826d06af953ec91d7e",
-  measurementId: "G-K9C3LJHZ9V"
+const firebaseConfig = {
+  apiKey: "AIzaSyBs1shcJNlZqmCO9_negDiPoXZ8Vlahip8",
+  authDomain: "sub-pjt-1-1ce19.firebaseapp.com",
+  databaseURL: "https://sub-pjt-1-1ce19.firebaseio.com",
+  projectId: "sub-pjt-1-1ce19",
+  storageBucket: "sub-pjt-1-1ce19.appspot.com",
+  messagingSenderId: "265895080563",
+  appId: "1:265895080563:web:d996de3b6e41c9a755f006",
+  measurementId: "G-99SVHW1MMX"
 };
 firebase.initializeApp(firebaseConfig)
 
