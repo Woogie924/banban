@@ -27,8 +27,10 @@
 import axios from "axios";
 import Map from "../components/Map";
 import store from "@/vuex/store.js";
+import router from "../router";
 export default {
   mounted() {
+    var StoreId = "";
     const that = this;
     var mapContainer = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     var mapOptions = {
@@ -65,6 +67,7 @@ export default {
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
+        var storeId = [];
         for (var i = 0; i < store.state.res.data.length; i++) {
           if (store.state.res.data[i].category === that.MenuList[0].food) {
             console.log(store.state.res.data[i].latitude);
@@ -74,7 +77,7 @@ export default {
               "https://image.flaticon.com/icons/svg/1046/1046751.svg";
             // 마커 이미지의 이미지 크기 입니다
             var imageSize = new kakao.maps.Size(40, 50);
-
+            storeId[i] = store.state.res.data[i].id;
             // 마커 이미지를 생성합니다
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             var marker = new kakao.maps.Marker({
@@ -88,14 +91,7 @@ export default {
               clickable: true
             });
             marker.setMap(map);
-            var iwContent =
-              '<div class="customoverlay">' +
-              "<a href=StoreInfoPage/" +
-              store.state.res.data[i].id +
-              ">" +
-              store.state.res.data[i].name +
-              "</a>" +
-              "</div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+            var iwContent = store.state.res.data[i].name;
             var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
             var infowindow = new kakao.maps.InfoWindow({
               content: iwContent,
@@ -103,13 +99,42 @@ export default {
             });
             kakao.maps.event.addListener(
               marker,
-              "click",
-              makeClickListener(map, marker, infowindow)
+              "mouseover",
+              makeOverListener(map, marker, infowindow)
             );
-            // 마커 위에 인포윈도우를 표시합니다
-            function makeClickListener(map, marker, infowindow) {
+
+            kakao.maps.event.addListener(
+              marker,
+              "mouseout",
+              makeOutListener(infowindow)
+            );
+
+            kakao.maps.event.addListener(
+              marker,
+              "click",
+              makeClickListener(map, marker, i)
+            );
+
+            // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+            function makeOverListener(map, marker, infowindow) {
               return function() {
                 infowindow.open(map, marker);
+              };
+            }
+
+            // 인포윈도우를 닫는 클로저를 만드는 함수입니다
+            function makeOutListener(infowindow) {
+              return function() {
+                infowindow.close();
+              };
+            }
+
+            function makeClickListener(map, marker, i) {
+              return function() {
+                this.StoreId = storeId[i];
+                router.push({
+                  path: `StoreInfoPage/${this.StoreId}`
+                });
               };
             }
           }
@@ -137,7 +162,7 @@ export default {
         { index: "9", food: "중국집" },
         { index: "10", food: "족발,보쌈" }
       ],
-      test: "fwef"
+      StoreId: ""
     };
   },
   methods: {
@@ -166,20 +191,20 @@ export default {
             imageSize,
             imageOption
           );
-          // console.log(result[0].y + " " + result[0].x);
-          // 결과값으로 받은 위치를 마커로 표시합니다
           var marker = new kakao.maps.Marker({
             map: map,
             position: coords,
             image: markerImage
           });
           map.setCenter(coords);
+          var storeId = [];
           for (var i = 0; i < store.state.res.data.length; i++) {
             if (store.state.res.data[i].category === that.MenuList[idx].food) {
               var position = new kakao.maps.LatLng(
                 store.state.res.data[i].latitude,
                 store.state.res.data[i].longitude
               );
+              storeId[i] = store.state.res.data[i].id;
               console.log(store.state.res.data[i].latitude);
               console.log(store.state.res.data[i].longitude);
               if (that.MenuList[idx].food === "치킨") {
@@ -213,27 +238,15 @@ export default {
                 var imageSrc =
                   "https://image.flaticon.com/icons/svg/1702/1702817.svg";
               }
-
-              // 마커를 생성합니다
-              // 마커 이미지의 이미지 크기 입니다
               var imageSize = new kakao.maps.Size(40, 50);
-              // 마커 이미지를 생성합니다
               var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
               var marker = new kakao.maps.Marker({
                 position: position, // 마커를 표시할 위치
-                // title: store.state.res.data[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
                 image: markerImage,
                 clickable: true
               });
               marker.setMap(map);
               var iwContent = store.state.res.data[i].name;
-              // '<div class="customoverlay">' +
-              // "<a href=StoreInfoPage/" +
-              // store.state.res.data[i].id +
-              // ">" +
-              // store.state.res.data[i].name +
-              // "</a>" +
-              // "</div>"; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
               var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
               var infowindow = new kakao.maps.InfoWindow({
                 content: iwContent,
@@ -256,16 +269,9 @@ export default {
               kakao.maps.event.addListener(
                 marker,
                 "click",
-                makeClickListener(map, marker, infowindow)
+                makeClickListener(map, marker, i)
               );
 
-              // 마커 위에 인포윈도우를 표시합니다
-              function makeClickListener(map, marker, infowindow) {
-                return function() {
-                  //infowindow.open(map, marker);
-                  // alert(store.state.res.data[i].name);
-                };
-              }
               // 인포윈도우를 표시하는 클로저를 만드는 함수입니다
               function makeOverListener(map, marker, infowindow) {
                 return function() {
@@ -279,14 +285,20 @@ export default {
                   infowindow.close();
                 };
               }
+
+              function makeClickListener(map, marker, i) {
+                return function() {
+                  this.StoreId = storeId[i];
+                  router.push({
+                    path: `StoreInfoPage/${this.StoreId}`
+                  });
+                };
+              }
             }
           }
         }
       });
       this.menuIdx = idx;
-    },
-    ddd(id) {
-      alert(id);
     }
   }
 };
