@@ -15,7 +15,7 @@ export default {
       axios
         .post("https://fcm.googleapis.com/fcm/send", {
           to:
-            "cEIxNriJbqn4iZXT-ApJ8Y:APA91bFMlIi3OOryi3sCbuH6Yk_KkSST0Ch8EazaUtqBFwULFzoKcRYmqex-nctXq08D6JD4l_8Tl6-TirO5t4gpOH87oW4f6LpOlWX3Xoecsqtq-CHXTR4WK8CAmKO1DZkr-CIoT1EE",
+            "fI8mLwwDd3__7j3rHgpwP9:APA91bG4W9Mem1W_VE3aXMt9AB9j6zhAaxPB9HNRZdlv0ObusJ_ruFLIkLUPgvCACtV6vJf_eg9qZ4JfYjDN-OoaShQQUMKcw6WSzX_aHOY0eQYniz6fM7qTrnR7sxZ6YnFH-UKol73V",
           data: {
             status: "주문 받아라!"
           }
