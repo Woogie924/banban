@@ -74,7 +74,8 @@ public class BoardRestController {
 							transactionService.distance(lat, lon, s.getUser().getLatitude(), s.getUser().getLongitude());
 					//System.out.println(distanceKiloMeter);
 					if(distanceKiloMeter <= 10) {
-						//System.out.println("거리안에 들어옴 : " + s.toString());
+						//System.out.println("거리안에 들어옴 : " + distanceKiloMeter);
+						s.setDistance(distanceKiloMeter);
 						ans.add(s);
 					}
 				}

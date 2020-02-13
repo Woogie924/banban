@@ -9,7 +9,10 @@ import com.ssafy.subpjt.dao.StoreDAO;
 import com.ssafy.subpjt.vo.BillingHistory;
 import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
+import com.ssafy.subpjt.vo.Starpoint;
 import com.ssafy.subpjt.vo.Store;
+import com.ssafy.subpjt.vo.Storeinfo;
+import com.ssafy.subpjt.vo.Storestarpoint;
 
 @Service
 public class StoreServiceImpl implements StoreService{
@@ -70,6 +73,46 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public int downLikes(Likes likes) throws Exception {
 		return storeDao.downLikes(likes);
+	}
+
+	@Override
+	public int insertStoreinfo(Storeinfo storeinfo) throws Exception {
+		return storeDao.insertStoreinfo(storeinfo);
+	}
+
+	@Override
+	public int updateStoreinfo(Storeinfo storeinfo) throws Exception {
+		return storeDao.updateStoreinfo(storeinfo);
+	}
+
+	@Override
+	public int insertStarpoint(Starpoint starpoint) throws Exception {
+		return storeDao.insertStarpoint(starpoint);
+	}
+
+	@Override
+	public int updateStarpoint(Starpoint starpoint) throws Exception {
+		return storeDao.updateStarpoint(starpoint);
+	}
+
+	@Override
+	public int insertStorestarpoint(Storestarpoint storestarpoint) throws Exception {
+		return storeDao.insertStorestarpoint(storestarpoint);
+	}
+
+	@Override
+	public int updateStorestarpoint(Storestarpoint storestarpoint) throws Exception {
+		return storeDao.updateStorestarpoint(storestarpoint);
+	}
+
+	@Override
+	public int deleteStarpoint(Starpoint starpoint) throws Exception {
+		return storeDao.deleteStarpoint(starpoint);
+	}
+
+	@Override
+	public int deleteStorestarpoint(Storestarpoint storestarpoint) throws Exception {
+		return storeDao.deleteStorestarpoint(storestarpoint);
 	}
 
 }

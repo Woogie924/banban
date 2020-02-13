@@ -14,16 +14,20 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.subpjt.service.JwtService;
 import com.ssafy.subpjt.service.StoreService;
+import com.ssafy.subpjt.service.TransactionService;
 import com.ssafy.subpjt.service.UserService;
 import com.ssafy.subpjt.vo.EmailAuthorization;
 import com.ssafy.subpjt.vo.Menu;
 import com.ssafy.subpjt.vo.Result;
+import com.ssafy.subpjt.vo.Starpoint;
+import com.ssafy.subpjt.vo.Storeinfo;
 import com.ssafy.subpjt.vo.User;
 import com.ssafy.subpjt.vo.Usercart;
 
@@ -45,6 +49,9 @@ public class UserRestController {
 	
 	@Autowired
 	private StoreService storeService;
+	
+	@Autowired
+	private TransactionService transactionService;
 
 
 	@GetMapping("/allusers")
@@ -232,26 +239,88 @@ public class UserRestController {
 		}
 	}
 	
-
-	@PostMapping("/push")
-	public ResponseEntity push(@RequestBody EmailAuthorization to, HttpServletResponse response) throws Exception{
-		User loginMember = null;
-		Result result = Result.successInstance();
+	@GetMapping("/storeinfo/{id}")
+	public ResponseEntity<Storeinfo> getStoreinfo(@PathVariable String id) throws Exception{
+		Storeinfo storeinfo = null;
+		User ans = null;
+		String memberId = null;
 		try {
-			System.out.println("푸쉬 Controller");
-			System.out.println(to.getTo());
-			JSONObject ans = new JSONObject();
-			JSONObject data = new JSONObject();
-			JSONArray arr = new JSONArray();
-			ans.put("to", to.getTo());
-			data.put("status", "주문받아라");
-			ans.put("data", data);
-			arr.add(ans);
-			response.setHeader("key", "AAAA8fvy-ls:APA91bGWO0UCXWPWot0DNUz0qBzNZdm1p8OVwscXSPm5EqZOse_tlMSuPAQw8D3ZEBkAq_a7Vd1BuzBHteUydouwhsWAKeycbxYjmnL9i_cXc9rEubsJqhksV3mX3fUqxWhG0SRDjsao");
-			System.out.println(result);
-			return new ResponseEntity(result, HttpStatus.OK);
+			System.out.println("storeinfo Controller");
+			memberId = jwtService.getMemberId();
+			ans = userService.getUser(memberId);
+			if(ans != null) {
+				storeinfo = transactionService.getStoreinfo(id);
+				System.out.println(storeinfo);
+				return new ResponseEntity<Storeinfo>(storeinfo,HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<Storeinfo>(HttpStatus.BAD_REQUEST);
+			}
 		}catch(Exception e) {
-			return new ResponseEntity( HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Storeinfo>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@PostMapping("/starpoint")
+	public ResponseEntity insertStarpoint(@RequestBody Starpoint starpoint) throws Exception{
+		User user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 별점 입력 Controller");
+			System.out.println(starpoint);
+			memberId = jwtService.getMemberId();
+			user = userService.getUser(memberId);
+			if(user != null) {
+				int ans = storeService.insertStarpoint(starpoint);
+				System.out.println("입력 : "+ ans);
+				return new ResponseEntity(true,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@PutMapping("/starpoint")
+	public ResponseEntity updateStarpoint(@RequestBody Starpoint starpoint) throws Exception{
+		User user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 별점 수정 Controller");
+			System.out.println(starpoint);
+			memberId = jwtService.getMemberId();
+			user = userService.getUser(memberId);
+			if(user != null) {
+				int ans = storeService.updateStarpoint(starpoint);
+				System.out.println("수정 : "+ ans);
+				return new ResponseEntity(true,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@DeleteMapping("/starpoint")
+	public ResponseEntity deleteStarpoint(@RequestBody Starpoint starpoint) throws Exception{
+		User user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 별점 삭제 Controller");
+			System.out.println(starpoint);
+			memberId = jwtService.getMemberId();
+			user = userService.getUser(memberId);
+			if(user != null) {
+				int ans = storeService.deleteStarpoint(starpoint);
+				System.out.println("삭제 : "+ ans);
+				return new ResponseEntity(true,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
 		}
 	}
 }

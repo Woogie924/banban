@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,10 @@ import com.ssafy.subpjt.vo.BillingHistory;
 import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
 import com.ssafy.subpjt.vo.Result;
+import com.ssafy.subpjt.vo.Starpoint;
 import com.ssafy.subpjt.vo.Store;
+import com.ssafy.subpjt.vo.Storeinfo;
+import com.ssafy.subpjt.vo.Storestarpoint;
 import com.ssafy.subpjt.vo.User;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -46,11 +50,11 @@ public class StoreRestController {
 
 	@Autowired
 	private JwtService jwtService;
-	
+
 	@Autowired
 	private TransactionService transactionService;
-	
-	
+
+
 
 	@PostMapping("/store")
 	public ResponseEntity addStore(@RequestBody Store store) throws Exception{
@@ -65,7 +69,7 @@ public class StoreRestController {
 		}
 	}
 
-	
+
 	@GetMapping("/likedstore")
 	public ResponseEntity<List<Store>> getAllLikedStore() throws Exception{
 		User user = null;
@@ -85,7 +89,7 @@ public class StoreRestController {
 			return new ResponseEntity<List<Store>>(HttpStatus.NO_CONTENT);
 		}
 	}
-	
+
 	@GetMapping("/store/{id}")
 	public ResponseEntity<Store> getStoreById(@PathVariable String id) throws Exception{
 		User user = null;
@@ -104,8 +108,8 @@ public class StoreRestController {
 			return new ResponseEntity<Store>(HttpStatus.NO_CONTENT);
 		}
 	}
-	
-	
+
+
 	@GetMapping("/store")
 	public ResponseEntity<Store> getStore() throws Exception{
 		Store store = null;
@@ -179,7 +183,7 @@ public class StoreRestController {
 		}
 	}
 
-	
+
 
 
 
@@ -204,7 +208,7 @@ public class StoreRestController {
 			return new ResponseEntity<List<Menu>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@GetMapping("/getprofit")
 	public ResponseEntity<List<BillingHistory>> getRecentProfit() throws Exception{
 		List<BillingHistory> list = null;
@@ -270,8 +274,8 @@ public class StoreRestController {
 			return new ResponseEntity<Result>( HttpStatus.NO_CONTENT);
 		}
 	}
-	
-	
+
+
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Authorization", value = "authorization header", required = true,
 				dataType = "string", paramType = "header", defaultValue = "bearer eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTgxMzAyNDIyNTY5LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTgxNDc1MjIyLCJtZW1iZXIiOnsiaWQiOiJoc3c5MjQiLCJwdyI6IjEyMyIsInRlbCI6IjAxMDUwMDg5OTYyIiwibmFtZSI6Iu2ZjeyEseyasSIsImVtYWlsIjoiYXNpYTkyNEBuYXZlci5jb20iLCJhZGRyZXNzIjoi6rK967aBIOq1rOuvuOyLnCDqsoDshLHroZwgOSAo7J247J2Y64-ZKSIsImxhdGl0dWRlIjozNi4xMTE0NjM1NTYyMzc4OSwibG9uZ3RpdHVkZSI6MTI4LjQyNDQ1OTMzOTcxNDA1LCJwb2ludCI6MCwic2lnbnVwRGF0ZSI6MTU4MDk1MzcxMDAwMCwiY2hrIjoxfX0.38HuqGeOMUlAAiF-4CO-xjMeWAbFZYF5O7b3RMhirIA")
@@ -299,8 +303,8 @@ public class StoreRestController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	
+
+
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "Authorization", value = "authorization header", required = true,
 				dataType = "string", paramType = "header", defaultValue = "bearer eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTgxMzAyNDIyNTY5LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTgxNDc1MjIyLCJtZW1iZXIiOnsiaWQiOiJoc3c5MjQiLCJwdyI6IjEyMyIsInRlbCI6IjAxMDUwMDg5OTYyIiwibmFtZSI6Iu2ZjeyEseyasSIsImVtYWlsIjoiYXNpYTkyNEBuYXZlci5jb20iLCJhZGRyZXNzIjoi6rK967aBIOq1rOuvuOyLnCDqsoDshLHroZwgOSAo7J247J2Y64-ZKSIsImxhdGl0dWRlIjozNi4xMTE0NjM1NTYyMzc4OSwibG9uZ3RpdHVkZSI6MTI4LjQyNDQ1OTMzOTcxNDA1LCJwb2ludCI6MCwic2lnbnVwRGF0ZSI6MTU4MDk1MzcxMDAwMCwiY2hrIjoxfX0.38HuqGeOMUlAAiF-4CO-xjMeWAbFZYF5O7b3RMhirIA")
@@ -326,6 +330,111 @@ public class StoreRestController {
 			}
 		}catch(Exception e) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@PostMapping("/storeinfo")
+	public ResponseEntity insertStoreinfo(@RequestBody Storeinfo storeinfo) throws Exception{
+		Store user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 정보 입력 Controller");
+			System.out.println(storeinfo);
+			memberId = jwtService.getMemberId();
+			user = storeService.getStore(memberId);
+			if(user != null) {
+				int ans = storeService.insertStoreinfo(storeinfo);
+				System.out.println("입력 : "+ ans);
+				return new ResponseEntity(true,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@PutMapping("/storeinfo")
+	public ResponseEntity updateStoreinfo(@RequestBody Storeinfo storeinfo) throws Exception{
+		Store user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 정보 수정 Controller");
+			System.out.println(storeinfo);
+			memberId = jwtService.getMemberId();
+			user = storeService.getStore(memberId);
+			if(user != null) {
+				int ans = storeService.updateStoreinfo(storeinfo);
+				System.out.println(ans);
+				return new ResponseEntity(true,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@PostMapping("/storestarpoint")
+	public ResponseEntity insertStarpoint(@RequestBody Storestarpoint storestarpoint) throws Exception{
+		Store user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 사장님 리뷰 입력 Controller");
+			System.out.println(storestarpoint);
+			memberId = jwtService.getMemberId();
+			user = storeService.getStore(memberId);
+			if(user != null) {
+				int ans = storeService.insertStorestarpoint(storestarpoint);
+				System.out.println("입력 : "+ ans);
+				return new ResponseEntity(true,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@PutMapping("/storestarpoint")
+	public ResponseEntity updateStorestarpoint(@RequestBody Storestarpoint storestarpoint) throws Exception{
+		Store user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 사장님 수정 Controller");
+			System.out.println(storestarpoint);
+			memberId = jwtService.getMemberId();
+			user = storeService.getStore(memberId);
+			if(user != null) {
+				int ans = storeService.deleteStorestarpoint(storestarpoint);
+				System.out.println("삭제 : "+ ans);
+				return new ResponseEntity(true,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@DeleteMapping("/storestarpoint")
+	public ResponseEntity deleteStorestarpoint(@RequestBody Storestarpoint storestarpoint) throws Exception{
+		Store user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 사장님 삭제 Controller");
+			System.out.println(storestarpoint);
+			memberId = jwtService.getMemberId();
+			user = storeService.getStore(memberId);
+			if(user != null) {
+				int ans = storeService.updateStorestarpoint(storestarpoint);
+				System.out.println("수정 : "+ ans);
+				return new ResponseEntity(true,HttpStatus.OK);
+			}else {
+				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
 		}
 	}
 }

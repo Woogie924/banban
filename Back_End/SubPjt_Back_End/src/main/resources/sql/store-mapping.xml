@@ -4,13 +4,6 @@
 
 <mapper namespace="Store">
 
-	<insert id="addStore" parameterType="store">
-		INSERT INTO
-		store(id, pw,
-		tel, name, address, point, chk, longitude, latitude, category)
-		Values(#{id}, #{pw}, #{tel},
-		#{name}, #{address}, 0, 2, #{longitude}, #{latitude}, #{category})
-	</insert>
 
 	<select id="loginCheck" parameterType="store" resultType="store">
 		SELECT
@@ -46,9 +39,27 @@
 		WHERE id = #{value}
 	</select>
 	
+	<select id="getStoreinfo" parameterType="string" resultType="storeinfo">
+		SELECT snum, storeid, minprice, deliverytip, deliverytime
+		FROM storeinfo
+		WHERE storeid = #{value}
+	</select>
+	
 	<select id="getAllLikes" parameterType="string" resultType="likes">
 		SELECT id, userid, storeid FROM likes WHERE userid = #{value}
 		
+	</select>
+	
+	<select id="getAllStarpoint" parameterType="string" resultType="starpoint"> 
+		SELECT starnum, userid, storeid, starpoint, menu, body, reg_date regDate 
+		FROM starpoint 
+		WHERE storeid = #{value}
+	</select>
+	
+	<select id="getAllStorestarpoint" parameterType="string" resultType="storestarpoint"> 
+		SELECT starnum, storenum, storeid, body, reg_date regDate 
+		FROM storestarpoint 
+		WHERE storeid = #{value}
 	</select>
 	
 	<select id="getAllStores" resultType="store">
@@ -57,26 +68,74 @@
 		FROM store
 	</select>
 
+	<insert id="addStore" parameterType="store">
+		INSERT INTO
+		store(id, pw,
+		tel, name, address, point, chk, longitude, latitude, category)
+		Values(#{id}, #{pw}, #{tel},
+		#{name}, #{address}, 0, 2, #{longitude}, #{latitude}, #{category})
+	</insert>
 	
 	<insert id="insertMenu" parameterType="menu">
 		INSERT INTO menu(id, name, cost, img, tag, tip)
 		VALUES(#{id}, #{name}, #{cost}, #{img}, #{tag}, #{tip})
 	</insert>
 	
-	<!-- <insert id="insertBillingHistory" parameterType="orderFood">
-		INSERT INTO billingHistroy(id, price, onum, menuname, address, orderer )
-		VALUES(#{storeid}, #{price}, #{onum}, #{menuname}, #{address}, #{userid})
-	</insert> -->
-	
 	<insert id="upLikes" parameterType="likes">
 		INSERT INTO likes(userid, storeid) 
 		VALUES(#{userid}, #{storeid})
 	</insert>
 	
+	<insert id="insertStoreinfo" parameterType="storeinfo">
+		INSERT INTO storeinfo(storeid, minprice, deliverytip, deliverytime)
+		VALUES(#{storeid}, #{minprice}, #{deliverytip}, #{deliverytime})
+	</insert>
+	
+	<insert id="insertStarpoint" parameterType="starpoint">
+		INSERT INTO starpoint(userid, storeid, starpoint, body, menu)
+		VALUES(#{userid}, #{storeid}, #{starpoint}, #{body}, #{menu})
+	</insert>
+	
+	<insert id="insertStorestarpoint" parameterType="storestarpoint">
+		INSERT INTO storestarpoint(starnum, storeid, body)
+		VALUES(#{starnum}, #{storeid}, #{body})
+	</insert>
+	
+	<update id="updateStoreinfo" parameterType="storeinfo">
+		UPDATE storeinfo SET minprice = #{minprice}, deliverytip = #{deliverytip}, deliverytime = #{deliverytime} 
+		WHERE snum = #{snum}
+	</update>
+	
+	<update id="updateStarpoint" parameterType="starpoint">
+		UPDATE starpoint SET starpoint = #{starpoint}, body = #{body}
+		WHERE userid = #{userid} and storeid = #{storeid}
+	</update>
+	
+	<update id="updateStorestarpoint" parameterType="storestarpoint" >
+		UPDATE storestarpoint SET body = #{body}
+		WHERE storeid = #{storeid} and storenum = #{storenum}
+	</update>
+	
+	<!-- <insert id="insertBillingHistory" parameterType="orderFood">
+		INSERT INTO billingHistroy(id, price, onum, menuname, address, orderer )
+		VALUES(#{storeid}, #{price}, #{onum}, #{menuname}, #{address}, #{userid})
+	</insert> -->
+	
+	<delete id="deleteStarpoint" parameterType="int">
+		DELETE FROM starpoint
+		WHERE starnum = #{value}
+	</delete>
+	
+	<delete id="deleteStorestarpoint" parameterType="int">
+		DELETE FROM storestarpoint
+		WHERE storenum = #{value}
+	</delete>
+	
 	<delete id="downLikes" parameterType="likes">
 		DELETE FROM likes
 		WHERE userid = #{userid} and storeid = #{storeid}
 	</delete>
+	
 	
 	 <select id="getRecentProfit" parameterType="string" resultType="billingHistory">
 		SELECT sum(price) price, id, payment_date paymentDate 
@@ -85,6 +144,11 @@
         GROUP BY  date_format(payment_date,'%Y%m%d');
 	</select> 
 	
+	<select id="getStoreInfo" parameterType="string" resultType="storeinfo">
+		SELECT snum, storeid, minprice, deliverytip, deliverytime
+		FROM storeinfo
+		WHERE storeid = #{value}
+	</select>
 	
 	<!-- <resultMap type="store" id="storeWithLikes">
 		<id column="id" property="id" />
