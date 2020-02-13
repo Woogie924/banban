@@ -5,15 +5,51 @@
     </v-layout>
     <v-container fluid>
       <v-layout class="my-5 justify-center">
-        <v-flex xs12 sm3 md3 lg3 class="pb-2">
-          <StoreInfo></StoreInfo>
+        <v-flex xs12 sm6 md6 lg3 class="pb-2">
+          <StoreInfo :storeId="storeId"></StoreInfo>
         </v-flex>
+      </v-layout>
+    </v-container>
+    <v-container fluid>
+      <v-layout class="justify-center">
+        <v-btn
+          v-if="MenuVisible"
+          outlined
+          large
+          text
+          @click="MenuBtnClick()"
+          class="font-weight-black"
+        >메뉴</v-btn>
+        <v-btn
+          v-else
+          outlined
+          large
+          text
+          @click="MenuBtnClick()"
+          class="font-weight-bold grey--text"
+        >메뉴</v-btn>
+        <v-btn
+          v-if="ReviewVisible"
+          outlined
+          large
+          text
+          @click="ReviewBtnClick()"
+          class="font-weight-black"
+        >리뷰</v-btn>
+        <v-btn
+          v-else
+          outlined
+          large
+          text
+          @click="ReviewBtnClick()"
+          class="font-weight-bold grey--text"
+        >리뷰</v-btn>
       </v-layout>
     </v-container>
     <!-- Store Info Component -->
     <v-container fluid>
-      <v-layout wrap class="justify-center">
-        <v-flex v-for="(item,i) in list" :key="i" xs12 sm8 md8 lg8 class="ma-0 pa-0">
+      <v-layout v-show="MenuVisible" wrap class="justify-center">
+        <v-flex v-for="(item,i) in list" :key="i" xs12 sm12 md12 lg8 class="ma-0 pa-0">
           <deliveryMenuInfo
             :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
             :name="item.name"
@@ -21,6 +57,13 @@
             :tip="item.tip"
             :tag="item.tag"
           ></deliveryMenuInfo>
+        </v-flex>
+      </v-layout>
+
+      <v-layout v-show="ReviewVisible" wrap class="justify-center">
+        <!-- 리뷰 -->
+        <v-flex xs12 sm7 md7 lg4>
+          <Review :storeId="storeId"></Review>
         </v-flex>
       </v-layout>
     </v-container>
@@ -50,13 +93,15 @@ import UserOrder from "../services/UserOrder";
 import { mdiCart } from "@mdi/js";
 import UserCartService from "../services/UserCartService";
 import StoreInfo from "../components/StoreInfo";
+import Review from "../components/Review";
 
 export default {
   name: "StoreInfoPage",
   components: {
     UserNavBar,
     deliveryMenuInfo,
-    StoreInfo
+    StoreInfo,
+    Review
   },
   data() {
     return {
@@ -66,7 +111,9 @@ export default {
         mdiCart
       },
       alertCount: 5,
-      hover: false
+      hover: false,
+      MenuVisible: true,
+      ReviewVisible: false
     };
   },
 
@@ -78,6 +125,14 @@ export default {
   },
 
   methods: {
+    MenuBtnClick() {
+      this.MenuVisible = true;
+      this.ReviewVisible = false;
+    },
+    ReviewBtnClick() {
+      this.MenuVisible = false;
+      this.ReviewVisible = true;
+    },
     async getMenuList() {
       // console.log("getMyImage start" + this.myId);
       await UserOrder.getStoreMenuList(
