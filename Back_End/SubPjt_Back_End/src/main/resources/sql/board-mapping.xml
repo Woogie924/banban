@@ -76,15 +76,15 @@
 
 	<select id="getPartyByBnum" parameterType="int"
 		resultType="party">
-		SELECT bnum, pnum, max
+		SELECT bnum, pnum, max, nowmember
 		FROM party
 		WHERE bnum = #{value}
 	</select>
 
 	<insert id="insertParty" parameterType="party">
 		INSERT INTO party(bnum,
-		max)
-		VALUES(#{bnum}, #{max})
+		max, nowmember)
+		VALUES(#{bnum}, #{max}, #{nowmember})
 	</insert>
 
 	<insert id="insertPartyMember" parameterType="partyMember">
@@ -95,7 +95,7 @@
 	<update id="updateParty" parameterType="party">
 		UPDATE party
 		SET max =
-		#{max}
+		#{max}, nowmember = #{nowmember}
 		WHERE bnum = #{bnum}
 	</update>
 

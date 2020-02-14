@@ -49,12 +49,6 @@ public class BoardRestController {
 	@Autowired
 	private TransactionService transactionService;
 
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "Authorization", value = "authorization header", required = true,
-				dataType = "string", paramType = "header", defaultValue = "bearer eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTgxMjk4Nzc0ODQxLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTgxNDcxNTc0LCJtZW1iZXIiOnsiaWQiOiJoc3c5MjQiLCJwdyI6IjEyMyIsInRlbCI6IjAxMDUwMDg5OTYyIiwibmFtZSI6Iu2ZjeyEseyasSIsImVtYWlsIjoiYXNpYTkyNEBuYXZlci5jb20iLCJhZGRyZXNzIjoi6rK967aBIOq1rOuvuOyLnCDqsoDshLHroZwgOSAo7J247J2Y64-ZKSIsImxhdGl0dWRlIjozNi4xMTE0NjM1NTYyMzc4OSwibG9uZ3RpdHVkZSI6MTI4LjQyNDQ1OTMzOTcxNDA1LCJwb2ludCI6MCwic2lnbnVwRGF0ZSI6MTU4MDk1MzcxMDAwMCwiY2hrIjoxfX0.aYdsuBQZqcV0snOJEz-DQA4FtFfpehA4KjQe18Ufu_E")
-	})
-	@ApiParam
-	@ApiOperation(value = "게시글 get", httpMethod = "GET", notes = "게시글 가져오는 부분.")
 	@GetMapping("/allboards/{lon}/{lat}")
 	public ResponseEntity<List<Board>> getAllBoards(@PathVariable double lat, @PathVariable double lon) throws Exception{
 		List<Board> list = null;
@@ -99,7 +93,7 @@ public class BoardRestController {
 			memberId = jwtService.getMemberId();
 			user = userService.getUser(memberId);
 			if(user != null) {
-				board = boardService.getBoardByNum(num);
+				board = transactionService.getBoardByNum(num);
 				System.out.println(board);				
 				return new ResponseEntity<Board>(board, HttpStatus.OK);
 			}else {
@@ -136,6 +130,7 @@ public class BoardRestController {
 		User user = null;
 		try {
 			System.out.println("게시글 등록 Controller");
+			System.out.println(max);
 			memberId = jwtService.getMemberId();
 			user = userService.getUser(memberId);
 			if(user != null) {
@@ -296,12 +291,7 @@ public class BoardRestController {
 		}
 	}
 
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "Authorization", value = "authorization header", required = true,
-				dataType = "string", paramType = "header", defaultValue = "bearer eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTgxMzgwMTI5MDQyLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTgxNTUyOTI5LCJtZW1iZXIiOnsiaWQiOiJ0ZXN0OTQiLCJwdyI6IjEyMzEyMyIsInRlbCI6IjMyMTMxMjMxMiIsIm5hbWUiOiIzMTIzMTIzMTIiLCJlbWFpbCI6IjMxMjMxMjEyMyIsImFkZHJlc3MiOiLqsr3quLAg7ZmU7ISx7IucIOyasOygleydjSAzLjHrp4zshLjroZwgMSIsImxhdGl0dWRlIjozNy4wODExNDEzODA3MzE5NSwibG9uZ2l0dWRlIjoxMjYuODE0NDc0MjU3OTQ0ODIsInBvaW50IjowLCJzaWdudXBEYXRlIjoxNTgwOTUzNzc3MDAwLCJjaGsiOjF9fQ.csmMYpwggUGuOOCeKgNMfpR4YYMobNyrKb5cbdZlpYg")
-	})
-	@ApiParam
-	@ApiOperation(value = "멤버 insert", httpMethod = "POST", notes = "멤버 insert")
+	
 	@PostMapping("/members/{bnum}/{id}")
 	public ResponseEntity insertPartMembers(@PathVariable int bnum, @PathVariable String id) throws Exception{
 		String memberId = null;
@@ -328,19 +318,13 @@ public class BoardRestController {
 		}
 	}
 	
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "Authorization", value = "authorization header", required = true,
-				dataType = "string", paramType = "header", defaultValue = "bearer eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTgxMzgwMTI5MDQyLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTgxNTUyOTI5LCJtZW1iZXIiOnsiaWQiOiJ0ZXN0OTQiLCJwdyI6IjEyMzEyMyIsInRlbCI6IjMyMTMxMjMxMiIsIm5hbWUiOiIzMTIzMTIzMTIiLCJlbWFpbCI6IjMxMjMxMjEyMyIsImFkZHJlc3MiOiLqsr3quLAg7ZmU7ISx7IucIOyasOygleydjSAzLjHrp4zshLjroZwgMSIsImxhdGl0dWRlIjozNy4wODExNDEzODA3MzE5NSwibG9uZ2l0dWRlIjoxMjYuODE0NDc0MjU3OTQ0ODIsInBvaW50IjowLCJzaWdudXBEYXRlIjoxNTgwOTUzNzc3MDAwLCJjaGsiOjF9fQ.csmMYpwggUGuOOCeKgNMfpR4YYMobNyrKb5cbdZlpYg")
-	})
-	@ApiParam
-	@ApiOperation(value = "멤버 delete", httpMethod = "DELETE", notes = "멤버 delete")
 	@DeleteMapping("/members/{bnum}/{id}")
 	public ResponseEntity deletePartMembers(@PathVariable int bnum, @PathVariable String id) throws Exception{
 		String memberId = null;
 		User user = null;
 		List<PartyMember> list = null;
 		try {
-			System.out.println("파티 멤버 추가 Controller");
+			System.out.println("파티 멤버 삭제 Controller");
 			memberId = jwtService.getMemberId();
 			user = userService.getUser(memberId);
 			if(user != null) {

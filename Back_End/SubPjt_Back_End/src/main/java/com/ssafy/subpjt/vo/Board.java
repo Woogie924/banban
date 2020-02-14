@@ -1,5 +1,6 @@
 package com.ssafy.subpjt.vo;
 
+import java.util.List;
 
 public class Board {
 	private int num;
@@ -10,9 +11,38 @@ public class Board {
 	private String regDate;
 	private int party;
 	
+	private int nowmember;
+	private int remain;
+	private List<PartyMember> partymember;
 	private User user;
 	private double distance;
 	
+	
+	
+	public int getRemain() {
+		return remain;
+	}
+
+	public void setRemain(int remain) {
+		this.remain = remain;
+	}
+
+	public int getNowmember() {
+		return nowmember;
+	}
+
+	public void setNowmember(int nowmember) {
+		this.nowmember = nowmember;
+	}
+
+	public List<PartyMember> getPartymember() {
+		return partymember;
+	}
+
+	public void setPartymember(List<PartyMember> partymember) {
+		this.partymember = partymember;
+	}
+
 	public double getDistance() {
 		return distance;
 	}
@@ -105,10 +135,12 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [num=" + num + ", category=" + category + ", title=" + title + ", body=" + body + ", writer="
-				+ writer + ", regDate=" + regDate + ", party=" + party + ", user=" + user + ", distance=" + distance
-				+ "]";
+				+ writer + ", regDate=" + regDate + ", party=" + party + ", nowmember=" + nowmember + ", remain="
+				+ remain + ", partymember=" + partymember + ", user=" + user + ", distance=" + distance + "]";
 	}
 
+
+	
 
 
 
