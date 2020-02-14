@@ -13,6 +13,8 @@ public interface TransactionService {
 	int updateBoard(Board board,int max) throws Exception;
 	int deletePartyMember(int bnum, String id) throws Exception;
 	List<Store> getAllLikedStore(String memberId) throws Exception;
+	List<Board> getAllBoards() throws Exception;
+	Board getBoardByNum(int bnum) throws Exception;
 	Storeinfo getStoreinfo(String storeid) throws Exception;
 	double distance(double lat1, double lon1, double lat2, double lon2);
 	Store getDetailStore(String id) throws Exception;

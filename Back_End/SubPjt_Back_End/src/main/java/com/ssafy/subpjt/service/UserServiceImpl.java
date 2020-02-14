@@ -56,4 +56,14 @@ public class UserServiceImpl implements UserService{
 		return userDao.deleteUsercart(unum);
 	}
 
+	@Override
+	public int updateUser(User user) throws Exception {
+		return userDao.updateUser(user);
+	}
+
+	@Override
+	public int deleteUser(User user) throws Exception {
+		return userDao.deleteUser(user);
+	}
+
 }

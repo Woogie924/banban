@@ -8,26 +8,33 @@ public class Storeinfo {
 	private int minprice;
 	private int deliverytip;
 	private String deliverytime;
+	private String storeintro;
 	
 	private List<Starpoint> starpoint;
 	private List<Storestarpoint> storestarpoint;
 	private double point;
-	private String storename;
+	private Store store;
 	
 	
 	
-	
+	public String getStoreintro() {
+		return storeintro;
+	}
+	public void setStoreintro(String storeintro) {
+		this.storeintro = storeintro;
+	}
 	public List<Storestarpoint> getStorestarpoint() {
 		return storestarpoint;
 	}
 	public void setStorestarpoint(List<Storestarpoint> storestarpoint) {
 		this.storestarpoint = storestarpoint;
 	}
-	public String getStorename() {
-		return storename;
+	
+	public Store getStore() {
+		return store;
 	}
-	public void setStorename(String storename) {
-		this.storename = storename;
+	public void setStore(Store store) {
+		this.store = store;
 	}
 	public List<Starpoint> getStarpoint() {
 		return starpoint;
@@ -41,13 +48,16 @@ public class Storeinfo {
 	public void setPoint(double point) {
 		this.point = point;
 	}
-	public Storeinfo(int snum, String storeid, int minprice, int deliverytip, String deliverytime) {
+	
+	
+	public Storeinfo(int snum, String storeid, int minprice, int deliverytip, String deliverytime, String storeintro) {
 		super();
 		this.snum = snum;
 		this.storeid = storeid;
 		this.minprice = minprice;
 		this.deliverytip = deliverytip;
 		this.deliverytime = deliverytime;
+		this.storeintro = storeintro;
 	}
 	public Storeinfo() {
 		super();
@@ -85,10 +95,10 @@ public class Storeinfo {
 	@Override
 	public String toString() {
 		return "Storeinfo [snum=" + snum + ", storeid=" + storeid + ", minprice=" + minprice + ", deliverytip="
-				+ deliverytip + ", deliverytime=" + deliverytime + ", starpoint=" + starpoint + ", storestarpoint="
-				+ storestarpoint + ", point=" + point + ", storename=" + storename + "]";
+				+ deliverytip + ", deliverytime=" + deliverytime + ", storeintro=" + storeintro + ", starpoint="
+				+ starpoint + ", storestarpoint=" + storestarpoint + ", point=" + point + ", store=" + store + "]";
 	}
-
+	
 	
 	
 }

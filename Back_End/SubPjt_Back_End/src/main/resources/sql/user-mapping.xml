@@ -32,6 +32,11 @@
 		Values(#{id}, #{pw}, #{tel}, #{name}, #{email}, #{address}, 0, 1, #{longitude}, #{latitude})
 	</insert>
 	
+	<update id="updateUser" parameterType="user" >
+		UPDATE user SET pw = #{pw}, email = #{email}, tel = #{tel}, address = #{address}, longitude = #{longitude}, latitude = #{latitude}
+		WHERE id = #{id} 
+	</update>
+	
 	<insert id="insertUsercart" parameterType="usercart">
 		INSERT INTO
 		usercart(userid, storeid, menuname, price, quantity)
@@ -40,6 +45,11 @@
 	
 	<delete id="deleteUsercart" parameterType="int">
 		DELETE FROM usercart WHERE unum = #{value}
+	</delete>
+	
+	<delete id="deleteUser" parameterType="user">
+		DELETE FROM user
+		WHERE pw = #{pw} and id = #{id}
 	</delete>
 	
 	<select id="getUsercart" parameterType="string" resultType="usercart">

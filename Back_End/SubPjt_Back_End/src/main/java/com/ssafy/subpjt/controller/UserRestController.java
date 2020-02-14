@@ -196,6 +196,42 @@ public class UserRestController {
 			return new ResponseEntity("회원가입 중 에러가 발생했습니다.",HttpStatus.NO_CONTENT);
 		}
 	}
+	
+	@PutMapping("/user")
+	public ResponseEntity updateUser(@RequestBody User user) throws Exception{
+		try {
+			System.out.println("회원 수정 Controller");
+			System.out.println(user);
+			int ans = userService.updateUser(user);
+			System.out.println("수정 성공 : " + ans);
+			if(ans == 1) {
+				return new ResponseEntity(HttpStatus.OK);				
+			}else {
+				return new ResponseEntity(HttpStatus.OK);	
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@DeleteMapping("/user/{id}/{pw}")
+	public ResponseEntity deleteUser(@PathVariable String id, @PathVariable String pw) throws Exception{
+		try {
+			System.out.println("회원 삭제 Controller");
+			User user = new User();
+			user.setId(id);
+			user.setPw(pw);
+			int ans = userService.deleteUser(user);
+			System.out.println("회원 탈퇴  : " + ans);
+			if(ans == 1) {
+				return new ResponseEntity(HttpStatus.OK);				
+			}else {
+				return new ResponseEntity(HttpStatus.BAD_REQUEST);	
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+	}
 
 	@GetMapping("/user")
 	public ResponseEntity<String> getUser() throws Exception{
@@ -214,6 +250,26 @@ public class UserRestController {
 			}
 		}catch(Exception e) {
 			return new ResponseEntity<String> (HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@GetMapping("/info")
+	public ResponseEntity<User> getUserInfo() throws Exception{
+		String memberId = null;
+		User user = null;
+		try {
+			System.out.println("user 정보");
+			memberId = jwtService.getMemberId();
+			user = userService.getUser(memberId);
+			//System.out.println(user);
+			if(user != null) {
+				System.out.println("현재 유저 : " + user);
+				return new ResponseEntity<User> (user,HttpStatus.OK);				
+			}else {
+				return new ResponseEntity<User> (HttpStatus.NO_CONTENT);		
+			}
+		}catch(Exception e) {
+			return new ResponseEntity<User> (HttpStatus.NO_CONTENT);
 		}
 	}
 	
