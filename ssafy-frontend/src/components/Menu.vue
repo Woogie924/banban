@@ -47,7 +47,8 @@ export default {
     ) {
       // 정상적으로 검색이 완료됐으면
       if (status == kakao.maps.services.Status.OK) {
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        // console.log(store.state.lon + store.state.lat);
+        var coords = new kakao.maps.LatLng(store.state.lat, store.state.lon);
         var imageSrc = "https://image.flaticon.com/icons/svg/944/944572.svg",
           imageSize = new kakao.maps.Size(52, 47), // 마커이미지의 크기입니다
           imageOption = { offset: new kakao.maps.Point(27, 69) };
@@ -68,30 +69,30 @@ export default {
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
         var storeId = [];
-        for (var i = 0; i < store.state.res.data.length; i++) {
-          if (store.state.res.data[i].category === that.MenuList[0].food) {
-            console.log(store.state.res.data[i].latitude);
-            console.log(store.state.res.data[i].longitude);
+        for (var i = 0; i < store.state.res.length; i++) {
+          if (store.state.res[i].category === that.MenuList[0].food) {
+            console.log(store.state.res[i].latitude);
+            console.log(store.state.res[i].longitude);
             //위도경도 가져와서 하나씩 표시...
             var imageSrc =
               "https://image.flaticon.com/icons/svg/1046/1046751.svg";
             // 마커 이미지의 이미지 크기 입니다
             var imageSize = new kakao.maps.Size(40, 50);
-            storeId[i] = store.state.res.data[i].id;
+            storeId[i] = store.state.res[i].id;
             // 마커 이미지를 생성합니다
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             var marker = new kakao.maps.Marker({
               map: map, // 마커를 표시할 지도
               position: new kakao.maps.LatLng(
-                store.state.res.data[i].latitude,
-                store.state.res.data[i].longitude
+                store.state.res[i].latitude,
+                store.state.res[i].longitude
               ), // 마커를 표시할 위치
-              title: store.state.res.data[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+              title: store.state.res[i].name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
               image: markerImage,
               clickable: true
             });
             marker.setMap(map);
-            var iwContent = store.state.res.data[i].name;
+            var iwContent = store.state.res[i].name;
             var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
             var infowindow = new kakao.maps.InfoWindow({
               content: iwContent,
@@ -182,7 +183,7 @@ export default {
       ) {
         // 정상적으로 검색이 완료됐으면
         if (status == kakao.maps.services.Status.OK) {
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          var coords = new kakao.maps.LatLng(store.state.lat, store.state.lon);
           var imageSrc = "https://image.flaticon.com/icons/svg/944/944572.svg",
             imageSize = new kakao.maps.Size(52, 47), // 마커이미지의 크기입니다
             imageOption = { offset: new kakao.maps.Point(27, 69) };
@@ -198,15 +199,15 @@ export default {
           });
           map.setCenter(coords);
           var storeId = [];
-          for (var i = 0; i < store.state.res.data.length; i++) {
-            if (store.state.res.data[i].category === that.MenuList[idx].food) {
+          for (var i = 0; i < store.state.res.length; i++) {
+            if (store.state.res[i].category === that.MenuList[idx].food) {
               var position = new kakao.maps.LatLng(
-                store.state.res.data[i].latitude,
-                store.state.res.data[i].longitude
+                store.state.res[i].latitude,
+                store.state.res[i].longitude
               );
-              storeId[i] = store.state.res.data[i].id;
-              console.log(store.state.res.data[i].latitude);
-              console.log(store.state.res.data[i].longitude);
+              storeId[i] = store.state.res[i].id;
+              console.log(store.state.res[i].latitude);
+              console.log(store.state.res[i].longitude);
               if (that.MenuList[idx].food === "치킨") {
                 var imageSrc =
                   "https://image.flaticon.com/icons/svg/1046/1046751.svg";
@@ -247,7 +248,18 @@ export default {
               });
               marker.setMap(map);
               var iwContent =
-                store.state.res.data[i].name + store.state.res.data[i].point;
+                '<div class="wrap">' +
+                '    <div class="info">' +
+                '        <div class="title">' +
+                store.state.res[i].name +
+                "        </div>" +
+                '        <div class="body">' +
+                '            <div class="img">' +
+                '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+                "           </div>" +
+                "        </div>" +
+                "    </div>" +
+                "</div>";
               var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
               var infowindow = new kakao.maps.InfoWindow({
                 content: iwContent

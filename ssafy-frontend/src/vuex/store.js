@@ -56,7 +56,7 @@ const store = new Vuex.Store({
           state.lon = pos.coords.longitude
           alert(`위치가 갱신되었습니다.`)
         }
-      );
+      ); //백으로 다시 보내서 계산...
     },
     CLEAR_USER_DATA(state) {
       localStorage.clear()
@@ -82,6 +82,20 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    resetaddr({
+      commit
+    }, credentials, ) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      return axios
+        .post('http://192.168.100.92:8080/shopkeeper/near', credentials)
+        .then(({
+          data
+        }) => {
+          commit('SET_STORE_DATA', data)
+        })
+    },
     kakaologin({
       commit
     }, credentials) {
@@ -131,14 +145,26 @@ const store = new Vuex.Store({
         .then(({
           data
         }) => {
-          commit('SET_USER_DATA', data)
-          axios.post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
-            .then(function (response) {
-              //success(response.data);
-              // alert(response)
-              commit('SET_STORE_DATA', response)
-              // return response;
+          axios.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${store.state.token}`;
+          res.data.longitude
+          res.data.latitude
+          return axios
+            .post('http://192.168.100.92:8080/shopkeeper/near', )
+            .then(({
+              data
+            }) => {
+              commit('SET_STORE_DATA', data)
             })
+          // commit('SET_USER_DATA', data)
+          // axios.post('http://192.168.100.92:8080/shopkeeper/near', data.data)
+          //   .then(function (response) {
+          //     //success(response.data);
+          //     // alert(response)
+          //     commit('SET_STORE_DATA', response)
+          //     // return response;
+          //   })
         })
     },
     Slogin({

@@ -59,7 +59,6 @@
             <v-card fluid color="transparent">
               <br />
               <br />
-
               <v-list nav>
                 <v-list-item-group>
                   <v-list-item v-for="item in menuItems" :key="item.title" :to="item.path">
@@ -105,7 +104,6 @@
     </v-navigation-drawer>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import store from "@/vuex/store.js";
@@ -142,7 +140,9 @@ export default {
           icon: "folder_open",
           info: "이것은 고객센터입니다."
         }
-      ]
+      ],
+      latitude: 0,
+      longitude: 0
     };
   },
   mounted() {
@@ -157,6 +157,17 @@ export default {
   methods: {
     getLocation() {
       this.$store.commit("getLocation");
+      // console.log(this.$store.state.lat);
+      // console.log(this.$store.state.lon);
+      this.$store
+        .dispatch("resetaddr", {
+          lat: this.$store.state.lat,
+          lon: this.$store.state.lon
+        })
+        .then(() => {
+          console.log("성공");
+          window.location.reload();
+        });
     },
     logout() {
       this.$store.dispatch("logout");
