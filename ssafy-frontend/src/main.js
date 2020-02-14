@@ -10,7 +10,9 @@ import router from './router'
 import store from './vuex/store'
 import './registerServiceWorker'
 import VueCookies from 'vue-cookies'
-import firebase from 'firebase/app'
+import firebase, {
+	firestore
+} from 'firebase/app'
 import 'firebase/messaging'
 
 var firebaseConfig = {
@@ -33,18 +35,46 @@ messaging.usePublicVapidKey('BEiZZil17WeZ_LFy8GW-IbRlTK7ppeBXlH_1eAB_n8IN8fe0FbD
 // messaging.getToken()
 
 // 작업
-messaging.requestPermission()
-	.then(function () {
-		console.log('성공')
-		return messaging.getToken()
-	})
-	.then(function (token) {
-		console.log(token)
-		localStorage.setItem('mToken', token)
-	})
-	.catch(function (err) {
-		console.log('ee')
-	})
+Notification.requestPermission().then((permission) => {
+	if (permission === 'granted') {
+		console.log('Notification permission granted.');
+		// TODO(developer): Retrieve an Instance ID token for use with FCM.
+		// ...
+	} else {
+		console.log('Unable to get permission to notify.');
+	}
+})
+messaging.getToken().then((currentToken) => {
+	console.log(currentToken)
+	if (currentToken) {
+		firebase().firestore.collection('tokens').doc('nothing').set({
+			token: currentToken
+		}).then(localStorage.setItem('mToken', currentToken))
+	} else {
+		// Show permission request.
+		console.log('No Instance ID token available. Request permission to generate one.');
+	}
+}).catch((err) => {
+	console.log('An error occurred while retrieving token. ', err);
+});
+
+// Callback fired if Instance ID token is updated.
+messaging.onTokenRefresh(() => {
+	messaging.getToken().then((refreshedToken) => {
+		console.log('Token refreshed.');
+		if (refreshedToken) {
+			firestore.collection('token').doc('nothing').set({
+				token: refreshedToken
+			}).then(localStorage.setItem('mToken', refreshedToken))
+		} else {
+			// Show permission request.
+			console.log('No Instance ID token available. Request permission to generate one.');
+		}
+	}).catch((err) => {
+		console.log('Unable to retrieve refreshed token ', err);
+		showToken('Unable to retrieve refreshed token ', err);
+	});
+});
 
 // 작업끝
 // Handle received push notification at foreground

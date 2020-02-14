@@ -17,6 +17,7 @@ import index from './views/index'
 import SelectedMenuPage from './views/SelectedMenuPage'
 import StoreInfoPage from './views/StoreInfoPage'
 import MyCartPage from './views/MyCartPage'
+import profile from './views/profile'
 Vue.use(Router)
 
 const router = new Router({
@@ -126,6 +127,11 @@ const router = new Router({
 			meta: {
 
 			}
+		},
+		{
+			path: '/profile',
+			name: 'profile',
+			component: profile
 		}
 	]
 })
