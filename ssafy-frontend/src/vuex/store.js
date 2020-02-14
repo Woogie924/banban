@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from "vuex-persistedstate"
+import router from "@/router.js"
 
 Vue.use(Vuex)
 
@@ -182,6 +183,14 @@ const store = new Vuex.Store({
       commit
     }) {
       commit('CLEAR_USER_DATA')
+    },
+    modifyInfo({
+      commit
+    }, credentials) {
+      return axios
+        .put('http://192.168.100.92:8080/api/user', credentials)
+        .then(router.push('/'))
+        .then(commit('CLEAR_USER_DATA'))
     }
   },
   getters: {

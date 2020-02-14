@@ -12,6 +12,8 @@ public interface UserService {
 	User socialLogin(User email) throws Exception;
 	User getUser(String id) throws Exception;
 	int addUser(User user) throws Exception;
+	int updateUser(User user) throws Exception;
 	int insertUsercart(Usercart usercart) throws Exception;
 	int deleteUsercart(int unum) throws Exception;
+	int deleteUser(User user) throws Exception;
 }

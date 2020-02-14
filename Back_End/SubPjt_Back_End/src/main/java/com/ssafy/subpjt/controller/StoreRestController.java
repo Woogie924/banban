@@ -23,6 +23,7 @@ import com.ssafy.subpjt.service.StoreService;
 import com.ssafy.subpjt.service.TransactionService;
 import com.ssafy.subpjt.service.UserService;
 import com.ssafy.subpjt.vo.BillingHistory;
+import com.ssafy.subpjt.vo.LatLon;
 import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
 import com.ssafy.subpjt.vo.Result;
@@ -150,7 +151,7 @@ public class StoreRestController {
 	}
 
 	@PostMapping("/nearstores")
-	public ResponseEntity<List<Store>> getAllStores(@RequestBody User user) throws Exception{
+	public List<Store> getAllStores(@RequestBody User user) throws Exception{
 		List<Store> list = null;
 		List<Store> res = new ArrayList<>();
 		User ans = null;
@@ -159,6 +160,7 @@ public class StoreRestController {
 			System.out.println("주변 가게 Controller");	
 			memberId = jwtService.getMemberId();
 			ans = userService.getUser(memberId);
+			System.out.println(user);
 			if(ans != null) {
 				list = storeService.getAllStores();
 				//System.out.println(list);
@@ -173,18 +175,51 @@ public class StoreRestController {
 					}
 				}
 				System.out.println(res);
-				return new ResponseEntity<List<Store>>(res,HttpStatus.OK);
+				return res;
 
 			}else {
-				return new ResponseEntity<List<Store>>(HttpStatus.BAD_REQUEST);
+				return null;
 			}
 		}catch(Exception e) {
-			return new ResponseEntity<List<Store>>(HttpStatus.BAD_REQUEST);
+			return null;
 		}
 	}
 
 
+	@PostMapping("/near")
+	public List<Store> getAllStoresBylatlon(@RequestBody LatLon latlon) throws Exception{
+		List<Store> list = null;
+		List<Store> res = new ArrayList<>();
+		User ans = null;
+		String memberId = null;
+		try {
+			System.out.println("주변 가게 Controller111");	
+			System.out.println(latlon);
+			memberId = jwtService.getMemberId();
+			ans = userService.getUser(memberId);
+			if(ans != null) {
+				list = storeService.getAllStores();
+				//System.out.println(list);
+				for(Store s : list) {
+					//System.out.println(s);
+					double distanceKiloMeter = 
+							transactionService.distance(latlon.getLat(), latlon.getLon(), s.getLatitude(), s.getLongitude());
+					//System.out.println(distanceKiloMeter);
+					if(distanceKiloMeter <= 10) {
+						//System.out.println("거리안에 들어옴 : " + s.toString());
+						res.add(s);
+					}
+				}
+				System.out.println(res);
+				return res;
 
+			}else {
+				return null;
+			}
+		}catch(Exception e) {
+			return null;
+		}
+	}
 
 
 	@GetMapping("/menu/{id}")
@@ -276,12 +311,6 @@ public class StoreRestController {
 	}
 
 
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "Authorization", value = "authorization header", required = true,
-				dataType = "string", paramType = "header", defaultValue = "bearer eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTgxMzAyNDIyNTY5LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTgxNDc1MjIyLCJtZW1iZXIiOnsiaWQiOiJoc3c5MjQiLCJwdyI6IjEyMyIsInRlbCI6IjAxMDUwMDg5OTYyIiwibmFtZSI6Iu2ZjeyEseyasSIsImVtYWlsIjoiYXNpYTkyNEBuYXZlci5jb20iLCJhZGRyZXNzIjoi6rK967aBIOq1rOuvuOyLnCDqsoDshLHroZwgOSAo7J247J2Y64-ZKSIsImxhdGl0dWRlIjozNi4xMTE0NjM1NTYyMzc4OSwibG9uZ3RpdHVkZSI6MTI4LjQyNDQ1OTMzOTcxNDA1LCJwb2ludCI6MCwic2lnbnVwRGF0ZSI6MTU4MDk1MzcxMDAwMCwiY2hrIjoxfX0.38HuqGeOMUlAAiF-4CO-xjMeWAbFZYF5O7b3RMhirIA")
-	})
-	@ApiParam
-	@ApiOperation(value = "좋아요 up", httpMethod = "POST", notes = "좋아요 up")
 	@PostMapping("/likes")
 	public ResponseEntity upLikes(@RequestBody Likes likes) throws Exception{
 		User user = null;
@@ -305,12 +334,6 @@ public class StoreRestController {
 	}
 
 
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "Authorization", value = "authorization header", required = true,
-				dataType = "string", paramType = "header", defaultValue = "bearer eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTgxMzAyNDIyNTY5LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTgxNDc1MjIyLCJtZW1iZXIiOnsiaWQiOiJoc3c5MjQiLCJwdyI6IjEyMyIsInRlbCI6IjAxMDUwMDg5OTYyIiwibmFtZSI6Iu2ZjeyEseyasSIsImVtYWlsIjoiYXNpYTkyNEBuYXZlci5jb20iLCJhZGRyZXNzIjoi6rK967aBIOq1rOuvuOyLnCDqsoDshLHroZwgOSAo7J247J2Y64-ZKSIsImxhdGl0dWRlIjozNi4xMTE0NjM1NTYyMzc4OSwibG9uZ3RpdHVkZSI6MTI4LjQyNDQ1OTMzOTcxNDA1LCJwb2ludCI6MCwic2lnbnVwRGF0ZSI6MTU4MDk1MzcxMDAwMCwiY2hrIjoxfX0.38HuqGeOMUlAAiF-4CO-xjMeWAbFZYF5O7b3RMhirIA")
-	})
-	@ApiParam
-	@ApiOperation(value = "좋아요 down", httpMethod = "DELETE", notes = "좋아요 down")
 	@DeleteMapping("/likes")
 	public ResponseEntity downLikes(@RequestBody Likes likes) throws Exception{
 		User user = null;
@@ -336,6 +359,7 @@ public class StoreRestController {
 	@PostMapping("/storeinfo")
 	public ResponseEntity insertStoreinfo(@RequestBody Storeinfo storeinfo) throws Exception{
 		Store user = null;
+		Storeinfo store = null;
 		String memberId = null;
 		try {
 			System.out.println("가게 정보 입력 Controller");
@@ -343,8 +367,14 @@ public class StoreRestController {
 			memberId = jwtService.getMemberId();
 			user = storeService.getStore(memberId);
 			if(user != null) {
-				int ans = storeService.insertStoreinfo(storeinfo);
-				System.out.println("입력 : "+ ans);
+				store = transactionService.getStoreinfo(user.getId());
+				if(store!= null) {
+					int ans = storeService.updateStoreinfo(storeinfo);
+					System.out.println("수정 : " + ans);
+				}else {
+					int ans = storeService.insertStoreinfo(storeinfo);
+					System.out.println("입력 : "+ ans);					
+				}
 				return new ResponseEntity(true,HttpStatus.OK);
 			}else {
 				return new ResponseEntity(false,HttpStatus.NO_CONTENT);
@@ -435,6 +465,29 @@ public class StoreRestController {
 			}
 		}catch(Exception e) {
 			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@GetMapping("/storeinfo")
+	public ResponseEntity<Storeinfo> getStoreinfo() throws Exception{
+		Storeinfo storeinfo = null;
+		Store ans = null;
+		String memberId = null;
+		try {
+			System.out.println("사장님 쪽에서 가게 정보");
+			memberId = jwtService.getMemberId();
+			ans = storeService.getStore(memberId);
+			//System.out.println(memberId);
+			if(ans != null) {
+				storeinfo = transactionService.getStoreinfo(memberId);
+				System.out.println(storeinfo);
+				return new ResponseEntity<Storeinfo>(storeinfo,HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<Storeinfo>(HttpStatus.BAD_REQUEST);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity<Storeinfo>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

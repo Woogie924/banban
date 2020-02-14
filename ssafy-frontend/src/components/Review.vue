@@ -112,6 +112,7 @@ p {
   text-align: center;
   color: #000000;
   background: #e6e6e6;
+  height: 100%;
   /* css3 */
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;

@@ -262,8 +262,8 @@ export default {
                 "</div>";
               var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
               var infowindow = new kakao.maps.InfoWindow({
-                content: iwContent,
-                clickable: true
+                content: iwContent
+                // clickable: true
               });
 
               kakao.maps.event.addListener(

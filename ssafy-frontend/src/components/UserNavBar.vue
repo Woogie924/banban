@@ -14,7 +14,11 @@
       <v-spacer>
         <v-icon dark>{{quoteopen}}</v-icon>
 
-        <span class="font-weight-bold white--text lighten-3">{{userInfo}}님 공간</span>
+        <span
+          @click="moveToInfo"
+          class="font-weight-bold white--text lighten-3"
+          style="cursor: pointer"
+        >{{userInfo}}님 공간</span>
         <v-icon dark>{{quoteclose}}</v-icon>
       </v-spacer>
       <v-spacer />
@@ -41,7 +45,7 @@
     </v-app-bar>
 
     <!-- 메뉴 아이콘 클릭 -->
-    <v-overlay :value="overlay">
+    <v-overlay :value="overlay" opacity="0.8">
       <v-navigation-drawer v-model="overlay" absolute color="transparent" style="position:fixed;">
         <v-layout>
           <v-flex>
@@ -126,7 +130,7 @@ export default {
         },
         {
           title: "내 정보",
-          path: "/",
+          path: "/profile",
           icon: "folder_open",
           info: "이것은 내 정보입니다."
         },
@@ -170,13 +174,10 @@ export default {
     },
     login() {
       this.$router.push("Mlogin");
+    },
+    moveToInfo() {
+      this.$router.push("profile");
     }
-    // getUsername() {
-    //   axios.defaults.headers.common[
-    //     "Authorization"
-    //   ] = `Bearer ${store.state.token}`;
-    //   axios.get("http://192.168.100.92:8080/api/user");
-    // }
   }
 };
 </script>

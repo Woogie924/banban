@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.subpjt.dao.BoardDAO;
 import com.ssafy.subpjt.dao.StoreDAO;
+import com.ssafy.subpjt.dao.UserDAO;
 import com.ssafy.subpjt.vo.Board;
 import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
@@ -17,6 +18,7 @@ import com.ssafy.subpjt.vo.Starpoint;
 import com.ssafy.subpjt.vo.Store;
 import com.ssafy.subpjt.vo.Storeinfo;
 import com.ssafy.subpjt.vo.Storestarpoint;
+import com.ssafy.subpjt.vo.User;
 
 
 @Service
@@ -28,12 +30,18 @@ public class TransactionServiceImpl implements TransactionService{
 	@Autowired
 	private StoreDAO storeDao;
 	
+	@Autowired
+	private UserDAO userDao;
+	
+
+	
 	@Transactional
 	@Override
 	public int insertBoard(Board board, int max) throws Exception {
 		boardDao.insertBoard(board);
 		Board bo = boardDao.getBoardById(board);
 		Party party = new Party( bo.getNum(),max);
+		party.setNowmember(1);
 		boardDao.insertParty(party);                                                                                                                                                                                                                                                                                                                                                                                                                                   
 		party = boardDao.getPartyByBnum(bo.getNum());
 		PartyMember partyMember = new PartyMember(party.getPnum(), board.getWriter());
@@ -48,6 +56,8 @@ public class TransactionServiceImpl implements TransactionService{
 		List<PartyMember> list = null;
 		Party party = boardDao.getPartyByBnum(bnum);
 		list = boardDao.getAllPartyMember(party.getPnum());
+		party.setNowmember(party.getNowmember()+1);
+		boardDao.updateParty(party);
 		System.out.println(list);
 		if(list.size() < party.getMax()) {
 			PartyMember partyMember = new PartyMember(party.getPnum(), id);
@@ -63,7 +73,9 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public int deletePartyMember(int bnum, String id) throws Exception {
 		Party party = boardDao.getPartyByBnum(bnum);
+		party.setNowmember(party.getNowmember()-1);
 		PartyMember partyMember = new PartyMember(party.getPnum(), id);
+		boardDao.updateParty(party);
 		int ans = boardDao.deletePartyMember(partyMember);
 		return ans;
 	}
@@ -106,7 +118,8 @@ public class TransactionServiceImpl implements TransactionService{
 	@Override
 	public int updateBoard(Board board, int max) throws Exception {
 		int ans = boardDao.updateBoard(board);
-		Party party = new Party(board.getNum(), max);
+		Party party = boardDao.getPartyByBnum(board.getNum());
+		party.setMax(max);
 		ans = boardDao.updateParty(party);
 		System.out.println("파티 수정 : " + ans);
 		return ans;
@@ -140,11 +153,37 @@ public class TransactionServiceImpl implements TransactionService{
 			sum += point.getStarpoint();
 		}
 		sum /= list.size();
-		storeinfo.setStorename(store.getName());
+		storeinfo.setStore(store);
 		storeinfo.setStarpoint(list);
 		storeinfo.setStorestarpoint(slist);
 		storeinfo.setPoint(sum);
 		return storeinfo;
+	}
+
+	@Transactional
+	@Override
+	public Board getBoardByNum(int bnum) throws Exception {
+		Board board = null;
+		List<PartyMember> list = null;
+		Party party = null;
+		User user = null;
+		party = boardDao.getPartyByBnum(bnum);
+		list = boardDao.getAllPartyMember(party.getPnum());
+		board = boardDao.getBoardByNum(bnum);
+		user = userDao.getUser(board.getWriter());
+		board.setNowmember(party.getNowmember());
+		board.setPartymember(list);
+		board.setParty(party.getMax());
+		board.setUser(user);
+		board.setRemain(board.getParty() - board.getNowmember());
+		
+		return board;
+	}
+
+
+	@Override
+	public List<Board> getAllBoards() throws Exception {
+		return null;
 	}
 
 

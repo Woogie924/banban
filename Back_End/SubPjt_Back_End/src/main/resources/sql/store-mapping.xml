@@ -40,7 +40,7 @@
 	</select>
 	
 	<select id="getStoreinfo" parameterType="string" resultType="storeinfo">
-		SELECT snum, storeid, minprice, deliverytip, deliverytime
+		SELECT snum, storeid, minprice, deliverytip, deliverytime, storeintro
 		FROM storeinfo
 		WHERE storeid = #{value}
 	</select>
@@ -87,8 +87,8 @@
 	</insert>
 	
 	<insert id="insertStoreinfo" parameterType="storeinfo">
-		INSERT INTO storeinfo(storeid, minprice, deliverytip, deliverytime)
-		VALUES(#{storeid}, #{minprice}, #{deliverytip}, #{deliverytime})
+		INSERT INTO storeinfo(storeid, minprice, deliverytip, deliverytime, storeintro)
+		VALUES(#{storeid}, #{minprice}, #{deliverytip}, #{deliverytime}, #{storeintro})
 	</insert>
 	
 	<insert id="insertStarpoint" parameterType="starpoint">
@@ -102,7 +102,8 @@
 	</insert>
 	
 	<update id="updateStoreinfo" parameterType="storeinfo">
-		UPDATE storeinfo SET minprice = #{minprice}, deliverytip = #{deliverytip}, deliverytime = #{deliverytime} 
+		UPDATE storeinfo SET  minprice = #{minprice}, deliverytip = #{deliverytip},
+		deliverytime = #{deliverytime}, storeintro = #{storeintro}
 		WHERE snum = #{snum}
 	</update>
 	
@@ -141,7 +142,7 @@
 		SELECT sum(price) price, id, payment_date paymentDate 
 		FROM billingHistory
 		WHERE id = #{value} and payment_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
-        GROUP BY  date_format(payment_date,'%Y%m%d');
+        GROUP BY  date_format(payment_date,'%Y%m%d')
 	</select> 
 	
 	<select id="getStoreInfo" parameterType="string" resultType="storeinfo">
