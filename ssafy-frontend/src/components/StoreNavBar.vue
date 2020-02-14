@@ -5,13 +5,15 @@
       <v-toolbar-title>
         <v-label>
           <router-link to="/StoreMainPage" tag="span" style="cursor:pointer;">
-            <v-img src="../assets/홈3.png" width="300" text aspect-ratio="7.0"></v-img>
+            <v-img src="../assets/배너.png" width="200" text aspect-ratio="5.0"></v-img>
           </router-link>
         </v-label>
       </v-toolbar-title>
       <!-- 닉네임 -->
       <v-spacer>
-        <span class="font-weight-bold">{{userInfo}}사장님 공간</span>
+        <v-icon dark>{{quoteopen}}</v-icon>
+        <span class="font-weight-bold white--text lighten-3">{{userInfo}}사장님 공간</span>
+        <v-icon dark>{{quoteclose}}</v-icon>
       </v-spacer>
       <v-spacer></v-spacer>
       <!-- 검색바 -->
@@ -31,7 +33,7 @@
     </v-toolbar>
 
     <!-- 메뉴 아이콘 클릭 -->
-    <v-overlay :value="overlay">
+    <v-overlay :value="overlay" opacity="0.8">
       <v-navigation-drawer v-model="overlay" absolute color="transparent" style="position:fixed;">
         <v-layout>
           <v-flex>
@@ -91,11 +93,14 @@
 </template>
 
 <script>
+import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 export default {
   name: "main-header",
   data() {
     return {
       appTitle: "'반반한 동네' 사장님 공간",
+      quoteclose: mdiFormatQuoteClose,
+      quoteopen: mdiFormatQuoteOpen,
       sidebar: false,
       overlay: false,
       userInfo: null,

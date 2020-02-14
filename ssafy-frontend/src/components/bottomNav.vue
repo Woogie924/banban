@@ -1,30 +1,33 @@
 <template>
-  <v-bottom-navigation fixed hide-on-scroll height="6vh" width="50vw">
-    <!-- <v-card v-for="item in items" :key="item.title" link>
-      <template>
-        <MenuManagement :flag="item.title" :icon="item.icon"></MenuManagement>
-      </template>
-    </v-card>-->
+  <v-bottom-navigation v-model="bottomNav" :value="activeBtn" fixed hide-on-scroll color="teal">
+    <!-- 가게 메뉴 관리(메뉴 등록, 메뉴 정보 확인) -->
+    <MenuManagement></MenuManagement>
 
-    <MenuManagement :flag="item.title" :icon="item.icon"></MenuManagement>
-    <StoreInfo></StoreInfo>
+    <!-- 가게 정보 등록 -->
+    <AddStoreInfo></AddStoreInfo>
+
+    <!-- 리뷰 확인+ 댓글 -->
+    <AddReviewComment></AddReviewComment>
   </v-bottom-navigation>
 </template>
 
 
 <script>
 import MenuManagement from "../components/MenuManagement";
-import StoreInfo from "../components/StoreInfo";
+import AddStoreInfo from "../components/AddStoreInfo";
+import AddReviewComment from "../components/AddReviewComment";
 export default {
   name: "bottomeNav",
   components: {
     MenuManagement,
-    StoreInfo
+    AddStoreInfo,
+    AddReviewComment
   },
   props: {},
   data() {
     return {
-      dialog: false,
+      bottomNav: 3,
+      activeBtn: 1,
       item: {
         title: "메뉴 관리",
         icon: "mdi-history"
@@ -44,5 +47,5 @@ export default {
   }
 };
 </script>
-      <style>
+<style>
 </style>
