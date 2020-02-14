@@ -247,22 +247,11 @@ export default {
               });
               marker.setMap(map);
               var iwContent =
-                '<div class="wrap">' +
-                '    <div class="info">' +
-                '        <div class="title">' +
-                store.state.res.data[i].name +
-                "        </div>" +
-                '        <div class="body">' +
-                '            <div class="img">' +
-                '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-                "           </div>" +
-                "        </div>" +
-                "    </div>" +
-                "</div>";
+                store.state.res.data[i].name + store.state.res.data[i].point;
               var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
               var infowindow = new kakao.maps.InfoWindow({
-                content: iwContent,
-                clickable: true
+                content: iwContent
+                // clickable: true
               });
 
               kakao.maps.event.addListener(
