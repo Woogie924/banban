@@ -6,7 +6,7 @@
           <v-list-item-content class="justify-center text-center my-0 py-0" two-line>
             <v-list-item-title
               class="display-1 font-weight-regular justify-center my-0"
-            >{{list.storename}}</v-list-item-title>
+            >{{list.store.name}}</v-list-item-title>
             <v-list-item-subtitle>
               <v-rating
                 v-model="list.point"

@@ -41,7 +41,7 @@
     </v-app-bar>
 
     <!-- 메뉴 아이콘 클릭 -->
-    <v-overlay :value="overlay">
+    <v-overlay :value="overlay" opacity="0.8">
       <v-navigation-drawer v-model="overlay" absolute color="transparent" style="position:fixed;">
         <v-layout>
           <v-flex>
