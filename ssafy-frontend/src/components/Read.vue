@@ -71,7 +71,7 @@ export default {
         { text: "등록일", value: "regDate" },
         { text: "거리", value: "distance" },
         { text: "제목 ", value: "title" },
-
+        { text: "남은 인원수 ", value: "party - nowmember" },
         { text: "작성자", value: "writer" },
         { text: "자세히 보기", value: "action", sortable: false }
       ],

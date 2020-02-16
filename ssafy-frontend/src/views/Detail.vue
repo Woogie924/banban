@@ -10,13 +10,33 @@
     <!-- Detail -->
     <br />
 
-    <div :model="board">
-      <v-layout my-5 fluid v-for="item in board " :key="item">
-        <v-flex class="display-1">
-          <v-card>{{item}}</v-card>
-        </v-flex>
-      </v-layout>
+    <div>
+      <v-card my-5 fluid>
+        <v-list>
+          <v-list-item two-line>
+            <v-list-item-content class="justify-center text-left">{{board.num}}</v-list-item-content>
+          </v-list-item>
+          <v-list-item two-line>
+            <v-list-item-content class="justify-center text-left">{{board.title}}</v-list-item-content>
+          </v-list-item>
+          <v-list-item two-line>
+            <v-list-item-content class="justify-center text-left">{{board.body}}</v-list-item-content>
+          </v-list-item>
+          <v-list-item two-line>
+            <v-list-item-content class="justify-center text-left">총파티원 모집 수: {{board.party}}</v-list-item-content>
+          </v-list-item>
+          <v-list-item two-line>
+            <v-list-item-content class="justify-center text-left">현재 인원수: {{board.nowmember}}</v-list-item-content>
+          </v-list-item>
+          <v-list-item two-line>
+            <v-list-item-content
+              class="justify-center text-left"
+            >남은 모집 인원수 :{{board.party - board.nowmember}}</v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-card>
     </div>
+
     <ul>
       <li>
         <v-btn
@@ -67,7 +87,7 @@
           <div v-if="value.bnum == board.num">
             <v-row fluid v-if="value.writer != userName">
               <v-col>
-                <v-avatar color="teal" size="48">
+                <v-avatar color="teal" size="absolute">
                   <span class="white--text headline">{{value.writer}}</span>
                 </v-avatar>
                 <v-card elevation="1" class="ps-12">{{value.body}}</v-card>
@@ -88,9 +108,6 @@
               <v-col></v-col>
               <v-col>
                 <v-card class="pr-12">
-                  <v-avatar color="teal" size="48">
-                    <span class="white--text headline">{{userName}}}</span>
-                  </v-avatar>
                   <v-card-text>{{value.body}}</v-card-text>
                   <v-btn
                     v-if="userName === value.writer"
