@@ -18,6 +18,7 @@ import SelectedMenuPage from './views/SelectedMenuPage'
 import StoreInfoPage from './views/StoreInfoPage'
 import MyCartPage from './views/MyCartPage'
 import profile from './views/profile'
+import MyPaymentPage from './views/MyPaymentPage'
 Vue.use(Router)
 
 const router = new Router({
@@ -132,6 +133,12 @@ const router = new Router({
 			path: '/profile',
 			name: 'profile',
 			component: profile
+		},
+		{
+			path: '/MyPaymentPage',
+			name: 'MyPaymentPage',
+			component: MyPaymentPage
+
 		}
 	]
 })

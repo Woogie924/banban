@@ -145,26 +145,14 @@ const store = new Vuex.Store({
         .then(({
           data
         }) => {
-          axios.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${store.state.token}`;
-          res.data.longitude
-          res.data.latitude
-          return axios
-            .post('http://192.168.100.92:8080/shopkeeper/near', )
-            .then(({
-              data
-            }) => {
-              commit('SET_STORE_DATA', data)
+          commit('SET_USER_DATA', data)
+          axios.post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
+            .then(function (response) {
+              //success(response.data);
+              // alert(response)
+              commit('SET_STORE_DATA', response)
+              // return response;
             })
-          // commit('SET_USER_DATA', data)
-          // axios.post('http://192.168.100.92:8080/shopkeeper/near', data.data)
-          //   .then(function (response) {
-          //     //success(response.data);
-          //     // alert(response)
-          //     commit('SET_STORE_DATA', response)
-          //     // return response;
-          //   })
         })
     },
     Slogin({
