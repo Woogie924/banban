@@ -32,13 +32,14 @@
     "vue-stomp": "0.0.5",
     "vue-upload-image": "^1.1.5",
     "vuelidate": "^0.7.5",
-    "vuetify": "^2.2.1",
+    "vuetify": "^2.2.12",
     "vuex": "^3.1.2",
     "vuex-persistedstate": "^2.7.1",
     "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
+    "@mdi/font": "^4.9.95",
     "@mdi/js": "^4.9.95",
     "@vue/cli-plugin-babel": "^4.1.2",
     "@vue/cli-plugin-pwa": "^4.1.2",

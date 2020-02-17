@@ -1,16 +1,12 @@
 <template>
-  <v-layout py-6 h-100>
-    <v-card class="mx-auto" max-width="344" elevation="24">
-      <v-img :src="imageUrl" height="200px" aspect-ratio="3.0" />
+  <v-container>
+    <v-card width="20vw" max-width="344" elevation="0">
+      <v-img :src="item.img" height="30vh" contain />
+      <v-card-title class="text-center justify-center my-1">{{item.name}}</v-card-title>
+      <v-card-subtitle class="text-center justify-center my-1">{{item.cost}}원</v-card-subtitle>
 
-      <v-card-title>{{name}}</v-card-title>
-      <v-card-title>{{imageUrl}}</v-card-title>
-
-      <v-card-subtitle>{{cost}}원</v-card-subtitle>
-
-      <v-spacer></v-spacer>
       <v-card-actions>
-        <v-btn icon @click="show = !show">
+        <v-btn class="justify-right" icon @click="show = !show">
           <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
         </v-btn>
       </v-card-actions>
@@ -19,7 +15,7 @@
         <div v-show="show">
           <v-divider></v-divider>
 
-          <v-card-text>{{tip}}</v-card-text>
+          <v-card-text>{{item.tip}}</v-card-text>
           <v-card-text>
             <v-btn v-for="i in tags.length-1" :key="i" label :color="color[i]" dark class="ma-2">
               <v-icon dark left large>{{svgPath}}</v-icon>
@@ -29,7 +25,7 @@
         </div>
       </v-expand-transition>
     </v-card>
-  </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -37,11 +33,18 @@ import { mdiMusicAccidentalSharp } from "@mdi/js";
 export default {
   name: "menuCard",
   props: {
-    imageUrl: { type: String },
-    name: { type: String },
-    cost: { type: Number },
-    tip: { type: String },
-    tag: {}
+    // imageUrl: { type: String },
+    // name: { type: String },
+    // cost: { type: Number },
+    // tip: { type: String },
+    // tag: {}
+    item: {
+      img: { type: Object },
+      name: { type: String },
+      cost: { type: Number },
+      tip: { type: String },
+      tag: {}
+    }
   },
   data() {
     return {
@@ -52,12 +55,16 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.imageUrl + "-menuCard image");
+    // console.log("ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ");
+    // console.log(this.item);
+    console.log(this.item.imageUrl + "-menuCard image");
     this.splitTag();
+    this.item.img = "http://192.168.100.92:8080/image/" + this.item.img;
+    console.log(this.item.img);
   },
   methods: {
     splitTag() {
-      this.tags = this.tag.split("<");
+      this.tags = this.item.tag.split("<");
       //   alert(tags);
     }
   }
