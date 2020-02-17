@@ -36,18 +36,51 @@
         </v-list>
       </v-card>
     </div>
-
-    <v-btn v-if="userName === board.writer" text icon color="red" @click="deleteTest(board.num)">
-      <v-icon>{{ icons.mdiDelete }}</v-icon>
-    </v-btn>
-    <v-btn v-if="userName === board.writer" text icon color="blue" @click="updateData(board.num)">
-      <v-icon>fas fa-edit</v-icon>
-    </v-btn>
-    <v-btn text icon color="green" @click="move()">
-      <v-icon>fas fa-list</v-icon>
-    </v-btn>
-
-    <v-hover v-model="hover">
+    <ul>
+      <li>
+        <v-btn
+          v-if="userName === board.writer"
+          text
+          icon
+          color="red"
+          @click="deleteTest(board.num)"
+        >
+          <v-icon>{{ icons.mdiDelete }}</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="userName === board.writer"
+          text
+          icon
+          color="blue"
+          @click="updateData(board.num)"
+        >
+          <v-icon>fas fa-edit</v-icon>
+        </v-btn>
+        <v-btn text icon color="green" @click="move()">
+          <v-icon>fas fa-list</v-icon>
+        </v-btn>
+        <div class="my-2">
+          <v-btn
+            small
+            color="error"
+            v-if="this.state == false && board.party > board.nowmember"
+            @click="party_join(board.num, userName)"
+          >파티참가하기</v-btn>
+          <v-btn
+            small
+            color="error"
+            v-if="this.state == true && board.party > board.nowmember "
+            @click="party_out(board.num, userName)"
+          >파티나가기</v-btn>
+          <v-btn
+            small
+            color="error"
+            v-if="this.state == false && board.party <= board.nowmember "
+          >지금은 모든 파티원이 구해졌습니다.</v-btn>
+        </div>
+      </li>
+    </ul>
+    <v-hover v-model="hover" v-if="state == true">
       <div style="height:50vh; position:relative">
         <v-btn absolute dark fab top right color="teal lighten-3" @click="showChat=!showChat">
           <v-icon>mdi-message-text</v-icon>
@@ -123,6 +156,7 @@
         </v-bottom-navigation>
       </div>
     </v-navigation-drawer>
+    <p>{{board}}</p>
   </div>
 </template>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -158,7 +192,7 @@ export default {
       comment_update_body: "",
       writer: "",
       tooltipActive: -1,
-
+      state: false,
       title: null,
       len: "",
       icons: {
@@ -196,6 +230,7 @@ export default {
       }).then(res => {
         this.board = res.data;
         this.party_member = res.data.party;
+        this.check();
       });
     },
 
@@ -270,17 +305,38 @@ export default {
         .then((this.comment_update_body = ""))
         .then((this.tooltipActive = -1));
     },
-    join_party(user) {
-      this.party_member.push(user);
-      this.party -= 1;
-    },
-
     addItem: function() {
       this.items.push("Item #" + this.items.length);
     },
     scrollToEnd: function() {
       var container = this.$el.querySelector("#container");
       container.scrollTop = container.scrollHeight;
+    },
+    party_join(bnum, username) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      axios({
+        method: "POST",
+        url: `http://192.168.100.92:8080/notice/members/${bnum}/${username}`
+      }).then(res => this.get_info());
+    },
+    party_out(bnum, username) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      axios({
+        method: "DELETE",
+        url: `http://192.168.100.92:8080/notice/members/${bnum}/${username}`
+      }).then(res => this.get_info());
+    },
+    check() {
+      this.state = false;
+      for (var i in this.board.partymember) {
+        if (this.board.partymember[i].id == this.userName) {
+          this.state = true;
+        }
+      }
     }
   }
 };

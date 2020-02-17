@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from "vuex-persistedstate"
+import router from "@/router.js"
 
 Vue.use(Vuex)
 
@@ -55,7 +56,7 @@ const store = new Vuex.Store({
           state.lon = pos.coords.longitude
           alert(`위치가 갱신되었습니다.`)
         }
-      );
+      ); //백으로 다시 보내서 계산...
     },
     CLEAR_USER_DATA(state) {
       localStorage.clear()
@@ -81,6 +82,20 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    resetaddr({
+      commit
+    }, credentials, ) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      return axios
+        .post('http://192.168.100.92:8080/shopkeeper/near', credentials)
+        .then(({
+          data
+        }) => {
+          commit('SET_STORE_DATA', data)
+        })
+    },
     kakaologin({
       commit
     }, credentials) {
@@ -156,6 +171,14 @@ const store = new Vuex.Store({
       commit
     }) {
       commit('CLEAR_USER_DATA')
+    },
+    modifyInfo({
+      commit
+    }, credentials) {
+      return axios
+        .put('http://192.168.100.92:8080/api/user', credentials)
+        .then(router.push('/'))
+        .then(commit('CLEAR_USER_DATA'))
     }
   },
   getters: {

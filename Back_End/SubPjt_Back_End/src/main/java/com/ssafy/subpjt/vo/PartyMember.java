@@ -5,16 +5,6 @@ public class PartyMember {
 	private int pnum;
 	private String id;
 	
-	private Party party;
-	
-	public Party getParty() {
-		return party;
-	}
-
-	public void setParty(Party party) {
-		this.party = party;
-	}
-
 	public PartyMember() {}
 
 	public PartyMember(int pmnum, int pnum, String id) {
@@ -57,8 +47,9 @@ public class PartyMember {
 
 	@Override
 	public String toString() {
-		return "PartyMember [pmnum=" + pmnum + ", pnum=" + pnum + ", id=" + id + ", party=" + party + "]";
+		return "PartyMember [pmnum=" + pmnum + ", pnum=" + pnum + ", id=" + id + "]";
 	}
+
 
 	
 	

@@ -3,45 +3,40 @@
     <v-container>
       <v-hover v-slot:default="{hover}" open-delay="200">
         <v-card
-          :elevation="hover?16:1"
-          width="80vw"
-          style="cursor:pointer;"
+          :elevation="hover?16:0"
+          style="cursor:pointer;
+          border-bottom:1px dotted brown; border-top:1px dotted brown;"
           background-color="transparent"
           @click="moveSelectedMenu()"
+          class="pa-2"
         >
-          <v-row fluid>
-            <v-col cols="8" fluid>
-              <v-container>
-                <v-card-title id="title" class="display-2">
-                  {{name}}
-                  <v-card-text>
-                    <v-btn
-                      v-for="idx in tags.length >=2 ? tags.length-1 : 1"
-                      :key="idx"
-                      label
-                      :color="color[idx]"
-                      dark
-                      class="ma-2"
-                    >
-                      <v-icon dark left large>{{svgPath}}</v-icon>
-                      {{tags[idx-1]}}
-                    </v-btn>
-                  </v-card-text>
-                </v-card-title>
-                <v-card-title id="body" class="display-1">{{cost}}</v-card-title>
-              </v-container>
+          <v-row fluid class="align-center">
+            <v-col cols="9" class="justify-center text-center">
+              <v-card-text>
+                <v-chip
+                  v-for="idx in tags.length >=2 ? tags.length-1 : 1"
+                  :key="idx"
+                  class="ma-2"
+                  :color="color[idx]"
+                  label
+                  dark
+                  small
+                >
+                  <span>
+                    <v-icon dark>{{svgPath}}</v-icon>
+                  </span>
+                  <span>{{tags[idx-1]}}</span>
+                </v-chip>
+              </v-card-text>
+              <v-divider />
+              <v-card-title class="font-weight-regular justify-center">{{name}}</v-card-title>
+              <v-card-title class="font-weight-regular justify-center">· {{cost}}원</v-card-title>
             </v-col>
-            <v-col cols="4">
-              <v-layout style="max-width: 200px;
-    margin: auto;">
-                <v-img
-                  :src="imageUrl"
-                  class="mr-4"
-                  max-width="200"
-                  min-width="200"
-                  aspect-ratio="1.0"
-                />
-              </v-layout>
+
+            <v-col cols="3">
+              <v-card width="10em" height="10em" elevation="0">
+                <v-img :src="imageUrl" contain height="10em" width="10em" />
+              </v-card>
             </v-col>
           </v-row>
         </v-card>

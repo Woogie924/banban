@@ -1,13 +1,20 @@
 <template>
-  <v-flex>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+  <div>
+    <v-dialog
+      v-model="dialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      xs12
+      lg6
+      md12
+      sm12
+    >
       <template v-slot:activator="{on}">
-        <div v-on="on">
-          <v-btn>
-            {{flag}}
-            <v-icon>{{icon}}</v-icon>
-          </v-btn>
-        </div>
+        <v-btn text large outlined v-on="on" height="8vh">
+          <span>메뉴 관리</span>
+          <v-icon>mdi-television-play</v-icon>
+        </v-btn>
       </template>
       <v-card>
         <v-toolbar dark color="grey">
@@ -105,7 +112,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-flex>
+  </div>
 </template>
 
 <script>

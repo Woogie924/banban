@@ -55,4 +55,14 @@ public class UserDAOImpl implements UserDAO{
 		return sqlSession.delete(ns+"deleteUsercart", unum);
 	}
 
+	@Override
+	public int updateUser(User user) throws Exception {
+		return sqlSession.update(ns+"updateUser", user);
+	}
+
+	@Override
+	public int deleteUser(User user) throws Exception {
+		return sqlSession.delete(ns+"deleteUser", user);
+	}
+
 }

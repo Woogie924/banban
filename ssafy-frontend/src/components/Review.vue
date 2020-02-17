@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-list-item>
     <v-card>
       <v-list>
         <v-list-item two-line>
@@ -34,28 +34,26 @@
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item class="mx-5">
           <v-list-item-icon>
             <v-icon>{{quoteopen}}</v-icon>
           </v-list-item-icon>
-          <v-list-item-content class="my-0 mx-0 px-0">
-            <div>{{item.body}}</div>
+          <v-list-item-content class="my-0 mx-0 mr-3">
+            <div class="text-center">{{item.body}}</div>
           </v-list-item-content>
           <v-list-item-icon>
             <v-icon>{{quoteclose}}</v-icon>
           </v-list-item-icon>
         </v-list-item>
-        <v-list-item>
+        <v-list-item class="mx-2">
           <v-list-item-content class="my-0">
-            <div class="pinched">
-              <v-list-item-title class="text-left">
-                <div v-for="(a,i) in items.storestarpoint" :key="i">
-                  <div v-show="a.starnum == item.starnum">사장님</div>
-                  <div v-show="a.starnum == item.starnum">{{a.regDate}}</div>
-                </div>
-              </v-list-item-title>
-              <div v-for="(a,i) in items.storestarpoint" :key="i">
-                <p v-show="a.starnum == item.starnum">{{a.body}}</p>
+            <div v-for="(a,i) in items.storestarpoint" :key="i">
+              <div class="pinched" v-show="a.starnum == item.starnum">
+                <v-list-item-title class="text-left">
+                  <div>사장님</div>
+                  <div>{{a.regDate}}</div>
+                  <p class="text-center">{{a.body}}</p>
+                </v-list-item-title>
               </div>
             </div>
           </v-list-item-content>
@@ -63,7 +61,7 @@
         <v-divider />
       </v-list>
     </v-card>
-  </div>
+  </v-list-item>
 </template>
 
 <script>
@@ -112,6 +110,7 @@ p {
   text-align: center;
   color: #000000;
   background: #e6e6e6;
+  height: 100%;
   /* css3 */
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;

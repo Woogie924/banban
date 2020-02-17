@@ -73,6 +73,7 @@ export default {
         { text: "제목 ", value: "title" },
         { text: "남은 인원수 ", value: "remain" },
         { text: "작성자", value: "writer" },
+        { text: "남은인원수", value: "remain" },
         { text: "자세히 보기", value: "action", sortable: false }
       ],
       dialog: true
