@@ -14,9 +14,7 @@ var firebaseConfig = {
   appId: "1:265895080563:web:fc6e4195a9d3f0d155f006",
   measurementId: "G-890ZWRM6V7"
 };
-firebase.initializeApp({
-  'messagingSenderId': '265895080563'
-})
+firebase.initializeApp(firebaseConfig)
 
 messaging.onMessage(payload => {
   console.log(payload.data.status)
@@ -26,9 +24,6 @@ messaging.onMessage(payload => {
 
 const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler(function (payload) {
-  const title = '주문 들어왔다!';
-  const options = {
-    body: payload.data.status
-  };
+  console.log(payload)
   return self.registeration.showNotification(title, options);
 })
