@@ -115,6 +115,7 @@ export default {
           longitude: 0
         })
         .then(() => {
+          console.log(this.$store.state);
           this.$router.push({ name: "UserMainPage" });
         })
         .catch(err => {
