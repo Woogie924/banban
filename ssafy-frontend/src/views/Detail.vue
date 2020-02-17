@@ -102,7 +102,7 @@
           <div v-if="value.bnum == board.num">
             <v-row fluid v-if="value.writer != userName">
               <v-col>
-                <v-avatar color="teal" size="48">
+                <v-avatar color="teal" size="absolute">
                   <span class="white--text headline">{{value.writer}}</span>
                 </v-avatar>
                 <v-card elevation="1" class="ps-12">{{value.body}}</v-card>
@@ -123,9 +123,6 @@
               <v-col></v-col>
               <v-col>
                 <v-card class="pr-12">
-                  <v-avatar color="teal" size="48">
-                    <span class="white--text headline">{{userName}}}</span>
-                  </v-avatar>
                   <v-card-text>{{value.body}}</v-card-text>
                   <v-btn
                     v-if="userName === value.writer"
@@ -218,7 +215,6 @@ export default {
       }).then(res => {
         this.comment = res.data;
         this.len = res.data.length;
-        console.log(this.len);
       });
     },
     start() {
