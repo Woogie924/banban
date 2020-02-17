@@ -1,118 +1,70 @@
 <template>
-  <div>
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-      xs12
-      lg6
-      md12
-      sm12
-    >
-      <template v-slot:activator="{on}">
-        <v-btn text large outlined v-on="on" height="5em">
-          <span>메뉴 관리</span>
-          <v-icon>{{iconPath}}</v-icon>
-        </v-btn>
-      </template>
-      <v-card>
-        <v-toolbar dark color="grey">
-          <v-btn icon dark @click="cancel">
-            <v-icon>{{reply}}</v-icon>
-          </v-btn>
-
-          <v-toolbar-title>{{flag}}</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark text>Save</v-btn>
-          </v-toolbar-items>
-        </v-toolbar>
-        <v-card-text>
-          <br />
-          <v-btn color="blue-grey" dark text textclass="ma-2" @click="dialog2= !dialog2">메뉴 등록하기</v-btn>
-
-          <v-layout mt-5 wrap>
-            <v-flex v-for="item in list" :key="item.id">
-              <menuCard
-                :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
-                :name="item.name"
-                :cost="item.cost"
-                :tip="item.tip"
-                :tag="item.tag"
-                class="ma-3"
-              ></menuCard>
-            </v-flex>
-          </v-layout>
-
-          <!-- <menuCard :imageUrl="childImg" :name="childName" :cost="childCost" :tip="childTip"></menuCard> -->
-        </v-card-text>
-        <div>
-          <v-card></v-card>
-        </div>
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialog2" max-width="800">
-      <v-card>
-        <v-card-title>메뉴 등록</v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-flex>
-              <v-text-field v-model="foodName" label="음식명" :rules="rules" hide-details="auto"></v-text-field>
-              <v-text-field v-model="foodPrice" label="가격"></v-text-field>
-            </v-flex>
-            <v-flex>
-              <v-textarea
-                v-model="foodText"
-                name="input-7-1"
-                label="Default style"
-                value="'반반한 동네'
+  <v-dialog v-model="dialog2" max-width="800">
+    <template v-slot:activator="{on}">
+      <v-btn text large outlined v-on="on" height="5em">
+        <span>메뉴 등록</span>
+        <v-icon>{{iconPath}}</v-icon>
+      </v-btn>
+    </template>
+    <v-card>
+      <v-card-title>메뉴 등록</v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-flex>
+            <v-text-field v-model="foodName" label="음식명" :rules="rules" hide-details="auto"></v-text-field>
+            <v-text-field v-model="foodPrice" label="가격"></v-text-field>
+          </v-flex>
+          <v-flex>
+            <v-textarea
+              v-model="foodText"
+              name="input-7-1"
+              label="Default style"
+              value="'반반한 동네'
                 맛있게 먹는 방법! 
                 주문 꿀팁!
                 설명해주세요!!"
-                hint="쓰면 쓸수록 손님이 몰려와요,,"
-              ></v-textarea>
-            </v-flex>
-            <br />
-            <v-flex>
-              <v-spacer></v-spacer>
-              <v-autocomplete
-                v-model="values"
-                :items="tags"
-                outlined
-                dense
-                chips
-                small-chips
-                label="Outlined"
-                multiple
-              ></v-autocomplete>
-            </v-flex>
-            <v-flex>
-              <div id="aa">
-                <file-pond
-                  name="test"
-                  ref="pond"
-                  label-idle="Drop files here..."
-                  v-bind:allow-multiple="false"
-                  accepted-file-types="image/jpeg, image/png"
-                  :server="serverConfig"
-                  v-bind:files="myFiles"
-                  v-on:init="handleFilePondInit"
-                  v-bind:instantUpload="true"
-                  v-on:processFile="test"
-                />
-              </div>
-              <!-- <button @click="test()">sssdsd</button> -->
-            </v-flex>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" text @click="dialog2 = false">Close</v-btn>
-          <v-btn color="green" text @click="submit">Submit</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
+              hint="쓰면 쓸수록 손님이 몰려와요,,"
+            ></v-textarea>
+          </v-flex>
+          <br />
+          <v-flex>
+            <v-spacer></v-spacer>
+            <v-autocomplete
+              v-model="values"
+              :items="tags"
+              outlined
+              dense
+              chips
+              small-chips
+              label="Outlined"
+              multiple
+            ></v-autocomplete>
+          </v-flex>
+          <v-flex>
+            <div id="aa">
+              <file-pond
+                name="test"
+                ref="pond"
+                label-idle="Drop files here..."
+                v-bind:allow-multiple="false"
+                accepted-file-types="image/jpeg, image/png"
+                :server="serverConfig"
+                v-bind:files="myFiles"
+                v-on:init="handleFilePondInit"
+                v-bind:instantUpload="true"
+                v-on:processFile="test"
+              />
+            </div>
+            <!-- <button @click="test()">sssdsd</button> -->
+          </v-flex>
+        </v-container>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" text @click="dialog2 = false">Close</v-btn>
+        <v-btn color="green" text @click="submit">Submit</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -144,8 +96,9 @@ import menuCard from "../components/menuCard";
 import test from "../services/test";
 import { mdiApps } from "@mdi/js";
 import { mdiReply } from "@mdi/js";
+
 export default {
-  name: "MenuManagement",
+  name: "AddStoreMenu",
   components: {
     FilePond,
     menuCard

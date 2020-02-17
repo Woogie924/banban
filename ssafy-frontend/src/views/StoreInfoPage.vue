@@ -3,45 +3,53 @@
     <v-layout class="my-5">
       <UserNavBar></UserNavBar>
     </v-layout>
-    <v-container fluid class="mb-0 pb-0">
-      <v-layout class="mt-5 justify-center">
+    <v-container fluid class="mb-0 pb-0" wrap>
+      <v-layout class="mt-5 justify-center mb-0 pb-0">
         <v-flex xs12 sm6 md6 lg3>
           <StoreInfo :storeId="this.$route.params.StoreId"></StoreInfo>
         </v-flex>
       </v-layout>
-      <v-layout class="justify-center">
-        <v-btn
-          v-if="MenuVisible"
-          outlined
-          large
-          text
-          @click="MenuBtnClick()"
-          class="font-weight-black"
-        >메뉴</v-btn>
-        <v-btn
-          v-else
-          outlined
-          large
-          text
-          @click="MenuBtnClick()"
-          class="font-weight-bold grey--text"
-        >메뉴</v-btn>
-        <v-btn
-          v-if="ReviewVisible"
-          outlined
-          large
-          text
-          @click="ReviewBtnClick()"
-          class="font-weight-black"
-        >리뷰</v-btn>
-        <v-btn
-          v-else
-          outlined
-          large
-          text
-          @click="ReviewBtnClick()"
-          class="font-weight-bold grey--text"
-        >리뷰</v-btn>
+      <v-layout class="justify-center mt-0 pt-0">
+        <v-flex xs12 sm6 md6 lg3>
+          <v-row>
+            <v-col cols="6">
+              <v-btn
+                v-if="MenuVisible"
+                block
+                large
+                text
+                @click="MenuBtnClick()"
+                class="font-weight-black"
+              >메뉴</v-btn>
+              <v-btn
+                v-else
+                block
+                large
+                text
+                @click="MenuBtnClick()"
+                class="font-weight-bold grey--text"
+              >메뉴</v-btn>
+            </v-col>
+            <v-col cols="6">
+              <v-btn
+                v-if="ReviewVisible"
+                block
+                large
+                text
+                @click="ReviewBtnClick()"
+                class="font-weight-black"
+              >리뷰</v-btn>
+              <v-btn
+                v-else
+                block
+                large
+                text
+                @click="ReviewBtnClick()"
+                class="font-weight-bold grey--text"
+              >리뷰</v-btn>
+            </v-col>
+          </v-row>
+        </v-flex>
       </v-layout>
     </v-container>
 

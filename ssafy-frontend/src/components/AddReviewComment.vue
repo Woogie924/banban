@@ -3,19 +3,19 @@
     v-model="dialog"
     hide-overlay
     transition="dialog-bottom-transition"
-    max-width="50vw"
+    max-width="48vw"
     :fullscreen="$vuetify.breakpoint.xs"
   >
     <template v-slot:activator="{ on }">
-      <v-btn text outlined v-on="on" height="8vh">
+      <v-btn text outlined v-on="on" height="5em">
         <span>리뷰</span>
-        <v-icon>mdi-bell</v-icon>
+        <v-icon>{{iconPath}}</v-icon>
       </v-btn>
     </template>
-    <v-card>
-      <v-toolbar color="transparent" dense>
+    <v-card max-width="48vw">
+      <v-toolbar color="transparent" dense fixed>
         <v-btn icon @click="dialog = false">
-          <v-icon>mdi-close</v-icon>
+          <v-icon>{{reply}}</v-icon>
         </v-btn>
       </v-toolbar>
       <v-divider />
@@ -94,10 +94,14 @@
 import store from "@/vuex/store.js";
 import shopkeeper from "../services/shopkeeper.js";
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
+import { mdiMessageTextOutline } from "@mdi/js";
+import { mdiReply } from "@mdi/js";
 export default {
   name: "AddReviewComment",
   data() {
     return {
+      iconPath: mdiMessageTextOutline,
+      reply: mdiReply,
       dialog: false,
       myid: this.$store.state.userName,
       list: [],

@@ -19,6 +19,7 @@ import StoreInfoPage from './views/StoreInfoPage'
 import MyCartPage from './views/MyCartPage'
 import profile from './views/profile'
 import MyPaymentPage from './views/MyPaymentPage'
+import StoreMenuPage from './views/StoreMenuPage'
 Vue.use(Router)
 
 const router = new Router({
@@ -139,6 +140,11 @@ const router = new Router({
 			name: 'MyPaymentPage',
 			component: MyPaymentPage
 
+		},
+		{
+			path: '/StoreMenuPage',
+			name: 'StoreMenuPage',
+			component: StoreMenuPage
 		}
 	]
 })
