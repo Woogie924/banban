@@ -168,7 +168,6 @@ export default {
   },
   methods: {
     Mregister() {
-      this.$v.touch();
       if (!this.$v.$invalid) {
         this.$store
           .dispatch("Mregister", {
@@ -264,5 +263,6 @@ export default {
 }
 .errorMessage {
   color: red;
+  padding-bottom: 0;
 }
 </style>

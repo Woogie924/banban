@@ -126,8 +126,20 @@
   </div>
 </template>
 <script>
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
+import store from "@/vuex/store.js";
+
 export default {
   name: "main-header",
+  mounted() {
+    if (this.$store.state.userType !== 2) {
+      alert("권한이 없습니다. 로그인해주세요");
+      this.$router.push("/StoreLogin");
+    } else {
+      this.connect();
+    }
+  },
   data() {
     return {
       appTitle: "'반반한 동네' 사장님 공간",
@@ -166,11 +178,35 @@ export default {
       this.$store.dispatch("logout");
     },
     getSubDirectory(item, index) {
-      console.log("zzz");
       for (let idx = 0; idx < this.curSubDirectory.length; idx++) {
         this.curSubDirectory[idx].flag = false;
       }
       this.curSubDirectory[index].flag = true;
+    },
+    connect() {
+      this.socket = new SockJS("http://192.168.100.92:8082/order");
+      this.stompClient = Stomp.over(this.socket);
+      this.stompClient.connect(
+        {},
+        frame => {
+          console.log("연결요");
+          this.status = "connected";
+          this.connected = true;
+          console.log(frame);
+          this.stompClient.subscribe(
+            `/topic/push/${this.$store.state.userName}`,
+            tick => {
+              console.log(JSON.parse(tick.body).message);
+              this.received_messages.push(JSON.parse(tick.body));
+            }
+          );
+        },
+        error => {
+          console.log("에러요");
+          console.log(error);
+          this.connected = false;
+        }
+      );
     }
   }
 };
