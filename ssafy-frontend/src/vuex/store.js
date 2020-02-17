@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import createPersistedState from "vuex-persistedstate"
-import router from "@/router.js"
+import createPersistedState from 'vuex-persistedstate'
+import router from '@/router.js'
 
 Vue.use(Vuex)
 
@@ -16,10 +16,10 @@ const store = new Vuex.Store({
     lat: null,
     lon: null,
     mToken: null,
-    order: 0,
+    order: 0
   },
   mutations: {
-    SET_USER_DATA(state, userData) {
+    SET_USER_DATA (state, userData) {
       if (userData.token !== null) {
         console.log(userData.data)
         state.userName = userData.data.id
@@ -33,32 +33,32 @@ const store = new Vuex.Store({
         ] = `Bearer ${store.state.token}`
       }
     },
-    SET_STORE_DATA(state, storeData) {
+    SET_STORE_DATA (state, storeData) {
       if (storeData.token !== null) {
         state.res = storeData
       }
     },
-    SET_SOCIAL_DATA(state, userData) {
+    SET_SOCIAL_DATA (state, userData) {
       if (userData.token !== null) {
         state.userName = userData.data.id
         state.token = userData.token
         state.userType = userData.data.chk
         state.userAddr = userData.data.address
-        axios.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${state.user}`
+        axios.defaults.headers.common['Authorization'] = `Bearer ${state.user}`
       }
     },
-    getLocation(state) {
-      navigator.geolocation.getCurrentPosition(
-        function (pos) {
-          state.lat = pos.coords.latitude
-          state.lon = pos.coords.longitude
-          alert(`위치가 갱신되었습니다.`)
-        }
-      ); //백으로 다시 보내서 계산...
+    getLocation (state, dist) {
+      state.lat = dist.lat
+      state.lon = dist.lon
+      // navigator.geolocation.getCurrentPosition(function (pos) {
+      //   state.lat = pos.coords.latitude
+      //   state.lon = pos.coords.longitude
+      //   alert(`위치가 갱신되었습니다.`)
+      //   console.log(state.lat)
+      //   console.log(state.lon)
+      // }) //백으로 다시 보내서 계산...
     },
-    CLEAR_USER_DATA(state) {
+    CLEAR_USER_DATA (state) {
       localStorage.clear()
       location.reload()
       state.token = null
@@ -70,42 +70,38 @@ const store = new Vuex.Store({
       state.lat = null
       state.order = 0
     },
-    M_TOKEN_SAVE(state, mToken) {
+    M_TOKEN_SAVE (state, mToken) {
       state.mToken = mToken
     },
-    ORDER_PLUS(state) {
+    ORDER_PLUS (state) {
       state.order += 1
       return state.order
     },
-    CLEAR_ORDER(state) {
+    CLEAR_ORDER (state) {
       state.order = 0
     }
   },
   actions: {
-    resetaddr({
-      commit
-    }, credentials, ) {
+    getLocation ({ commit }, credentials) {
+      commit('getLocation', credentials)
+    },
+    resetaddr ({ commit }, credentials) {
       axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${store.state.token}`;
+        'Authorization'
+      ] = `Bearer ${store.state.token}`
       return axios
         .post('http://192.168.100.92:8080/shopkeeper/near', credentials)
-        .then(({
-          data
-        }) => {
+        .then(({ data }) => {
           commit('SET_STORE_DATA', data)
         })
     },
-    kakaologin({
-      commit
-    }, credentials) {
+    kakaologin ({ commit }, credentials) {
       return axios
         .post('http://192.168.100.92:8080/api/socialLogin', credentials)
-        .then(({
-          data
-        }) => {
+        .then(({ data }) => {
           commit('SET_USER_DATA', data)
-          axios.post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
+          axios
+            .post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
             .then(function (response) {
               //success(response.data);
               // alert(response)
@@ -113,80 +109,72 @@ const store = new Vuex.Store({
               commit('SET_STORE_DATA', response)
             })
             .catch(function (error) {
-              errorCallback();
+              errorCallback()
             })
-          return data;
+          return data
         })
     },
-    Mregister({
-      commit
-    }, credentials) {
-      console.log(credentials + "! ");
-      return axios
-        .post('http://192.168.100.92:8080/api/user', credentials)
+    Mregister ({ commit }, credentials) {
+      console.log(credentials + '! ')
+      return axios.post('http://192.168.100.92:8080/api/user', credentials)
     },
-    Sregister({
-      commit
-    }, credentials) {
-      return axios
-        .post('http://192.168.100.92:8080/shopkeeper/store', credentials)
+    Sregister ({ commit }, credentials) {
+      return axios.post(
+        'http://192.168.100.92:8080/shopkeeper/store',
+        credentials
+      )
     },
-    socialRegister({
-      commit
-    }, credentials) {
-      return axios
-        .post('http://192.168.100.92:8080/api/user', credentials)
+    socialRegister ({ commit }, credentials) {
+      return axios.post('http://192.168.100.92:8080/api/user', credentials)
     },
-    Mlogin({
-      commit
-    }, credentials) {
+    Mlogin ({ commit }, credentials) {
       return axios
         .post('http://192.168.100.92:8080/api/loginCheck', credentials)
-        .then(({
-          data
-        }) => {
-          axios.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${store.state.token}`;
-          res.data.longitude
-          res.data.latitude
-          return axios
-            .post('http://192.168.100.92:8080/shopkeeper/near', )
-            .then(({
-              data
-            }) => {
-              commit('SET_STORE_DATA', data)
+        .then(
+          ({
+            data //로그인한 사람의 모든 정보
+          }) => {
+            //위도, 경도만 추려내서 near로 전송
+            commit('SET_USER_DATA', data)
+            axios.defaults.headers.common[
+              'Authorization'
+            ] = `Bearer ${data.token}`
+            axios({
+              method: 'post',
+              url: `http://192.168.100.92:8080/shopkeeper/near/`,
+              data: {
+                lat: data.data.latitude,
+                lon: data.data.longitude
+              }
             })
-          // commit('SET_USER_DATA', data)
-          // axios.post('http://192.168.100.92:8080/shopkeeper/near', data.data)
-          //   .then(function (response) {
-          //     //success(response.data);
-          //     // alert(response)
-          //     commit('SET_STORE_DATA', response)
-          //     // return response;
-          //   })
-        })
+              // .post('http://192.168.100.92:8080/shopkeeper/near', data)
+              .then(({ data }) => {
+                commit('SET_STORE_DATA', data)
+              })
+
+            // commit('SET_USER_DATA', data)
+            // axios.post('http://192.168.100.92:8080/shopkeeper/near', data.data)
+            //   .then(function (response) {
+            //     //success(response.data);
+            //     // alert(response)
+            //     commit('SET_STORE_DATA', response)
+            //     // return response;
+            //   })
+          }
+        )
     },
-    Slogin({
-      commit
-    }, credentials) {
+    Slogin ({ commit }, credentials) {
       return axios
         .post('http://192.168.100.92:8080/shopkeeper/loginCheck', credentials)
-        .then(({
-          data
-        }) => {
+        .then(({ data }) => {
           console.log(data)
           commit('SET_USER_DATA', data)
         })
     },
-    logout({
-      commit
-    }) {
+    logout ({ commit }) {
       commit('CLEAR_USER_DATA')
     },
-    modifyInfo({
-      commit
-    }, credentials) {
+    modifyInfo ({ commit }, credentials) {
       return axios
         .put('http://192.168.100.92:8080/api/user', credentials)
         .then(router.push('/'))
@@ -194,7 +182,7 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-    loggedIn(state) {
+    loggedIn (state) {
       return !!state.user
     }
   },

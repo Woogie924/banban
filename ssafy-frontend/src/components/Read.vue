@@ -41,6 +41,7 @@
     </v-btn>
 
     <v-btn @click="move">메인페이지로 이동하기</v-btn>
+    <v-btn @click="test">카카오</v-btn>
   </div>
 </template>
 
@@ -82,7 +83,12 @@ export default {
 
   methods: {
     test() {
-      console.log(11);
+      axios({
+        method: "post",
+        url: `http://192.168.100.92:8080/kakaoPay`
+      }).then(res => {
+        document.location.href = res.data;
+      });
     },
     move() {
       this.$router.push({
@@ -105,20 +111,16 @@ export default {
     get_info() {
       test.backendService(
         res => {
-          console.log(res);
           this.board = res;
-          window.console.log(this.board);
         },
         error => {}
       );
     },
     search(category) {
-      window.console.log(category);
       test.backendService(
         res => {
           this.board = [];
           for (var b in res) {
-            window.console.log(res[b]);
             if (res[b].category == category) this.board.push(res[b]);
           }
         },

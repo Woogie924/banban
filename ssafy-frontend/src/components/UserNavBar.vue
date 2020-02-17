@@ -156,18 +156,23 @@ export default {
   },
   methods: {
     getLocation() {
-      this.$store.commit("getLocation");
-      // console.log(this.$store.state.lat);
-      // console.log(this.$store.state.lon);
-      this.$store
-        .dispatch("resetaddr", {
-          lat: this.$store.state.lat,
-          lon: this.$store.state.lon
-        })
-        .then(() => {
-          console.log("성공");
-          window.location.reload();
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        store.dispatch("getLocation", {
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude
         });
+        alert(`위치가 갱신되었습니다.`);
+
+        store
+          .dispatch("resetaddr", {
+            lat: store.state.lat,
+            lon: store.state.lon
+          })
+          .then(() => {
+            console.log("성공");
+            window.location.reload();
+          });
+      }); //백으로 다시 보내서 계산...
     },
     logout() {
       this.$store.dispatch("logout");
