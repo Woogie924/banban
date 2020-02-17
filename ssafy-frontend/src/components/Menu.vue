@@ -139,6 +139,7 @@ export default {
                 });
               };
             }
+            EventBus.$emit("orderp", "치킨");
           }
         }
       }
@@ -207,7 +208,8 @@ export default {
                 store.state.res[i].longitude
               );
               storeId[i] = store.state.res[i].id;
-
+              console.log(store.state.res[i].latitude);
+              console.log(store.state.res[i].longitude);
               if (that.MenuList[idx].food === "치킨") {
                 var imageSrc =
                   "https://image.flaticon.com/icons/svg/1046/1046751.svg";
@@ -247,7 +249,19 @@ export default {
                 clickable: true
               });
               marker.setMap(map);
-              infowindow.open(map, marker);
+              var iwContent =
+                '<div class="wrap">' +
+                '    <div class="info">' +
+                '        <div class="title">' +
+                store.state.res[i].name +
+                "        </div>" +
+                '        <div class="body">' +
+                '            <div class="img">' +
+                '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+                "           </div>" +
+                "        </div>" +
+                "    </div>" +
+                "</div>";
               var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
               var infowindow = new kakao.maps.InfoWindow({
                 content: iwContent
