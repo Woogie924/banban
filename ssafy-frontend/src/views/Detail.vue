@@ -64,7 +64,7 @@
             small
             color="error"
             v-if="this.state == false && board.party > board.nowmember"
-            @click="party_join(board.num, userName)"
+            @click="party_join(board.num, userName), showChat=!showChat"
           >파티참가하기</v-btn>
           <v-btn
             small
@@ -156,7 +156,6 @@
         </v-bottom-navigation>
       </div>
     </v-navigation-drawer>
-    <p>{{board}}</p>
   </div>
 </template>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
