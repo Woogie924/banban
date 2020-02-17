@@ -71,7 +71,7 @@ export default {
         { text: "등록일", value: "regDate" },
         { text: "거리", value: "distance" },
         { text: "제목 ", value: "title" },
-        { text: "남은 인원수 ", value: "party - nowmember" },
+        { text: "남은 인원수 ", value: "remain" },
         { text: "작성자", value: "writer" },
         { text: "자세히 보기", value: "action", sortable: false }
       ],
@@ -80,9 +80,7 @@ export default {
   },
 
   methods: {
-    test() {
-      console.log(11);
-    },
+    test() {},
     move() {
       this.$router.push({
         path: "UserMainpage"
@@ -104,20 +102,16 @@ export default {
     get_info() {
       test.backendService(
         res => {
-          console.log(res);
           this.board = res;
-          window.console.log(this.board);
         },
         error => {}
       );
     },
     search(category) {
-      window.console.log(category);
       test.backendService(
         res => {
           this.board = [];
           for (var b in res) {
-            window.console.log(res[b]);
             if (res[b].category == category) this.board.push(res[b]);
           }
         },

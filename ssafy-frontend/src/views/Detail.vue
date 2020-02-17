@@ -37,34 +37,16 @@
       </v-card>
     </div>
 
-    <ul>
-      <li>
-        <v-btn
-          v-if="userName === board.writer"
-          text
-          icon
-          color="red"
-          @click="deleteTest(board.num)"
-        >
-          <v-icon>{{ icons.mdiDelete }}</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="userName === board.writer"
-          text
-          icon
-          color="blue"
-          @click="updateData(board.num)"
-        >
-          <v-icon>fas fa-edit</v-icon>
-        </v-btn>
-        <v-btn text icon color="green" @click="move()">
-          <v-icon>fas fa-list</v-icon>
-        </v-btn>
-        <v-btn text icon color="red" @click="showcomment = !showcomment">
-          <v-icon>fas fa-list</v-icon>
-        </v-btn>
-      </li>
-    </ul>
+    <v-btn v-if="userName === board.writer" text icon color="red" @click="deleteTest(board.num)">
+      <v-icon>{{ icons.mdiDelete }}</v-icon>
+    </v-btn>
+    <v-btn v-if="userName === board.writer" text icon color="blue" @click="updateData(board.num)">
+      <v-icon>fas fa-edit</v-icon>
+    </v-btn>
+    <v-btn text icon color="green" @click="move()">
+      <v-icon>fas fa-list</v-icon>
+    </v-btn>
+
     <v-hover v-model="hover">
       <div style="height:50vh; position:relative">
         <v-btn absolute dark fab top right color="teal lighten-3" @click="showChat=!showChat">
@@ -199,7 +181,6 @@ export default {
       }).then(res => {
         this.comment = res.data;
         this.len = res.data.length;
-        console.log(this.len);
       });
     },
     start() {
