@@ -28,6 +28,7 @@ import axios from "axios";
 import Map from "../components/Map";
 import store from "@/vuex/store.js";
 import router from "../router";
+import EventBus from "../EventBus";
 export default {
   mounted() {
     var StoreId = "";
@@ -92,7 +93,9 @@ export default {
               clickable: true
             });
             marker.setMap(map);
+
             var iwContent = store.state.res[i].name;
+
             var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
             var infowindow = new kakao.maps.InfoWindow({
               content: iwContent,
@@ -311,6 +314,7 @@ export default {
         }
       });
       this.menuIdx = idx;
+      EventBus.$emit("orderp", this.MenuList[idx].food);
     }
   }
 };

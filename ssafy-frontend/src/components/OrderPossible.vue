@@ -8,7 +8,15 @@
           <p>주문 가능한 매장이 없습니다.</p>
         </div>
         <div v-else>
-          <v-card-text v-for="value in this.$store.state.res" :key="value.index">{{value.name}}</v-card-text>
+          <div v-for="value in this.$store.state.res" :key="value.index">
+            <div v-if="value.category === index">
+              <v-card-text>{{value.name}}</v-card-text>
+              <!-- <v-card-text v-for="value in this.$store.state.res" :key="value.index">{{value.name}}</v-card-text> -->
+            </div>
+          </div>
+          <!-- <div v-if="num===0">
+            <p>주문 가능한 매장이 없습니다.</p>
+          </div>-->
         </div>
       </v-card>
     </v-card>
@@ -16,8 +24,26 @@
 </template>
 
 <script>
+import EventBus from "../EventBus";
 export default {
-  name: "OrderPossible"
+  name: "OrderPossible",
+  data() {
+    return {
+      index: "",
+      num: 0
+    };
+  },
+  mounted() {
+    EventBus.$on("orderp", i => {
+      this.index = i;
+      console.log(this.index);
+    });
+  },
+  methods: {
+    plus() {
+      this.num++;
+    }
+  }
 };
 </script>
 
