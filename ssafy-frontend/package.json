@@ -22,6 +22,7 @@
     "register-service-worker": "^1.6.2",
     "sockjs": "^0.3.19",
     "sockjs-client": "^1.4.0",
+    "velocity-animate": "^1.5.2",
     "vue": "^2.6.11",
     "vue-cookies": "^1.6.1",
     "vue-filepond": "^6.0.2",
