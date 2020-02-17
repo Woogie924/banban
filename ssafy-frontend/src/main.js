@@ -14,6 +14,9 @@ import firebase, {
 	firestore
 } from 'firebase/app'
 import 'firebase/messaging'
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
 
 var firebaseConfig = {
 	apiKey: "AIzaSyBs1shcJNlZqmCO9_negDiPoXZ8Vlahip8",
@@ -46,7 +49,7 @@ Notification.requestPermission().then((permission) => {
 messaging.getToken().then((currentToken) => {
 	console.log(currentToken)
 	if (currentToken) {
-		firebase().firestore.collection('tokens').doc('nothing').set({
+		firebase.firestore().collection('tokens').doc('nothing').set({
 			token: currentToken
 		}).then(localStorage.setItem('mToken', currentToken))
 	} else {
@@ -62,7 +65,7 @@ messaging.onTokenRefresh(() => {
 	messaging.getToken().then((refreshedToken) => {
 		console.log('Token refreshed.');
 		if (refreshedToken) {
-			firestore.collection('token').doc('nothing').set({
+			firebase.firestore().collection('tokens').doc('nothing').set({
 				token: refreshedToken
 			}).then(localStorage.setItem('mToken', refreshedToken))
 		} else {

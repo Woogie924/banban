@@ -37,8 +37,13 @@
                         type="password"
                         outlined
                         dense
+                        @blur="$v.pw.$touch()"
                       />
                     </v-row>
+                    <div v-if="$v.pw.$error">
+                      <p v-if="!$v.pw.required" class="errorMessage">* 비밀번호를 작성해 주세요.</p>
+                      <p v-if="!$v.pw.minLength" class="errorMessage">* 4자 이상 작성해주세요.</p>
+                    </div>
                     <v-row>
                       <v-text-field
                         v-model="name"
@@ -58,8 +63,13 @@
                         type="email"
                         outlined
                         dense
+                        @blur="$v.email.$touch()"
                       ></v-text-field>
                     </v-row>
+                    <div v-if="$v.email.$error">
+                      <p v-if="!$v.email.email" class="errorMessage">* 이메일 형식에 맞게 작성해 주세요.</p>
+                      <p v-if="!$v.email.required" class="errorMessage">* 이메일을 작성해 주세요.</p>
+                    </div>
                     <v-row>
                       <v-text-field
                         v-model="currentAddress"
@@ -75,7 +85,13 @@
                       <v-btn @click="sample4_execDaumPostcode()" width="100%" outlined dense>우편번호찾기</v-btn>
                     </v-row>
                     <v-row>
-                      <v-text-field v-model="zipcode" outlined dense :disabled="true" />
+                      <v-text-field
+                        v-model="zipcode"
+                        outlined
+                        dense
+                        :disabled="true"
+                        @blur="$v.zipcode.$touch()"
+                      />
                     </v-row>
                     <v-row>
                       <v-text-field v-model="address" outlined dense />
@@ -83,9 +99,22 @@
                     <v-row>
                       <v-text-field v-model="address2" outlined dense />
                     </v-row>
+                    <div v-if="$v.zipcode.$error">
+                      <p v-if="!$v.zipcode.required" class="errorMessage">* 주소를 작성해 주세요.</p>
+                    </div>
                     <v-row>
-                      <v-text-field v-model="tel" label="핸드폰번호" name="tel" outlined dense />
+                      <v-text-field
+                        v-model="tel"
+                        label="핸드폰번호"
+                        name="tel"
+                        outlined
+                        dense
+                        @blur="$v.tel.$touch()"
+                      />
                     </v-row>
+                    <div v-if="$v.tel.$error">
+                      <p v-if="!$v.tel.required" class="errorMessage">* 전화번호를 작성해 주세요.</p>
+                    </div>
                     <v-row>
                       <v-btn
                         type="submit"
@@ -97,6 +126,7 @@
                         font-size="16"
                         font-family="SourceHanSansK-Bold, Source Han Sans K"
                         font-weight="700"
+                        :disabled="$v.$invalid"
                       >회원정보 수정</v-btn>
                     </v-row>
                     <br />
@@ -151,6 +181,12 @@
 import UserNavBar from "@/components/UserNavBar.vue";
 import store from "@/vuex/store.js";
 import axios from "axios";
+import {
+  required,
+  email,
+  maxLength,
+  minLength
+} from "vuelidate/lib/validators";
 export default {
   mounted(res) {
     axios.defaults.headers.common[
@@ -190,6 +226,15 @@ export default {
       currentPW: ""
     };
   },
+  validations: {
+    pw: {
+      required,
+      minLength: minLength(4)
+    },
+    tel: { required },
+    email: { required, email },
+    zipcode: { required }
+  },
   methods: {
     deleteUser() {
       if (this.currentPW == this.confirm) {
@@ -206,21 +251,24 @@ export default {
       }
     },
     modifyInfo() {
-      this.$store
-        .dispatch("modifyInfo", {
-          address: this.address,
-          chk: 0,
-          email: this.email,
-          id: this.id,
-          latitude: this.lat,
-          longitude: this.lon,
-          name: this.name,
-          point: 0,
-          pw: this.pw,
-          signupDate: this.signupDate,
-          tel: this.tel
-        })
-        .then(alert("회원정보가 수정되었습니다. 다시 로그인 해주세요."));
+      this.$v.touch();
+      if (!this.$v.$invalid) {
+        this.$store
+          .dispatch("modifyInfo", {
+            address: this.address,
+            chk: 0,
+            email: this.email,
+            id: this.id,
+            latitude: this.lat,
+            longitude: this.lon,
+            name: this.name,
+            point: 0,
+            pw: this.pw,
+            signupDate: this.signupDate,
+            tel: this.tel
+          })
+          .then(alert("회원정보가 수정되었습니다. 다시 로그인 해주세요."));
+      }
     },
     sample4_execDaumPostcode() {
       new daum.Postcode({
@@ -291,5 +339,8 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300");
 * {
   font-family: "Do Hyeon", sans-serif;
+}
+.errorMessage {
+  color: red;
 }
 </style>
