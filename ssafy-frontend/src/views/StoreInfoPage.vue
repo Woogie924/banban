@@ -3,14 +3,12 @@
     <v-layout class="my-5">
       <UserNavBar></UserNavBar>
     </v-layout>
-    <v-container fluid>
-      <v-layout class="my-5 justify-center">
-        <v-flex xs12 sm6 md6 lg3 class="pb-2">
+    <v-container fluid class="mb-0 pb-0">
+      <v-layout class="mt-5 justify-center">
+        <v-flex xs12 sm6 md6 lg3>
           <StoreInfo :storeId="this.$route.params.StoreId"></StoreInfo>
         </v-flex>
       </v-layout>
-    </v-container>
-    <v-container fluid>
       <v-layout class="justify-center">
         <v-btn
           v-if="MenuVisible"
@@ -46,20 +44,28 @@
         >리뷰</v-btn>
       </v-layout>
     </v-container>
+
     <!-- Store Info Component -->
     <v-container fluid>
       <v-layout v-show="MenuVisible" wrap class="justify-center">
-        <v-flex v-for="(item,i) in list" :key="i" xs12 sm12 md12 lg8 class="ma-0 pa-0">
-          <deliveryMenuInfo
-            :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
-            :name="item.name"
-            :cost="item.cost"
-            :tip="item.tip"
-            :tag="item.tag"
-          ></deliveryMenuInfo>
-        </v-flex>
+        <!-- <deliveryMenuInfo :list="list"></deliveryMenuInfo> -->
+
+        <v-list>
+          <v-list-item v-for="(item,index) in list" :key="index" class="mx-0 px-0 my-2">
+            <v-flex xs12 sm12 md12 lg12>
+              <deliveryMenuInfo
+                :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
+                :name="item.name"
+                :cost="item.cost"
+                :tip="item.tip"
+                :tag="item.tag"
+              ></deliveryMenuInfo>
+            </v-flex>
+          </v-list-item>
+        </v-list>
       </v-layout>
 
+      <!-- 리뷰 카드(일반 사용자가 가게 리뷰) -->
       <v-layout v-show="ReviewVisible" wrap class="justify-center">
         <!-- 리뷰 -->
         <v-flex xs12 sm7 md7 lg4>
@@ -67,6 +73,8 @@
         </v-flex>
       </v-layout>
     </v-container>
+
+    <!-- 장바구니 바로 이동 버튼 -->
     <v-btn
       id="basketBtn"
       fixed
