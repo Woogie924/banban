@@ -131,14 +131,15 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/profile',
-			name: 'profile',
-			component: profile
+			path: '/nothing',
+			name: 'nothing',
+			component: nothing
 		},
 		{
-			path: '/MyPaymentPage',
-			name: 'MyPaymentPage',
-			component: MyPaymentPage
+			path: '/kakaoPaySuccess',
+			name: 'kakaoPaySuccess',
+			component: kakaoPaySuccess
+		},
 
 		},
 		{

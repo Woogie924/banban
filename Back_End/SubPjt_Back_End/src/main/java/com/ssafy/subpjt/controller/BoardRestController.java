@@ -60,7 +60,7 @@ public class BoardRestController {
 			memberId = jwtService.getMemberId();
 			loginuser = userService.getUser(memberId);
 			if(loginuser != null) {
-				list = boardService.getAllBoards();
+				list = transactionService.getAllBoards();
 				System.out.println(list);
 				for(Board s : list) {
 					//System.out.println(s);

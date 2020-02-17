@@ -181,9 +181,19 @@ public class TransactionServiceImpl implements TransactionService{
 	}
 
 
+	@Transactional
 	@Override
 	public List<Board> getAllBoards() throws Exception {
-		return null;
+		List<Board> list = null;
+		Party party = null;
+		list = boardDao.getAllBoards();
+		for(Board b : list) {
+			party = boardDao.getPartyByBnum(b.getNum());
+			b.setNowmember(party.getNowmember());
+			b.setRemain(party.getMax()-party.getNowmember());
+			
+		}
+		return list;
 	}
 
 

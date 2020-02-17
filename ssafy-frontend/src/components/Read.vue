@@ -41,6 +41,7 @@
     </v-btn>
 
     <v-btn @click="move">메인페이지로 이동하기</v-btn>
+    <v-btn @click="test">카카오</v-btn>
   </div>
 </template>
 
@@ -71,7 +72,7 @@ export default {
         { text: "등록일", value: "regDate" },
         { text: "거리", value: "distance" },
         { text: "제목 ", value: "title" },
-        { text: "남은 인원수 ", value: "remain" },
+
         { text: "작성자", value: "writer" },
         { text: "남은인원수", value: "remain" },
         { text: "자세히 보기", value: "action", sortable: false }
@@ -81,7 +82,14 @@ export default {
   },
 
   methods: {
-    test() {},
+    test() {
+      axios({
+        method: "post",
+        url: `http://192.168.100.92:8080/kakaoPay`
+      }).then(res => {
+        document.location.href = res.data;
+      });
+    },
     move() {
       this.$router.push({
         path: "UserMainpage"
