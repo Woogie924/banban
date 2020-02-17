@@ -11,15 +11,15 @@
       sm12
     >
       <template v-slot:activator="{on}">
-        <v-btn text large outlined v-on="on" height="8vh">
+        <v-btn text large outlined v-on="on" height="5em">
           <span>메뉴 관리</span>
-          <v-icon>mdi-television-play</v-icon>
+          <v-icon>{{iconPath}}</v-icon>
         </v-btn>
       </template>
       <v-card>
         <v-toolbar dark color="grey">
           <v-btn icon dark @click="cancel">
-            <v-icon>mdi-close</v-icon>
+            <v-icon>{{reply}}</v-icon>
           </v-btn>
 
           <v-toolbar-title>{{flag}}</v-toolbar-title>
@@ -142,6 +142,8 @@ import axios from "axios";
 import store from "@/vuex/store.js";
 import menuCard from "../components/menuCard";
 import test from "../services/test";
+import { mdiApps } from "@mdi/js";
+import { mdiReply } from "@mdi/js";
 export default {
   name: "MenuManagement",
   components: {
@@ -150,6 +152,8 @@ export default {
   },
   data() {
     return {
+      iconPath: mdiApps,
+      reply: mdiReply,
       // menuCard Component용
       childId: null,
       childName: null,

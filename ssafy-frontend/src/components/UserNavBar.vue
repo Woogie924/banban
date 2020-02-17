@@ -50,8 +50,13 @@
         <v-layout>
           <v-flex>
             <v-toolbar width="100%" absolute dense color="transparent" style="position:fixed;">
-              <v-icon @click.stop="overlay = !overlay" style="cursor:pointer;">mdi-reply</v-icon>
-
+              <v-card color="white" light>
+                <v-icon
+                  @click.stop="overlay = !overlay"
+                  style="cursor:pointer;"
+                  light
+                >{{leftArrowPath}}</v-icon>
+              </v-card>
               <!-- mdi-arrow-left, mdi-reply -->
             </v-toolbar>
           </v-flex>
@@ -109,6 +114,7 @@ import axios from "axios";
 import store from "@/vuex/store.js";
 import router from "@/router.js";
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
+import { mdiArrowLeftThick } from "@mdi/js";
 export default {
   name: "UserNavBar",
   data() {
@@ -116,6 +122,7 @@ export default {
       appTitle: "ㅇㅇㅇ님 공간",
       quoteclose: mdiFormatQuoteClose,
       quoteopen: mdiFormatQuoteOpen,
+      leftArrowPath: mdiArrowLeftThick,
       sidebar: false,
       userName: "userName",
       userInfo: this.$store.state.userName,

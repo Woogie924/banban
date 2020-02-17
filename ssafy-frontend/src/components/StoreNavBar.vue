@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-toolbar width="100%" absolute dense style="position:fixed;" color="#009688">
-      <v-app-bar-nav-icon dark @click.stop="overlay = !overlay"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon dark @click.stop="overlay = !overlay">
+        <v-icon>{{menuIconPath}}</v-icon>
+      </v-app-bar-nav-icon>
+
+      <!-- <v-app-bar-nav-icon dark @click.stop="overlay = !overlay"></v-app-bar-nav-icon> -->
       <v-toolbar-title>
         <v-label>
           <router-link to="/StoreMainPage" tag="span" style="cursor:pointer;">
@@ -30,7 +34,7 @@
       </v-toolbar-items>
     </v-toolbar>
     <!-- 메뉴 아이콘 클릭 -->
-    <v-overlay :value="overlay">
+    <v-overlay :value="overlay" opacity="0.8">
       <v-navigation-drawer
         v-model="overlay"
         absolute
@@ -38,13 +42,24 @@
         style="position:fixed;"
         width="100vw"
       >
+        <v-toolbar width="100%" absolute dense color="transparent" style="position:fixed;">
+          <v-icon @click.stop="overlay = !overlay" style="cursor:pointer;">mdi-reply</v-icon>
+
+          <!-- mdi-arrow-left, mdi-reply -->
+        </v-toolbar>
         <v-row fluid>
           <!-- 오버레이 메뉴리스트 -->
           <v-col cols="3">
             <v-layout>
               <v-flex>
                 <v-toolbar width="100%" absolute dense color="transparent" style="position:fixed;">
-                  <v-icon @click.stop="overlay = !overlay" style="cursor:pointer;">mdi-reply</v-icon>
+                  <v-card color="white" light>
+                    <v-icon
+                      @click.stop="overlay = !overlay"
+                      style="cursor:pointer;"
+                      light
+                    >{{leftArrowPath}}</v-icon>
+                  </v-card>
                   <!-- mdi-arrow-left, mdi-reply -->
                 </v-toolbar>
               </v-flex>
@@ -126,10 +141,9 @@
   </div>
 </template>
 <script>
-import SockJS from "sockjs-client";
-import Stomp from "webstomp-client";
-import store from "@/vuex/store.js";
-
+import { mdiMenu } from "@mdi/js";
+import { mdiAnimationOutline } from "@mdi/js";
+import { mdiArrowLeftThick } from "@mdi/js";
 export default {
   name: "main-header",
   mounted() {
@@ -142,6 +156,8 @@ export default {
   },
   data() {
     return {
+      menuIconPath: mdiMenu,
+      leftArrowPath: mdiArrowLeftThick,
       appTitle: "'반반한 동네' 사장님 공간",
       sidebar: false,
       overlay: false,
@@ -159,6 +175,13 @@ export default {
           ]
         },
         {
+          title: "가게 메뉴",
+          path: "/StoreMenuPage",
+          icon: "folder_open",
+          info: "Click!",
+          sub: []
+        },
+        {
           title: "고객 센터",
           path: "/",
           icon: "folder_open",
@@ -170,7 +193,7 @@ export default {
           ]
         }
       ],
-      curSubDirectory: [{ flag: false }, { flag: true }]
+      curSubDirectory: [{ flag: false }, { flag: false }]
     };
   },
   methods: {

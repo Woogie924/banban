@@ -11,7 +11,7 @@ export default {
             .then(response => {
                 callback(response);
             }).catch(error => {
-                errorCallback();
+                errorCallback(error);
                 console.log("[shopKeeperAPI]getOrderList error!!!");
             })
     },

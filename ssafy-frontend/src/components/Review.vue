@@ -67,6 +67,9 @@
 <script>
 import UserOrder from "../services/UserOrder";
 import WriteReview from "../components/WriteReview";
+import Vue from "vue";
+import Vuetify from "vuetify";
+import "@mdi/font/css/materialdesignicons.css";
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 export default {
   name: "Review",

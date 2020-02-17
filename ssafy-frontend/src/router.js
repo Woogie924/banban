@@ -19,7 +19,7 @@ import StoreInfoPage from './views/StoreInfoPage'
 import MyCartPage from './views/MyCartPage'
 import profile from './views/profile'
 import MyPaymentPage from './views/MyPaymentPage'
-import push from './views/push'
+import StoreMenuPage from './views/StoreMenuPage'
 Vue.use(Router)
 
 const router = new Router({
@@ -131,20 +131,21 @@ const router = new Router({
 			}
 		},
 		{
-			path: '/profile',
-			name: 'profile',
-			component: profile
+			path: '/nothing',
+			name: 'nothing',
+			component: nothing
 		},
 		{
-			path: '/MyPaymentPage',
-			name: 'MyPaymentPage',
-			component: MyPaymentPage
+			path: '/kakaoPaySuccess',
+			name: 'kakaoPaySuccess',
+			component: kakaoPaySuccess
+		},
 
 		},
 		{
-			path: '/push',
-			name: 'push',
-			component: push
+			path: '/StoreMenuPage',
+			name: 'StoreMenuPage',
+			component: StoreMenuPage
 		}
 	]
 })
