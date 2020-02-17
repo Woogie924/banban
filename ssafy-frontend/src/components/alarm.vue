@@ -1,9 +1,7 @@
 <template>
   <div>
     <v-btn dark color="teal lighten-3" @click="checkIt()">
-      <!-- 장바구니 담은게 있으면,, -->
       <v-badge color="red" :content="quantity"></v-badge>
-      <!-- 장바구니 담은게 없으면,,, -->
     </v-btn>
     <p style="display:none">{{count}}</p>
   </div>

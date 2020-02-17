@@ -263,5 +263,6 @@ export default {
 }
 .errorMessage {
   color: red;
+  padding-bottom: 0;
 }
 </style>
