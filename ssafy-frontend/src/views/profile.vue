@@ -246,7 +246,6 @@ export default {
           .then(alert("회원탈퇴가 완료되었습니다."))
           .then(this.$router.push("/"));
       } else {
-        console.log(currentPW);
         alert("비밀번호가 일치하지 않습니다.");
       }
     },
