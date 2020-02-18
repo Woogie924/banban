@@ -3,72 +3,92 @@
     <v-layout class="my-5">
       <UserNavBar></UserNavBar>
     </v-layout>
-    <v-container class="my-5">
-      <div v-if="userName !== writer && index !==undefined">
-        <p>올바른 접근 방식이 아닙니다</p>
-        <v-btn small color="primary" @click="move()">글목록</v-btn>
-        <v-snackbar v-model="snackbar">
-          잘못된 접근입니다.{{ countDown}}초후 글목록 페이지로 이동합니다.
-          <v-btn color="pink" @click="snackbar = false">close</v-btn>
-        </v-snackbar>
-      </div>
-      <div v-else-if="index !==undefined">
-        <p>
-          <select v-model="category">
-            <option disabled value>하나를 선택 해 주세용</option>
-            <option>치킨</option>
-            <option>피자</option>
-            <option>족발</option>
-          </select>
-        </p>
-        <p>
-          <input v-model="title" placeholder="title" />
-        </p>
-        <p>
-          <input v-model="body" placeholder="body" />
-        </p>
-        <p>
-          <input v-model="party" placeholder="같이먹을 인원수 입력(본인포함)" />
-        </p>
-        <v-btn
-          small
-          color="error"
-          @click="index !== undefined? updated() : write()"
-        >{{index !== undefined ? '수정': '작성'}}</v-btn>
-        <v-btn small color="primary" @click="move()">글목록</v-btn>
-        <v-snackbar v-model="snackbar">
-          여기는 게시글 수정 페이지 입니다.
-          <v-btn color="pink" @click="snackbar = false">close</v-btn>
-        </v-snackbar>
-      </div>
-      <div v-else>
-        <select v-model="category">
-          <option disabled value>하나를 선택 해 주세용</option>
-          <option>치킨</option>
-          <option>피자</option>
-          <option>족발</option>
-        </select>
-        <p></p>
-        <p>
-          <input v-model="title" placeholder="title" />
-        </p>
-        <p>
-          <input v-model="body" placeholder="body" />
-        </p>
-        <p>
-          <input v-model="party" placeholder="인원수 입력(본인포함)" />
-        </p>
-        <v-btn text icon color="red" @click="write()">
-          <v-icon>fas fa-edit</v-icon>
-        </v-btn>
-        <v-btn text icon color="green" @click="move()">
-          <v-icon>fas fa-list</v-icon>
-        </v-btn>
-        <v-snackbar v-model="snackbar">
-          여기는 게시글 작성 페이지 입니다.
-          <v-btn color="pink" @click="snackbar = false, move()">close</v-btn>
-        </v-snackbar>
-      </div>
+    <v-container fluid class="my-5">
+      <v-layout class="justify-center">
+        <v-flex xs12 lg4 md6 sm6>
+          <div v-if="userName !== writer && index !==undefined">
+            <p>올바른 접근 방식이 아닙니다</p>
+            <v-btn small color="primary" @click="move()">글목록</v-btn>
+            <v-snackbar v-model="snackbar">
+              잘못된 접근입니다.{{ countDown}}초후 글목록 페이지로 이동합니다.
+              <v-btn color="teal" @click="snackbar = false">close</v-btn>
+            </v-snackbar>
+          </div>
+          <div v-else-if="index !==undefined">
+            <v-select
+              v-model="category"
+              :items="items"
+              :rules="[v => !!v || 'Item is required']"
+              label="카테고리"
+              required
+            ></v-select>
+            <v-text-field
+              v-model="title"
+              :counter="10"
+              :rules="[v => !!v || 'Item is required']"
+              label="제목"
+              required
+              placeholder="제목을 입력해주세요"
+            ></v-text-field>
+            <v-text-field
+              v-model="body"
+              :counter="100"
+              :rules="[v => !!v || 'Item is required']"
+              label="내용"
+              required
+              placeholder="내용을 입력해주세요"
+            ></v-text-field>
+            <v-text-field value="2" label="인원수" readonly></v-text-field>
+            <v-btn
+              color="red"
+              text
+              @click="index !== undefined? updated() : write()"
+            >{{index !== undefined ? '수정': '작성'}}</v-btn>
+            <v-btn color="teal" text @click="move()">글목록</v-btn>
+            <v-snackbar v-model="snackbar" color="white">
+              <div class="grey--text">여기는 게시글 수정 페이지 입니다.</div>
+              <v-btn color="teal lighten-2" text @click="snackbar = false">close</v-btn>
+            </v-snackbar>
+          </div>
+          <div v-else class="justify-center text-center">
+            <v-select
+              v-model="category"
+              :items="items"
+              :rules="[v => !!v || 'Item is required']"
+              label="카테고리"
+              required
+            ></v-select>
+            <v-text-field
+              v-model="title"
+              :counter="10"
+              :rules="[v => !!v || 'Item is required']"
+              label="제목"
+              required
+              placeholder="제목을 입력해주세요"
+            ></v-text-field>
+            <v-text-field
+              v-model="body"
+              :counter="100"
+              :rules="[v => !!v || 'Item is required']"
+              label="내용"
+              required
+              placeholder="내용을 입력해주세요"
+            ></v-text-field>
+            <v-text-field value="2" label="인원수" readonly></v-text-field>
+            <v-btn text color="teal" @click="move()">
+              <v-icon>fas fa-list</v-icon>목록
+            </v-btn>
+            <v-btn text color="red" @click="write()">
+              <v-icon>fas fa-edit</v-icon>작성
+            </v-btn>
+
+            <v-snackbar v-model="snackbar">
+              <div class="grey--text">여기는 게시글 작성 페이지 입니다.</div>
+              <v-btn color="teal lighten-2" text @click="snackbar = false, move()">close</v-btn>
+            </v-snackbar>
+          </div>
+        </v-flex>
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -103,9 +123,15 @@ export default {
       writer: "",
       title: "",
       body: "",
+      count: 2,
       party: null,
       snackbar: false,
-      countDown: 3
+      countDown: 3,
+      items: ["치킨", "피자", "족발"],
+      nameRules: [
+        v => !!v || "Name is required",
+        v => (v && v.length <= 10) || "Name must be less than 10 characters"
+      ]
     };
   },
   methods: {
@@ -141,7 +167,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "post",
-        url: `http://192.168.100.92:8080/notice/board/${this.party}`,
+        url: `http://192.168.100.92:8080/notice/board/2`,
         data: {
           category: this.category,
           title: this.title,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout class="my-5">
-      <StoreNavBar></StoreNavBar>
+      <!-- <StoreNavBar></StoreNavBar> -->
     </v-layout>
     <v-layout class="my-5">
       <v-btn @click="show = !show">Card</v-btn>
@@ -19,6 +19,7 @@
     </v-layout>
   </div>
 </template>
+
 <script>
 import StoreNavBar from "../components/StoreNavBar";
 import MyPaymentInfo from "../components/MyPaymentInfo";
