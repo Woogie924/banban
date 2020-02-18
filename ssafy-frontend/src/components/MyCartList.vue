@@ -10,7 +10,7 @@
             <v-list-item-content></v-list-item-content>
             <v-list-item-content class="justify-center">{{item.menuname}}</v-list-item-content>
             <v-list-item-content>
-              <v-btn color="teal lighten-2" text dark @click="deletecart(item.unum)">{{item}}</v-btn>
+              <v-btn color="teal lighten-2" text dark @click="deletecart(item.unum)">삭제</v-btn>
             </v-list-item-content>
           </v-list-item>
           <v-list-item tile dense>
@@ -57,8 +57,7 @@ export default {
     return {
       list: [],
       num: 1,
-      price: 15000,
-      default_price: 15000,
+      price: 0,
       total_price: 0
     };
   },
@@ -70,39 +69,36 @@ export default {
     getCartList() {
       UserCartService.getCartList(response => {
         this.list = response.data;
-        console.log("MyCartList component getCartList,,,");
-        console.log(response.data);
+        console.log(this.list);
+        for (let index = 0; index < this.list.length; index++) {
+          this.list[index].price =
+            this.list[index].price / this.list[index].quantity;
+        }
         this.initPrice();
-        this.summationPrice();
+        // this.summationPrice();
       });
     },
-    summationPrice() {
-      for (let index = 0; index < this.list.length; index++) {
-        this.total_price += this.list[i].price;
-      }
-    },
+    // summationPrice() {
+    //   for (let index = 0; index < this.list.length; index++) {
+    //     this.total_price += this.list[i].price;
+    //   }
+    // },
     initPrice() {
-      console.log("initPrice");
+      this.total_price = 0;
+      console.log(this.list);
       for (let index = 0; index < this.list.length; index++) {
-        this.list[index].price =
-          this.list[index].price / this.list[index].quantity;
-
-        this.total_price += this.list[index].price;
+        this.total_price += this.list[index].quantity * this.list[index].price;
       }
     },
     minus(idx) {
       if (this.list[idx].quantity > 1) {
         this.list[idx].quantity -= 1;
-        this.list[idx].price -= this.list[idx].price;
-        this.total_price -= this.list[idx].price / this.list[idx].quantity;
-        console.log(this.total_price);
+        this.initPrice();
       }
     },
     plus(idx) {
       this.list[idx].quantity += 1;
-      this.list[idx].price += this.list[idx].price;
-      this.total_price += this.list[idx].price / this.list[idx].quantity;
-      console.log(this.total_price);
+      this.initPrice();
     },
     deletecart(unum) {
       axios.defaults.headers.common[
@@ -116,7 +112,6 @@ export default {
       });
     },
     movePaymentPage() {
-      console.log("MyCartList,,, 결제 페이지로 이동");
       // 내 결제 페이지로 분기
       this.$router.push({
         name: "MyPaymentPage",

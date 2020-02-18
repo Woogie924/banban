@@ -184,7 +184,10 @@ export default {
 
     moveMyCartListPage() {
       this.$router.push({
-        name: "MyCartPage"
+        name: "MyCartPage",
+        params: {
+          totalprice: this.totalprice
+        }
       });
     },
     getCartList() {

@@ -10,7 +10,7 @@
                 <div class="underlined">배달 정보</div>
               </v-list-item-title>
               <v-list-item-subtitle class="font-weight-black text--grey">내 주소</v-list-item-subtitle>
-              <div class="card">구미시 인의동 560-24 썬하우스A 305호 010-5008-9962</div>
+              <div class="card">{{address}}</div>
               <br />
               <v-list-item-subtitle class="font-weight-black text--grey">팀원 주소</v-list-item-subtitle>
               <div class="card">
@@ -37,7 +37,7 @@
               <v-list-item-title class="text-shadow font-weight-bold my-2">
                 <div class="underlined">결제 금액</div>
               </v-list-item-title>
-              <v-list-item-subtitle class="font-weight-bold">32,700원</v-list-item-subtitle>
+              <v-list-item-subtitle class="font-weight-bold">{{total_price}}</v-list-item-subtitle>
               <div class="card">
                 <v-btn block text>카카오페이</v-btn>
               </div>
@@ -57,12 +57,13 @@
       </v-container>
       <div class="text-center font-weight-black text--grey">위 내용을 확인하였으며 결제에 동의합니다</div>
       <v-toolbar card fixed color="white" elevation="0">
-        <v-btn block @click="pay()">32,700원 결제하기</v-btn>
+        <v-btn block @click="pay()">{{total_price}}원 결제하기</v-btn>
       </v-toolbar>
     </v-card>
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "MyPaymentInfo",
   props: {
@@ -75,6 +76,7 @@ export default {
   data() {
     return {
       dialog: false,
+      address: "",
       myWidth: "100vw",
       panel_items: [
         {
@@ -98,7 +100,8 @@ export default {
   },
   mounted() {
     this.myWidth = this.dialogResizing();
-    console.log(this.myWidth);
+    this.test();
+    this.get_address(this.$store.state.userName);
   },
   methods: {
     dialogResizing() {
@@ -113,6 +116,17 @@ export default {
           return "50vw";
       }
     },
+    get_address(id) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${this.$store.state.token}`;
+      axios({
+        method: "get",
+        url: `http://192.168.100.92:8080/api/address/${id}`
+      }).then(res => {
+        this.address = res.data;
+      });
+    },
     pay() {
       // 카카오페이
       axios({
@@ -120,13 +134,16 @@ export default {
         url: `http://192.168.100.92:8080/kakaoPay`,
         data: {
           partner_order_id: "kim",
-          // partner_user_id: ,
-          // item_name: ,
+          partner_user_id: "park",
+          item_name: "땅땅치킨",
           total_amount: this.total_price
         }
       }).then(res => {
         document.location.href = res.data;
       });
+    },
+    test() {
+      this.total_price = this.$route.params.total_price;
     }
   }
 };
