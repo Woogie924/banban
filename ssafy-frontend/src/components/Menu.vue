@@ -28,6 +28,7 @@ import axios from "axios";
 import Map from "../components/Map";
 import store from "@/vuex/store.js";
 import router from "../router";
+import EventBus from "../EventBus";
 export default {
   mounted() {
     var StoreId = "";
@@ -71,8 +72,6 @@ export default {
         var storeId = [];
         for (var i = 0; i < store.state.res.length; i++) {
           if (store.state.res[i].category === that.MenuList[0].food) {
-            console.log(store.state.res[i].latitude);
-            console.log(store.state.res[i].longitude);
             //위도경도 가져와서 하나씩 표시...
             var imageSrc =
               "https://image.flaticon.com/icons/svg/1046/1046751.svg";
@@ -325,6 +324,7 @@ export default {
         }
       });
       this.menuIdx = idx;
+      EventBus.$emit("orderp", this.MenuList[idx].food);
     }
   }
 };
