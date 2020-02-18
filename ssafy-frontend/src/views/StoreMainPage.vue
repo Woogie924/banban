@@ -43,6 +43,7 @@ export default {
     connect() {
       this.socket = new SockJS("http://192.168.100.92:8082/order");
       this.stompClient = Stomp.over(this.socket);
+      const that = this;
       this.stompClient.connect(
         {},
         frame => {
@@ -55,6 +56,9 @@ export default {
             tick => {
               this.$store.commit("ORDER_PLUS");
               this.$store.commit("SOCKET_CONNECTED");
+              if (this.$store.state.socket === 1) {
+                this.playSound();
+              }
               // console.log(JSON.parse(tick.body));
               // this.received_messages.push(JSON.parse(tick.body));
             }
@@ -73,6 +77,12 @@ export default {
       this.connected = false;
       this.status = "disconnected";
       this.received_messages = [];
+    },
+    playSound() {
+      var audio = new Audio(
+        "http://chataholic2.homestead.com/files/Door-Doorbell.wav"
+      );
+      audio.play();
     }
   },
   data() {
