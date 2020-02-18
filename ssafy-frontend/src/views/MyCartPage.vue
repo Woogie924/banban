@@ -22,7 +22,9 @@ export default {
     UserNavBar
   },
   data() {
-    return {};
+    return {
+      totalprice: this.$route.params.totalprice
+    };
   }
 };
 </script>
