@@ -1,18 +1,24 @@
 <template>
   <div>
-    <v-btn dark color="teal lighten-3" @click="checkIt()">
-      <v-badge color="red" :content="quantity"></v-badge>
+    <v-btn dark fab text @click="checkIt()">
+      <v-badge color="red" :content="quantity">
+        <v-icon color="white">{{ icons.mdiBellRing }}</v-icon>
+      </v-badge>
     </v-btn>
     <p style="display:none">{{count}}</p>
   </div>
 </template>
-
 <script>
 import store from "@/vuex/store.js";
+import { mdiBellRing } from "@mdi/js";
+import router from "@/router.js";
 export default {
   data() {
     return {
-      quantity: 0
+      quantity: 0,
+      icons: {
+        mdiBellRing
+      }
     };
   },
   computed: {
@@ -24,6 +30,7 @@ export default {
     checkIt() {
       this.$store.commit("CLEAR_ORDER");
       this.quantity = 0;
+      this.$router.push("/ManagePage");
     }
   }
 };
