@@ -68,16 +68,19 @@ export default {
   props: {},
   created() {
     console.log("SelectedMenuPage Created");
+    console.log(this.storeId);
     this.getCartList();
   },
   mounted() {
     console.log("SelectedMenuPage mounted");
+    console.log(this.storeId);
     this.storeId = this.$route.params.storeId;
     this.imageUrl = this.$route.params.imageUrl;
     this.name = this.$route.params.name;
     this.cost = this.$route.params.cost;
     this.tip = this.$route.params.tip;
     this.tag = this.$route.params.tag;
+    console.log(this.storeId);
   },
   methods: {
     moveMyCartListPage() {

@@ -39,7 +39,7 @@
       large
       dark
       color="teal lighten-2"
-      @click="pay()"
+      @click="movePaymentPage()"
     >{{total_price}} 원</v-btn>
     <!-- </v-bottom-navigation> -->
   </div>
@@ -50,6 +50,7 @@ import axios from "axios";
 import { mdiMusicAccidentalSharp } from "@mdi/js";
 import store from "@/vuex/store.js";
 import UserCartService from "../services/UserCartService";
+import router from "@/router.js";
 export default {
   name: "MyCartList",
   data() {
@@ -114,18 +115,18 @@ export default {
         this.getCartList();
       });
     },
-    pay() {
-      axios({
-        method: "post",
-        url: `http://192.168.100.92:8080/kakaoPay`,
-        data: {
-          partner_order_id: "kim",
-          // partner_user_id: ,
-          // item_name: ,
-          total_amount: this.total_price
+    movePaymentPage() {
+      console.log("MyCartList,,, 결제 페이지로 이동");
+      // 내 결제 페이지로 분기
+      this.$router.push({
+        name: "MyPaymentPage",
+        params: {
+          list: this.list,
+          num: this.num,
+          price: this.price,
+          default_price: this.default_price,
+          total_price: this.total_price
         }
-      }).then(res => {
-        document.location.href = res.data;
       });
     }
   }

@@ -82,6 +82,8 @@ export default {
       //   alert(tags);
     },
     moveSelectedMenu() {
+      console.log("메뉴 선택했음,,");
+      console.log(this.storeId);
       this.$router.push({
         name: "SelectedMenuPage",
         params: {
