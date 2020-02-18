@@ -22,7 +22,6 @@ const store = new Vuex.Store({
   mutations: {
     SET_USER_DATA(state, userData) {
       if (userData.token !== null) {
-        console.log(userData.data)
         state.userName = userData.data.id
         state.token = userData.token
         state.userType = userData.data.chk
@@ -111,20 +110,28 @@ const store = new Vuex.Store({
       return axios
         .post('http://192.168.100.92:8080/api/socialLogin', credentials)
         .then(({
-          data
+          data //가입안되있으면 null 날라옴
         }) => {
-          commit('SET_USER_DATA', data)
-          axios
-            .post('http://192.168.100.92:8080/shopkeeper/nearstores', data.data)
-            .then(function (response) {
-              //success(response.data);
-              // alert(response)
-              // console.log(response)
-              commit('SET_STORE_DATA', response)
-            })
-            .catch(function (error) {
-              errorCallback()
-            })
+          console.log(data)
+          if (data != null) {
+            commit('SET_USER_DATA', data)
+            axios.defaults.headers.common[
+              'Authorization'
+            ] = `Bearer ${store.state.token}`
+            axios({
+                method: 'post',
+                url: `http://192.168.100.92:8080/shopkeeper/near/`,
+                data: {
+                  lat: data.data.latitude,
+                  lon: data.data.longitude
+                }
+              })
+              .then(({
+                data
+              }) => {
+                commit('SET_STORE_DATA', data)
+              })
+          }
           return data
         })
     },
@@ -169,7 +176,6 @@ const store = new Vuex.Store({
                   lon: data.data.longitude
                 }
               })
-              // .post('http://192.168.100.92:8080/shopkeeper/near', data)
               .then(({
                 data
               }) => {

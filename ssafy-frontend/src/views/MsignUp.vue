@@ -86,6 +86,15 @@
                   <v-row>
                     <v-text-field v-model="address2" outlined dense @blur="$v.address2.$touch()" />
                   </v-row>
+                  <v-row>
+                    <v-text-field
+                      v-model="address3"
+                      label="상세주소"
+                      outlined
+                      dense
+                      @blur="$v.address3.$touch()"
+                    />
+                  </v-row>
                   <div v-if="$v.zipcode.$error">
                     <p v-if="!$v.zipcode.required" class="errorMessage">* 주소를 작성해 주세요.</p>
                   </div>
@@ -146,6 +155,7 @@ export default {
       signupDate: 214,
       zipcode: "",
       address2: "",
+      address3: "",
       lat: 123,
       lon: 123
     };
@@ -164,7 +174,8 @@ export default {
     email: { required, email },
     zipcode: { required },
     address: { required },
-    address2: { required }
+    address2: { required },
+    address3: { required }
   },
   methods: {
     Mregister() {
@@ -176,7 +187,7 @@ export default {
             name: this.name,
             tel: this.tel,
             email: this.email,
-            address: this.address,
+            address: this.address + this.address3,
             latitude: this.latitude,
             longitude: this.longitude,
             chk: this.chk,
