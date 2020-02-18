@@ -16,7 +16,8 @@ export default {
                     menuname: cartVO.menuName,
                     storeid: cartVO.storeid,
                     price: cartVO.price,
-                    quantity: cartVO.quantity
+                    quantity: cartVO.quantity,
+                    storename: cartVO.storename
                 }
             }).then(response => {
                 callback(response);
@@ -40,7 +41,17 @@ export default {
                 errorCallback(error);
                 console.log("UserCartService getCartList error");
             })
-    }
+    },
+    deleteCartList(unum) {
+
+        axios.defaults.headers.common[
+            "Authorization"
+        ] = `Bearer ${store.state.token}`;
+        axios
+            .delete(`http://192.168.100.92:8080/api/cart/${unum}`)
+
+    },
+
 
 
 }

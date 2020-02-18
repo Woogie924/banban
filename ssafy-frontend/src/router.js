@@ -23,6 +23,8 @@ import StoreMenuPage from './views/StoreMenuPage'
 import nothing from './views/nothing'
 import push from './views/push'
 import kakaoPaySuccess from './views/kakaoPaySuccess'
+import ManagePage from './views/ManagePage'
+import CompletePayPage from './views/CompletePayPage'
 Vue.use(Router)
 
 const router = new Router({
@@ -152,6 +154,26 @@ const router = new Router({
 			path: '/push',
 			name: 'push',
 			component: push
+		},
+		{
+			path: '/ManagePage',
+			name: 'Managepage',
+			component: ManagePage
+		},
+		{
+			path: '/profile',
+			name: 'profile',
+			component: profile
+		},
+		{
+			path: '/MyPaymentPage',
+			name: 'MyPaymentPage',
+			component: MyPaymentPage
+		},
+		{
+			path: '/CompletePayPage',
+			name: 'CompletePayPage',
+			component: CompletePayPage
 		}
 	]
 })
@@ -168,7 +190,7 @@ router.beforeEach((to, from, next) => {
 		} else {
 			// 로그인이 되어 있을 때
 			if (userType === to.matched.some(record => record.meta.type)) {
-				next();
+				next()
 			} else {
 				if (userType === 1) {
 					alert('권한이 없습니다. 로그인 해주세요.')
@@ -186,5 +208,5 @@ router.beforeEach((to, from, next) => {
 	} else {
 		next()
 	}
-});
+})
 export default router

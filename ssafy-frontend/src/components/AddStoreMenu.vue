@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog2" max-width="800">
+  <v-dialog v-model="dialog" max-width="800">
     <template v-slot:activator="{on}">
       <v-btn text large outlined v-on="on" height="5em">
         <span>메뉴 등록</span>
@@ -60,7 +60,7 @@
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="primary" text @click="dialog2 = false">Close</v-btn>
+        <v-btn color="primary" text @click="cancel()">Close</v-btn>
         <v-btn color="green" text @click="submit">Submit</v-btn>
       </v-card-actions>
     </v-card>
@@ -108,16 +108,10 @@ export default {
       iconPath: mdiApps,
       reply: mdiReply,
       // menuCard Component용
-      childId: null,
-      childName: null,
-      childCost: null,
-      childTip: null,
-      childImg: null,
       list: [],
       // dialog용
       temp: "",
       dialog: false,
-      dialog2: false,
       path: "패쓰,,",
       foodName: "",
       foodPrice: "",
@@ -133,7 +127,9 @@ export default {
 
       myFiles: [],
       serverConfig: {
-        url: "http://192.168.100.92:8080/Img/insertImg/",
+        url:
+          "http://192.168.100.92:8080/Img/insertImg/" +
+          this.$store.state.userName,
         process: {
           method: "POST",
           withCredentials: false,
@@ -154,28 +150,10 @@ export default {
   methods: {
     cancel() {
       this.dialog = !this.dialog;
-      // childId = null;
-      // childName = null;
-      // childCost = null;
-      // childTip = null;
-      // childImg = null;
-      // // dialog용
-      // temp = "";
-      // dialog = false;
-      // dialog2 = false;
-      // path = "패쓰,,";
-      // foodName = "";
-      // foodPrice = "";
-      // foodText = "";
-      // myId = "";
-      // tags = ["치킨", "피자", "야식", "혼밥"];
-      // values = ["치킨", "야식"];
-      // value = null;
-      // rules = [
-      //   value => !!value || "반드시 입력해주세요.",
-      //   value => (value && value.length >= 3) || "Min 3 characters"
-      // ];
-      // myFiles = [];
+      this.foodName = "";
+      this.foodPrice = "";
+      this.foodText = "";
+      this.values = ["야식"];
     },
     handleFilePondInit() {
       console.log("FilePond has initialized");

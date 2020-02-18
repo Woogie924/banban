@@ -77,6 +77,7 @@
           </v-list-item-content>
         </v-list-item>
 
+        <!--  장바구니 담기 -->
         <v-btn
           fixed
           bottom
@@ -104,6 +105,7 @@ import UserCartService from "../services/UserCartService";
 export default {
   name: "SelectMenu",
   props: {
+    storeId: { type: String },
     imageUrl: { type: String },
     name: { type: String },
     cost: { type: Number },
@@ -145,6 +147,7 @@ export default {
         name: "StoreInfoPage",
         params: {
           //   imageUrl: that.imageUrl,
+          StoreId: this.storeId,
           imageUrl: this.imageUrl,
           name: this.name,
           cost: this.cost,
@@ -153,20 +156,20 @@ export default {
         }
       });
     },
-    addCart() {
+    async addCart() {
       // 내 id로 된 장바구니에 정보 담기
       var cartVO = {
         unum: 0,
         userid: this.$store.state.userName,
         menuName: this.name,
-        storeid: "asia924",
+        storeid: this.storeId,
         price: this.price,
         quantity: this.num
       };
-      UserCartService.setCartVO(cartVO);
-
-      // 가게 메뉴 페이지로 분기
-      this.moveStoreMenuPage();
+      await UserCartService.setCartVO(cartVO, res => {
+        // 가게 메뉴 페이지로 분기
+        this.moveStoreMenuPage();
+      });
     }
   }
 };

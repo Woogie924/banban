@@ -8,12 +8,20 @@
               class="display-1 font-weight-regular justify-center my-0"
             >{{storeName}}</v-list-item-title>
             <v-list-item-subtitle>{{menuName}}</v-list-item-subtitle>
+
+            <!-- 주문확정 대기중 -->
+            <div>
+              <v-list-item-subtitle>주문 완료(확정X)</v-list-item-subtitle>
+            </div>
+            <!-- 주문 완료  -->
+            <div>
+              <v-list-item-subtitle>주문 완료</v-list-item-subtitle>
+            </div>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <span class="grey--text text--darken-1 text-center">{{joinPeople}}명 / {{totalPeople}}명</span>
-            <v-progress-linear color="teal" buffer-value="0" :value="progressPercent" stream></v-progress-linear>
+            <span class="grey--text text--darken-1 text-center">{{totalPeople}}명</span>
             <span class="grey--text text--darken-1 text-center caption">{{currentCash}}원</span>
           </v-list-item-content>
         </v-list-item>
@@ -23,14 +31,6 @@
             <v-card elevation="0">
               <v-list-item-subtitle v-for="(item) in peopleList" :key="item.idx">
                 <div v-if="item.type">{{item.userid}}</div>
-              </v-list-item-subtitle>
-            </v-card>
-          </v-list-item-content>
-          <v-list-item-content class="justify-center">
-            <v-list-item-subtitle>미결제 인원</v-list-item-subtitle>
-            <v-card elevation="0">
-              <v-list-item-subtitle v-for="(item) in peopleList" :key="item.idx">
-                <div v-if="!item.type">{{item.userid}}</div>
               </v-list-item-subtitle>
             </v-card>
           </v-list-item-content>

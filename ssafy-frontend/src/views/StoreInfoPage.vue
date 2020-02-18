@@ -62,6 +62,7 @@
           <v-list-item v-for="(item,index) in list" :key="index" class="mx-0 px-0 my-2">
             <v-flex xs12 sm12 md12 lg12>
               <deliveryMenuInfo
+                :storeId="myStoreId"
                 :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
                 :name="item.name"
                 :cost="item.cost"
@@ -77,7 +78,7 @@
       <v-layout v-show="ReviewVisible" wrap class="justify-center">
         <!-- 리뷰 -->
         <v-flex xs12 sm7 md7 lg4>
-          <Review :storeId="this.$route.params.StoreId"></Review>
+          <Review :storeId="myStoreId" />
         </v-flex>
       </v-layout>
     </v-container>
@@ -128,12 +129,25 @@ export default {
       alertCount: 5,
       hover: false,
       MenuVisible: true,
-      ReviewVisible: false
+      ReviewVisible: false,
+      myStoreId: ""
     };
   },
+  created() {
+    console.log(
+      "StoreInfoPage params.storeId: created:",
+      this.$route.params.StoreId,
+      this.myStoreId
+    );
 
+    this.myStoreId = this.$route.params.StoreId;
+  },
   mounted() {
-    console.log(this.$route.params.StoreId);
+    console.log(
+      "StoreInfoPage params.storeId: mounted:",
+      this.$route.params.StoreId,
+      this.myStoreId
+    );
     this.getMenuList();
     this.getCartList();
     console.log("mounted ");
@@ -174,9 +188,14 @@ export default {
       });
     },
     getCartList() {
-      UserCartService.getCartList(response => {
-        this.alertCount = response.data.length;
-      });
+      UserCartService.getCartList(
+        response => {
+          this.alertCount = response.data.length;
+        },
+        error => {
+          console.log("error");
+        }
+      );
     }
   }
 };

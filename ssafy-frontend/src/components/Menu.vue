@@ -92,12 +92,22 @@ export default {
             });
             marker.setMap(map);
 
-            var iwContent = store.state.res[i].name;
+            var iwContent =
+              '<div class = "aa">' +
+              '<div class = "info">' +
+              '        <div class="title">' +
+              store.state.res[i].name +
+              "        </div>" +
+              '        <div class="body">' +
+              '            <div class="content">' +
+              store.state.res[i].address +
+              "           </div>" +
+              "        </div>" +
+              "        </div>" +
+              "</div>";
 
-            var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
             var infowindow = new kakao.maps.InfoWindow({
-              content: iwContent,
-              removable: iwRemoveable
+              content: iwContent
             });
             kakao.maps.event.addListener(
               marker,
@@ -250,17 +260,18 @@ export default {
               });
               marker.setMap(map);
               var iwContent =
-                '<div class="wrap">' +
-                '    <div class="info">' +
+                '<div class = "aa" style="">' +
+                '<div class = "info">' +
                 '        <div class="title">' +
                 store.state.res[i].name +
                 "        </div>" +
                 '        <div class="body">' +
-                '            <div class="img">' +
-                '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+                '            <div class="content">' +
+                store.state.res[i].address +
+                "           </div>" +
                 "           </div>" +
                 "        </div>" +
-                "    </div>" +
+                "        </div>" +
                 "</div>";
               var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
               var infowindow = new kakao.maps.InfoWindow({
@@ -319,84 +330,64 @@ export default {
 };
 </script>
 <style>
-.wrap {
-  /* position: absolute; */
-  /* left: 0; */
-  /* bottom: 40px; */
-  /* width: 288px; */
-  /* height: 132px; */
-  /* margin-left: -144px; */
-  text-align: left;
-  overflow: hidden;
-  font-size: 12px;
-  font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
-  line-height: 1.5;
-}
-.wrap * {
+.aa * {
   padding: 0;
   margin: 0;
-}
-.wrap .info {
-  width: 286px;
-  height: 120px;
-  border-radius: 5px;
-  border-bottom: 2px solid #ccc;
-  border-right: 1px solid #ccc;
-  overflow: hidden;
   background: white;
 }
-.wrap .info:nth-child(1) {
-  border: 0;
-  box-shadow: 0px 1px 2px #888;
+.info {
+  /* width: 280px; */
+  /* border-radius: 5px; */
+  /* border-bottom: 6px solid white; */
+  /* border-right: 1px solid white; */
+  overflow: hidden;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2),
+    -2px -2px 4px 0 rgba(0, 0, 0, 0.2), 3px 3px 9px 0 rgba(0, 0, 0, 0.14),
+    -3px -3px 9px 0 rgba(0, 0, 0, 0.14);
 }
-.info .title {
-  padding: 5px 0 0 10px;
-  height: 30px;
-  background: #eee;
-  border-bottom: 1px solid #ddd;
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0px 0px 0px 10px;
+  height: 35px;
+  background: white;
+  /* border-bottom: 1px solid white; */
   font-size: 18px;
   font-weight: bold;
 }
-.info .close:hover {
-  cursor: pointer;
+.content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 5px 5px 5px 10px;
+  height: 30px;
+  /* border-bottom: 1px solid white; */
+  background: white;
 }
-.info .body {
+.body {
   position: relative;
   overflow: hidden;
+  background: white;
 }
 .info .desc {
   position: relative;
   margin: 13px 0 0 90px;
   height: 75px;
+  background: white;
 }
 .desc .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  background: white;
 }
 .desc .jibun {
   font-size: 11px;
   color: #888;
-  margin-top: -2px;
-}
-.info .img {
-  position: absolute;
-  top: 6px;
-  left: 5px;
-  width: 73px;
-  height: 71px;
-  border: 1px solid #ddd;
-  color: #888;
-  overflow: hidden;
-}
-.info:after {
-  content: "";
-  position: absolute;
-  margin-left: -12px;
-  left: 50%;
-  bottom: 0;
-  width: 22px;
-  height: 12px;
-  background: url("http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
+  /* margin-top: -2px; */
+  background: white;
 }
 </style>

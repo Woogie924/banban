@@ -35,6 +35,7 @@
 <script>
 import store from "../vuex/store";
 import router from "../router";
+import { mdiAlertRhombus } from "@mdi/js";
 export default {
   mounted() {
     Kakao.init("fbcfc2c16e96eebe28169faaaa5191cf");
@@ -59,24 +60,16 @@ export default {
       Kakao.Auth.loginForm({
         success: function(authObj) {
           Kakao.API.request({
-            url: "/v1/user/me",
+            url: "/v2/user/me",
             success: function(res) {
-              console.log(res.kaccount_email);
-              // alert(JSON.stringify(res)); //<---- kakao.api.request 에서 불러온 결과값 json형태로 출력
-              // alert(JSON.stringify(authObj)); //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
-
-              console.log(res.id); //<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
-              // console.log(res.kaccount_email); //<---- 콘솔 로그에 email 정보 출력
-              //console.log(res.profile_image);
-              console.log(res.properties["nickname"]); //<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근
-              // res.properties.nickname으로도 접근 가능 )
-              //console.log(res.created);
-              //console.log(res.status) ;
-              // console.log(authObj.access_token); //<---- 콘솔 로그에 토큰값 출력
+              // console.log(JSON.stringify(res));
+              // console.log(res.kakao_account["email"]);
+              // console.log(res.id);
+              // console.log(res.properties["nickname"]);
               store
                 .dispatch("kakaologin", {
                   //-------------이메일 넘겨서 이메일 있으면 로그인 된 걸로 하고 메인페이지로 이동..
-                  email: res.kaccount_email
+                  email: res.kakao_account["email"]
                 })
                 .then(({ data }) => {
                   if (data == null) {

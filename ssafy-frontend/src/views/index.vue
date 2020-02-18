@@ -59,25 +59,14 @@
     <br />
     <br />
     <br />
-    <div>
-      <order></order>
-      <alarm></alarm>
-    </div>
-    <br />
     <br />
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import order from "@/components/order.vue";
-import alarm from "@/components/alarm.vue";
 export default {
   name: "index",
-  components: {
-    order,
-    alarm
-  },
   data() {
     return {
       isOpen: false,

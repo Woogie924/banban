@@ -14,9 +14,8 @@
         </v-label>
       </v-toolbar-title>
       <!-- 닉네임 -->
-      <v-spacer>
-        <span class="font-weight-bold">{{ userInfo }}사장님 공간</span>
-      </v-spacer>
+      <span class="font-weight-bold">{{ userInfo }}사장님 공간</span>
+      <alarm></alarm>
       <v-spacer></v-spacer>
       <!-- 검색바 -->
       <v-toolbar flat dense color="#009688" dark>
@@ -144,17 +143,17 @@
 import { mdiMenu } from "@mdi/js";
 import { mdiAnimationOutline } from "@mdi/js";
 import { mdiArrowLeftThick } from "@mdi/js";
-import SockJS from "sockjs-client";
-import Stomp from "webstomp-client";
+import alarm from "@/components/alarm.vue";
 export default {
   name: "main-header",
   mounted() {
     if (this.$store.state.userType !== 2) {
       alert("권한이 없습니다. 로그인해주세요");
       this.$router.push("/StoreLogin");
-    } else {
-      this.connect();
     }
+  },
+  components: {
+    alarm
   },
   data() {
     return {
@@ -207,31 +206,6 @@ export default {
         this.curSubDirectory[idx].flag = false;
       }
       this.curSubDirectory[index].flag = true;
-    },
-    connect() {
-      this.socket = new SockJS("http://192.168.100.92:8082/order");
-      this.stompClient = Stomp.over(this.socket);
-      this.stompClient.connect(
-        {},
-        frame => {
-          console.log("연결요");
-          this.status = "connected";
-          this.connected = true;
-          console.log(frame);
-          this.stompClient.subscribe(
-            `/topic/push/${this.$store.state.userName}`,
-            tick => {
-              console.log(JSON.parse(tick.body));
-              this.received_messages.push(JSON.parse(tick.body));
-            }
-          );
-        },
-        error => {
-          console.log("에러요");
-          console.log(error);
-          this.connected = false;
-        }
-      );
     }
   }
 };

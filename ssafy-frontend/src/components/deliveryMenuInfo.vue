@@ -51,6 +51,7 @@ import { mdiMusicAccidentalSharp } from "@mdi/js";
 export default {
   name: "deliveryMenuInfo",
   props: {
+    storeId: { type: String },
     imageUrl: { type: String },
     name: { type: String },
     cost: { type: Number },
@@ -81,10 +82,13 @@ export default {
       //   alert(tags);
     },
     moveSelectedMenu() {
+      console.log("메뉴 선택했음,,");
+      console.log(this.storeId);
       this.$router.push({
         name: "SelectedMenuPage",
         params: {
           //   imageUrl: that.imageUrl,
+          storeId: this.storeId,
           imageUrl: this.imageUrl,
           name: this.name,
           cost: this.cost,

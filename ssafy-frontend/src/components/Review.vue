@@ -82,7 +82,10 @@ export default {
   data() {
     return {
       starPoint: 4.8,
-      items: [],
+      items: {
+        starpoint: [],
+        storestarpoint: []
+      },
       quoteclose: mdiFormatQuoteClose,
       quoteopen: mdiFormatQuoteOpen
     };
@@ -92,11 +95,19 @@ export default {
   },
   methods: {
     getStoreInfo() {
-      UserOrder.getStoreInfo(this.storeId, response => {
-        this.items = response.data;
-        console.log("UserOrder getStoreInfo");
-        console.log(this.items);
-      });
+      console.log("Review storeId: ", this.storeId);
+
+      UserOrder.getStoreInfo(
+        this.storeId,
+        response => {
+          this.items = response.data;
+          console.log("UserOrder getStoreInfo");
+          console.log(this.items);
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 };

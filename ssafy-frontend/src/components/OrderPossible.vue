@@ -22,7 +22,6 @@
     </v-card>
   </div>
 </template>
-
 <script>
 import EventBus from "../EventBus";
 export default {
@@ -46,5 +45,4 @@ export default {
   }
 };
 </script>
-
 <style>
