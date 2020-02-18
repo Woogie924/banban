@@ -77,6 +77,7 @@
           </v-list-item-content>
         </v-list-item>
 
+        <!--  장바구니 담기 -->
         <v-btn
           fixed
           bottom
@@ -93,6 +94,7 @@
         </v-btn>
       </v-card>
     </v-card>
+    {{this.store}}
   </div>
 </template>
 
@@ -104,6 +106,7 @@ import UserCartService from "../services/UserCartService";
 export default {
   name: "SelectMenu",
   props: {
+    storeId: { type: String },
     imageUrl: { type: String },
     name: { type: String },
     cost: { type: Number },
@@ -159,9 +162,10 @@ export default {
         unum: 0,
         userid: this.$store.state.userName,
         menuName: this.name,
-        storeid: "asia924",
+        storeid: this.storeid,
         price: this.price,
-        quantity: this.num
+        quantity: this.num,
+        storename: this.storename
       };
       UserCartService.setCartVO(cartVO);
 

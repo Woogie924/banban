@@ -10,7 +10,7 @@
             <v-list-item-content></v-list-item-content>
             <v-list-item-content class="justify-center">{{item.menuname}}</v-list-item-content>
             <v-list-item-content>
-              <v-btn color="teal lighten-2" text dark>삭제</v-btn>
+              <v-btn color="teal lighten-2" text dark @click="deletecart(item.unum)">{{item}}</v-btn>
             </v-list-item-content>
           </v-list-item>
           <v-list-item tile dense>
@@ -39,13 +39,14 @@
       large
       dark
       color="teal lighten-2"
-      @click="addCart()"
+      @click="pay()"
     >{{total_price}} 원</v-btn>
     <!-- </v-bottom-navigation> -->
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import { mdiMusicAccidentalSharp } from "@mdi/js";
 import store from "@/vuex/store.js";
 import UserCartService from "../services/UserCartService";
@@ -101,6 +102,31 @@ export default {
       this.list[idx].price += this.list[idx].price;
       this.total_price += this.list[idx].price / this.list[idx].quantity;
       console.log(this.total_price);
+    },
+    deletecart(unum) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      axios({
+        method: "delete",
+        url: `http://192.168.100.92:8080/api/cart/${unum}`
+      }).then(() => {
+        this.getCartList();
+      });
+    },
+    pay() {
+      axios({
+        method: "post",
+        url: `http://192.168.100.92:8080/kakaoPay`,
+        data: {
+          partner_order_id: "kim",
+          // partner_user_id: ,
+          // item_name: ,
+          total_amount: this.total_price
+        }
+      }).then(res => {
+        document.location.href = res.data;
+      });
     }
   }
 };
