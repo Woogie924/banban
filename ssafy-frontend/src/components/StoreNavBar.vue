@@ -144,6 +144,8 @@
 import { mdiMenu } from "@mdi/js";
 import { mdiAnimationOutline } from "@mdi/js";
 import { mdiArrowLeftThick } from "@mdi/js";
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
 export default {
   name: "main-header",
   mounted() {
@@ -219,7 +221,7 @@ export default {
           this.stompClient.subscribe(
             `/topic/push/${this.$store.state.userName}`,
             tick => {
-              console.log(JSON.parse(tick.body).message);
+              console.log(JSON.parse(tick.body));
               this.received_messages.push(JSON.parse(tick.body));
             }
           );
