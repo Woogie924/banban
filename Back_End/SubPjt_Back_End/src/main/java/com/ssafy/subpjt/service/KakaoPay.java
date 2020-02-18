@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 
 import com.ssafy.subpjt.vo.KakaoPayApprovalVO;
 import com.ssafy.subpjt.vo.KakaoPayReadyVO;
+import com.ssafy.subpjt.vo.kakaoPayVO;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,8 +27,10 @@ public class KakaoPay {
 	private KakaoPayReadyVO kakaoPayReadyVO;
 	
 	private KakaoPayApprovalVO kakaoPayApprovalVO;
+	
+	private kakaoPayVO kakaoPay;
 
-	public String kakaoPayReady() {
+	public String kakaoPayReady(kakaoPayVO kakaoPayVo) {
 
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -40,11 +43,11 @@ public class KakaoPay {
 		// 서버로 요청할 Body
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("cid", "TC0ONETIME");
-		params.add("partner_order_id", "1001");
-		params.add("partner_user_id", "gorany");
-		params.add("item_name", "갤럭시S9");
+		params.add("partner_order_id", kakaoPayVo.getPartner_order_id());
+		params.add("partner_user_id", kakaoPayVo.getPartner_user_id());
+		params.add("item_name", kakaoPayVo.getItem_name());
 		params.add("quantity", "1");
-		params.add("total_amount", "2100");
+		params.add("total_amount", kakaoPayVo.getTotal_amount());
 		params.add("tax_free_amount", "100");
 		params.add("approval_url", "http://localhost:8080/kakaoPaySuccess");
 		params.add("cancel_url", "http://localhost:8080/kakaoPayCancel");
@@ -54,9 +57,9 @@ public class KakaoPay {
 
 		try {
 			kakaoPayReadyVO = restTemplate.postForObject(new URI(HOST + "/v1/payment/ready"), body, KakaoPayReadyVO.class);
-
+			kakaoPay = kakaoPayVo;
 			log.info("" + kakaoPayReadyVO);
-			System.out.println(kakaoPayReadyVO.getNext_redirect_pc_url());
+			System.out.println(kakaoPayReadyVO.getTid());
 			return kakaoPayReadyVO.getNext_redirect_pc_url();
 
 		} catch (RestClientException e) {
@@ -88,10 +91,10 @@ public class KakaoPay {
 	        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 	        params.add("cid", "TC0ONETIME");
 	        params.add("tid", kakaoPayReadyVO.getTid());
-	        params.add("partner_order_id", "1001");
-	        params.add("partner_user_id", "gorany");
+	        params.add("partner_order_id", kakaoPay.getPartner_order_id());
+	        params.add("partner_user_id", kakaoPay.getPartner_user_id());
 	        params.add("pg_token", pg_token);
-	        params.add("total_amount", "2100");
+	        params.add("total_amount", kakaoPay.getTotal_amount());
 	        
 	        HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
 	        System.out.println(body);

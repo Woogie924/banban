@@ -8,6 +8,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
+import com.ssafy.socket.domain.AddressPermission;
 import com.ssafy.socket.domain.Message;
 
 @Controller
@@ -22,6 +23,12 @@ public class PushController {
 		System.out.println("message : " + message);
 		String id = message.getReceiver();
 		messagingTemplate.convertAndSend( "/topic/push/"+id, message);
+	}
+	
+	@MessageMapping("/addresspush")
+	public void addresspush(AddressPermission message, SimpMessageHeaderAccessor messageHeaderAccessor) {
+		System.out.println("message : " + message);
+		messagingTemplate.convertAndSend( "/topic/push/"+message.getUserid(), message);
 	}
 	
 	

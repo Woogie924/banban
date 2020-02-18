@@ -65,4 +65,9 @@ public class UserDAOImpl implements UserDAO{
 		return sqlSession.delete(ns+"deleteUser", user);
 	}
 
+	@Override
+	public String getAddress(String id) throws Exception {
+		return sqlSession.selectOne(ns +"getAddress", id);
+	}
+
 }

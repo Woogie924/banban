@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ssafy.subpjt.vo.OrderFood;
-import com.ssafy.subpjt.vo.Payment;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO{
@@ -26,10 +25,6 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.selectOne(ns+"getOrderByOnum", onum);
 	}
 
-	@Override
-	public int insertPayment(Payment payment) throws Exception {
-		return sqlSession.insert(ns+"insertPayment", payment);
-	}
 
 	@Override
 	public int deleteOrderFood(int onum) throws Exception {

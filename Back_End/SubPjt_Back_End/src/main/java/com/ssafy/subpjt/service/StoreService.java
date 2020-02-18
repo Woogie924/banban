@@ -2,9 +2,9 @@ package com.ssafy.subpjt.service;
 
 import java.util.List;
 
-import com.ssafy.subpjt.vo.BillingHistory;
 import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
+import com.ssafy.subpjt.vo.OrderFood;
 import com.ssafy.subpjt.vo.Starpoint;
 import com.ssafy.subpjt.vo.Store;
 import com.ssafy.subpjt.vo.Storeinfo;
@@ -29,5 +29,5 @@ public interface StoreService {
 	List<Store> getAllStores() throws Exception;
 	List<Menu> getMenu(String id) throws Exception;
 	Store getStore(String id) throws Exception;
-	List<BillingHistory> getRecentProfit(String id) throws Exception; 
+	List<OrderFood> getRecentProfit(OrderFood orderFood) throws Exception; 
 }

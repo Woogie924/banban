@@ -117,11 +117,6 @@
 		WHERE storeid = #{storeid} and storenum = #{storenum}
 	</update>
 	
-	<!-- <insert id="insertBillingHistory" parameterType="orderFood">
-		INSERT INTO billingHistroy(id, price, onum, menuname, address, orderer )
-		VALUES(#{storeid}, #{price}, #{onum}, #{menuname}, #{address}, #{userid})
-	</insert> -->
-	
 	<delete id="deleteStarpoint" parameterType="int">
 		DELETE FROM starpoint
 		WHERE starnum = #{value}
@@ -138,11 +133,12 @@
 	</delete>
 	
 	
-	 <select id="getRecentProfit" parameterType="string" resultType="billingHistory">
-		SELECT sum(price) price, id, payment_date paymentDate 
-		FROM billingHistory
-		WHERE id = #{value} and payment_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
-        GROUP BY  date_format(payment_date,'%Y%m%d')
+	 <select id="getRecentProfit" parameterType="orderFood" resultType="orderFood">
+		SELECT sum(price) price, storeid, order_date orderDate 
+		FROM orderFood
+		WHERE storeid = #{storeid} and order_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+		and (ordercheck = 2)
+        GROUP BY  date_format(order_date,'%Y%m%d')
 	</select> 
 	
 	<select id="getStoreInfo" parameterType="string" resultType="storeinfo">
@@ -151,25 +147,5 @@
 		WHERE storeid = #{value}
 	</select>
 	
-	<!-- <resultMap type="store" id="storeWithLikes">
-		<id column="id" property="id" />
-		<result column="pw" property="pw" />
-		<result column="category" property="category" />
-		<result column="tel" property="tel" />
-		<result column="name" property="name" />
-		<result column="address" property="address" />
-		<result column="latitude" property="latitude" />
-		<result column="longitude" property="longitude" />
-		<result column="point" property="point" />
-		<result column="signup_date" property="signup_date" />
-		<result column="chk" property="chk" />
-		<collection property="likes" resultMap="likes"/>
-	</resultMap>
-
-	<resultMap type="party" id="party">
-		<id column="id" property="id" />
-		<result column="userid" property="userid" />
-		<result column="storeid" property="storeid" />
-	</resultMap> -->
 	
 </mapper>

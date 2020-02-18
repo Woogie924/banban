@@ -6,9 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ssafy.subpjt.vo.BillingHistory;
 import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
+import com.ssafy.subpjt.vo.OrderFood;
 import com.ssafy.subpjt.vo.Starpoint;
 import com.ssafy.subpjt.vo.Store;
 import com.ssafy.subpjt.vo.Storeinfo;
@@ -63,8 +63,8 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
-	public List<BillingHistory> getRecentProfit(String id) throws Exception {
-		return sqlSession.selectList(ns + "getRecentProfit" , id);
+	public List<OrderFood> getRecentProfit(OrderFood orderFood) throws Exception {
+		return sqlSession.selectList(ns + "getRecentProfit" , orderFood);
 	}
 
 	@Override

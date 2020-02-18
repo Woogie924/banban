@@ -14,6 +14,12 @@
 		WHERE id like #{id} and pw like #{pw}
 	</select>
 	
+	<select id="getAddress" parameterType="string" resultType="string">
+		SELECT address 
+		FROM user
+		WHERE id = #{value}
+	</select>
+	
 	<select id="socialLogin" parameterType="user" resultType="user">
 	SELECT id, pw, tel, name, email, address, point, signup_date signDate, chk, longitude, latitude
 	FROM user
@@ -39,8 +45,8 @@
 	
 	<insert id="insertUsercart" parameterType="usercart">
 		INSERT INTO
-		usercart(userid, storeid, menuname, price, quantity)
-		VALUES(#{userid}, #{storeid}, #{menuname}, #{price}, #{quantity})
+		usercart(userid, storeid, storename, menuname, price, quantity)
+		VALUES(#{userid}, #{storeid}, storename, #{menuname}, #{price}, #{quantity})
 	</insert>
 	
 	<delete id="deleteUsercart" parameterType="int">
@@ -53,7 +59,7 @@
 	</delete>
 	
 	<select id="getUsercart" parameterType="string" resultType="usercart">
-		SELECT unum, userid, menuname, storeid, price, quantity
+		SELECT unum, userid, menuname, storeid, storename, price, quantity
 		FROM usercart
 		WHERE userid = #{value}
 	</select>

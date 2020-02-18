@@ -4,25 +4,16 @@
 
 <mapper namespace="OrderFood">
 	<insert id="insertOrder" parameterType="orderFood">
-		INSERT INTO orderFood(onum, menu, userid, storeid, price, address,peonum)
-		VALUES(#{onum},  #{menu}, #{userid}, #{storeid}, #{price}, #{address}, #{peonum})
-	</insert>
-	
-	<insert id="insertPayment" parameterType="payment">
-		INSERT INTO payment(pnum, peonum, request, price, orderer, paytype, storeid, onum) 
-		VALUES(#{pnum}, #{peonum}, #{request}, #{price}, #{orderer}, #{paytype}, #{storeid}, #{onum})
+		INSERT INTO orderFood(onum, menu, userid, storeid, price, address1, address2,tel1, tel2 peonum, ordercheck)
+		VALUES(#{onum},  #{menu}, #{userid}, #{storeid}, #{price}, #{address1},#{address2}, #{tel1}, #{tel2}, #{peonum}, 0 )
 	</insert>
 	
 	<delete id="deleteOrderFood" parameterType="int">
 		DELETE FROM orderFood WHERE onum = #{value}
 	</delete>
 	
-	<delete id="deletePayment" parameterType="int">
-		DELETE FROM payment WHERE pnum = #{value}
-	</delete>
-	
 	<select id="getOrderByOnum" parameterType="int" resultType="orderFood">
-		SELECT onum, menu, userid, storeid, price, address, peonum
+		SELECT onum, menu, userid, storeid, storename, price, address1, address2, tel1, tel2, peonum
 		FROM orderFood
 		WHERE onum = #{value}
 	</select>

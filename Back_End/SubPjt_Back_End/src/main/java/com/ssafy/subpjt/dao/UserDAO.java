@@ -11,6 +11,7 @@ public interface UserDAO {
 	User loginCheck(User user) throws Exception;
 	User socialLogin(User email) throws Exception;
 	User getUser(String id) throws Exception;
+	String getAddress(String id) throws Exception;
 	int addUser(User user) throws Exception;
 	int updateUser(User user) throws Exception;
 	int insertUsercart(Usercart usercart) throws Exception;

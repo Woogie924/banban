@@ -133,7 +133,7 @@ export default {
 
       myFiles: [],
       serverConfig: {
-        url: "http://192.168.100.92:8080/Img/insertImg",
+        url: "http://192.168.100.92:8080/Img/insertImg/",
         process: {
           method: "POST",
           withCredentials: false,

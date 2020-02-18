@@ -66,4 +66,9 @@ public class UserServiceImpl implements UserService{
 		return userDao.deleteUser(user);
 	}
 
+	@Override
+	public String getAddress(String id) throws Exception {
+		return userDao.getAddress(id);
+	}
+
 }

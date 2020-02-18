@@ -67,7 +67,7 @@ public class BoardRestController {
 					double distanceKiloMeter = 
 							transactionService.distance(lat, lon, s.getUser().getLatitude(), s.getUser().getLongitude());
 					//System.out.println(distanceKiloMeter);
-					if(distanceKiloMeter <= 10) {
+					if(distanceKiloMeter <= 3) {
 						//System.out.println("거리안에 들어옴 : " + distanceKiloMeter);
 						s.setDistance(distanceKiloMeter);
 						ans.add(s);
@@ -108,7 +108,6 @@ public class BoardRestController {
 	public ResponseEntity updateBoard(@RequestBody Board board, @PathVariable int max) throws Exception{
 		String memberId = null;
 		User user = null;
-		Party party = null;
 		try {
 			System.out.println("게시글 수정 Controller");
 			memberId = jwtService.getMemberId();
@@ -156,12 +155,12 @@ public class BoardRestController {
 			if(user != null) {
 				int ans = boardService.deleteBoard(num);
 				System.out.println("게시글 삭제 : " + ans);
-				return new ResponseEntity(true,HttpStatus.OK);
+				return new ResponseEntity(HttpStatus.OK);
 			}else {
-				return new ResponseEntity(false,HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(HttpStatus.BAD_REQUEST);
 			}
 		}catch(Exception e) {
-			return new ResponseEntity(false,HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -226,7 +225,7 @@ public class BoardRestController {
 				ans = boardService.deleteComment(cnum);
 				System.out.println("댓글 삭제 : " + ans);
 				if(ans == 1) {
-					return new ResponseEntity(true, HttpStatus.OK);
+					return new ResponseEntity(HttpStatus.OK);
 				}else {
 					return new ResponseEntity(HttpStatus.NO_CONTENT);
 				}
@@ -251,7 +250,7 @@ public class BoardRestController {
 				ans = boardService.updateComment(comment);
 				System.out.println("댓글 수정 : " + ans);
 				if(ans == 1) {
-					return new ResponseEntity(true, HttpStatus.OK);
+					return new ResponseEntity( HttpStatus.OK);
 				}else {
 					return new ResponseEntity(HttpStatus.NO_CONTENT);
 				}
@@ -263,12 +262,6 @@ public class BoardRestController {
 		}
 	}
 
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "Authorization", value = "authorization header", required = true,
-				dataType = "string", paramType = "header", defaultValue = "bearer eyJ0eXAiOiJKV1QiLCJyZWdEYXRlIjoxNTgxMDM0NTQ4MDE5LCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNTgxMjA3MzQ4LCJtZW1iZXIiOnsiaWQiOiJ0ZXN0OTQiLCJwdyI6IjEyMzEyMyIsInRlbCI6IjMyMTMxMjMxMiIsIm5hbWUiOiIzMTIzMTIzMTIiLCJlbWFpbCI6IjMxMjMxMjEyMyIsImFkZHJlc3MiOiLqsr3quLAg7ZmU7ISx7IucIOyasOygleydjSAzLjHrp4zshLjroZwgMSIsImxhdGl0dWRlIjozNy4wODExNDEzODA3MzE5NSwibG9uZ3RpdHVkZSI6MTI2LjgxNDQ3NDI1Nzk0NDgyLCJwb2ludCI6MCwic2lnbnVwRGF0ZSI6MTU4MDk1Mzc3NzAwMCwiY2hrIjoxfX0.2VFlypfekVT58L4ZNQ_JEDKalEtyv6-rtDu0LXYl4gQ")
-	})
-	@ApiParam
-	@ApiOperation(value = "파티원 get", httpMethod = "GET", notes = "게시글 파티원 가져오는 부분.")
 	@GetMapping("/members/{bnum}")
 	public ResponseEntity<List<PartyMember>> getPartMembers(@PathVariable int bnum) throws Exception{
 		String memberId = null;

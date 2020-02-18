@@ -26,15 +26,15 @@ public class TransactionServiceImpl implements TransactionService{
 
 	@Autowired
 	private BoardDAO boardDao;
-	
+
 	@Autowired
 	private StoreDAO storeDao;
-	
+
 	@Autowired
 	private UserDAO userDao;
-	
 
-	
+
+
 	@Transactional
 	@Override
 	public int insertBoard(Board board, int max) throws Exception {
@@ -99,19 +99,19 @@ public class TransactionServiceImpl implements TransactionService{
 		}
 		return sList;
 	}
-	
-	 public double distance(double lat1, double lon1, double lat2, double lon2) {
-			double R = 6372.8; 
-			double dLat = Math.toRadians(lat2 - lat1);
-			double dLon = Math.toRadians(lon2 - lon1);
-			lat1 = Math.toRadians(lat1);
-			lat2 = Math.toRadians(lat2);
 
-			double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
-			double c = 2 * Math.asin(Math.sqrt(a));
-			return R * c;
+	public double distance(double lat1, double lon1, double lat2, double lon2) {
+		double R = 6372.8; 
+		double dLat = Math.toRadians(lat2 - lat1);
+		double dLon = Math.toRadians(lon2 - lon1);
+		lat1 = Math.toRadians(lat1);
+		lat2 = Math.toRadians(lat2);
 
-		}
+		double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
+		double c = 2 * Math.asin(Math.sqrt(a));
+		return R * c;
+
+	}
 
 
 	@Transactional
@@ -147,16 +147,27 @@ public class TransactionServiceImpl implements TransactionService{
 		double sum = 0;
 		store = storeDao.getStore(storeid);
 		storeinfo = storeDao.getStoreinfo(storeid);
+		if(storeinfo == null) {
+			return null;
+		}
 		list = storeDao.getAllStarpoint(storeid);
 		slist = storeDao.getAllStorestarpoint(storeid);
-		for(Starpoint point : list) {
-			sum += point.getStarpoint();
+
+		if(!list.isEmpty()) {
+			for(Starpoint point : list) {
+				sum += point.getStarpoint();
+			}
+			sum /= list.size();
+			storeinfo.setStore(store);
+			storeinfo.setStarpoint(list);
+			storeinfo.setStorestarpoint(slist);
+			storeinfo.setPoint(sum);
+		}else {
+			storeinfo.setStore(store);
+			storeinfo.setStarpoint(list);
+			storeinfo.setStorestarpoint(slist);
+			storeinfo.setPoint(0.0);
 		}
-		sum /= list.size();
-		storeinfo.setStore(store);
-		storeinfo.setStarpoint(list);
-		storeinfo.setStorestarpoint(slist);
-		storeinfo.setPoint(sum);
 		return storeinfo;
 	}
 
@@ -176,7 +187,7 @@ public class TransactionServiceImpl implements TransactionService{
 		board.setParty(party.getMax());
 		board.setUser(user);
 		board.setRemain(board.getParty() - board.getNowmember());
-		
+
 		return board;
 	}
 
@@ -191,7 +202,7 @@ public class TransactionServiceImpl implements TransactionService{
 			party = boardDao.getPartyByBnum(b.getNum());
 			b.setNowmember(party.getNowmember());
 			b.setRemain(party.getMax()-party.getNowmember());
-			
+
 		}
 		return list;
 	}
