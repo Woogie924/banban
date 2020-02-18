@@ -134,11 +134,20 @@ export default {
     };
   },
   created() {
-    console.log("StoreInfoPage params.storeId: ", this.$route.params.StoreId);
+    console.log(
+      "StoreInfoPage params.storeId: created:",
+      this.$route.params.StoreId,
+      this.myStoreId
+    );
 
     this.myStoreId = this.$route.params.StoreId;
   },
   mounted() {
+    console.log(
+      "StoreInfoPage params.storeId: mounted:",
+      this.$route.params.StoreId,
+      this.myStoreId
+    );
     this.getMenuList();
     this.getCartList();
     console.log("mounted ");

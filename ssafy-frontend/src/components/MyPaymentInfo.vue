@@ -1,75 +1,77 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" :width="myWidth" :fullscreen="$vuetify.breakpoint.xsOnly">
-      <template v-slot:activator="{ on }">
-        <v-btn color="red lighten-2" dark v-on="on">CLick me</v-btn>
-      </template>
-      <v-card class="justify-center align-center">
-        <v-toolbar card floating fixed dense color="white" :width="myWidth" elevation="0">
-          <v-btn icon @click="dialog = false">
-            <v-icon>mdi-reply</v-icon>
-          </v-btn>
-          <v-spacer></v-spacer>
-        </v-toolbar>
-        <v-container class="justify-center">
-          <v-list>
-            <!-- 배달정보 -->
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="text-shadow font-weight-bold my-2">
-                  <div class="underlined">배달 정보</div>
-                </v-list-item-title>
-                <v-list-item-subtitle class="font-weight-black text--grey">내 주소</v-list-item-subtitle>
-                <div class="card">구미시 인의동 560-24 썬하우스A 305호 010-5008-9962</div>
-              </v-list-item-content>
-            </v-list-item>
-            <v-spacer />
-            <!-- 요청사항 -->
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="text-shadow font-weight-bold my-2">
-                  <div class="underlined">요청 사항</div>
-                </v-list-item-title>
-                <v-list-item-subtitle class="font-weight-black text--grey">가게 사장님께</v-list-item-subtitle>
-                <div class="card">예) 견과류 뺴주세요. 덜 맵게 해주세요</div>
-              </v-list-item-content>
-            </v-list-item>
-            <!-- 결제금액 -->
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="text-shadow font-weight-bold my-2">
-                  <div class="underlined">결제 금액</div>
-                </v-list-item-title>
-                <v-list-item-subtitle class="font-weight-bold">32,700원</v-list-item-subtitle>
-                <div class="card">
-                  <v-btn block text>결제방식</v-btn>
-                </div>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-content>
-                <v-expansion-panels focusable elevation="0">
-                  <v-expansion-panel v-for="(item) in panel_items" :key="item.idx">
-                    <v-expansion-panel-header>{{item.title}}</v-expansion-panel-header>
-                    <v-expansion-panel-content>{{item.words}}</v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-expansion-panels>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-container>
-        <div class="text-center font-weight-black text--grey">위 내용을 확인하였으며 결제에 동의합니다</div>
-        <v-toolbar card fixed color="white" elevation="0">
-          <v-btn block>32,700원 결제하기</v-btn>
-        </v-toolbar>
-      </v-card>
-    </v-dialog>
+    <v-card class="justify-center align-center">
+      <v-container class="justify-center">
+        <v-list>
+          <!-- 배달정보 -->
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-shadow font-weight-bold my-2">
+                <div class="underlined">배달 정보</div>
+              </v-list-item-title>
+              <v-list-item-subtitle class="font-weight-black text--grey">내 주소</v-list-item-subtitle>
+              <div class="card">구미시 인의동 560-24 썬하우스A 305호 010-5008-9962</div>
+              <br />
+              <v-list-item-subtitle class="font-weight-black text--grey">팀원 주소</v-list-item-subtitle>
+              <div class="card">
+                <v-text-field label="팀원 주소" solo></v-text-field>
+              </div>
+            </v-list-item-content>
+          </v-list-item>
+          <v-spacer />
+          <!-- 요청사항 -->
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-shadow font-weight-bold my-2">
+                <div class="underlined">요청 사항</div>
+              </v-list-item-title>
+              <v-list-item-subtitle class="font-weight-black text--grey">가게 사장님께</v-list-item-subtitle>
+              <div class="card">
+                <v-text-field label="팀원 주소" solo placeholder="예) 견과류 뺴주세요. 덜 맵게 해주세요"></v-text-field>
+              </div>
+            </v-list-item-content>
+          </v-list-item>
+          <!-- 결제금액 -->
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-shadow font-weight-bold my-2">
+                <div class="underlined">결제 금액</div>
+              </v-list-item-title>
+              <v-list-item-subtitle class="font-weight-bold">32,700원</v-list-item-subtitle>
+              <div class="card">
+                <v-btn block text>카카오페이</v-btn>
+              </div>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-expansion-panels focusable elevation="0">
+                <v-expansion-panel v-for="(item) in panel_items" :key="item.idx">
+                  <v-expansion-panel-header>{{item.title}}</v-expansion-panel-header>
+                  <v-expansion-panel-content>{{item.words}}</v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-container>
+      <div class="text-center font-weight-black text--grey">위 내용을 확인하였으며 결제에 동의합니다</div>
+      <v-toolbar card fixed color="white" elevation="0">
+        <v-btn block @click="pay()">32,700원 결제하기</v-btn>
+      </v-toolbar>
+    </v-card>
   </div>
 </template>
 <script>
 export default {
   name: "MyPaymentInfo",
-  props: {},
+  props: {
+    list: [],
+    num: { type: Number },
+    price: { type: Number },
+    default_price: { type: Number },
+    total_price: { type: Number }
+  },
   data() {
     return {
       dialog: false,
@@ -110,16 +112,27 @@ export default {
         default:
           return "50vw";
       }
+    },
+    pay() {
+      // 카카오페이
+      axios({
+        method: "post",
+        url: `http://192.168.100.92:8080/kakaoPay`,
+        data: {
+          partner_order_id: "kim",
+          // partner_user_id: ,
+          // item_name: ,
+          total_amount: this.total_price
+        }
+      }).then(res => {
+        document.location.href = res.data;
+      });
     }
   }
 };
 </script>
 <style scoped>
-.v-dialog > .v-card > .v-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
+/* 
 .card {
   height: 100%;
   width: 12em;
@@ -128,7 +141,7 @@ export default {
   box-shadow: 0.08em 0.03em 0.4em #ababab;
   padding-top: 1em;
   padding-bottom: 1em;
-}
+} */
 .underlined {
   text-decoration: none;
   font-weight: bold;

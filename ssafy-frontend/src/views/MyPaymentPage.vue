@@ -1,46 +1,57 @@
 <template>
   <div>
     <v-layout class="my-5">
-      <!-- <StoreNavBar></StoreNavBar> -->
+      <UserNavBar></UserNavBar>
     </v-layout>
-    <v-layout class="my-5">
-      <v-btn @click="show = !show">Card</v-btn>
-    </v-layout>
-    <v-layout class="my-5">
-      <transition appear @before-enter="beforeEnter" @enter="enter" :css="false">
-        <!-- <div class="card" v-if="show">
+
+    <v-container class="my-5">
+      <!-- <transition appear @before-enter="beforeEnter" @enter="enter" :css="false"> -->
+      <!-- <div class="card" v-if="show">
           <p>하하하하</p>
-        </div>-->
-        <MyPaymentInfo></MyPaymentInfo>
-      </transition>
-    </v-layout>
-    <v-layout>
-      <WaitPayment></WaitPayment>
-    </v-layout>
+      </div>-->
+      <v-layout class="justify-center text-center">
+        <v-flex lg6 sm6 md6 xs12>
+          <MyPaymentInfo
+            :list="list"
+            :num="num"
+            :price="price"
+            :default_price="default_price"
+            :total_price="total_price"
+          ></MyPaymentInfo>
+        </v-flex>
+      </v-layout>
+
+      <!-- </transition> -->
+    </v-container>
   </div>
 </template>
 
 <script>
-import StoreNavBar from "../components/StoreNavBar";
+import UserNavBar from "../components/UserNavBar";
 import MyPaymentInfo from "../components/MyPaymentInfo";
-import WaitPayment from "../components/WaitPayment";
 import Velocity from "velocity-animate";
 export default {
   name: "MyPaymentPage",
   components: {
-    StoreNavBar,
-    MyPaymentInfo,
-    WaitPayment
+    UserNavBar,
+    MyPaymentInfo
   },
   data() {
     return {
-      show: false,
-      dialogSize: null
+      list: [],
+      num: 0,
+      price: 0,
+      default_price: 0,
+      total_price: 0
     };
   },
   mounted() {
-    this.dialogSize = this.dialogResizing;
-    console.log(this.dialogSize);
+    console.log("결제 정보 확인 및 결제!!! MyPaymentPage mounted");
+    (this.list = this.$route.params.list),
+      (this.num = this.$route.params.num),
+      (this.price = this.$route.params.price),
+      (this.default_price = this.$route.params.default_price),
+      (this.total_price = this.$route.params.total_price);
   },
   methods: {
     beforeEnter(el) {

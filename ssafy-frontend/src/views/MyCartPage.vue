@@ -14,7 +14,7 @@
 <script>
 import UserNavBar from "../components/UserNavBar";
 import MyCartList from "../components/MyCartList";
-
+import router from "@/router.js";
 export default {
   name: "MyCartPage",
   components: {
