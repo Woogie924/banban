@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.subpjt.dao.StoreDAO;
-import com.ssafy.subpjt.vo.BillingHistory;
 import com.ssafy.subpjt.vo.Likes;
 import com.ssafy.subpjt.vo.Menu;
+import com.ssafy.subpjt.vo.OrderFood;
 import com.ssafy.subpjt.vo.Starpoint;
 import com.ssafy.subpjt.vo.Store;
 import com.ssafy.subpjt.vo.Storeinfo;
@@ -61,8 +61,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public List<BillingHistory> getRecentProfit(String id) throws Exception {
-		return storeDao.getRecentProfit(id);
+	public List<OrderFood> getRecentProfit(OrderFood orderFood) throws Exception {
+		return storeDao.getRecentProfit(orderFood);
 	}
 
 	@Override

@@ -253,6 +253,26 @@ public class UserRestController {
 		}
 	}
 	
+	@GetMapping("/address/{id}")
+	public ResponseEntity<String> getAddress(@PathVariable String id) throws Exception{
+		String memberId = null;
+		User user = null;
+		try {
+			System.out.println("user 주소 정보");
+			memberId = jwtService.getMemberId();
+			user = userService.getUser(memberId);
+			//System.out.println(user);
+			if(user != null) {
+				String address = userService.getAddress(id);
+				return new ResponseEntity<String> (address,HttpStatus.OK);				
+			}else {
+				return new ResponseEntity<String> (HttpStatus.NO_CONTENT);		
+			}
+		}catch(Exception e) {
+			return new ResponseEntity<String> (HttpStatus.NO_CONTENT);
+		}
+	}
+	
 	@GetMapping("/info")
 	public ResponseEntity<User> getUserInfo() throws Exception{
 		String memberId = null;
@@ -301,12 +321,12 @@ public class UserRestController {
 		User ans = null;
 		String memberId = null;
 		try {
-			System.out.println("storeinfo Controller");
+			System.out.println("유저측 storeinfo Controller");
 			memberId = jwtService.getMemberId();
 			ans = userService.getUser(memberId);
 			if(ans != null) {
 				storeinfo = transactionService.getStoreinfo(id);
-				System.out.println(storeinfo);
+				System.out.println("storeinfo : " + storeinfo);
 				return new ResponseEntity<Storeinfo>(storeinfo,HttpStatus.OK);
 			}
 			else {

@@ -7,10 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.subpjt.service.KakaoPay;
+import com.ssafy.subpjt.vo.KakaoPayApprovalVO;
+import com.ssafy.subpjt.vo.kakaoPayVO;
 
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -30,10 +33,10 @@ public class KakaoPayController {
 	    }
 	    
 	    @PostMapping("/kakaoPay")
-	    public String kakaoPay() {
+	    public String kakaoPay(@RequestBody kakaoPayVO kakaoPayVo ) {
 	        log.info("kakaoPay post............................................");
-	        
-	        return kakaopay.kakaoPayReady();
+	        System.out.println(kakaoPayVo);
+	        return kakaopay.kakaoPayReady(kakaoPayVo);
 	 
 	    }
 	    
