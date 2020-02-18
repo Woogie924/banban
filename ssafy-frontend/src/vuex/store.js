@@ -16,7 +16,8 @@ const store = new Vuex.Store({
     lat: null,
     lon: null,
     mToken: null,
-    order: 0
+    order: 0,
+    socket: null,
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -64,7 +65,7 @@ const store = new Vuex.Store({
       state.userName = null
       state.userType = null
       state.userAddr = null
-      state.checkInit = null
+      state.socket = null
       state.lon = null
       state.lat = null
       state.order = 0
@@ -78,6 +79,9 @@ const store = new Vuex.Store({
     },
     CLEAR_ORDER(state) {
       state.order = 0
+    },
+    SOCKET_CONNECTED(state) {
+      state.socket = 1
     }
   },
   actions: {

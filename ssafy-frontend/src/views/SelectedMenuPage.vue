@@ -3,10 +3,12 @@
     <v-layout class="my-5">
       <UserNavBar></UserNavBar>
     </v-layout>
+
     <v-layout class="my-5 justify-center">
       <v-flex xs12 md3 lg3>
         <SelectMenu
           :a="menuInfo"
+          :storeId="storeId"
           :imageUrl="imageUrl"
           :name="name"
           :cost="cost"
@@ -15,7 +17,6 @@
         ></SelectMenu>
       </v-flex>
     </v-layout>
-
     <v-btn
       id="basketBtn"
       fixed
@@ -28,7 +29,7 @@
     >
       <!-- 장바구니 담은게 있으면,, -->
       <v-badge color="red" :content="alertCount">
-        <v-icon>{{icons.mdiCart }}</v-icon>
+        <v-icon>{{ icons.mdiCart }}</v-icon>
       </v-badge>
       <!-- 장바구니 담은게 없으면,,, -->
     </v-btn>
@@ -51,6 +52,8 @@ export default {
   data() {
     return {
       menuInfo: [],
+      d: this.$route.params,
+      storeId: this.$route.params.storeId,
       imageUrl: this.$route.params.imageUrl,
       name: this.$route.params.name,
       cost: this.$route.params.cost,
@@ -65,15 +68,16 @@ export default {
   props: {},
   created() {
     console.log("SelectedMenuPage Created");
+    this.getCartList();
   },
   mounted() {
     console.log("SelectedMenuPage mounted");
+    this.storeId = this.$route.params.storeId;
     this.imageUrl = this.$route.params.imageUrl;
     this.name = this.$route.params.name;
     this.cost = this.$route.params.cost;
     this.tip = this.$route.params.tip;
     this.tag = this.$route.params.tag;
-    this.getCartList();
   },
   methods: {
     moveMyCartListPage() {
@@ -82,9 +86,14 @@ export default {
       });
     },
     getCartList() {
-      UserCartService.getCartList(response => {
-        this.alertCount = response.data.length;
-      });
+      UserCartService.getCartList(
+        response => {
+          this.alertCount = response.data.length;
+        },
+        errorCallback => {
+          console.log("error");
+        }
+      );
     }
   }
 };

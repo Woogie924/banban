@@ -91,19 +91,34 @@ export default {
       deliveryTip: "1000",
       tips:
         "앗싸는 사랑입니다,,,,수준 높은 마늘닭, 찜닭, 똥집의 맛을 즐겨보세요",
-      list: []
+      list: {
+        snum: 0,
+        storeid: "",
+        minprice: 0,
+        deliverytip: 0,
+        deliverytime: ""
+      }
     };
   },
+
+  created() {
+    this.getStoreInfo(this.storeId);
+  },
   mounted() {
-    this.getStoreInfo();
+    this.getStoreInfo(this.storeId);
   },
   methods: {
-    getStoreInfo() {
-      UserOrder.getStoreInfo(this.storeId, response => {
-        this.list = response.data;
-        console.log("UserOrder getStoreInfo");
-        console.log(this.list);
-      });
+    getStoreInfo(id) {
+      UserOrder.getStoreInfo(
+        id,
+        response => {
+          this.list = response.data;
+          console.log(this.list, 111);
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 };

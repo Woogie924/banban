@@ -13,29 +13,33 @@ export default {
             .then(response => {
                 // console.log(response.data);
                 callback(response);
+
             })
             .catch(error => {
-                errorCallback();
+                errorCallback(error);
                 console.log("UserOrder getStoreMenuList error");
             });
 
     },
     getStoreInfo(storeId, callback, errorCallback) {
-        console.log("[UserOrder API] getStoreInfo start")
-        console.log(storeId);
+
+
         axios.defaults.headers.common[
             "Authorization"
         ] = `Bearer ${store.state.token}`;
+
+
         axios
-            .get("http://192.168.100.92:8080/api/storeinfo/" + storeId)
+            .get(`http://192.168.100.92:8080/api/storeinfo/${storeId}`)
             .then(response => {
                 console.log(response.data);
                 callback(response);
 
             })
             .catch(error => {
+                console.log("UserOrder getStoreInfo error");
                 errorCallback(error);
-                console.log("UserOrder getStoreMenuList error");
+
             });
     },
     setReview(reviewVO, callback, errorCallback) {
