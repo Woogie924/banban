@@ -35,6 +35,7 @@
 <script>
 import store from "../vuex/store";
 import router from "../router";
+import { mdiAlertRhombus } from "@mdi/js";
 export default {
   mounted() {
     Kakao.init("fbcfc2c16e96eebe28169faaaa5191cf");
@@ -59,15 +60,16 @@ export default {
       Kakao.Auth.loginForm({
         success: function(authObj) {
           Kakao.API.request({
-            url: "/v1/user/me",
+            url: "/v2/user/me",
             success: function(res) {
-              console.log(res.kaccount_email);
-              console.log(res.id);
-              console.log(res.properties["nickname"]);
+              // console.log(JSON.stringify(res));
+              // console.log(res.kakao_account["email"]);
+              // console.log(res.id);
+              // console.log(res.properties["nickname"]);
               store
                 .dispatch("kakaologin", {
                   //-------------이메일 넘겨서 이메일 있으면 로그인 된 걸로 하고 메인페이지로 이동..
-                  email: res.kaccount_email
+                  email: res.kakao_account["email"]
                 })
                 .then(({ data }) => {
                   if (data == null) {

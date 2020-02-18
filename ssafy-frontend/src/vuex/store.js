@@ -112,8 +112,10 @@ const store = new Vuex.Store({
         .then(({
           data //가입안되있으면 null 날라옴
         }) => {
-          console.log(data)
-          if (data != null) {
+          // console.log("t")
+          // console.log(data)
+          if (data.data != null) {
+            console.log("ddd")
             commit('SET_USER_DATA', data)
             axios.defaults.headers.common[
               'Authorization'

@@ -198,9 +198,9 @@ export default {
   },
   mounted() {
     this.test = this.$store.state.res;
-    this.email = this.test.kaccount_email;
+    this.email = this.test.kakao_account["email"];
     this.name = this.test.properties["nickname"];
-    this.id = this.test.kaccount_email;
+    this.id = this.test.kakao_account["email"];
     // this.id = this.test.id;
     console.log(this.$store.state.res);
   }
