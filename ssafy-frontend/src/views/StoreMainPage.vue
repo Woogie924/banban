@@ -3,7 +3,17 @@
     <v-layout my-5>
       <StoreNavBar></StoreNavBar>
     </v-layout>
-    <h1>Store Main Page</h1>
+
+    <v-container>
+      <v-layout my-5 row wrap>
+        <v-flex pa-2 xs12 sm6 md6 lg6>
+          <StorePayment></StorePayment>
+        </v-flex>​
+        <v-flex pa-2 xs12 sm6 md4 lg4>
+          <OrderList></OrderList>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -11,6 +21,8 @@
 <script>
 import StoreNavBar from "../components/StoreNavBar";
 import store from "@/vuex/store.js";
+import StorePayment from "../components/StorePayment";
+import OrderList from "../components/OrderList";
 import router from "@/router.js";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
@@ -23,7 +35,9 @@ export default {
   },
   name: "StoreMainPage",
   components: {
-    StoreNavBar
+    StoreNavBar,
+    StorePayment,
+    OrderList
   },
   methods: {
     connect() {
@@ -41,8 +55,8 @@ export default {
             tick => {
               this.$store.commit("ORDER_PLUS");
               this.$store.commit("SOCKET_CONNECTED");
-              console.log(JSON.parse(tick.body));
-              this.received_messages.push(JSON.parse(tick.body));
+              // console.log(JSON.parse(tick.body));
+              // this.received_messages.push(JSON.parse(tick.body));
             }
           );
         },

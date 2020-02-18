@@ -14,9 +14,8 @@
         </v-label>
       </v-toolbar-title>
       <!-- 닉네임 -->
-      <v-spacer>
-        <span class="font-weight-bold">{{ userInfo }}사장님 공간</span>
-      </v-spacer>
+      <span class="font-weight-bold">{{ userInfo }}사장님 공간</span>
+      <alarm></alarm>
       <v-spacer></v-spacer>
       <!-- 검색바 -->
       <v-toolbar flat dense color="#009688" dark>
@@ -24,7 +23,6 @@
       </v-toolbar>
       <!-- 메뉴 -->
       <v-toolbar-items class="hidden-xs-only">
-        <alarm></alarm>
         <v-btn dark text v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
