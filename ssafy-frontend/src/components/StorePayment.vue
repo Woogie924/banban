@@ -6,7 +6,7 @@
       </v-card-title>
 
       <v-card-text class="text-center justify-center mb-1">
-        <h1 class="counter">12345 원</h1>
+        <h1 class="counter">{{list.point}} 원</h1>
       </v-card-text>
       <v-card-subtitle class="grey-text caption text-center">
         현재 기준으로 등록하신 2개 가게의 합계 금액이며,
@@ -86,7 +86,7 @@ export default {
       idx: 0
     };
   },
-  mounted() {
+  created() {
     this.getProfit();
 
     this.timer = setTimeout(
@@ -96,6 +96,7 @@ export default {
       30000
     );
   },
+  mounted() {},
   methods: {
     test() {
       this.value[this.idx] = 100;
@@ -106,7 +107,7 @@ export default {
       shopkeeper.getProfit(
         response => {
           console.log("shopkeeper getProfit start");
-          // console.log(response.data);
+          console.log(response.data);
 
           for (let index = 0; index < response.data.length; index++) {
             this.list[index] = response.data[index].price;

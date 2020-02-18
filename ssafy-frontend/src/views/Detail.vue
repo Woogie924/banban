@@ -3,83 +3,104 @@
     <v-layout my-5>
       <UserNavBar></UserNavBar>
     </v-layout>
-    <v-snackbar v-model="snackbar">
-      여기는 상세 게시글 페이지 입니다.
-      <v-btn color="pink" @click="snackbar = false">close</v-btn>
+    <v-snackbar v-model="snackbar" color="white">
+      <div class="grey--text">여기는 상세 게시글 페이지 입니다.</div>
+      <v-btn color="teal lighten-2" text @click="snackbar = false">close</v-btn>
     </v-snackbar>
     <!-- Detail -->
     <br />
 
-    <div>
-      <v-card my-5 fluid>
+    <!-- 게시물 상세 정보 + 버튼 -->
+    <v-layout class="justify-center">
+      <v-card class="justify-center align-center">
         <v-list>
-          <v-list-item two-line>
-            <v-list-item-content class="justify-center text-left">{{board.num}}</v-list-item-content>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-shadow font-weight-bold my-2">
+                <div class="underlined">번호</div>
+              </v-list-item-title>
+              <v-list-item-subtitle class="font-weight-black text--grey text-center">{{board.num}}</v-list-item-subtitle>
+            </v-list-item-content>
           </v-list-item>
-          <v-list-item two-line>
-            <v-list-item-content class="justify-center text-left">{{board.title}}</v-list-item-content>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-shadow font-weight-bold my-2">
+                <div class="underlined">제목</div>
+              </v-list-item-title>
+              <v-list-item-subtitle class="font-weight-black text--grey text-center">{{board.title}}</v-list-item-subtitle>
+            </v-list-item-content>
           </v-list-item>
-          <v-list-item two-line>
-            <v-list-item-content class="justify-center text-left">{{board.body}}</v-list-item-content>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-shadow font-weight-bold my-2">
+                <div class="underlined">내용</div>
+              </v-list-item-title>
+              <v-list-item-subtitle class="font-weight-black text--grey text-center">{{board.body}}</v-list-item-subtitle>
+            </v-list-item-content>
           </v-list-item>
-          <v-list-item two-line>
-            <v-list-item-content class="justify-center text-left">총파티원 모집 수: {{board.party}}</v-list-item-content>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-shadow font-weight-bold my-2">
+                <div class="underlined">인원</div>
+              </v-list-item-title>
+              <v-list-item-subtitle
+                class="font-weight-black text--grey text-center"
+              >{{board.nowmember}}/{{board.party}}</v-list-item-subtitle>
+            </v-list-item-content>
           </v-list-item>
-          <v-list-item two-line>
-            <v-list-item-content class="justify-center text-left">현재 인원수: {{board.nowmember}}</v-list-item-content>
+          <v-list-item>
+            <v-list-item-content>
+              <div class="my-2">
+                <v-btn
+                  small
+                  color="error"
+                  v-if="this.state == false && board.party > board.nowmember"
+                  @click="party_join(board.num, userName), showChat=!showChat"
+                >파티참가하기</v-btn>
+                <v-btn
+                  small
+                  color="error"
+                  v-if="this.state == true && board.party > board.nowmember "
+                  @click="party_out(board.num, userName)"
+                >파티나가기</v-btn>
+                <v-btn
+                  small
+                  color="error"
+                  v-if="this.state == false && board.party <= board.nowmember "
+                >지금은 모든 파티원이 구해졌습니다.</v-btn>
+              </div>
+            </v-list-item-content>
           </v-list-item>
-          <v-list-item two-line>
-            <v-list-item-content
-              class="justify-center text-left"
-            >남은 모집 인원수 :{{board.party - board.nowmember}}</v-list-item-content>
-          </v-list-item>
+          <v-list-item-action>
+            <span style="inline">
+              <v-btn
+                v-if="userName === board.writer"
+                text
+                icon
+                color="blue"
+                @click="updateData(board.num)"
+              >
+                <v-icon>fas fa-edit</v-icon>
+              </v-btn>
+              <v-btn text icon color="green" @click="move()">
+                <v-icon>fas fa-list</v-icon>
+              </v-btn>
+              <v-btn
+                v-if="userName === board.writer"
+                text
+                icon
+                color="red"
+                @click="deleteTest(board.num)"
+              >
+                <v-icon>{{ icons.mdiDelete }}</v-icon>
+              </v-btn>
+            </span>
+          </v-list-item-action>
         </v-list>
       </v-card>
-    </div>
-    <ul>
-      <li>
-        <v-btn
-          v-if="userName === board.writer"
-          text
-          icon
-          color="red"
-          @click="deleteTest(board.num)"
-        >
-          <v-icon>{{ icons.mdiDelete }}</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="userName === board.writer"
-          text
-          icon
-          color="blue"
-          @click="updateData(board.num)"
-        >
-          <v-icon>fas fa-edit</v-icon>
-        </v-btn>
-        <v-btn text icon color="green" @click="move()">
-          <v-icon>fas fa-list</v-icon>
-        </v-btn>
-        <div class="my-2">
-          <v-btn
-            small
-            color="error"
-            v-if="this.state == false && board.party > board.nowmember"
-            @click="party_join(board.num, userName), showChat=!showChat"
-          >파티참가하기</v-btn>
-          <v-btn
-            small
-            color="error"
-            v-if="this.state == true && board.party > board.nowmember "
-            @click="party_out(board.num, userName)"
-          >파티나가기</v-btn>
-          <v-btn
-            small
-            color="error"
-            v-if="this.state == false && board.party <= board.nowmember "
-          >지금은 모든 파티원이 구해졌습니다.</v-btn>
-        </div>
-      </li>
-    </ul>
+    </v-layout>
+
+    <!-- 채팅 플로팅 아이콘 -->
     <v-hover v-model="hover" v-if="state == true">
       <div style="height:50vh; position:relative">
         <v-btn absolute dark fab top right color="teal lighten-3" @click="showChat=!showChat">
@@ -94,17 +115,16 @@
       app
       width="30vw"
       height="90vh"
-      style="padding-bottom: 64px"
+      style="padding-bottom: 64px; overflow:none;"
     >
-      <!-- 다른 유저일때 -->
-      <div id="container" style="max-height:750px; overflow-y: auto;overflow-x:hidden">
+      <div id="container" style="max-height:600px; ">
         <div v-for="(value, index) in comment" :key="index">
           <div v-if="value.bnum == board.num">
+            <!-- 다른 유저일때 -->
             <v-row fluid v-if="value.writer != userName">
               <v-col>
-                <v-avatar color="teal" size="absolute">
-                  <span class="white--text headline">{{value.writer}}</span>
-                </v-avatar>
+                <div class="underlined">{{value.writer}}</div>
+
                 <v-card elevation="1" class="ps-12">{{value.body}}</v-card>
                 <v-btn
                   v-if="userName === value.writer"
@@ -122,17 +142,18 @@
             <v-row fluid v-else>
               <v-col></v-col>
               <v-col>
+                <div class="underlined2">{{userName}}</div>
+                <v-btn
+                  v-if="userName === value.writer"
+                  text
+                  icon
+                  color="red"
+                  @click="comment_delete(value.cnum)"
+                >
+                  <v-icon>{{ icons.mdiDelete }}</v-icon>
+                </v-btn>
                 <v-card class="pr-12">
                   <v-card-text>{{value.body}}</v-card-text>
-                  <v-btn
-                    v-if="userName === value.writer"
-                    text
-                    icon
-                    color="red"
-                    @click="comment_delete(value.cnum)"
-                  >
-                    <v-icon>{{ icons.mdiDelete }}</v-icon>
-                  </v-btn>
                 </v-card>
               </v-col>
             </v-row>
@@ -340,4 +361,55 @@ export default {
   }
 };
 </script>
+<style scoped>
+.underlined {
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+}
+.underlined::before {
+  content: "";
+  width: 100%;
+  height: 80%;
+  background-image: linear-gradient(to top, #36f3a4 25%, rgba(0, 0, 0, 0) 40%);
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  z-index: -1;
+  will-change: width;
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
+}
+.underlined2 {
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+}
+.underlined2::before {
+  content: "";
+  width: 100%;
+  height: 80%;
+  background-image: linear-gradient(to top, #b4e7f8 25%, rgba(0, 0, 0, 0) 40%);
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  z-index: -1;
+  will-change: width;
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
+}
+#container::-webkit-scrollbar {
+  display: none;
+}
+</style>
 
