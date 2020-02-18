@@ -28,7 +28,7 @@
     >
       <!-- 장바구니 담은게 있으면,, -->
       <v-badge color="red" :content="alertCount">
-        <v-icon>{{icons.mdiCart }}</v-icon>
+        <v-icon>{{ icons.mdiCart }}</v-icon>
       </v-badge>
       <!-- 장바구니 담은게 없으면,,, -->
     </v-btn>

@@ -1,57 +1,66 @@
 <template>
   <div>
-    <!-- 점주전용 NavBar -->
-    <v-layout my-5 absolute>
+    <v-layout my-5>
       <StoreNavBar></StoreNavBar>
     </v-layout>
-
-    <!-- StorePayment.vue + OrderList.vue -->
-
-    <v-container>
-      <v-layout my-5 row wrap>
-        <v-flex pa-2 xs12 sm6 md6 lg6>
-          <StorePayment></StorePayment>
-        </v-flex>
-
-        <v-flex pa-2 xs12 sm6 md4 lg4>
-          <OrderList></OrderList>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <v-layout>
-      <bottomNav></bottomNav>
-    </v-layout>
+    <h1>Store Main Page</h1>
   </div>
 </template>
 
 
 <script>
 import StoreNavBar from "../components/StoreNavBar";
-import StorePayment from "../components/StorePayment";
-import OrderList from "../components/OrderList";
-import StoreMenuList from "../components/StoreMenuList";
-import MenuManagement from "../components/MenuManagement";
-import bottomNav from "../components/bottomNav";
 import store from "@/vuex/store.js";
 import router from "@/router.js";
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
 
 export default {
-  name: "StoreMainPage",
-  components: {
-    StoreNavBar,
-    StorePayment,
-    OrderList,
-    StoreMenuList,
-    MenuManagement,
-    bottomNav
-  },
   mounted() {
-    if (this.$store.state.userType !== 2) {
-      alert("권한이 없습니다. 로그인해주세요");
-      this.$router.push("/StoreLogin");
+    if (this.$store.state.socket === null) {
+      this.connect();
     }
   },
-  methods: {},
+  name: "StoreMainPage",
+  components: {
+    StoreNavBar
+  },
+  methods: {
+    connect() {
+      this.socket = new SockJS("http://192.168.100.92:8082/order");
+      this.stompClient = Stomp.over(this.socket);
+      this.stompClient.connect(
+        {},
+        frame => {
+          console.log("연결요");
+          this.status = "connected";
+          this.connected = true;
+          console.log(frame);
+          this.stompClient.subscribe(
+            `/topic/push/${this.$store.state.userName}`,
+            tick => {
+              this.$store.commit("ORDER_PLUS");
+              this.$store.commit("SOCKET_CONNECTED");
+              console.log(JSON.parse(tick.body));
+              this.received_messages.push(JSON.parse(tick.body));
+            }
+          );
+        },
+        error => {
+          console.log("에러요");
+          console.log(error);
+          this.connected = false;
+        }
+      );
+    },
+    disconnect() {
+      console.log("disconnected");
+      this.stompClient.disconnect();
+      this.connected = false;
+      this.status = "disconnected";
+      this.received_messages = [];
+    }
+  },
   data() {
     return {};
   }

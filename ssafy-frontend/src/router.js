@@ -23,6 +23,7 @@ import StoreMenuPage from './views/StoreMenuPage'
 import nothing from './views/nothing'
 import push from './views/push'
 import kakaoPaySuccess from './views/kakaoPaySuccess'
+import ManagePage from './views/ManagePage'
 Vue.use(Router)
 
 const router = new Router({
@@ -152,6 +153,16 @@ const router = new Router({
 			path: '/push',
 			name: 'push',
 			component: push
+		},
+		{
+			path: '/ManagePage',
+			name: 'Managepage',
+			component: ManagePage
+		},
+		{
+			path: '/profile',
+			name: 'profile',
+			component: profile
 		}
 	]
 })
