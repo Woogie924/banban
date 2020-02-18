@@ -28,7 +28,6 @@ import axios from "axios";
 import Map from "../components/Map";
 import store from "@/vuex/store.js";
 import router from "../router";
-import EventBus from "../EventBus";
 export default {
   mounted() {
     var StoreId = "";
@@ -72,6 +71,8 @@ export default {
         var storeId = [];
         for (var i = 0; i < store.state.res.length; i++) {
           if (store.state.res[i].category === that.MenuList[0].food) {
+            console.log(store.state.res[i].latitude);
+            console.log(store.state.res[i].longitude);
             //위도경도 가져와서 하나씩 표시...
             var imageSrc =
               "https://image.flaticon.com/icons/svg/1046/1046751.svg";
@@ -91,9 +92,7 @@ export default {
               clickable: true
             });
             marker.setMap(map);
-
             var iwContent = store.state.res[i].name;
-
             var iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
             var infowindow = new kakao.maps.InfoWindow({
               content: iwContent,
@@ -313,7 +312,6 @@ export default {
         }
       });
       this.menuIdx = idx;
-      EventBus.$emit("orderp", this.MenuList[idx].food);
     }
   }
 };
@@ -343,7 +341,7 @@ export default {
   border-bottom: 2px solid #ccc;
   border-right: 1px solid #ccc;
   overflow: hidden;
-  background: white;
+  background: #fff;
 }
 .wrap .info:nth-child(1) {
   border: 0;
