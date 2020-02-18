@@ -138,6 +138,7 @@ export default {
                 });
               };
             }
+            EventBus.$emit("orderp", "치킨");
           }
         }
       }
