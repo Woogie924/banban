@@ -50,13 +50,6 @@ const store = new Vuex.Store({
     getLocation(state, dist) {
       state.lat = dist.lat
       state.lon = dist.lon
-      // navigator.geolocation.getCurrentPosition(function (pos) {
-      //   state.lat = pos.coords.latitude
-      //   state.lon = pos.coords.longitude
-      //   alert(`위치가 갱신되었습니다.`)
-      //   console.log(state.lat)
-      //   console.log(state.lon)
-      // }) //백으로 다시 보내서 계산...
     },
     CLEAR_USER_DATA(state) {
       localStorage.clear()
