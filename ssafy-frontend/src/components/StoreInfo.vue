@@ -5,7 +5,7 @@
         <v-list-item class="my-0 py-0 justify-center text-center">
           <v-list-item-content class="justify-center text-center my-0 py-0" two-line>
             <v-list-item-title class="display-1 font-weight-regular justify-center my-0">
-              <span>{{list.store.name}}</span>
+              <span>{{storeName}}</span>
 
               <span class="text-right justify-right">
                 <v-icon>{{heartOut}}</v-icon>
@@ -20,7 +20,7 @@
                 readonly
                 class="my-0"
               ></v-rating>
-              <span class="grey--text text--lighten-1 caption">({{list.point.toFixed(1)}})</span>
+              <span class="grey--text text--lighten-1 caption">({{starPoint}})</span>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -105,15 +105,17 @@ export default {
     this.getStoreInfo(this.storeId);
   },
   mounted() {
-    this.getStoreInfo(this.storeId);
+    // this.getStoreInfo(this.storeId);
   },
   methods: {
-    getStoreInfo(id) {
-      UserOrder.getStoreInfo(
+    async getStoreInfo(id) {
+      await UserOrder.getStoreInfo(
         id,
         response => {
           this.list = response.data;
           console.log(this.list, 111);
+          this.storeName = this.list.store.name;
+          this.starPoint = this.list.point.toFixed(1);
         },
         error => {
           console.log(error);

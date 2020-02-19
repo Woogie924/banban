@@ -3,26 +3,27 @@
     <v-layout my-5>
       <UserNavBar></UserNavBar>
     </v-layout>
-    <v-layout my-5>
-      <v-container fluid>
+    <v-container fluid>
+      <v-container class="justify-center">
         <v-layout wrap>
-          <v-flex pa-2 xs="12" sm="4" lg="4" md="4">
+          <v-flex pa-2 xs12 sm2 lg2 md2>
             <Ranking></Ranking>
           </v-flex>
-          <v-flex pa-2 xs="12" sm="4" lg="4" md="4">
+          <v-flex pa-2 xs12 sm8 lg8 md8>
             <Menu></Menu>
           </v-flex>
-          <v-flex pa-2 xs="12" sm="4" lg="4" md="4">
+          <v-flex pa-2 xs12 sm2 lg2 md2>
             <OrderPossible></OrderPossible>
           </v-flex>
         </v-layout>
       </v-container>
-    </v-layout>
-    <v-layout>
-      <transition>
-        <Notification :value="true"></Notification>
-      </transition>
-    </v-layout>
+
+      <v-layout>
+        <transition>
+          <Notification :value="true"></Notification>
+        </transition>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -50,7 +51,8 @@ export default {
     Ranking,
     Menu,
     UserNavBar,
-    OrderPossible
+    OrderPossible,
+    Notification
   },
   methods: {
     connect() {
