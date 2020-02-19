@@ -53,6 +53,46 @@ export default {
     Menu,
     UserNavBar,
     OrderPossible
+  },
+  methods: {
+    connect() {
+      this.socket = new SockJS("http://192.168.100.92:8082/order");
+      this.stompClient = Stomp.over(this.socket);
+      const that = this;
+      this.stompClient.connect(
+        {},
+        frame => {
+          console.log("연결요");
+          this.status = "connected";
+          this.connected = true;
+          console.log(frame);
+          this.stompClient.subscribe(
+            `/topic/push/${this.$store.state.userName}`,
+            tick => {
+              this.$store.commit("ORDER_PLUS");
+              this.$store.commit("SOCKET_CONNECTED");
+              if (this.$store.state.socket === 1) {
+                this.playSound();
+              }
+              // console.log(JSON.parse(tick.body));
+              // this.received_messages.push(JSON.parse(tick.body));
+            }
+          );
+        },
+        error => {
+          console.log("에러요");
+          console.log(error);
+          this.connected = false;
+        }
+      );
+    },
+    disconnect() {
+      console.log("disconnected");
+      this.stompClient.disconnect();
+      this.connected = false;
+      this.status = "disconnected";
+      this.received_messages = [];
+    }
   }
 };
 </script>
