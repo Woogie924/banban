@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar width="100%" absolute dense style="position:fixed;" color="#009688">
+    <v-toolbar width="100%" absolute dense style="position:fixed; z-index:100;" color="#009688">
       <v-app-bar-nav-icon dark @click.stop="overlay = !overlay">
         <v-icon>{{menuIconPath}}</v-icon>
       </v-app-bar-nav-icon>

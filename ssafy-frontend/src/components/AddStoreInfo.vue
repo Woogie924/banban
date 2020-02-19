@@ -29,7 +29,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="display-1 text-shadow font-weight-bold">사장님 광장</v-list-item-title>
-              <v-list-item-subtitle class="font-weight-black text--grey">땅땅치킨</v-list-item-subtitle>
+              <v-list-item-subtitle class="font-weight-black text--grey">{{storename}}</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>

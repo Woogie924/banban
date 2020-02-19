@@ -6,7 +6,7 @@
       </v-card-title>
 
       <v-card-text class="text-center justify-center mb-1">
-        <h1 class="counter">{{list.point}} 원</h1>
+        <h1 class="counter">{{totalprice}} 원</h1>
       </v-card-text>
       <v-card-subtitle class="grey-text caption text-center">
         현재 기준으로 등록하신 2개 가게의 합계 금액이며,
@@ -42,11 +42,6 @@
           </v-sparkline>
         </v-sheet>
       </v-card-text>
-
-      <v-divider></v-divider>
-      <v-card-actions class="justify-center">
-        <v-btn block text>상세 보기</v-btn>
-      </v-card-actions>
     </v-card>
     <br />
   </div>
@@ -66,6 +61,9 @@ const gradients = [
 ];
 export default {
   name: "StorePayment",
+  props: {
+    totalprice: { type: String }
+  },
   data() {
     return {
       store: [],
