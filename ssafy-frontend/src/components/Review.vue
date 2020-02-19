@@ -4,8 +4,10 @@
       <v-list>
         <v-list-item two-line>
           <v-list-item-content class="justify-center text-left">
-            <v-card-title>최근 리뷰 {{items.starpoint.length}}개</v-card-title>
-            <v-card-text>사장님댓글 {{items.storestarpoint.length}}개</v-card-text>
+            <div v-id="items.starPoint.length>0">
+              <v-card-title>최근 리뷰 {{items.starpoint.length}}개</v-card-title>
+              <v-card-text>사장님댓글 {{items.storestarpoint.length}}개</v-card-text>
+            </div>
           </v-list-item-content>
           <v-list-item-content class="justify-right text-center">
             <WriteReview :storeid="items.storeid" :storename="items.storename"></WriteReview>
