@@ -17,6 +17,7 @@
             :price="price"
             :default_price="default_price"
             :total_price="total_price"
+            :menu="menu"
           ></MyPaymentInfo>
         </v-flex>
       </v-layout>
@@ -43,7 +44,8 @@ export default {
       num: 0,
       price: 0,
       default_price: 0,
-      total_price: 0
+      total_price: 0,
+      menu: "gg"
     };
   },
   mounted() {
@@ -54,7 +56,13 @@ export default {
     this.price = this.$route.params.price;
     this.default_price = this.$route.params.default_price;
     this.total_price = this.$route.params.total_price;
+    console.log("허허허");
+    console.log(this.list);
     console.log("ㅑ캬캬캬캬" + this.storeid);
+    this.menu = "";
+    for (let index = 0; index < this.list.length; index++) {
+      this.menu += this.list[index].menuname.replace(">", ", ");
+    }
   },
   methods: {
     beforeEnter(el) {
