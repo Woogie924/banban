@@ -43,9 +43,7 @@ export default {
       alert("권한이 없습니다. 로그인해주세요");
       this.$router.push("/Mlogin");
     }
-    if (this.$store.state.socket === null) {
-      this.connect();
-    }
+    this.connect();
   },
   name: "UserMainPage",
   components: {
@@ -63,19 +61,15 @@ export default {
         {},
         frame => {
           console.log("연결요");
+          this.$store.commit("SOCKET_CONNECTED");
           this.status = "connected";
           this.connected = true;
           console.log(frame);
           this.stompClient.subscribe(
             `/topic/push/${this.$store.state.userName}`,
             tick => {
-              this.$store.commit("ORDER_PLUS");
-              this.$store.commit("SOCKET_CONNECTED");
-              if (this.$store.state.socket === 1) {
-                this.playSound();
-              }
-              // console.log(JSON.parse(tick.body));
-              // this.received_messages.push(JSON.parse(tick.body));
+              console.log(JSON.parse(tick.body));
+              this.received_messages.push(JSON.parse(tick.body));
             }
           );
         },

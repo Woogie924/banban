@@ -141,7 +141,7 @@ export default {
         data: {
           address1: this.address,
           address2: "string",
-          menu: "치킨",
+          menu: "후라이드 치킨",
           onum: 0,
           orderDate: "string",
           ordercheck: 0,
