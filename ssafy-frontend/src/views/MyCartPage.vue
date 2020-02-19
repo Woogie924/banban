@@ -21,6 +21,7 @@ export default {
     MyCartList,
     UserNavBar
   },
+
   data() {
     return {
       totalprice: this.$route.params.totalprice
