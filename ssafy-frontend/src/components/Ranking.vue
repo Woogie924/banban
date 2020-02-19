@@ -87,8 +87,8 @@ export default {
 #rank {
   font-weight: bold;
   position: relative;
-  -webkit-animation: mymove 5s infinite; /* Safari 4.0 - 8.0 */
-  animation: mymove 5s infinite;
+  -webkit-animation: mymove 2s infinite; /* Safari 4.0 - 8.0 */
+  animation: mymove 2s infinite;
 }
 /* Safari 4.0 - 8.0 */
 #rank {
@@ -107,7 +107,7 @@ export default {
     left: 0px;
   }
   to {
-    left: 5vw;
+    left: 4vw;
   }
 }
 
@@ -117,7 +117,7 @@ export default {
     left: 0px;
   }
   to {
-    left: 5vw;
+    left: 4vw;
   }
 }
 .rankNum,

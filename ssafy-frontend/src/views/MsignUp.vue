@@ -233,18 +233,10 @@ export default {
           if (fullRoadAddr !== "") {
             fullRoadAddr += extraRoadAddr;
           }
-
-          // 우편번호와 주소 정보를 해당 필드에 넣는다.
-          // document.getElementById("sample4_postcode").value = data.zonecode; //5자리 새우편번호 사용
-          // document.getElementById("sample4_roadAddress").value = fullRoadAddr;
-          // document.getElementById("sample4_jibunAddress").value =
-          //   data.jibunAddress;
-          // alert(data.zonecode);
           this.zipcode = data.zonecode;
           this.address = fullRoadAddr;
           this.address2 = data.jibunAddress;
           var geocoder = new kakao.maps.services.Geocoder();
-          // console.log(this.address);
           geocoder.addressSearch(
             this.address,
             function(result, status) {
