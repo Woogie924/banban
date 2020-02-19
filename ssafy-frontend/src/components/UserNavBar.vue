@@ -22,14 +22,13 @@
         <v-icon dark>{{quoteclose}}</v-icon>
       </v-spacer>
       <v-spacer />
-      <!-- 검색바 -->
-      <v-toolbar flat dense color="teal lighten-1" dark>
-        <v-text-field hide-details prepend-icon="search" single-line></v-text-field>
-      </v-toolbar>
       <!-- 메뉴 -->
       <v-toolbar-items class="hidden-xs-only">
+        <v-btn dark text @click="getAddress">
+          <v-icon left dark>mdi-wrench</v-icon>주소지
+        </v-btn>
         <v-btn dark text @click="getLocation">
-          <v-icon left dark>mdi-wrench</v-icon>위치받기
+          <v-icon left dark>mdi-wrench</v-icon>현위치
         </v-btn>
         <v-btn dark text v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
@@ -168,7 +167,7 @@ export default {
           lat: pos.coords.latitude,
           lon: pos.coords.longitude
         });
-        alert(`위치가 갱신되었습니다.`);
+        // alert(`위치가 갱신되었습니다.`);
 
         store
           .dispatch("resetaddr", {
@@ -180,6 +179,55 @@ export default {
             window.location.reload();
           });
       }); //백으로 다시 보내서 계산...
+    },
+    getAddress() {
+      var geocoder = new kakao.maps.services.Geocoder();
+      // console.log(this.address);
+      geocoder.addressSearch(
+        store.state.userAddr,
+        function(result, status) {
+          if (status == kakao.maps.services.Status.OK) {
+            // console.log(result[0].y + " " + result[0].x);
+            // console.log(result[0].x);
+            store.state.lat = result[0].y;
+            store.state.lon = result[0].x;
+            console.log("1");
+            this.aaaaa();
+          }
+        }.bind(this)
+      );
+    },
+    aaaaa() {
+      store
+        .dispatch("getLocation", {
+          //주소지를 위도, 경도로 바꿔준다..
+          lat: store.state.lat,
+          lon: store.state.lon
+        })
+        .then(() => {
+          console.log("2");
+          store
+            .dispatch("resetaddr", {
+              lat: store.state.lat,
+              lon: store.state.lon
+            })
+            .then(() => {
+              window.location.reload();
+            });
+        });
+      // alert(`주소지로 이동!`);
+
+      store
+        .dispatch("resetaddr", {
+          lat: store.state.lat,
+          lon: store.state.lon
+        })
+        .then(() => {
+          console.log("3");
+          // console.log(store.state.userAddr);
+          window.location.reload();
+          // window.location.reload();
+        });
     },
     logout() {
       this.$store.dispatch("logout");
