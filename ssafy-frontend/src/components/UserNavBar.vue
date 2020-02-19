@@ -15,7 +15,7 @@
 
       <span
         @click="moveToInfo"
-        class="font-weight-bold white--text lighten-3"
+        class="font-weight-regular white--text lighten-3"
         style="cursor: pointer"
       >{{userInfo}}님 공간</span>
       <v-icon dark>{{quoteclose}}</v-icon>
@@ -26,20 +26,20 @@
       <!-- 메뉴 -->
       <v-toolbar-items class="hidden-xs-only">
         <v-btn dark text @click="getAddress">
-          <v-icon left dark>mdi-wrench</v-icon>주소지
+          <v-icon left dark>{{regLocationIcon}}</v-icon>주소지
         </v-btn>
         <v-btn dark text @click="getLocation">
-          <v-icon left dark>mdi-wrench</v-icon>현위치
+          <v-icon left dark>{{curLocationIcon}}</v-icon>현위치
         </v-btn>
         <v-btn dark text v-for="item in menuItems" :key="item.title" :to="item.path">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
         <v-btn dark v-if="userState === true" text @click="logout">
-          <v-icon left dark>folder_open</v-icon>로그아웃
+          <v-icon left dark>{{logoutIcon}}</v-icon>로그아웃
         </v-btn>
         <v-btn dark v-else text @click="login">
-          <v-icon left dark>folder_open</v-icon>로그인
+          <v-icon left dark>{{loginIcon}}</v-icon>로그인
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
@@ -114,7 +114,16 @@ import axios from "axios";
 import store from "@/vuex/store.js";
 import router from "@/router.js";
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
-import { mdiArrowLeftThick } from "@mdi/js";
+import {
+  mdiCalendarTextOutline,
+  mdiAccountCircle,
+  mdiHelp,
+  mdiLockOpenVariant,
+  mdiLock
+} from "@mdi/js";
+import { mdiLogin, mdiLogout } from "@mdi/js";
+import { mdiArrowLeftThick, mdiCrosshairsGps } from "@mdi/js";
+import { mdiBookOpen } from "@mdi/js";
 import alarm from "@/components/alarm.vue";
 export default {
   name: "UserNavBar",
@@ -124,6 +133,10 @@ export default {
   data() {
     return {
       appTitle: "ㅇㅇㅇ님 공간",
+      curLocationIcon: mdiCrosshairsGps,
+      regLocationIcon: mdiBookOpen,
+      loginIcon: mdiLogin,
+      logoutIcon: mdiLogout,
       quoteclose: mdiFormatQuoteClose,
       quoteopen: mdiFormatQuoteOpen,
       leftArrowPath: mdiArrowLeftThick,
@@ -136,20 +149,20 @@ export default {
         {
           title: "게시판",
           path: "/Read",
-          icon: "account_circle",
-          info: "이것은 게시판입니다."
+          icon: mdiCalendarTextOutline,
+          info: "게시판입니다."
         },
         {
           title: "내 정보",
           path: "/profile",
-          icon: "folder_open",
-          info: "이것은 내 정보입니다."
+          icon: mdiAccountCircle,
+          info: "내 정보입니다."
         },
         {
-          title: "고객 센터",
-          path: "/StoreInfoPage",
-          icon: "folder_open",
-          info: "이것은 고객센터입니다."
+          title: "FAQ",
+          path: "/FAQ",
+          icon: mdiHelp,
+          info: "FAQ입니다."
         }
       ],
       latitude: 0,
@@ -252,6 +265,10 @@ export default {
 </script>
  
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300");
+* {
+  font-family: "Do Hyeon", sans-serif;
+}
 #effect {
   text-transform: uppercase;
   font-size: 36px;

@@ -26,6 +26,7 @@ import kakaoPaySuccess from '@/views/kakaoPaySuccess.vue'
 import ManagePage from './views/ManagePage'
 import CompletePayPage from './views/CompletePayPage'
 import storeProfile from './views/storeProfile'
+import FAQ from './views/FAQ'
 
 Vue.use(Router)
 
@@ -182,6 +183,11 @@ const router = new Router({
 			name: 'kakaoPaySuccess',
 			component: kakaoPaySuccess
 		},
+		{
+			path: '/FAQ',
+			name: 'FAQ',
+			component: FAQ
+		}
 	]
 })
 
