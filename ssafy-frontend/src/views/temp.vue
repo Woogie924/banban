@@ -2,14 +2,14 @@
   <div>
     <v-card elevation="0" style="border:1px solid grey">
       <v-card-title class="justify-center">
-        <div class="underlined">주문 현황</div>
+        <div class="underlined">주문 완료!!</div>
       </v-card-title>
-      <v-list v-for="(item,index) in list" :key="index">
+      <v-list>
         <v-list-item-title class="justify-right text-right">
-          <v-chip outlined pill color="red" v-if="item.ordercheck==1">
+          <v-chip outlined pill color="red">
             <v-icon left>mdi-server-plus</v-icon>주문대기
           </v-chip>
-          <v-chip outlined pill color="teal" v-if="item.ordercheck==2">
+          <v-chip outlined pill color="teal">
             <v-icon left>mdi-wrench</v-icon>주문완료
           </v-chip>
         </v-list-item-title>
@@ -22,7 +22,7 @@
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">{{item.onum}}</div>
+              <div class="pinched">번호,,,</div>
             </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-content>
@@ -32,7 +32,7 @@
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">{{item.orderDate}}</div>
+              <div class="pinched">일시,,,</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -44,7 +44,7 @@
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">{{item.menu}}</div>
+              <div class="pinched">치킨명,,</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -53,12 +53,12 @@
             <v-list-item-title class="justify-center text-center">
               <v-icon>{{quoteopen}}</v-icon>
               <span>
-                <div class="underlined2">{{item.userid1}}</div>님 주소
+                <div class="underlined2">누구누구</div>님 주소
               </span>
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">{{item.address1}}</div>
+              <div class="pinched">dsdsds</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -68,12 +68,12 @@
             <v-list-item-title class="justify-center text-center">
               <v-icon>{{quoteopen}}</v-icon>
               <span>
-                <div class="underlined2">{{item.userid2}}</div>님 주소
+                <div class="underlined2">ggg</div>님 주소
               </span>
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">{{item.address2}}</div>
+              <div class="pinched">주소ㅡ,</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -85,17 +85,8 @@
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">{{item.price}}</div>
+              <div class="pinched">50000원</div>
             </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <span class="justify-center text-center">
-              <v-chip label color="white" style="cursor:pointer;" @click="clickOrder()">
-                <v-icon left>mdi-check</v-icon>주문 확인하기
-              </v-chip>
-            </span>
           </v-list-item-content>
         </v-list-item>
 
@@ -107,41 +98,14 @@
 
 <script>
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
-
+import router from "@/router.js";
 export default {
-  name: "OrderList",
-  props: {
-    list: []
-  },
+  name: "temp",
   data() {
-    return {
-      quoteclose: mdiFormatQuoteClose,
-      quoteopen: mdiFormatQuoteOpen
-    };
+    return { quoteclose: mdiFormatQuoteClose, quoteopen: mdiFormatQuoteOpen };
   },
-  mounted() {
-    // this.getOrderList();
-  },
-  methods: {
-    // getOrderList() {
-    //   shopkeeper.getOrderList(
-    //     response => {
-    //       console.log("shopkeeper getOrderList start");
-    //       console.log(response);
-    //       this.list = response.data;
-    //       // for (let index = 0; index < response.data.length; index++) {
-    //       //   this.list[index] = response.data[index];
-    //       //   this.$set(this.list, index, response.data[index]);
-    //       //   console.log(this.list[index]);
-    //       // }
-    //       // console.log("shopkeeper getOrderList " + this.list);
-    //     },
-    //     errorcallback => {
-    //       console.log("shopkeeper error:" + errorcallback);
-    //     }
-    //   );
-    // }
-  }
+  mounted() {},
+  methods: {}
 };
 </script>
 

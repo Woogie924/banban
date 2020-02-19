@@ -9,7 +9,7 @@
 
     <v-container>
       <v-layout my-5>
-        <v-flex pa-2 xs12 sm12 md12 lg12>
+        <v-flex pa-2>
           <MyMenuList></MyMenuList>
         </v-flex>
       </v-layout>
