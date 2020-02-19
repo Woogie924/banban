@@ -22,9 +22,10 @@ import MyPaymentPage from './views/MyPaymentPage'
 import StoreMenuPage from './views/StoreMenuPage'
 import nothing from './views/nothing'
 import push from './views/push'
+import kakaoPaySuccess from '@/views/kakaoPaySuccess.vue'
 import ManagePage from './views/ManagePage'
 import CompletePayPage from './views/CompletePayPage'
-import KakaoPaySuccess from './views/KakaoPaySuccess'
+import storeProfile from './views/storeProfile'
 
 Vue.use(Router)
 
@@ -142,11 +143,6 @@ const router = new Router({
 			component: nothing
 		},
 		{
-			path: '/kakaoPaySuccess',
-			name: 'kakaoPaySuccess',
-			component: KakaoPaySuccess
-		},
-		{
 			path: '/StoreMenuPage',
 			name: 'StoreMenuPage',
 			component: StoreMenuPage
@@ -180,6 +176,11 @@ const router = new Router({
 			path: '/CompletePayPage',
 			name: 'CompletePayPage',
 			component: CompletePayPage
+		},
+		{
+			path: '/kakaoPaySuccess',
+			name: 'kakaoPaySuccess',
+			component: kakaoPaySuccess
 		},
 	]
 })
