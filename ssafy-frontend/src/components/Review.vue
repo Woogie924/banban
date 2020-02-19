@@ -4,8 +4,8 @@
       <v-list>
         <v-list-item two-line>
           <v-list-item-content class="justify-center text-left">
-            <v-card-title>최근 리뷰 {{items.starpoint.length}}개</v-card-title>
-            <v-card-text>사장님댓글 {{items.storestarpoint.length}}개</v-card-text>
+            <v-card-title>최근 리뷰 {{starpointLength}}개</v-card-title>
+            <v-card-text>사장님댓글 {{storestarpointLength}}개</v-card-text>
           </v-list-item-content>
           <v-list-item-content class="justify-right text-center">
             <WriteReview :storeid="items.storeid" :storename="items.storename"></WriteReview>
@@ -81,6 +81,8 @@ export default {
   },
   data() {
     return {
+      starpointLength: "0",
+      storestarpointLength: "0",
       starPoint: 4.8,
       items: {
         starpoint: [],
@@ -90,17 +92,23 @@ export default {
       quoteopen: mdiFormatQuoteOpen
     };
   },
-  mounted() {
+  created() {
     this.getStoreInfo();
+    console.log("리뷰 갯수");
+    console.log(this.starpointLength, this.storestarpointLength);
   },
+  mounted() {},
   methods: {
-    getStoreInfo() {
+    async getStoreInfo() {
       console.log("Review storeId: ", this.storeId);
 
-      UserOrder.getStoreInfo(
+      await UserOrder.getStoreInfo(
         this.storeId,
         response => {
           this.items = response.data;
+          this.starpointLength = this.items.starpoint.length;
+          this.storestarpointLength = this.items.storestarpoint.length;
+
           console.log("UserOrder getStoreInfo");
           console.log(this.items);
         },
