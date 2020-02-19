@@ -85,7 +85,7 @@ export default {
     // },
     initPrice() {
       this.total_price = 0;
-      console.log(this.list);
+
       for (let index = 0; index < this.list.length; index++) {
         this.total_price += this.list[index].quantity * this.list[index].price;
       }
@@ -116,6 +116,7 @@ export default {
       this.$router.push({
         name: "MyPaymentPage",
         params: {
+          storeid: this.list[0].storeid,
           list: this.list,
           num: this.num,
           price: this.price,
