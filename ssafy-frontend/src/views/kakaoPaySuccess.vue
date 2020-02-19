@@ -27,11 +27,11 @@
           <v-list-item-content>
             <v-list-item-title class="justify-center text-center">
               <v-icon>{{quoteopen}}</v-icon>
-              <span>일시</span>
+              <span>가게아이디</span>
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched"></div>
+              <div class="pinched">{{this.board.storeid}}</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -43,7 +43,7 @@
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">치킨명,,</div>
+              <div class="pinched">{{this.board.menu}}</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -52,12 +52,12 @@
             <v-list-item-title class="justify-center text-center">
               <v-icon>{{quoteopen}}</v-icon>
               <span>
-                <div class="underlined2">누구누구</div>님 주소
+                <div class="underlined2">주문자</div>님 주소
               </span>
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">dsdsds</div>
+              <div class="pinched">{{this.board.address1}}</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -66,12 +66,12 @@
             <v-list-item-title class="justify-center text-center">
               <v-icon>{{quoteopen}}</v-icon>
               <span>
-                <div class="underlined2">ggg</div>님 주소
+                <div class="underlined2">파트너</div>아이디
               </span>
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">주소ㅡ,</div>
+              <div class="pinched">{{this.board.userid2}}</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -83,7 +83,7 @@
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">50000원</div>
+              <div class="pinched">{{this.board.price}}</div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -97,6 +97,7 @@ import axios from "axios";
 import router from "@/router.js";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
+import VueMomentJs from "vue-momentjs";
 export default {
   name: "temp",
   data() {
@@ -111,10 +112,7 @@ export default {
     this.test();
     this.get_order();
   },
-  mounted() {
-    this.test();
-    this.get_order();
-  },
+  mounted() {},
   methods: {
     connect() {
       this.socket = new SockJS("http://192.168.100.92:8082/order");
