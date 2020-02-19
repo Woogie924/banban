@@ -3,6 +3,7 @@
     <v-card class="justify-center align-center">
       <v-container class="justify-center">
         <v-list>
+          <v-btn @click="create_order()">11</v-btn>
           <!-- 배달정보 -->
           <v-list-item>
             <v-list-item-content>
@@ -11,10 +12,12 @@
               </v-list-item-title>
               <v-list-item-subtitle class="font-weight-black text--grey">내 주소</v-list-item-subtitle>
               <div class="card">{{address}}</div>
+
               <br />
-              <v-list-item-subtitle class="font-weight-black text--grey">팀원 주소</v-list-item-subtitle>
+              <v-list-item-subtitle class="font-weight-black text--grey">팀원 id</v-list-item-subtitle>
               <div class="card">
-                <v-text-field label="팀원 주소" solo></v-text-field>
+                <v-text-field label="팀원 id" solo v-model="teamAddress"></v-text-field>
+                <v-btn @click="get_team_id(teamAddress)">동의요청</v-btn>
               </div>
             </v-list-item-content>
           </v-list-item>
@@ -67,17 +70,20 @@ import axios from "axios";
 export default {
   name: "MyPaymentInfo",
   props: {
-    list: [],
+    storeid: { type: String },
+
     num: { type: Number },
     price: { type: Number },
     default_price: { type: Number },
-    total_price: { type: Number }
+    total_price: { type: String }
   },
   data() {
     return {
       dialog: false,
       address: "",
       myWidth: "100vw",
+      teamAddress: "",
+      order_num: { Type: String },
       panel_items: [
         {
           idx: 1,
@@ -127,15 +133,44 @@ export default {
         this.address = res.data;
       });
     },
-    pay() {
+    async create_order() {
+      await axios({
+        method: "post",
+        url: `http://192.168.100.92:8080/order`,
+
+        data: {
+          address1: this.address,
+          address2: "string",
+          menu: "치킨",
+          onum: 0,
+          orderDate: "string",
+          ordercheck: 0,
+          peonum: 0,
+          price: this.total_price,
+          storeid: this.storeid,
+          tel1: "string",
+          tel2: "string",
+          totalprice: this.total_price,
+          userid1: this.$store.state.userName,
+          userid2: this.teamAddress
+        }
+      }).then(res => {
+        console.log(res.data);
+        this.order_num = res.data;
+        console.log(this.order_num);
+      });
+    },
+    async pay() {
       // 카카오페이
+      await this.create_order();
+
       axios({
         method: "post",
         url: `http://192.168.100.92:8080/kakaoPay`,
         data: {
-          partner_order_id: "kim",
-          partner_user_id: "park",
-          item_name: "땅땅치킨",
+          partner_order_id: this.order_num,
+          partner_user_id: this.$store.state.userName,
+          item_name: this.storeid,
           total_amount: this.total_price
         }
       }).then(res => {
@@ -144,6 +179,17 @@ export default {
     },
     test() {
       this.total_price = this.$route.params.total_price;
+    },
+    get_team_id(id) {
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${this.$store.state.token}`;
+      axios({
+        method: "get",
+        url: `http://192.168.100.92:8080/api/address/${id}`
+      }).then(res => {
+        this.teamAddress = res.data;
+      });
     }
   }
 };

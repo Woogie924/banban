@@ -12,7 +12,7 @@
       <v-layout class="justify-center text-center">
         <v-flex lg6 sm6 md6 xs12>
           <MyPaymentInfo
-            :list="list"
+            :storeid="storeid"
             :num="num"
             :price="price"
             :default_price="default_price"
@@ -38,6 +38,7 @@ export default {
   },
   data() {
     return {
+      storeid: null,
       list: [],
       num: 0,
       price: 0,
@@ -47,11 +48,13 @@ export default {
   },
   mounted() {
     console.log("결제 정보 확인 및 결제!!! MyPaymentPage mounted");
-    (this.list = this.$route.params.list),
-      (this.num = this.$route.params.num),
-      (this.price = this.$route.params.price),
-      (this.default_price = this.$route.params.default_price),
-      (this.total_price = this.$route.params.total_price);
+    this.storeid = this.$route.params.storeid;
+    this.list = this.$route.params.list;
+    this.num = this.$route.params.num;
+    this.price = this.$route.params.price;
+    this.default_price = this.$route.params.default_price;
+    this.total_price = this.$route.params.total_price;
+    console.log("ㅑ캬캬캬캬" + this.storeid);
   },
   methods: {
     beforeEnter(el) {
