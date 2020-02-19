@@ -32,12 +32,13 @@ export default {
         axios
             .get(`http://192.168.100.92:8080/api/storeinfo/${storeId}`)
             .then(response => {
+                console.log("UserOrder API then...");
                 console.log(response.data);
                 callback(response);
 
             })
             .catch(error => {
-                console.log("UserOrder getStoreInfo error");
+                console.log("UserOrder getStoreInfo error" + storeId);
                 errorCallback(error);
 
             });

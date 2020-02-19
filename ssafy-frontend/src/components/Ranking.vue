@@ -1,8 +1,10 @@
 <template>
   <div>
-    <v-card fluid elevation="24">
-      <p class="headline grey--text font-weight-bold text-center">실시간 순위</p>
-      <v-card>
+    <v-card fluid elevation="1">
+      <v-card-title class="text-center justify-center">
+        <div class="underlined">실시간 순위</div>
+      </v-card-title>
+      <v-card elevation="0">
         <div v-if="this.list.length === 0">
           <v-card-text id="rank">주문 가능한 매장이 없습니다.</v-card-text>
         </div>
@@ -59,6 +61,29 @@ export default {
 </script>
 
 <style scoped>
+.underlined {
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+}
+.underlined::before {
+  content: "";
+  width: 100%;
+  height: 80%;
+  background-image: linear-gradient(to top, #b4e7f8 25%, rgba(0, 0, 0, 0) 40%);
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  z-index: -1;
+  will-change: width;
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
+}
 #rank {
   font-weight: bold;
   position: relative;
