@@ -21,7 +21,7 @@
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">번호,,,</div>
+              <div class="pinched">{{this.board.onum}}</div>
             </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-content>
@@ -31,7 +31,7 @@
               <v-icon>{{quoteclose}}</v-icon>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <div class="pinched">일시,,,</div>
+              <div class="pinched"></div>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -95,16 +95,68 @@
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 import axios from "axios";
 import router from "@/router.js";
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
 export default {
   name: "temp",
   data() {
-    return { quoteclose: mdiFormatQuoteClose, quoteopen: mdiFormatQuoteOpen };
+    return {
+      quoteclose: mdiFormatQuoteClose,
+      board: [],
+
+      quoteopen: mdiFormatQuoteOpen
+    };
+  },
+  created() {
+    this.test();
+    this.get_order();
   },
   mounted() {
     this.test();
     this.get_order();
   },
   methods: {
+    connect() {
+      this.socket = new SockJS("http://192.168.100.92:8082/order");
+      this.stompClient = Stomp.over(this.socket);
+      this.stompClient.connect(
+        {},
+        frame => {
+          console.log("연결요");
+          this.status = "connected";
+          this.connected = true;
+          this.send();
+          console.log(frame);
+          this.stompClient.subscribe(
+            `/topic/${this.$store.state.userName}/`,
+            tick => {
+              console.log(JSON.parse(tick.body));
+              this.received_messages.push(JSON.parse(tick.body));
+            }
+          );
+        },
+        error => {
+          console.log("에러요");
+          console.log(error);
+          this.connected = false;
+        }
+      );
+    },
+    send() {
+      console.log(this.board, "ddd");
+      if (this.stompClient && this.stompClient.connected) {
+        const msg = {
+          message: this.send_message,
+          sender: "박교열",
+          receiver: this.board.storeid,
+          data: null
+        };
+        console.log(JSON.stringify(msg));
+        this.stompClient.send("/push", JSON.stringify(msg), {});
+      } else {
+        console.log("error");
+      }
+    },
     test() {
       this.pg_token = this.$route.query.pg_token;
       this.order_num = this.$route.query.partner_order_id;
@@ -118,7 +170,10 @@ export default {
         url: `http://192.168.100.92:8080/order/${this.$route.query.partner_order_id}`
       }).then(res => {
         this.board = res.data;
+        console.log("zzzz");
         console.log(res.data);
+        console.log(this.board);
+        this.connect();
       });
     }
   }
