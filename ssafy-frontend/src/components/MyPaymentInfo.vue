@@ -17,7 +17,6 @@
               <v-list-item-subtitle class="font-weight-black text--grey">팀원 id</v-list-item-subtitle>
               <div class="card">
                 <v-text-field label="팀원 id" solo v-model="teamAddress"></v-text-field>
-                <v-btn @click="get_team_id(teamAddress)">동의요청</v-btn>
               </div>
             </v-list-item-content>
           </v-list-item>
