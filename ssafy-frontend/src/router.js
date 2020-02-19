@@ -25,6 +25,8 @@ import push from './views/push'
 import kakaoPaySuccess from './views/kakaoPaySuccess'
 import ManagePage from './views/ManagePage'
 import CompletePayPage from './views/CompletePayPage'
+import storeProfile from './views/storeProfile'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -164,6 +166,11 @@ const router = new Router({
 			path: '/profile',
 			name: 'profile',
 			component: profile
+		},
+		{
+			path: '/storeProfile',
+			name: 'storeProfile',
+			component: storeProfile
 		},
 		{
 			path: '/MyPaymentPage',

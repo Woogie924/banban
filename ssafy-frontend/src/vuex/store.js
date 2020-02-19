@@ -219,6 +219,14 @@ const store = new Vuex.Store({
         .put('http://192.168.100.92:8080/api/user', credentials)
         .then(router.push('/'))
         .then(commit('CLEAR_USER_DATA'))
+    },
+    modifyStoreInfo({
+      commit
+    }, credentials) {
+      return axios
+        .put('http://192.168.100.92:8080/shopkeeper/store', credentials)
+        .then(router.push('/'))
+        .then(commit('CLEAR_USER_DATA'))
     }
   },
   getters: {
