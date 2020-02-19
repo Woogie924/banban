@@ -3,15 +3,8 @@
     <v-card elevation="0">
       <v-card-text>
         <v-layout mt-5 wrap>
-          <v-flex v-for="index in list.length" :key="index">
+          <v-flex v-for="index in list.length" :key="index" lg4 sm6 md6 xs12>
             <menuCard :item="list[index]"></menuCard>
-            <!-- <menuCard
-              :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
-              :name="item.name"
-              :cost="item.cost"
-              :tip="item.tip"
-              :tag="item.tag"
-            ></menuCard>-->
           </v-flex>
         </v-layout>
 

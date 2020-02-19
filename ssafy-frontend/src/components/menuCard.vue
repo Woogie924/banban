@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card width="20vw" max-width="344" elevation="0">
+    <v-card max-width="344" elevation="0" style="border: 1px solid ;">
       <v-img :src="item.img" height="30vh" contain />
       <v-card-title class="text-center justify-center my-1">{{item.name}}</v-card-title>
       <v-card-subtitle class="text-center justify-center my-1">{{item.cost}}원</v-card-subtitle>

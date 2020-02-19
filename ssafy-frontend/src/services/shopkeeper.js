@@ -3,12 +3,13 @@ import store from '@/vuex/store.js'
 export default {
 
     getOrderList(callback, errorCallback) {
-        console.log("[shopkeeperAPI] getOrderList start");
+        console.log("[shopkeeperAPI] getOrderList start   ::");
         axios.defaults.headers.common[
             "Authorization"
         ] = `Bearer ${store.state.token}`;
-        axios.get("http://192.168.100.92:8080/orderstatus")
+        axios.get("http://192.168.100.92:8080/shopkeeper/order")
             .then(response => {
+                console.log("[shopkeeperAPI] getOrderList");
                 callback(response);
             }).catch(error => {
                 errorCallback(error);

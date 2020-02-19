@@ -25,6 +25,7 @@ import push from './views/push'
 import kakaoPaySuccess from './views/kakaoPaySuccess'
 import ManagePage from './views/ManagePage'
 import CompletePayPage from './views/CompletePayPage'
+import temp from './views/temp'
 Vue.use(Router)
 
 const router = new Router({
@@ -174,6 +175,11 @@ const router = new Router({
 			path: '/CompletePayPage',
 			name: 'CompletePayPage',
 			component: CompletePayPage
+		},
+		{
+			path: '/temp',
+			name: 'temp',
+			component: temp
 		}
 	]
 })

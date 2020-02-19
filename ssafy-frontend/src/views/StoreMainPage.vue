@@ -5,15 +5,24 @@
     </v-layout>
 
     <v-container>
+      <v-btn @click="value=!value">헷</v-btn>
       <v-layout my-5 row wrap>
         <v-flex pa-2 xs12 sm6 md6 lg6>
-          <StorePayment></StorePayment>
+          <StorePayment :totalprice="list[0].totalprice"></StorePayment>
         </v-flex>​
         <v-flex pa-2 xs12 sm6 md4 lg4>
-          <OrderList></OrderList>
+          <OrderList :list="list"></OrderList>
         </v-flex>
       </v-layout>
     </v-container>
+    <v-layout>
+      <bottomNav></bottomNav>
+    </v-layout>
+    <!-- 알림상자 -->
+
+    <!-- <transition name="slide" mode="out-in" appear>
+      <notification :value="value"></notification>
+    </transition>-->
   </div>
 </template>
 
@@ -22,22 +31,26 @@
 import StoreNavBar from "../components/StoreNavBar";
 import store from "@/vuex/store.js";
 import StorePayment from "../components/StorePayment";
+import bottomNav from "../components/bottomNav";
 import OrderList from "../components/OrderList";
 import router from "@/router.js";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
-
+import shopkeeper from "../services/shopkeeper";
+import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 export default {
   mounted() {
     if (this.$store.state.socket === null) {
       this.connect();
     }
+    this.getOrderList();
   },
   name: "StoreMainPage",
   components: {
     StoreNavBar,
     StorePayment,
-    OrderList
+    OrderList,
+    bottomNav
   },
   methods: {
     connect() {
@@ -83,13 +96,47 @@ export default {
         "http://chataholic2.homestead.com/files/Door-Doorbell.wav"
       );
       audio.play();
+    },
+    getOrderList() {
+      shopkeeper.getOrderList(
+        response => {
+          console.log("shopkeeper getOrderList start");
+          console.log(response);
+          this.list = response.data;
+          // for (let index = 0; index < response.data.length; index++) {
+          //   this.list[index] = response.data[index];
+          //   this.$set(this.list, index, response.data[index]);
+          //   console.log(this.list[index]);
+          // }
+          // console.log("shopkeeper getOrderList " + this.list);
+        },
+        errorcallback => {
+          console.log("shopkeeper error:" + errorcallback);
+        }
+      );
     }
   },
   data() {
-    return {};
+    return {
+      list: [],
+      value: false,
+      quoteclose: mdiFormatQuoteClose,
+      quoteopen: mdiFormatQuoteOpen
+    };
   }
 };
 </script>
 
-<style>
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
 </style>

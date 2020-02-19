@@ -26,7 +26,6 @@ import UserNavBar from "../components/UserNavBar";
 import Ranking from "../components/Ranking";
 import Menu from "../components/Menu";
 import OrderPossible from "../components/OrderPossible";
-import temp from "../components/temp";
 import store from "@/vuex/store.js";
 import router from "@/router.js";
 export default {
@@ -41,8 +40,7 @@ export default {
     Ranking,
     Menu,
     UserNavBar,
-    OrderPossible,
-    temp
+    OrderPossible
   }
 };
 </script>
