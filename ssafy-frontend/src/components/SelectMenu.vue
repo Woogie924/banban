@@ -7,41 +7,43 @@
           <v-img width="20vw" :src="imageUrl" />
         </v-layout>
         <v-divider />
-        <v-list-item tile dense>
+        <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="headline">
-              {{name}}
+            <v-list-item-title
+              class="display-1 font-weight-bold justify-center text-center"
+            >{{name}}</v-list-item-title>
+            <v-list-item-subtitle>
               <v-btn
-                v-for="i in tags.length >2? tag.length-1:2"
+                v-for="i in tags.length >2? tags.length-1:2"
                 :key="i"
-                label
+                small
                 :color="color[i]"
                 dark
                 class="ma-2"
               >
-                <v-icon dark left large>{{svgPath}}</v-icon>
+                <v-icon dark left>{{svgPath}}</v-icon>
                 {{tags[i-1]}}
               </v-btn>
-            </v-list-item-title>
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item tile dense>
+        <v-list-item>
           <v-list-item-content>
-            <v-card-text class="text-left">기본</v-card-text>
-          </v-list-item-content>
-          <v-list-item-content>
-            <v-card-text class="text-right">{{cost}} 원</v-card-text>
+            <v-list-item-title class="text-center">
+              <div class="underlined">기본</div>
+            </v-list-item-title>
+            <v-list-item-subtitle class="text-center">{{cost}}원</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
         <v-divider />
         <!-- 수량 -->
-        <v-list-item tile dense>
+        <v-list-item>
           <v-list-item-content>
-            <v-card-text>수량</v-card-text>
-          </v-list-item-content>
-          <v-list-item-content>
-            <v-card-actions>
+            <v-list-item-title class="text-center justify-center">
+              <div class="underlined">수량</div>
+            </v-list-item-title>
+            <v-card-actions class="justify-center">
               <v-btn class="ma-2" elevation="1" fab small tile color="white" @click="minus()">
                 <v-icon dark>mdi-minus</v-icon>
               </v-btn>
@@ -66,32 +68,34 @@
           </div>
         </v-expand-transition>
       </v-card>
-      <v-card class="my-5 justify-center">
+      <v-card class="justify-center">
         <!-- 총가격 -->
         <v-list-item>
           <v-list-item-content>
-            <v-card-text>최소주문금액 :</v-card-text>
-          </v-list-item-content>
-          <v-list-item-content>
-            <v-card-text>{{this.price}} 원</v-card-text>
+            <v-list-item-title class="text-center justify-center">
+              <div class="underlined">최소주문금액</div>
+            </v-list-item-title>
+            <v-list-item-subtitle class="text-center">{{this.price}}원</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-
+        <v-list-item>
+          <v-list-item-content>
+            <v-btn
+              large
+              dark
+              outlined
+              color="teal lighten-2"
+              @click="addCart()"
+              class="justify-center"
+            >
+              <v-spacer />
+              {{this.num}}개 담기
+              <v-spacer />
+              {{this.price}} 원
+            </v-btn>
+          </v-list-item-content>
+        </v-list-item>
         <!--  장바구니 담기 -->
-        <v-btn
-          fixed
-          bottom
-          large
-          dark
-          color="teal lighten-2"
-          @click="addCart()"
-          class="justify-center"
-        >
-          <v-spacer />
-          {{this.num}}개 담기
-          <v-spacer />
-          {{this.price}} 원
-        </v-btn>
       </v-card>
     </v-card>
   </div>
@@ -179,5 +183,28 @@ export default {
 #card {
   width: 100%;
   height: 100%;
+}
+.underlined {
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+}
+.underlined::before {
+  content: "";
+  width: 100%;
+  height: 80%;
+  background-image: linear-gradient(to top, #23c984 25%, rgba(0, 0, 0, 0) 40%);
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  z-index: -1;
+  will-change: width;
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
 }
 </style>
