@@ -18,6 +18,11 @@
         </v-layout>
       </v-container>
     </v-layout>
+    <v-layout>
+      <transition>
+        <Notification :value="true"></Notification>
+      </transition>
+    </v-layout>
   </div>
 </template>
 
@@ -28,11 +33,18 @@ import Menu from "../components/Menu";
 import OrderPossible from "../components/OrderPossible";
 import store from "@/vuex/store.js";
 import router from "@/router.js";
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
+import Notification from "../components/Notification";
+
 export default {
   mounted() {
     if (this.$store.state.userType !== 1) {
       alert("권한이 없습니다. 로그인해주세요");
       this.$router.push("/Mlogin");
+    }
+    if (this.$store.state.socket === null) {
+      this.connect();
     }
   },
   name: "UserMainPage",

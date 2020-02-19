@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn dark fab text @click="checkIt()">
+    <v-btn v-if="quantity > 0" dark fab text @click="checkIt()">
       <v-badge color="red" :content="quantity">
         <v-icon color="white">{{ icons.mdiBellRing }}</v-icon>
       </v-badge>

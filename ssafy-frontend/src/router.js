@@ -167,6 +167,11 @@ const router = new Router({
 			component: profile
 		},
 		{
+			path: '/storeProfile',
+			name: 'storeProfile',
+			component: storeProfile
+		},
+		{
 			path: '/MyPaymentPage',
 			name: 'MyPaymentPage',
 			component: MyPaymentPage

@@ -2,7 +2,7 @@
   <div>
     <div>
       <v-layout class="my-5">
-        <UserNavBar></UserNavBar>
+        <StoreNavBar></StoreNavBar>
       </v-layout>
     </div>
     <!-- Provides the application the proper gutter -->
@@ -57,21 +57,6 @@
                     </v-row>
                     <v-row>
                       <v-text-field
-                        v-model="email"
-                        label="이메일"
-                        name="email"
-                        type="email"
-                        outlined
-                        dense
-                        @blur="$v.email.$touch()"
-                      ></v-text-field>
-                    </v-row>
-                    <div v-if="$v.email.$error">
-                      <p v-if="!$v.email.email" class="errorMessage">* 이메일 형식에 맞게 작성해 주세요.</p>
-                      <p v-if="!$v.email.required" class="errorMessage">* 이메일을 작성해 주세요.</p>
-                    </div>
-                    <v-row>
-                      <v-text-field
                         v-model="currentAddress"
                         label="현재주소"
                         name="currentAddress"
@@ -81,27 +66,6 @@
                         disabled
                       ></v-text-field>
                     </v-row>
-                    <v-row>
-                      <v-btn @click="sample4_execDaumPostcode()" width="100%" outlined dense>우편번호찾기</v-btn>
-                    </v-row>
-                    <v-row>
-                      <v-text-field
-                        v-model="zipcode"
-                        outlined
-                        dense
-                        :disabled="true"
-                        @blur="$v.zipcode.$touch()"
-                      />
-                    </v-row>
-                    <v-row>
-                      <v-text-field v-model="address" outlined dense />
-                    </v-row>
-                    <v-row>
-                      <v-text-field v-model="address2" outlined dense />
-                    </v-row>
-                    <div v-if="$v.zipcode.$error">
-                      <p v-if="!$v.zipcode.required" class="errorMessage">* 주소를 작성해 주세요.</p>
-                    </div>
                     <v-row>
                       <v-text-field
                         v-model="tel"
@@ -178,7 +142,7 @@
 </template>
 
 <script>
-import UserNavBar from "@/components/UserNavBar.vue";
+import StoreNavBar from "@/components/StoreNavBar.vue";
 import store from "@/vuex/store.js";
 import axios from "axios";
 import {
@@ -192,38 +156,35 @@ export default {
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${store.state.token}`;
-    axios.get("http://192.168.100.92:8080/api/info").then(res => {
+    axios.get("http://192.168.100.92:8080/shopkeeper/store").then(res => {
       console.log(res);
       this.id = res.data.id;
       this.name = res.data.name;
-      this.email = res.data.email;
       this.currentAddress = res.data.address;
       this.tel = res.data.tel;
       this.currentPW = res.data.pw;
+      this.category = res.data.category;
+      this.latitude = res.data.latitude;
+      this.longitude = res.data.longitude;
     });
   },
   components: {
-    UserNavBar
+    StoreNavBar
   },
   data() {
     return {
-      id: this.$store.state.userName,
-      pw: "",
-      name: "",
-      tel: "",
-      email: "",
-      address: "",
-      currentAddress: "",
+      address: this.currentAddress,
+      category: "",
       chk: 0,
+      id: "",
+      latitude: 0,
+      longitude: 0,
+      name: "",
       point: 0,
-      signupDate: 214,
-      zipcode: "",
-      address2: "",
-      lat: 123,
-      lon: 123,
-      confirm: "",
-      dialog: false,
-      currentPW: ""
+      pw: "",
+      signupDate: "",
+      tel: "",
+      confirm: ""
     };
   },
   validations: {
@@ -231,16 +192,14 @@ export default {
       required,
       minLength: minLength(4)
     },
-    tel: { required },
-    email: { required, email },
-    zipcode: { required }
+    tel: { required }
   },
   methods: {
     deleteUser() {
       if (this.currentPW == this.confirm) {
         axios
           .delete(
-            `http://192.168.100.92:8080/api/user/${this.id}/${this.confirm}`
+            `http://192.168.100.92:8080/shopkeeper/store/${this.id}/${this.confirm}`
           )
           .then(this.$store.commit("CLEAR_USER_DATA"))
           .then(alert("회원탈퇴가 완료되었습니다."))
@@ -252,17 +211,17 @@ export default {
     modifyInfo() {
       if (!this.$v.$invalid) {
         this.$store
-          .dispatch("modifyInfo", {
-            address: this.address,
+          .dispatch("modifyStoreInfo", {
+            address: this.currentAddress,
+            category: this.category,
             chk: 0,
-            email: this.email,
             id: this.id,
-            latitude: this.lat,
-            longitude: this.lon,
+            latitude: this.latitude,
+            longitude: this.longitude,
             name: this.name,
             point: 0,
             pw: this.pw,
-            signupDate: this.signupDate,
+            signupDate: "string",
             tel: this.tel
           })
           .then(alert("회원정보가 수정되었습니다. 다시 로그인 해주세요."));

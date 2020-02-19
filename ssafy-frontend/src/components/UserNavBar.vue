@@ -11,15 +11,16 @@
           </router-link>
         </v-label>
       </v-toolbar-title>
-      <v-spacer>
-        <v-icon dark>{{quoteopen}}</v-icon>
+      <v-icon dark>{{quoteopen}}</v-icon>
 
-        <span
-          @click="moveToInfo"
-          class="font-weight-bold white--text lighten-3"
-          style="cursor: pointer"
-        >{{userInfo}}님 공간</span>
-        <v-icon dark>{{quoteclose}}</v-icon>
+      <span
+        @click="moveToInfo"
+        class="font-weight-bold white--text lighten-3"
+        style="cursor: pointer"
+      >{{userInfo}}님 공간</span>
+      <v-icon dark>{{quoteclose}}</v-icon>
+      <v-spacer>
+        <alarm />
       </v-spacer>
       <v-spacer />
       <!-- 메뉴 -->
@@ -114,8 +115,12 @@ import store from "@/vuex/store.js";
 import router from "@/router.js";
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 import { mdiArrowLeftThick } from "@mdi/js";
+import alarm from "@/components/alarm.vue";
 export default {
   name: "UserNavBar",
+  components: {
+    alarm
+  },
   data() {
     return {
       appTitle: "ㅇㅇㅇ님 공간",
@@ -157,6 +162,10 @@ export default {
       this.userState = true;
     } else {
       this.userState = false;
+    }
+    if (this.$store.state.userType !== 1) {
+      alert("권한이 없습니다. 로그인해주세요");
+      this.$router.push("/StoreLogin");
     }
     // this.getUsername();
   },

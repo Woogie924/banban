@@ -45,7 +45,7 @@ export default {
           this.status = "connected";
           this.connected = true;
           console.log(frame);
-          this.stompClient.subscribe("/topic/push/", tick => {
+          this.stompClient.subscribe("/topic/asia924/", tick => {
             console.log(JSON.parse(tick.body));
             this.received_messages.push(JSON.parse(tick.body));
           });

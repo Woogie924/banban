@@ -13,14 +13,14 @@
           </router-link>
         </v-label>
       </v-toolbar-title>
+      <v-icon dark>{{quoteopen}}</v-icon>
       <!-- 닉네임 -->
-      <span class="font-weight-bold">{{ userInfo }}사장님 공간</span>
+      <span class="font-weight-bold white--text">{{ userInfo }}</span>
+      <v-icon dark>{{quoteclose}}</v-icon>
+      <span class="font-weight-bold black--text">사장님 공간</span>
+
       <alarm></alarm>
       <v-spacer></v-spacer>
-      <!-- 검색바 -->
-      <v-toolbar flat dense color="#009688" dark>
-        <v-text-field hide-details prepend-icon="search" single-line></v-text-field>
-      </v-toolbar>
       <!-- 메뉴 -->
       <v-toolbar-items class="hidden-xs-only">
         <v-btn dark text v-for="item in menuItems" :key="item.title" :to="item.path">
@@ -142,6 +142,7 @@
 <script>
 import { mdiMenu } from "@mdi/js";
 import { mdiAnimationOutline } from "@mdi/js";
+import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 import { mdiArrowLeftThick } from "@mdi/js";
 import alarm from "@/components/alarm.vue";
 export default {
@@ -159,14 +160,16 @@ export default {
     return {
       menuIconPath: mdiMenu,
       leftArrowPath: mdiArrowLeftThick,
+      quoteclose: mdiFormatQuoteClose,
+      quoteopen: mdiFormatQuoteOpen,
       appTitle: "'반반한 동네' 사장님 공간",
       sidebar: false,
       overlay: false,
-      userInfo: null,
+      userInfo: this.$store.state.userName,
       menuItems: [
         {
           title: "내 정보",
-          path: "/read",
+          path: "/storeProfile",
           icon: "folder_open",
           info: "내 정보 가고싶으면 클릭!!",
           sub: [
