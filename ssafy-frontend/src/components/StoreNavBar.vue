@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-toolbar width="100%" absolute dense style="position:fixed; z-index:100;" color="#009688">
+    <v-toolbar
+      width="100%"
+      absolute
+      dense
+      style="position:fixed; z-index:100;"
+      color="teal lighten-1"
+    >
       <v-app-bar-nav-icon dark @click.stop="overlay = !overlay">
         <v-icon>{{menuIconPath}}</v-icon>
       </v-app-bar-nav-icon>
@@ -15,9 +21,9 @@
       </v-toolbar-title>
       <v-icon dark>{{quoteopen}}</v-icon>
       <!-- 닉네임 -->
-      <span class="font-weight-bold white--text">{{ userInfo }}</span>
+      <span class="font-weight-regular white--text">{{ userInfo }}</span>
       <v-icon dark>{{quoteclose}}</v-icon>
-      <span class="font-weight-bold black--text">사장님 공간</span>
+      <span class="font-weight-regular black--text">사장님 공간</span>
 
       <alarm></alarm>
       <v-spacer></v-spacer>
@@ -28,12 +34,12 @@
           {{ item.title }}
         </v-btn>
         <v-btn dark text @click="logout">
-          <v-icon left dark>folder_open</v-icon>로그아웃
+          <v-icon left dark>{{logoutIcon}}</v-icon>로그아웃
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <!-- 메뉴 아이콘 클릭 -->
-    <v-overlay :value="overlay" opacity="0.8">
+    <v-overlay :value="overlay" opacity="0.8" style="z-index:101;">
       <v-navigation-drawer
         v-model="overlay"
         absolute
@@ -144,6 +150,14 @@ import { mdiMenu } from "@mdi/js";
 import { mdiAnimationOutline } from "@mdi/js";
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 import { mdiArrowLeftThick } from "@mdi/js";
+import {
+  mdiCalendarTextOutline,
+  mdiAccountCircle,
+  mdiHelp,
+  mdiLockOpenVariant,
+  mdiLock
+} from "@mdi/js";
+import { mdiLogin, mdiLogout } from "@mdi/js";
 import alarm from "@/components/alarm.vue";
 export default {
   name: "main-header",
@@ -158,10 +172,14 @@ export default {
   },
   data() {
     return {
+      myInfoIcon: mdiAccountCircle,
+      FAQIcon: mdiHelp,
       menuIconPath: mdiMenu,
       leftArrowPath: mdiArrowLeftThick,
       quoteclose: mdiFormatQuoteClose,
       quoteopen: mdiFormatQuoteOpen,
+      loginIcon: mdiLogin,
+      logoutIcon: mdiLogout,
       appTitle: "'반반한 동네' 사장님 공간",
       sidebar: false,
       overlay: false,
@@ -170,7 +188,7 @@ export default {
         {
           title: "내 정보",
           path: "/storeProfile",
-          icon: "folder_open",
+          icon: mdiAccountCircle,
           info: "내 정보 가고싶으면 클릭!!",
           sub: [
             { idx: 1, title: "회사 개요" },
@@ -181,14 +199,14 @@ export default {
         {
           title: "가게 메뉴",
           path: "/StoreMenuPage",
-          icon: "folder_open",
+          icon: mdiCalendarTextOutline,
           info: "Click!",
           sub: []
         },
         {
-          title: "고객 센터",
-          path: "/",
-          icon: "folder_open",
+          title: "FAQ",
+          path: "/FAQ",
+          icon: mdiHelp,
           info: "고객 센터 가고싶으면 클릭!!",
           sub: [
             { idx: 1, title: "서비스 개요" },
@@ -214,6 +232,10 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300");
+* {
+  font-family: "Do Hyeon", sans-serif;
+}
 #effect {
   text-decoration: none;
   position: relative;

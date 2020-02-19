@@ -5,7 +5,6 @@
     </v-layout>
 
     <v-container>
-      <v-btn @click="value=!value">헷</v-btn>
       <v-layout my-5 row wrap>
         <v-flex pa-2 xs12 sm6 md6 lg6>
           <StorePayment :totalprice="list[0].totalprice"></StorePayment>
