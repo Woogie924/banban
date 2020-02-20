@@ -179,14 +179,18 @@ export default {
     // this.getUsername();
     if (this.$store.state.token) {
       this.userState = true;
+    } else {
+      this.userState = false;
+    }
+    if (this.$store.state.token) {
       if (this.$store.state.userType !== 1) {
         alert("권한이 없습니다. 로그인해주세요");
         this.$router.push("/visit");
       }
     } else {
-      this.userState = false;
+      alert("권한이 없습니다. 로그인해주세요");
+      this.$router.push("/visit");
     }
-    // this.getUsername();
   },
   methods: {
     getLocation() {
