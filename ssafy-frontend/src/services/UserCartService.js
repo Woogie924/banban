@@ -9,7 +9,7 @@ export default {
         ] = `Bearer ${store.state.token}`;
         axios({
                 method: "post",
-                url: `http://192.168.100.92:8080/api/cart/`,
+                url: `http://54.180.163.74:8080/api/cart/`,
                 data: {
                     unum: cartVO.unum,
                     userid: cartVO.userid,
@@ -33,7 +33,7 @@ export default {
             "Authorization"
         ] = `Bearer ${store.state.token}`;
         axios
-            .get("http://192.168.100.92:8080/api/cart")
+            .get("http://54.180.163.74:8080/api/cart")
             .then(response => {
                 callback(response);
             })
@@ -48,7 +48,7 @@ export default {
             "Authorization"
         ] = `Bearer ${store.state.token}`;
         axios
-            .delete(`http://192.168.100.92:8080/api/cart/${unum}`)
+            .delete(`http://54.180.163.74:8080/api/cart/${unum}`)
 
     },
 

@@ -61,7 +61,7 @@ export default {
           // this.childName = response.data[0].name;
           // this.childCost = response.data[0].cost;
           // this.childTip = response.data[0].tip;
-          // this.childImg = "192.168.100.92:8080/" + response.data[0].img;
+          // this.childImg = "54.180.163.74:8080/" + response.data[0].img;
           // console.log("이미지 경로:" + this.childImg);
         },
         errorcallback => {

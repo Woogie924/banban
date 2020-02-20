@@ -167,7 +167,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "post",
-        url: `http://192.168.100.92:8080/notice/board/2`,
+        url: `http://54.180.163.74:8080/notice/board/2`,
         data: {
           category: this.category,
           title: this.title,
@@ -184,7 +184,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "put",
-        url: `http://192.168.100.92:8080/notice/board/${this.party}`,
+        url: `http://54.180.163.74:8080/notice/board/${this.party}`,
         data: {
           num: this.num,
           category: this.category,

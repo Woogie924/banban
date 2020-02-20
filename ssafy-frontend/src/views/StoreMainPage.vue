@@ -79,7 +79,7 @@ export default {
       }
     },
     async connect() {
-      this.socket = new SockJS("http://192.168.100.92:8082/order");
+      this.socket = new SockJS("http://54.180.163.74:8082/order");
       this.stompClient = Stomp.over(this.socket);
       const that = this;
       await this.stompClient.connect(

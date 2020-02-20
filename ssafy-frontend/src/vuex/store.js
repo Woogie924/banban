@@ -90,7 +90,7 @@ const store = new Vuex.Store({
         'Authorization'
       ] = `Bearer ${store.state.token}`
       return axios
-        .post('http://192.168.100.92:8080/shopkeeper/near', credentials)
+        .post('http://54.180.163.74:8080/shopkeeper/near', credentials)
         .then(({
           data
         }) => {
@@ -101,7 +101,7 @@ const store = new Vuex.Store({
       commit
     }, credentials) {
       return axios
-        .post('http://192.168.100.92:8080/api/socialLogin', credentials)
+        .post('http://54.180.163.74:8080/api/socialLogin', credentials)
         .then(({
           data //가입안되있으면 null 날라옴
         }) => {
@@ -115,7 +115,7 @@ const store = new Vuex.Store({
             ] = `Bearer ${store.state.token}`
             axios({
                 method: 'post',
-                url: `http://192.168.100.92:8080/shopkeeper/near/`,
+                url: `http://54.180.163.74:8080/shopkeeper/near/`,
                 data: {
                   lat: data.data.latitude,
                   lon: data.data.longitude
@@ -134,26 +134,26 @@ const store = new Vuex.Store({
       commit
     }, credentials) {
       console.log(credentials + '! ')
-      return axios.post('http://192.168.100.92:8080/api/user', credentials)
+      return axios.post('http://54.180.163.74:8080/api/user', credentials)
     },
     Sregister({
       commit
     }, credentials) {
       return axios.post(
-        'http://192.168.100.92:8080/shopkeeper/store',
+        'http://54.180.163.74:8080/shopkeeper/store',
         credentials
       )
     },
     socialRegister({
       commit
     }, credentials) {
-      return axios.post('http://192.168.100.92:8080/api/user', credentials)
+      return axios.post('http://54.180.163.74:8080/api/user', credentials)
     },
     Mlogin({
       commit
     }, credentials) {
       return axios
-        .post('http://192.168.100.92:8080/api/loginCheck', credentials)
+        .post('http://54.180.163.74:8080/api/loginCheck', credentials)
         .then(
           ({
             data //로그인한 사람의 모든 정보
@@ -165,7 +165,7 @@ const store = new Vuex.Store({
             ] = `Bearer ${data.token}`
             axios({
                 method: 'post',
-                url: `http://192.168.100.92:8080/shopkeeper/near/`,
+                url: `http://54.180.163.74:8080/shopkeeper/near/`,
                 data: {
                   lat: data.data.latitude,
                   lon: data.data.longitude
@@ -178,7 +178,7 @@ const store = new Vuex.Store({
               })
 
             // commit('SET_USER_DATA', data)
-            // axios.post('http://192.168.100.92:8080/shopkeeper/near', data.data)
+            // axios.post('http://54.180.163.74:8080/shopkeeper/near', data.data)
             //   .then(function (response) {
             //     //success(response.data);
             //     // alert(response)
@@ -192,7 +192,7 @@ const store = new Vuex.Store({
       commit
     }, credentials) {
       return axios
-        .post('http://192.168.100.92:8080/shopkeeper/loginCheck', credentials)
+        .post('http://54.180.163.74:8080/shopkeeper/loginCheck', credentials)
         .then(({
           data
         }) => {
@@ -209,7 +209,7 @@ const store = new Vuex.Store({
       commit
     }, credentials) {
       return axios
-        .put('http://192.168.100.92:8080/api/user', credentials)
+        .put('http://54.180.163.74:8080/api/user', credentials)
         .then(router.push('/'))
         .then(commit('CLEAR_USER_DATA'))
     },
@@ -217,7 +217,7 @@ const store = new Vuex.Store({
       commit
     }, credentials) {
       return axios
-        .put('http://192.168.100.92:8080/shopkeeper/store', credentials)
+        .put('http://54.180.163.74:8080/shopkeeper/store', credentials)
         .then(router.push('/'))
         .then(commit('CLEAR_USER_DATA'))
     }

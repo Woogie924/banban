@@ -192,7 +192,7 @@ export default {
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${store.state.token}`;
-    axios.get("http://192.168.100.92:8080/api/info").then(res => {
+    axios.get("http://54.180.163.74:8080/api/info").then(res => {
       console.log(res);
       this.id = res.data.id;
       this.name = res.data.name;
@@ -240,7 +240,7 @@ export default {
       if (this.currentPW == this.confirm) {
         axios
           .delete(
-            `http://192.168.100.92:8080/api/user/${this.id}/${this.confirm}`
+            `http://54.180.163.74:8080/api/user/${this.id}/${this.confirm}`
           )
           .then(this.$store.commit("CLEAR_USER_DATA"))
           .then(alert("회원탈퇴가 완료되었습니다."))

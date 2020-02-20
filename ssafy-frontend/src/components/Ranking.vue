@@ -50,7 +50,7 @@ export default {
       ] = `Bearer ${store.state.user}`;
       axios
         .get(
-          `http://192.168.100.92:8080/shopkeeper/countLikes/${store.state.lat}/${store.state.lon}`
+          `http://54.180.163.74:8080/shopkeeper/countLikes/${store.state.lat}/${store.state.lon}`
         )
         .then(response => {
           this.list = [];

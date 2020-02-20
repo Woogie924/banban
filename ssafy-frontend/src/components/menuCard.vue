@@ -59,7 +59,7 @@ export default {
     // console.log(this.item);
     console.log(this.item.imageUrl + "-menuCard image");
     this.splitTag();
-    this.item.img = "http://192.168.100.92:8080/image/" + this.item.img;
+    this.item.img = "http://54.180.163.74:8080/image/" + this.item.img;
     console.log(this.item.img);
   },
   methods: {

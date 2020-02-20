@@ -7,7 +7,7 @@ export default {
         axios.defaults.headers.common[
             "Authorization"
         ] = `Bearer ${store.state.token}`;
-        axios.get("http://192.168.100.92:8080/shopkeeper/order")
+        axios.get("http://54.180.163.74:8080/shopkeeper/order")
             .then(response => {
                 console.log("[shopkeeperAPI] getOrderList then");
                 callback(response);
@@ -20,7 +20,7 @@ export default {
         axios.defaults.headers.common[
             "Authorization"
         ] = `Bearer ${store.state.token}`;
-        axios.get("http://192.168.100.92:8080/shopkeeper/getprofit")
+        axios.get("http://54.180.163.74:8080/shopkeeper/getprofit")
             .then(response => {
                 callback(response);
             }).catch(error => {
@@ -33,7 +33,7 @@ export default {
         axios.defaults.headers.common[
             "Authorization"
         ] = `Bearer ${store.state.token}`;
-        axios.get("http://192.168.100.92:8080/shopkeeper/storeinfo")
+        axios.get("http://54.180.163.74:8080/shopkeeper/storeinfo")
             .then(response => {
                 callback(response);
             }).catch(error => {
@@ -49,7 +49,7 @@ export default {
         ] = `Bearer ${store.state.token}`;
         axios({
                 method: "post",
-                url: "http://192.168.100.92:8080/shopkeeper/storeinfo",
+                url: "http://54.180.163.74:8080/shopkeeper/storeinfo",
                 data: {
                     "snum": storeInfoVO.snum,
                     "storeid": storeInfoVO.storeid,
@@ -75,7 +75,7 @@ export default {
         ] = `Bearer ${store.state.token}`;
         axios({
                 method: "post",
-                url: "http://192.168.100.92:8080/shopkeeper/storestarpoint",
+                url: "http://54.180.163.74:8080/shopkeeper/storestarpoint",
                 data: {
                     "body": item2,
                     "regDate": item.regDate,
