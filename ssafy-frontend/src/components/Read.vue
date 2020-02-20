@@ -72,9 +72,9 @@
 
       <!-- <v-btn @click="move">메인페이지로 이동하기</v-btn> -->
       <v-btn @click="test">카카오</v-btn>
-      <v-snackbar v-model="snackbar">
+      <v-snackbar v-model="snackbar" color="white" class="black--text">
         여기는 게시글 페이지 입니다.
-        <v-btn color="pink" @click="snackbar = false">close</v-btn>
+        <v-btn color="teal" @click="snackbar = false" dark text>close</v-btn>
       </v-snackbar>
     </v-container>
   </div>

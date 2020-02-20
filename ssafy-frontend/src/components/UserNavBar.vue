@@ -7,7 +7,7 @@
       <v-toolbar-title>
         <v-label>
           <router-link to="/UserMainPage" tag="span" style="cursor: pointer">
-            <v-img src="../assets/배너.png" width="200" text aspect-ratio="5.0"></v-img>
+            <v-img src="../assets/배너.png" width="150" text aspect-ratio="2.0"></v-img>
           </router-link>
         </v-label>
       </v-toolbar-title>
@@ -166,7 +166,7 @@ export default {
         },
         {
           title: "FAQ",
-          path: "/FAQ",
+          path: "/userFAQ",
           icon: mdiHelp,
           info: "FAQ입니다."
         }

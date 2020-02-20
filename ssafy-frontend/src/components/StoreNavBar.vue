@@ -15,7 +15,7 @@
       <v-toolbar-title>
         <v-label>
           <router-link to="/StoreMainPage" tag="span" style="cursor:pointer;">
-            <v-img src="../assets/홈3.png" width="300" text aspect-ratio="7.0"></v-img>
+            <v-img src="../assets/배너.png" width="150" text aspect-ratio="2.0"></v-img>
           </router-link>
         </v-label>
       </v-toolbar-title>
@@ -76,20 +76,15 @@
                       :key="item.title"
                       style="cursor:pointer;"
                     >
-                      <v-tooltip bottom>
-                        <template v-slot:activator="{ on }">
-                          <v-list-item-content v-on="on">
-                            <v-list-item-title @click="getSubDirectory(item,index)">
-                              <span class="display-1 text-shadow font-weight-bold text-center">
-                                <div class="link-7">
-                                  <p id="effect">{{ item.title }}</p>
-                                </div>
-                              </span>
-                            </v-list-item-title>
-                          </v-list-item-content>
-                        </template>
-                        <span>{{ item.info }}</span>
-                      </v-tooltip>
+                      <v-list-item-content v-on="on">
+                        <v-list-item-title @click="move(item,index)">
+                          <span class="display-1 text-shadow font-weight-bold text-center">
+                            <div class="link-7">
+                              <p id="effect">{{ item.title }}</p>
+                            </div>
+                          </span>
+                        </v-list-item-title>
+                      </v-list-item-content>
                     </v-list-item>
                   </v-list>
                 </v-card>
@@ -186,6 +181,13 @@ export default {
       userInfo: this.$store.state.userName,
       menuItems: [
         {
+          title: "가게 메뉴",
+          path: "/StoreMenuPage",
+          icon: mdiCalendarTextOutline,
+          info: "Click!",
+          sub: []
+        },
+        {
           title: "내 정보",
           path: "/storeProfile",
           icon: mdiAccountCircle,
@@ -195,13 +197,6 @@ export default {
             { idx: 2, title: "우아한 비전" },
             { idx: 3, title: "우아한 문화" }
           ]
-        },
-        {
-          title: "가게 메뉴",
-          path: "/StoreMenuPage",
-          icon: mdiCalendarTextOutline,
-          info: "Click!",
-          sub: []
         },
         {
           title: "FAQ",
@@ -227,6 +222,11 @@ export default {
         this.curSubDirectory[idx].flag = false;
       }
       this.curSubDirectory[index].flag = true;
+    },
+    move(item, index) {
+      this.$router.push({
+        path: item.path
+      });
     }
   }
 };

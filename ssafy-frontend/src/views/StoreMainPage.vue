@@ -10,7 +10,7 @@
           <StorePayment :totalprice="list[0].totalprice"></StorePayment>
         </v-flex>​
         <v-flex pa-2 xs12 sm6 md4 lg4>
-          <OrderList :list="list"></OrderList>
+          <OrderList :list="list" @child-userid="parents"></OrderList>
         </v-flex>
       </v-layout>
     </v-container>
@@ -51,12 +51,37 @@ export default {
     OrderList,
     bottomNav
   },
+  data() {
+    return {
+      list: [],
+      value: false,
+      quoteclose: mdiFormatQuoteClose,
+      quoteopen: mdiFormatQuoteOpen,
+      received_messages: [],
+      orderNumber: 0
+    };
+  },
   methods: {
-    connect() {
+    parents(childUserId) {
+      console.log("ggg");
+      console.log(childUserId);
+      console.log("Send message:" + this.send_message);
+      if (this.stompClient && this.stompClient.connected) {
+        let msg = {
+          message: this.send_message,
+          sender: this.$store.state.userName,
+          receiver: childUserId,
+          data: null
+        };
+        console.log(JSON.stringify(msg));
+        this.stompClient.send("/push", JSON.stringify(msg), {});
+      }
+    },
+    async connect() {
       this.socket = new SockJS("http://192.168.100.92:8082/order");
       this.stompClient = Stomp.over(this.socket);
       const that = this;
-      this.stompClient.connect(
+      await this.stompClient.connect(
         {},
         frame => {
           console.log("연결요");
@@ -68,11 +93,13 @@ export default {
             tick => {
               this.$store.commit("ORDER_PLUS");
               this.$store.commit("SOCKET_CONNECTED");
+              console.log("겟오더리스트");
+              that.getOrderList();
               if (this.$store.state.socket === 1) {
                 this.playSound();
               }
-              // console.log(JSON.parse(tick.body));
-              // this.received_messages.push(JSON.parse(tick.body));
+              console.log(JSON.parse(tick.body));
+              this.received_messages.push(JSON.parse(tick.body));
             }
           );
         },
@@ -95,9 +122,12 @@ export default {
         "http://chataholic2.homestead.com/files/Door-Doorbell.wav"
       );
       audio.play();
+      // await this.getOrderList();
+      // console.log("제발");
+      // console.log(this.list);
     },
-    getOrderList() {
-      shopkeeper.getOrderList(
+    async getOrderList() {
+      await shopkeeper.getOrderList(
         response => {
           console.log("shopkeeper getOrderList start");
           console.log(response);
@@ -114,14 +144,6 @@ export default {
         }
       );
     }
-  },
-  data() {
-    return {
-      list: [],
-      value: false,
-      quoteclose: mdiFormatQuoteClose,
-      quoteopen: mdiFormatQuoteOpen
-    };
   }
 };
 </script>

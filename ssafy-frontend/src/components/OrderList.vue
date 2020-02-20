@@ -92,7 +92,12 @@
         <v-list-item>
           <v-list-item-content>
             <span class="justify-center text-center">
-              <v-chip label color="white" style="cursor:pointer;" @click="clickOrder()">
+              <v-chip
+                label
+                color="white"
+                style="cursor:pointer;"
+                @click="clickOrder(item.onum, item.userid1)"
+              >
                 <v-icon left>mdi-check</v-icon>주문 확인하기
               </v-chip>
             </span>
@@ -107,11 +112,16 @@
 
 <script>
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
-
+import axios from "axios";
+import store from "@/vuex/store.js";
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
+import shopkeeper from "../services/shopkeeper";
 export default {
   name: "OrderList",
   props: {
-    list: []
+    list: { Type: Object },
+    userid: { Type: String }
   },
   data() {
     return {
@@ -120,7 +130,11 @@ export default {
     };
   },
   mounted() {
+    // this.list = this.childList;
     // this.getOrderList();
+  },
+  updated() {
+    // this.list = this.childList;
   },
   methods: {
     // getOrderList() {
@@ -140,7 +154,37 @@ export default {
     //       console.log("shopkeeper error:" + errorcallback);
     //     }
     //   );
-    // }
+    // },
+    async clickOrder(onum, user1) {
+      console.log("zzzzzzzzzz");
+      console.log(user1);
+      this.$emit("child-userid", user1);
+
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.state.token}`;
+      await axios.put("http://192.168.100.92:8080/order/" + onum).then(res => {
+        this.getOrderList();
+      });
+    },
+    async getOrderList() {
+      await shopkeeper.getOrderList(
+        response => {
+          console.log("shopkeeper getOrderList start");
+          console.log(response);
+          this.list = response.data;
+          // for (let index = 0; index < response.data.length; index++) {
+          //   this.list[index] = response.data[index];
+          //   this.$set(this.list, index, response.data[index]);
+          //   console.log(this.list[index]);
+          // }
+          // console.log("shopkeeper getOrderList " + this.list);
+        },
+        errorcallback => {
+          console.log("shopkeeper error:" + errorcallback);
+        }
+      );
+    }
   }
 };
 </script>
