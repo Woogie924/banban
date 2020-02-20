@@ -62,7 +62,7 @@ const gradients = [
 export default {
   name: "StorePayment",
   props: {
-    totalprice: { type: String }
+    totalprice: { type: Number }
   },
   data() {
     return {

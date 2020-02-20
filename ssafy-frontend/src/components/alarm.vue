@@ -12,6 +12,7 @@
 import store from "@/vuex/store.js";
 import { mdiBellRing } from "@mdi/js";
 import router from "@/router.js";
+
 export default {
   data() {
     return {
@@ -30,7 +31,7 @@ export default {
     checkIt() {
       this.$store.commit("CLEAR_ORDER");
       this.quantity = 0;
-      this.$router.push("/ManagePage");
+      this.$router.push("/StoreMainPage");
     }
   }
 };
