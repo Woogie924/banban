@@ -65,6 +65,7 @@
 </template>
 <script>
 import axios from "axios";
+import store from "@/vuex/store.js";
 export default {
   name: "MyPaymentInfo",
   props: {
@@ -120,16 +121,27 @@ export default {
           return "50vw";
       }
     },
-    get_address(id) {
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${this.$store.state.token}`;
-      axios({
-        method: "get",
-        url: `http://192.168.100.92:8080/api/address/${id}`
-      }).then(res => {
-        this.address = res.data;
-      });
+    get_address() {
+      // axios.defaults.headers.common[
+      //   "Authorization"
+      // ] = `Bearer ${this.$store.state.token}`;
+      // axios({
+      //   method: "get",
+      //   url: `http://192.168.100.92:8080/api/address/${id}`
+      // }).then(res => {
+      //   this.address = res.data;
+      // });
+      var geocoder = new kakao.maps.services.Geocoder();
+      var coord = new kakao.maps.LatLng(store.state.lat, store.state.lon);
+      var callback = (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          // console.log("주소가져오기 성공");
+          console.log(result[0].road_address.address_name);
+          // console.log(address);
+          this.address = result[0].road_address.address_name;
+        }
+      };
+      geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
     },
     async create_order() {
       await axios({
