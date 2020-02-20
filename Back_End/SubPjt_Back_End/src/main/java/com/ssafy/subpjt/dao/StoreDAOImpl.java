@@ -63,8 +63,8 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
-	public List<OrderFood> getRecentProfit(OrderFood orderFood) throws Exception {
-		return sqlSession.selectList(ns + "getRecentProfit" , orderFood);
+	public List<OrderFood> getRecentProfit(String storeid) throws Exception {
+		return sqlSession.selectList(ns + "getRecentProfit" , storeid);
 	}
 
 	@Override

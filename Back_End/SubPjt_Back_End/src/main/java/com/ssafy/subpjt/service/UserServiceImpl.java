@@ -82,4 +82,9 @@ public class UserServiceImpl implements UserService{
 		return userDao.getOrderByUserid(id);
 	}
 
+	@Override
+	public int deleteUsercarById(String userid) throws Exception {
+		return userDao.deleteUsercarById(userid);
+	}
+
 }

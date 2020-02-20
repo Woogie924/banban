@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import com.ssafy.subpjt.dao.OrderDAO;
+import com.ssafy.subpjt.dao.UserDAO;
 import com.ssafy.subpjt.vo.KakaoPayApprovalVO;
 import com.ssafy.subpjt.vo.KakaoPayReadyVO;
 import com.ssafy.subpjt.vo.OrderFood;
@@ -35,6 +36,9 @@ public class KakaoPay {
 	
 	@Autowired
 	private OrderDAO orderDao;
+	
+	@Autowired
+	private UserDAO userDao;
 
 	public String kakaoPayReady(kakaoPayVO kakaoPayVo) {
 
@@ -74,6 +78,9 @@ public class KakaoPay {
 					if(orderfood.getOrdercheck() == 0) {
 						int ans = orderDao.zerotoone(Integer.parseInt(onum));
 						System.out.println("0 -> 1 : " + ans );
+						
+						ans = userDao.deleteUsercarById(kakaoPayVo.getPartner_user_id());
+						System.out.println("장바구니 비우기 : " + ans);
 					}
 				} catch (NumberFormatException e) {
 					e.printStackTrace();

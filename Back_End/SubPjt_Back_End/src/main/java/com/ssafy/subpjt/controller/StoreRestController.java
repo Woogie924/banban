@@ -210,8 +210,8 @@ public class StoreRestController {
 		}
 	}
 
-	@PostMapping("/getprofit")
-	public ResponseEntity<List<OrderFood>> getRecentProfit(@RequestBody OrderFood orderFood) throws Exception{
+	@GetMapping("/getprofit")
+	public ResponseEntity<List<OrderFood>> getRecentProfit() throws Exception{
 		List<OrderFood> list = null;
 		Store ans = null;
 		String memberId = null;
@@ -220,7 +220,7 @@ public class StoreRestController {
 			memberId = jwtService.getMemberId();
 			ans = storeService.getStore(memberId);
 			if(ans != null) {
-				list = storeService.getRecentProfit(orderFood);
+				list = storeService.getRecentProfit(memberId);
 				System.out.println("1주일간 수익 : " +  list);
 				return new ResponseEntity<List<OrderFood>>(list,HttpStatus.OK);
 			}

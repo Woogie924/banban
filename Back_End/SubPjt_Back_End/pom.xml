@@ -12,7 +12,6 @@
 	<groupId>com.ssafy</groupId>
 	<artifactId>SubPjt_Back_End</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
 	<name>SubPjt_Back_End</name>
 	<description>Demo project for Spring Boot</description>
 
