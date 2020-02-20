@@ -2,7 +2,8 @@ package com.ssafy.subpjt.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.subpjt.service.KakaoPay;
-import com.ssafy.subpjt.vo.KakaoPayApprovalVO;
+import com.ssafy.subpjt.service.OrderService;
 import com.ssafy.subpjt.vo.kakaoPayVO;
 
 import lombok.Setter;
@@ -26,7 +27,9 @@ public class KakaoPayController {
 	 	@Setter(onMethod_ = @Autowired)
 	    private KakaoPay kakaopay;
 	    
-	    
+	 	@Autowired
+		private OrderService orderService;
+	 	
 	    @GetMapping("/kakaoPay")
 	    public void kakaoPayGet() {
 	        
@@ -41,13 +44,11 @@ public class KakaoPayController {
 	    }
 	    
 	    @GetMapping("/kakaoPaySuccess")
-	    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model) {
+	    public ResponseEntity<String> kakaoPaySuccess(@RequestParam("partner_order_id") int id,@RequestParam("pg_token") String pg_token, Model model) {
 	        log.info("kakaoPaySuccess get............................................");
 	        log.info("kakaoPaySuccess pg_token : " + pg_token);
-	        
-	        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
-	       
-	        //return "kakaoPaySuccess.html";
-	        System.out.println(model);
+	        System.out.println("주문 상태 변경");
+	        String onum = kakaopay.kakaoPayInfo(pg_token);
+	        return new ResponseEntity<String>(onum,HttpStatus.OK);
 	    }
 }

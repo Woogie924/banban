@@ -38,12 +38,18 @@ const router = new Router({
 	routes: [{
 			path: '/read',
 			name: 'Read',
-			component: Read
+			component: Read,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/orderl',
 			name: 'Orderl',
-			component: Orderl
+			component: Orderl,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/detail/:contentId',
@@ -51,7 +57,7 @@ const router = new Router({
 			component: Detail,
 			props: true,
 			meta: {
-				// requireAuth: true,
+				requireAuth: true,
 			}
 		},
 		{
@@ -60,7 +66,7 @@ const router = new Router({
 			component: Create,
 			props: true,
 			meta: {
-				// requireAuth: true,
+				requireAuth: true,
 			}
 		},
 		{
@@ -125,7 +131,10 @@ const router = new Router({
 		{
 			path: '/SelectedMenuPage',
 			name: 'SelectedMenuPage',
-			component: SelectedMenuPage
+			component: SelectedMenuPage,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/StoreInfoPage/:StoreId',
@@ -133,7 +142,7 @@ const router = new Router({
 			component: StoreInfoPage,
 			props: true,
 			meta: {
-
+				requireAuth: true,
 			}
 		},
 		{
@@ -141,7 +150,7 @@ const router = new Router({
 			name: 'MyCartPage',
 			component: MyCartPage,
 			meta: {
-
+				requireAuth: true,
 			}
 		},
 		{
@@ -152,7 +161,10 @@ const router = new Router({
 		{
 			path: '/StoreMenuPage',
 			name: 'StoreMenuPage',
-			component: StoreMenuPage
+			component: StoreMenuPage,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/push',
@@ -162,22 +174,34 @@ const router = new Router({
 		{
 			path: '/ManagePage',
 			name: 'Managepage',
-			component: ManagePage
+			component: ManagePage,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/profile',
 			name: 'profile',
-			component: profile
+			component: profile,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/storeProfile',
 			name: 'storeProfile',
-			component: storeProfile
+			component: storeProfile,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/MyPaymentPage',
 			name: 'MyPaymentPage',
-			component: MyPaymentPage
+			component: MyPaymentPage,
+			meta: {
+				requireAuth: true,
+			}
 		},
 		{
 			path: '/CompletePayPage',

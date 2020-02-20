@@ -33,7 +33,7 @@ public class StoreDAOImpl implements StoreDAO{
 	}
 
 	@Override
-	public List<Likes> countLikes() throws Exception {
+	public List<String> countLikes() throws Exception {
 		return sqlSession.selectList(ns+"countLikes");
 	}
 
@@ -135,6 +135,21 @@ public class StoreDAOImpl implements StoreDAO{
 	@Override
 	public int deleteStorestarpoint(Storestarpoint storestarpoint) throws Exception {
 		return sqlSession.delete(ns+"deleteStorestarpoint", storestarpoint);
+	}
+
+	@Override
+	public List<OrderFood> getOrder(String storeid) throws Exception {
+		return sqlSession.selectList(ns+"getOrder", storeid);
+	}
+
+	@Override
+	public int updateStore(Store store) throws Exception {
+		return sqlSession.update(ns+"updateStore", store);
+	}
+
+	@Override
+	public int deleteStore(Store store) throws Exception {
+		return sqlSession.delete(ns + "deleteStore", store);
 	}
 
 }

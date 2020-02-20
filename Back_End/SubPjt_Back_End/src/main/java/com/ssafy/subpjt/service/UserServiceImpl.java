@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.subpjt.dao.UserDAO;
+import com.ssafy.subpjt.vo.OrderFood;
 import com.ssafy.subpjt.vo.User;
 import com.ssafy.subpjt.vo.Usercart;
 
@@ -69,6 +70,16 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String getAddress(String id) throws Exception {
 		return userDao.getAddress(id);
+	}
+
+	@Override
+	public String getTel(String id) throws Exception {
+		return userDao.getTel(id);
+	}
+
+	@Override
+	public List<OrderFood> getOrderByUserid(String id) throws Exception {
+		return userDao.getOrderByUserid(id);
 	}
 
 }

@@ -31,7 +31,7 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public List<Likes> countLikes() throws Exception {
+	public List<String> countLikes() throws Exception {
 		return storeDao.countLikes();
 	}
 
@@ -113,6 +113,21 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public int deleteStorestarpoint(Storestarpoint storestarpoint) throws Exception {
 		return storeDao.deleteStorestarpoint(storestarpoint);
+	}
+
+	@Override
+	public List<OrderFood> getOrder(String storeid) throws Exception {
+		return storeDao.getOrder(storeid);
+	}
+
+	@Override
+	public int updateStore(Store store) throws Exception {
+		return storeDao.updateStore(store);
+	}
+
+	@Override
+	public int deleteStore(Store store) throws Exception {
+		return storeDao.deleteStore(store);
 	}
 
 }

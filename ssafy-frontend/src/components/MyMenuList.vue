@@ -34,17 +34,15 @@ export default {
       list: []
     };
   },
-  created(){
-     this.getUserInfo();
-  },
+  created() {},
   mounted() {
     this.getUserInfo();
   },
   methods: {
     // 내 아이디를 주고, 관련된 메뉴 객체 정보 받아오기
-    getMyImage() {
+    async getMyImage() {
       console.log("MyMenuList getMyImage start" + this.myId);
-      test.getImage(
+      await test.getImage(
         this.myId,
         response => {
           this.list = response.data;
@@ -72,8 +70,8 @@ export default {
       );
     },
     //  token이용해서, 내 아이디 받아오기
-    getUserInfo() {
-      test.getUserInfo(
+    async getUserInfo() {
+      await test.getUserInfo(
         async response => {
           this.myId = await response.data.id;
           console.log("MyMenuList getUserInfo start");

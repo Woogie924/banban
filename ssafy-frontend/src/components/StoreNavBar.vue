@@ -157,9 +157,11 @@ import alarm from "@/components/alarm.vue";
 export default {
   name: "main-header",
   mounted() {
-    if (this.$store.state.userType !== 2) {
-      alert("권한이 없습니다. 로그인해주세요");
-      this.$router.push("/StoreLogin");
+    if (this.$store.state.token) {
+      if (this.$store.state.userType !== 2) {
+        alert("권한이 없습니다. 로그인해주세요");
+        this.$router.push("/visit");
+      }
     }
   },
   components: {
