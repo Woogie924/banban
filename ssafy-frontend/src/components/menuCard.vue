@@ -71,6 +71,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+@import url("https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300");
+* {
+  font-family: "Do Hyeon", sans-serif;
+}
 </style>
 

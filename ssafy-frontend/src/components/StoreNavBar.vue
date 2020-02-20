@@ -162,6 +162,9 @@ export default {
         alert("권한이 없습니다. 로그인해주세요");
         this.$router.push("/visit");
       }
+    } else {
+      alert("권한이 없습니다. 로그인해주세요");
+      this.$router.push("/visit");
     }
   },
   components: {

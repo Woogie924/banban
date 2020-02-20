@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card elevation="0" style="border:1px solid grey">
+    <v-card elevation="80" style="border:1px solid grey">
       <v-card-title class="justify-center">
         <div class="underlined">주문 현황</div>
       </v-card-title>

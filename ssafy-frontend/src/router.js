@@ -39,35 +39,23 @@ const router = new Router({
 			path: '/read',
 			name: 'Read',
 			component: Read,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/orderl',
 			name: 'Orderl',
 			component: Orderl,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/detail/:contentId',
 			name: 'Detail',
 			component: Detail,
 			props: true,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/create/:contentId?',
 			name: 'Create',
 			component: Create,
 			props: true,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/Mlogin',
@@ -103,26 +91,16 @@ const router = new Router({
 			path: '/StoreMainPage',
 			name: 'StoreMainPage',
 			component: StoreMainPage,
-			meta: {
-				requireAuth: true,
-				type: 2,
-			}
 		},
 		{
 			path: '/UserMainPage',
 			name: 'UserMainPage',
 			component: UserMainPage,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/MenuManagement',
 			name: 'MenuManagement',
 			component: MenuManagement,
-			meta: {
-				requireAuth: true
-			}
 		}, {
 			path: '/',
 			name: 'index',
@@ -132,26 +110,17 @@ const router = new Router({
 			path: '/SelectedMenuPage',
 			name: 'SelectedMenuPage',
 			component: SelectedMenuPage,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/StoreInfoPage/:StoreId',
 			name: 'StoreInfoPage',
 			component: StoreInfoPage,
 			props: true,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/MyCartPage',
 			name: 'MyCartPage',
 			component: MyCartPage,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/nothing',
@@ -162,9 +131,6 @@ const router = new Router({
 			path: '/StoreMenuPage',
 			name: 'StoreMenuPage',
 			component: StoreMenuPage,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/push',
@@ -175,33 +141,21 @@ const router = new Router({
 			path: '/ManagePage',
 			name: 'Managepage',
 			component: ManagePage,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/profile',
 			name: 'profile',
 			component: profile,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/storeProfile',
 			name: 'storeProfile',
 			component: storeProfile,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/MyPaymentPage',
 			name: 'MyPaymentPage',
 			component: MyPaymentPage,
-			meta: {
-				requireAuth: true,
-			}
 		},
 		{
 			path: '/CompletePayPage',
