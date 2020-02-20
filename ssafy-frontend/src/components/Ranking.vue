@@ -75,7 +75,7 @@ export default {
   content: "";
   width: 100%;
   height: 80%;
-  background-image: linear-gradient(to top, #b4e7f8 25%, rgba(0, 0, 0, 0) 40%);
+  background-image: linear-gradient(to top, #23c984 25%, rgba(0, 0, 0, 0) 40%);
   position: absolute;
   left: 0;
   bottom: 2px;

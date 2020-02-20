@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card elevation="24">
-      <v-tabs v-model="tab">
+    <v-card elevation="1">
+      <v-tabs v-model="tab" background-color="teal lighten-1" dark>
         <v-tab
           v-for="item in MenuList"
           :key="item.index"

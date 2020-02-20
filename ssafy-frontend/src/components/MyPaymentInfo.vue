@@ -14,9 +14,9 @@
 
               <br />
               <v-list-item-subtitle class="font-weight-black text--grey">팀원 id</v-list-item-subtitle>
-              <div class="card">
+              <v-list-item-subtitle class="mx-7 px-5">
                 <v-text-field label="팀원 id" solo v-model="teamAddress"></v-text-field>
-              </div>
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
           <v-spacer />
@@ -27,9 +27,9 @@
                 <div class="underlined">요청 사항</div>
               </v-list-item-title>
               <v-list-item-subtitle class="font-weight-black text--grey">가게 사장님께</v-list-item-subtitle>
-              <div class="card">
+              <v-list-item-subtitle class="mx-7 px-5">
                 <v-text-field label="팀원 주소" solo placeholder="예) 견과류 뺴주세요. 덜 맵게 해주세요"></v-text-field>
-              </div>
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
           <!-- 결제금액 -->
@@ -57,8 +57,8 @@
         </v-list>
       </v-container>
       <div class="text-center font-weight-black text--grey">위 내용을 확인하였으며 결제에 동의합니다</div>
-      <v-toolbar card fixed color="white" elevation="0">
-        <v-btn block @click="pay()">{{total_price}}원 결제하기</v-btn>
+      <v-toolbar color="white" elevation="0">
+        <v-btn block outlined color="teal lighten-2" @click="pay()">{{total_price}}원 결제하기</v-btn>
       </v-toolbar>
     </v-card>
   </div>
@@ -214,7 +214,7 @@ export default {
   content: "";
   width: 100%;
   height: 80%;
-  background-image: linear-gradient(to top, #b4e7f8 25%, rgba(0, 0, 0, 0) 40%);
+  background-image: linear-gradient(to top, #23c984 25%, rgba(0, 0, 0, 0) 40%);
   position: absolute;
   left: 0;
   bottom: 2px;

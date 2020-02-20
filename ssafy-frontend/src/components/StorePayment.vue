@@ -9,7 +9,7 @@
         <h1 class="counter">{{totalprice}} 원</h1>
       </v-card-text>
       <v-card-subtitle class="grey-text caption text-center">
-        현재 기준으로 등록하신 2개 가게의 합계 금액이며,
+        현재 기준으로 등록하신 1개 가게의 합계 금액이며,
         <br />정산 지급일 등 정산 관련 상세 정보는 정산 관리에서 확인하실 수 있습니다.
       </v-card-subtitle>
     </v-card>
