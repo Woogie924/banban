@@ -7,7 +7,7 @@
     <v-container>
       <v-layout my-5 row wrap>
         <v-flex pa-2 xs12 sm6 md6 lg6>
-          <StorePayment :totalprice="list[0].totalprice"></StorePayment>
+          <StorePayment :totalprice="totalprice"></StorePayment>
         </v-flex>​
         <v-flex pa-2 xs12 sm6 md4 lg4>
           <OrderList :list="list" @child-userid="parents"></OrderList>
@@ -58,7 +58,8 @@ export default {
       quoteclose: mdiFormatQuoteClose,
       quoteopen: mdiFormatQuoteOpen,
       received_messages: [],
-      orderNumber: 0
+      orderNumber: 0,
+      totalprice: 0
     };
   },
   methods: {
@@ -138,6 +139,9 @@ export default {
           //   console.log(this.list[index]);
           // }
           // console.log("shopkeeper getOrderList " + this.list);
+          if (!isNaN(this.list[0].totalprice)) {
+            this.totalprice = this.list[0].totalprice;
+          }
         },
         errorcallback => {
           console.log("shopkeeper error:" + errorcallback);

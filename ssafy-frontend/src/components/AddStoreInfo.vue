@@ -227,6 +227,8 @@ export default {
         // this.deliverytime = "";
         // this.deliverytip = "";
         this.getStoreInfo();
+        alert("완료되었습니다");
+        this.dialog = !this.dialog;
       });
     }
   }
