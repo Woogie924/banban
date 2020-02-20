@@ -27,6 +27,7 @@ import ManagePage from './views/ManagePage'
 import CompletePayPage from './views/CompletePayPage'
 import storeProfile from './views/storeProfile'
 import FAQ from './views/FAQ'
+import userFAQ from './views/userFAQ'
 
 Vue.use(Router)
 
@@ -187,6 +188,11 @@ const router = new Router({
 			path: '/FAQ',
 			name: 'FAQ',
 			component: FAQ
+		},
+		{
+			path: '/userFAQ',
+			name: 'FAQ',
+			component: userFAQ
 		}
 	]
 })

@@ -92,7 +92,7 @@
         <v-list-item>
           <v-list-item-content>
             <span class="justify-center text-center">
-              <v-chip label color="white" style="cursor:pointer;" @click="clickOrder()">
+              <v-chip label color="white" style="cursor:pointer;" @click="clickOrder(item)">
                 <v-icon left>mdi-check</v-icon>주문 확인하기
               </v-chip>
             </span>
