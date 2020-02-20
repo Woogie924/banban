@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ssafy.subpjt.vo.OrderFood;
 import com.ssafy.subpjt.vo.User;
 import com.ssafy.subpjt.vo.Usercart;
 
@@ -68,6 +69,16 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public String getAddress(String id) throws Exception {
 		return sqlSession.selectOne(ns +"getAddress", id);
+	}
+
+	@Override
+	public String getTel(String id) throws Exception {
+		return sqlSession.selectOne(ns+"getTel", id);
+	}
+
+	@Override
+	public List<OrderFood> getOrderByUserid(String id) throws Exception {
+		return sqlSession.selectList(ns+"getOrderByUserid", id);
 	}
 
 }

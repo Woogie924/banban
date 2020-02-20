@@ -25,8 +25,10 @@ import com.ssafy.subpjt.service.TransactionService;
 import com.ssafy.subpjt.service.UserService;
 import com.ssafy.subpjt.vo.EmailAuthorization;
 import com.ssafy.subpjt.vo.Menu;
+import com.ssafy.subpjt.vo.OrderFood;
 import com.ssafy.subpjt.vo.Result;
 import com.ssafy.subpjt.vo.Starpoint;
+import com.ssafy.subpjt.vo.Store;
 import com.ssafy.subpjt.vo.Storeinfo;
 import com.ssafy.subpjt.vo.User;
 import com.ssafy.subpjt.vo.Usercart;
@@ -190,7 +192,7 @@ public class UserRestController {
 			if(ans == 1) {
 				return new ResponseEntity("회원가입 성공",HttpStatus.OK);				
 			}else {
-				return new ResponseEntity("입력양식이 맞지 않습니다.",HttpStatus.OK);	
+				return new ResponseEntity("회원가입 실패",HttpStatus.BAD_REQUEST);	
 			}
 		}catch(Exception e) {
 			return new ResponseEntity("회원가입 중 에러가 발생했습니다.",HttpStatus.NO_CONTENT);
@@ -261,9 +263,9 @@ public class UserRestController {
 			System.out.println("user 주소 정보");
 			memberId = jwtService.getMemberId();
 			user = userService.getUser(memberId);
-			//System.out.println(user);
 			if(user != null) {
 				String address = userService.getAddress(id);
+				System.out.println("주소 : "  + address);
 				return new ResponseEntity<String> (address,HttpStatus.OK);				
 			}else {
 				return new ResponseEntity<String> (HttpStatus.NO_CONTENT);		
@@ -397,6 +399,32 @@ public class UserRestController {
 			}
 		}catch(Exception e) {
 			return new ResponseEntity(false,HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@GetMapping("/order")
+	public ResponseEntity<List<OrderFood>> getOrderByUserid() throws Exception{
+		String memberId = null;
+		User user = null;
+		List<OrderFood> list = null;
+		Store store = null;
+		try {
+			System.out.println("user 주문내역 정보");
+			memberId = jwtService.getMemberId();
+			user = userService.getUser(memberId);
+			//System.out.println(user);
+			if(user != null) {
+				list = userService.getOrderByUserid(memberId);
+				for(int i = 0; i < list.size(); i++) {
+					store = storeService.getStore(list.get(i).getStoreid());
+					list.get(i).setStorename(store.getName());
+				}
+				return new ResponseEntity<List<OrderFood>> (list,HttpStatus.OK);				
+			}else {
+				return new ResponseEntity<List<OrderFood>> (HttpStatus.BAD_REQUEST);		
+			}
+		}catch(Exception e) {
+			return new ResponseEntity<List<OrderFood>> (HttpStatus.NO_CONTENT);
 		}
 	}
 }

@@ -19,8 +19,8 @@
 		WHERE id = #{value}
 	</select>
 
-	<select id="countLikes" resultType="likes">
-		select storeid  from likes group by storeid ORDER BY
+	<select id="countLikes" resultType="string">
+		select storeid from orderFood group by storeid  ORDER BY
 		count(*) DESC LIMIT 10;
 	</select>
 
@@ -101,6 +101,11 @@
 		VALUES(#{starnum}, #{storeid}, #{body})
 	</insert>
 	
+	<update id="updateStore" parameterType="store">
+	UPDATE store SET pw = #{pw}, tel = #{tel}
+	WHERE id = #{id}
+	</update>
+	
 	<update id="updateStoreinfo" parameterType="storeinfo">
 		UPDATE storeinfo SET  minprice = #{minprice}, deliverytip = #{deliverytip},
 		deliverytime = #{deliverytime}, storeintro = #{storeintro}
@@ -117,6 +122,12 @@
 		WHERE storeid = #{storeid} and storenum = #{storenum}
 	</update>
 	
+	
+	<delete id="deleteStore" parameterType="store">
+		DELETE FROM store
+		WHERE id = #{id} and pw = #{pw}
+	</delete>
+	
 	<delete id="deleteStarpoint" parameterType="int">
 		DELETE FROM starpoint
 		WHERE starnum = #{value}
@@ -132,6 +143,12 @@
 		WHERE userid = #{userid} and storeid = #{storeid}
 	</delete>
 	
+	<select id="getOrder" parameterType="string" resultType="orderFood">
+		SELECT onum, menu, price, userid1, userid2, address1, address2, tel1, tel2, peonum, storeid, ordercheck, order_date orderDate
+		FROM orderFood
+		WHERE (ordercheck = 1 or ordercheck = 2) and storeid = #{value}
+		ORDER BY order_date DESC
+	</select>
 	
 	 <select id="getRecentProfit" parameterType="orderFood" resultType="orderFood">
 		SELECT sum(price) price, storeid, order_date orderDate 

@@ -36,6 +36,21 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.delete(ns+"deletePayment", pnum);
 	}
 
+	@Override
+	public int zerotoone(int onum) throws Exception {
+		return sqlSession.update(ns+"zerotoone", onum);
+	}
+
+	@Override
+	public int onetotwo(int onum) throws Exception {
+		return sqlSession.update(ns+"onetotwo", onum);
+	}
+
+	@Override
+	public int twotothree(int onum) throws Exception {
+		return sqlSession.update(ns+"twotothree", onum);
+	}
+
 	
 	
 

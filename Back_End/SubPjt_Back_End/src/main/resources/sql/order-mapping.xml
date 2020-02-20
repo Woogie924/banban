@@ -4,8 +4,8 @@
 
 <mapper namespace="OrderFood">
 	<insert id="insertOrder" parameterType="orderFood">
-		INSERT INTO orderFood(onum, menu, userid, storeid, price, address1, address2,tel1, tel2 peonum, ordercheck)
-		VALUES(#{onum},  #{menu}, #{userid}, #{storeid}, #{price}, #{address1},#{address2}, #{tel1}, #{tel2}, #{peonum}, 0 )
+		INSERT INTO orderFood(onum, menu, userid1, userid2, storeid, price, address1, address2,tel1, tel2, peonum, ordercheck)
+		VALUES(#{onum},  #{menu}, #{userid1}, #{userid2}, #{storeid}, #{price}, #{address1},#{address2}, #{tel1}, #{tel2}, #{peonum}, 0 )
 	</insert>
 	
 	<delete id="deleteOrderFood" parameterType="int">
@@ -13,9 +13,23 @@
 	</delete>
 	
 	<select id="getOrderByOnum" parameterType="int" resultType="orderFood">
-		SELECT onum, menu, userid, storeid, storename, price, address1, address2, tel1, tel2, peonum
+		SELECT onum, menu, userid1, userid2, storeid, price, address1, address2, tel1, tel2, peonum, ordercheck, order_date orderDate
 		FROM orderFood
 		WHERE onum = #{value}
 	</select>
+	
+	<update id="zerotoone" parameterType="int" >
+		UPDATE orderFood SET ordercheck = 1
+		WHERE onum = #{value}
+	</update>
+	
+	<update id="onetotwo" parameterType="int">
+		UPDATE orderFood SET ordercheck = 2
+		WHERE onum = #{value}
+	</update>
+	<update id="twotothree" parameterType="int">
+		UPDATE orderFood SET ordercheck = 3
+		WHERE onum = #{value}
+	</update>
 
 </mapper>

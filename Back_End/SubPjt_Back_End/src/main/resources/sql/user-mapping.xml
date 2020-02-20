@@ -20,6 +20,12 @@
 		WHERE id = #{value}
 	</select>
 	
+	<select id="getTel" parameterType="string" resultType="string">
+		SELECT tel 
+		FROM user
+		WHERE id = #{value}
+	</select>
+	
 	<select id="socialLogin" parameterType="user" resultType="user">
 	SELECT id, pw, tel, name, email, address, point, signup_date signDate, chk, longitude, latitude
 	FROM user
@@ -63,5 +69,12 @@
 		FROM usercart
 		WHERE userid = #{value}
 	</select>
+	
+	<select id="getOrderByUserid" parameterType="string" resultType="orderFood">
+		SELECT onum, menu, price, userid1, userid2, address1, address2, tel1, tel2, peonum, storeid, ordercheck, order_date orderDate
+		FROM orderFood
+		WHERE userid1 = #{value} or userid2 = #{value}
+	</select>
+	
 	
 </mapper>

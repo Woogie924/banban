@@ -130,32 +130,31 @@ public class StoreRestController {
 		}
 	}
 
-	@GetMapping("/countLikes")
-	public ResponseEntity<List<Likes>> countLikes() throws Exception{
-		List<Likes> list = null;
+	@GetMapping("/countLikes/{lat}/{lon}")
+	public ResponseEntity<List<Store>> countLikes(@PathVariable double lat, @PathVariable double lon) throws Exception{
+		List<String> list = null;
+		List<Store> slist = new ArrayList<>();
+		List<Store> res = new ArrayList<>();
+		Store store = null;
 		try {
+			//System.out.println("좋아요 랭킹");
 			list = storeService.countLikes();
-			return new ResponseEntity<List<Likes>>(list,HttpStatus.OK);				
+			for(String name : list) {
+				store = storeService.getStore(name);
+				slist.add(store);
+			}
+			for(Store s : slist) {
+				double distanceKiloMeter = 
+						transactionService.distance(lat, lon, s.getLatitude(), s.getLongitude());
+				if(distanceKiloMeter <= 3) {
+					res.add(s);
+				}
+			}
+			return new ResponseEntity<List<Store>>(res,HttpStatus.OK);				
 		}catch(Exception e) {
-			return new ResponseEntity<List<Likes>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<Store>>(HttpStatus.BAD_REQUEST);
 		}
 	}
-
-	/*
-	 * @PostMapping("/nearstores") public List<Store> getAllStores(@RequestBody User
-	 * user) throws Exception{ List<Store> list = null; List<Store> res = new
-	 * ArrayList<>(); User ans = null; String memberId = null; try {
-	 * System.out.println("주변 가게 Controller"); memberId = jwtService.getMemberId();
-	 * ans = userService.getUser(memberId); System.out.println(user); if(ans !=
-	 * null) { list = storeService.getAllStores(); //System.out.println(list);
-	 * for(Store s : list) { //System.out.println(s); double distanceKiloMeter =
-	 * transactionService.distance(user.getLatitude(), user.getLongitude(),
-	 * s.getLatitude(), s.getLongitude()); //System.out.println(distanceKiloMeter);
-	 * if(distanceKiloMeter <= 10) { //System.out.println("거리안에 들어옴 : " +
-	 * s.toString()); res.add(s); } } System.out.println(res); return res;
-	 * 
-	 * }else { return null; } }catch(Exception e) { return null; } }
-	 */
 
 	@PostMapping("/near")
 	public List<Store> getAllStoresBylatlon(@RequestBody LatLon latlon) throws Exception{
@@ -223,6 +222,38 @@ public class StoreRestController {
 			if(ans != null) {
 				list = storeService.getRecentProfit(orderFood);
 				System.out.println("1주일간 수익 : " +  list);
+				return new ResponseEntity<List<OrderFood>>(list,HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<List<OrderFood>>(HttpStatus.BAD_REQUEST);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity<List<OrderFood>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@GetMapping("/order")
+	public ResponseEntity<List<OrderFood>> getOrder() throws Exception{
+		List<OrderFood> list = null;
+		Store ans = null;
+		String memberId = null;
+		int sum = 0;
+		try {
+			System.out.println("주문현황 Controller");
+			memberId = jwtService.getMemberId();
+			ans = storeService.getStore(memberId);
+			if(ans != null) {
+				list = storeService.getOrder(memberId);
+				if(list.isEmpty()) {
+					OrderFood temp = new OrderFood();
+					list.add(temp);
+				}else {
+					for(OrderFood order : list) {
+						sum += order.getPrice();
+					}
+					list.get(0).setTotalprice(sum);
+				}
+				System.out.println("주문현황: " +  list);
 				return new ResponseEntity<List<OrderFood>>(list,HttpStatus.OK);
 			}
 			else {
@@ -463,6 +494,48 @@ public class StoreRestController {
 			}
 		}catch(Exception e) {
 			return new ResponseEntity<Storeinfo>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@PutMapping("/store")
+	public ResponseEntity updateStore(@RequestBody Store store) throws Exception{
+		Store user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 수정 Controller");
+			memberId = jwtService.getMemberId();
+			user = storeService.getStore(memberId);
+			if(user != null) {
+				int ans = storeService.updateStore(store);
+				System.out.println("수정 완료 : " + ans);
+				return new ResponseEntity(HttpStatus.OK);
+			}else {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@DeleteMapping("/store/{id}/{pw}")
+	public ResponseEntity deleteStore(@PathVariable String id, @PathVariable String pw) throws Exception{
+		Store user = null;
+		String memberId = null;
+		try {
+			System.out.println("가게 사장님 삭제 Controller");
+			memberId = jwtService.getMemberId();
+			user = storeService.getStore(memberId);
+			if(user != null) {
+				user.setId(id);
+				user.setPw(pw);
+				int ans = storeService.deleteStore(user);
+				System.out.println("수정 : "+ ans);
+				return new ResponseEntity(HttpStatus.OK);
+			}else {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);
+			}
+		}catch(Exception e) {
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 	}
 }
