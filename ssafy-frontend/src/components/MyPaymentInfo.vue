@@ -3,7 +3,6 @@
     <v-card class="justify-center align-center">
       <v-container class="justify-center">
         <v-list>
-          <v-btn @click="create_order()">11</v-btn>
           <!-- 배달정보 -->
           <v-list-item>
             <v-list-item-content>
@@ -74,7 +73,7 @@ export default {
     num: { type: Number },
     price: { type: Number },
     default_price: { type: Number },
-    total_price: { type: String }
+    total_price: { type: Number }
   },
   data() {
     return {
@@ -105,7 +104,7 @@ export default {
   },
   mounted() {
     this.myWidth = this.dialogResizing();
-    this.test();
+
     this.get_address(this.$store.state.userName);
   },
   methods: {
@@ -175,9 +174,6 @@ export default {
       }).then(res => {
         document.location.href = res.data;
       });
-    },
-    test() {
-      this.total_price = this.$route.params.total_price;
     },
     get_team_id(id) {
       axios.defaults.headers.common[
