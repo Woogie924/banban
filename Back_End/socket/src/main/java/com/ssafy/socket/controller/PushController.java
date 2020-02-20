@@ -28,7 +28,7 @@ public class PushController {
 	@MessageMapping("/addresspush")
 	public void addresspush(AddressPermission message, SimpMessageHeaderAccessor messageHeaderAccessor) {
 		System.out.println("message : " + message);
-		messagingTemplate.convertAndSend( "/topic/push/"+message.getUserid(), message);
+		messagingTemplate.convertAndSend( "/topic/addresspush/"+message.getReciever(), message);
 	}
 	
 	

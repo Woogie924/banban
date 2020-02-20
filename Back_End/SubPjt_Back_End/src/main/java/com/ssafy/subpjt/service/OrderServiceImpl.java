@@ -34,4 +34,19 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.deletePayment(pnum);
 	}
 
+	@Override
+	public int zerotoone(int onum) throws Exception {
+		return orderDAO.zerotoone(onum);
+	}
+
+	@Override
+	public int onetotwo(int onum) throws Exception {
+		return orderDAO.onetotwo(onum);
+	}
+
+	@Override
+	public int twotothree(int onum) throws Exception {
+		return orderDAO.twotothree(onum);
+	}
+
 }

@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class AddressPermission {
-	private String userid;
+	private String sender;
+	private String reciever;
 	private String meesage;
 	
 }
