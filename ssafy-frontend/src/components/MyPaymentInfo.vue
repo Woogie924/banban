@@ -104,7 +104,7 @@ export default {
   },
   mounted() {
     this.myWidth = this.dialogResizing();
-    this.test();
+
     this.get_address(this.$store.state.userName);
   },
   methods: {
@@ -174,9 +174,6 @@ export default {
       }).then(res => {
         document.location.href = res.data;
       });
-    },
-    test() {
-      this.total_price = this.$route.params.total_price;
     },
     get_team_id(id) {
       axios.defaults.headers.common[

@@ -9,7 +9,7 @@ export default {
         ] = `Bearer ${store.state.token}`;
         axios.get("http://192.168.100.92:8080/shopkeeper/order")
             .then(response => {
-                console.log("[shopkeeperAPI] getOrderList");
+                console.log("[shopkeeperAPI] getOrderList then");
                 callback(response);
             }).catch(error => {
                 errorCallback(error);
