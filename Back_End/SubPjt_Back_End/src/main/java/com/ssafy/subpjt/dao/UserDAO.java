@@ -19,5 +19,6 @@ public interface UserDAO {
 	int updateUser(User user) throws Exception;
 	int insertUsercart(Usercart usercart) throws Exception;
 	int deleteUsercart(int unum) throws Exception;
+	int deleteUsercarById(String userid) throws Exception;
 	int deleteUser(User user) throws Exception;
 }

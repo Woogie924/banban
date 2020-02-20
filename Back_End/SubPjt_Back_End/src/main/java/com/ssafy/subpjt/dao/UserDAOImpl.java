@@ -81,4 +81,9 @@ public class UserDAOImpl implements UserDAO{
 		return sqlSession.selectList(ns+"getOrderByUserid", id);
 	}
 
+	@Override
+	public int deleteUsercarById(String userid) throws Exception {
+		return sqlSession.delete(ns+"deleteUsercarById", userid);
+	}
+
 }

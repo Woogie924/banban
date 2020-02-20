@@ -31,6 +31,6 @@ public interface StoreService {
 	List<Store> getAllStores() throws Exception;
 	List<Menu> getMenu(String id) throws Exception;
 	Store getStore(String id) throws Exception;
-	List<OrderFood> getRecentProfit(OrderFood orderFood) throws Exception; 
+	List<OrderFood> getRecentProfit(String storeid) throws Exception; 
 	List<OrderFood> getOrder(String storeid) throws Exception;
 }

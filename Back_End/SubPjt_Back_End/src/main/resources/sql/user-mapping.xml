@@ -59,6 +59,10 @@
 		DELETE FROM usercart WHERE unum = #{value}
 	</delete>
 	
+	<delete id="deleteUsercarById" parameterType="string">
+		DELETE FROM usercart WHERE userid = #{value}
+	</delete>
+	
 	<delete id="deleteUser" parameterType="user">
 		DELETE FROM user
 		WHERE pw = #{pw} and id = #{id}

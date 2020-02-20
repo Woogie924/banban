@@ -150,12 +150,12 @@
 		ORDER BY order_date DESC
 	</select>
 	
-	 <select id="getRecentProfit" parameterType="orderFood" resultType="orderFood">
-		SELECT sum(price) price, storeid, order_date orderDate 
+	 <select id="getRecentProfit" parameterType="string" resultType="orderFood">
+		SELECT  sum(price) price, date_format(order_date,'%Y%m%d') orderDate 
 		FROM orderFood
-		WHERE storeid = #{storeid} and order_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
-		and (ordercheck = 2)
-        GROUP BY  date_format(order_date,'%Y%m%d')
+        WHERE storeid = 'chiken01' and order_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+		and (ordercheck = 2 or ordercheck = 1)
+        GROUP BY orderDate;
 	</select> 
 	
 	<select id="getStoreInfo" parameterType="string" resultType="storeinfo">

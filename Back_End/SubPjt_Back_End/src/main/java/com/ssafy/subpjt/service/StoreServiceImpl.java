@@ -61,8 +61,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public List<OrderFood> getRecentProfit(OrderFood orderFood) throws Exception {
-		return storeDao.getRecentProfit(orderFood);
+	public List<OrderFood> getRecentProfit(String storeid) throws Exception {
+		return storeDao.getRecentProfit(storeid);
 	}
 
 	@Override
