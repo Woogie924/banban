@@ -113,16 +113,18 @@ export default {
     },
     movePaymentPage() {
       // 내 결제 페이지로 분기
+      var data = {
+        storeid: this.list[0].storeid,
+        list: this.list,
+        num: this.num,
+        price: this.price,
+        default_price: this.default_price,
+        total_price: this.total_price
+      };
+
       this.$router.push({
         name: "MyPaymentPage",
-        params: {
-          storeid: this.list[0].storeid,
-          list: this.list,
-          num: this.num,
-          price: this.price,
-          default_price: this.default_price,
-          total_price: this.total_price
-        }
+        params: data
       });
     }
   }

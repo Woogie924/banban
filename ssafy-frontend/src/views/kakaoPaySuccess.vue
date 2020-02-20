@@ -1,95 +1,113 @@
 <template>
   <div>
-    <v-card elevation="0" style="border:1px solid grey">
-      <v-card-title class="justify-center">
-        <div class="underlined">주문 대기!!</div>
-      </v-card-title>
-      <v-list>
-        <v-list-item-title class="justify-right text-right">
-          <v-chip outlined pill color="red">
-            <v-icon left>mdi-server-plus</v-icon>주문대기
-          </v-chip>
-          <v-chip outlined pill color="teal">
-            <v-icon left>mdi-wrench</v-icon>주문완료
-          </v-chip>
-        </v-list-item-title>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="justify-center text-center">
-              <v-icon>{{quoteopen}}</v-icon>
-              <span>주문 번호</span>
-              <v-icon>{{quoteclose}}</v-icon>
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              <div class="pinched">{{this.board.onum}}</div>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-content>
-            <v-list-item-title class="justify-center text-center">
-              <v-icon>{{quoteopen}}</v-icon>
-              <span>가게아이디</span>
-              <v-icon>{{quoteclose}}</v-icon>
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              <div class="pinched">{{this.board.storeid}}</div>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="justify-center text-center">
-              <v-icon>{{quoteopen}}</v-icon>
-              <span>메뉴명</span>
-              <v-icon>{{quoteclose}}</v-icon>
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              <div class="pinched">{{this.board.menu}}</div>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="justify-center text-center">
-              <v-icon>{{quoteopen}}</v-icon>
-              <span>
-                <div class="underlined2">주문자</div>님 주소
-              </span>
-              <v-icon>{{quoteclose}}</v-icon>
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              <div class="pinched">{{this.board.address1}}</div>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="justify-center text-center">
-              <v-icon>{{quoteopen}}</v-icon>
-              <span>
-                <div class="underlined2">파트너</div>아이디
-              </span>
-              <v-icon>{{quoteclose}}</v-icon>
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              <div class="pinched">{{this.board.userid2}}</div>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="justify-center text-center">
-              <v-icon>{{quoteopen}}</v-icon>
-              <span>가격</span>
-              <v-icon>{{quoteclose}}</v-icon>
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              <div class="pinched">{{this.board.price}}</div>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-divider />
-      </v-list>
-    </v-card>
+    <v-container>
+      <v-layout class="justify-center text-center">
+        <v-flex xs12 lg6 sm8 md8>
+          <v-card elevation="0" style="border:1px solid grey">
+            <v-card-title class="justify-center">
+              <div class="underlined">주문 대기!!</div>
+            </v-card-title>
+            <v-list>
+              <v-list-item-title class="justify-right text-right">
+                <v-chip
+                  outlined
+                  pill
+                  color="red"
+                  v-if="board.ordercheck ==1"
+                  v-model="board.ordercheck"
+                >
+                  <v-icon left>mdi-server-plus</v-icon>주문대기
+                </v-chip>
+                <v-chip
+                  outlined
+                  pill
+                  color="teal"
+                  v-if="board.ordercheck ==2"
+                  v-model="board.ordercheck"
+                >
+                  <v-icon left>mdi-wrench</v-icon>주문완료
+                </v-chip>
+              </v-list-item-title>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="justify-center text-center">
+                    <v-icon>{{quoteopen}}</v-icon>
+                    <span>주문 번호</span>
+                    <v-icon>{{quoteclose}}</v-icon>
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    <div class="pinched">{{this.board.onum}}</div>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-content>
+                  <v-list-item-title class="justify-center text-center">
+                    <v-icon>{{quoteopen}}</v-icon>
+                    <span>가게아이디</span>
+                    <v-icon>{{quoteclose}}</v-icon>
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    <div class="pinched">{{this.board.storeid}}</div>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="justify-center text-center">
+                    <v-icon>{{quoteopen}}</v-icon>
+                    <span>메뉴명</span>
+                    <v-icon>{{quoteclose}}</v-icon>
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    <div class="pinched">{{this.board.menu}}</div>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="justify-center text-center">
+                    <v-icon>{{quoteopen}}</v-icon>
+                    <span>
+                      <div class="underlined2">주문자</div>님 주소
+                    </span>
+                    <v-icon>{{quoteclose}}</v-icon>
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    <div class="pinched">{{this.board.address1}}</div>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="justify-center text-center">
+                    <v-icon>{{quoteopen}}</v-icon>
+                    <span>
+                      <div class="underlined2">파트너</div>아이디
+                    </span>
+                    <v-icon>{{quoteclose}}</v-icon>
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    <div class="pinched">{{this.board.userid2}}</div>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title class="justify-center text-center">
+                    <v-icon>{{quoteopen}}</v-icon>
+                    <span>가격</span>
+                    <v-icon>{{quoteclose}}</v-icon>
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    <div class="pinched">{{this.board.price}}</div>
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider />
+            </v-list>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template><script>
 import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
@@ -97,6 +115,7 @@ import axios from "axios";
 import router from "@/router.js";
 import SockJS from "sockjs-client";
 import Stomp from "webstomp-client";
+import store from "@/vuex/store.js";
 import VueMomentJs from "vue-momentjs";
 export default {
   name: "temp",
@@ -126,10 +145,12 @@ export default {
           this.send();
           console.log(frame);
           this.stompClient.subscribe(
-            `/topic/${this.$store.state.userName}/`,
+            `/topic/push/${this.$store.state.userName}`,
             tick => {
-              console.log(JSON.parse(tick.body));
-              this.received_messages.push(JSON.parse(tick.body));
+              console.log("zzzzzzzzzzzzzzzzz");
+              alert("주문이 완료되었습니다");
+              this.$router.push("orderl");
+              // this.received_messages.push(JSON.parse(tick.body));
             }
           );
         },
@@ -145,7 +166,7 @@ export default {
       if (this.stompClient && this.stompClient.connected) {
         const msg = {
           message: this.send_message,
-          sender: "박교열",
+          sender: this.$store.state.userName,
           receiver: this.board.storeid,
           data: null
         };
