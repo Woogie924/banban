@@ -154,6 +154,7 @@ export default {
       this.foodPrice = "";
       this.foodText = "";
       this.values = ["야식"];
+      this.temp = "";
     },
     handleFilePondInit() {
       console.log("FilePond has initialized");
@@ -225,6 +226,12 @@ export default {
         console.log("메뉴 등록 응답 : " + response);
         // console.log("메뉴 등록 응답(2) : " + response.data);
         alert("완료되었습니다");
+        this.dialog = !this.dialog;
+        this.foodName = "";
+        this.foodPrice = "";
+        this.foodText = "";
+        this.values = ["야식"];
+        this.temp = "";
       });
     }
   },

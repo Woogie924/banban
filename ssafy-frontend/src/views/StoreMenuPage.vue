@@ -37,12 +37,6 @@ export default {
     MyMenuList,
     bottomNav
   },
-  mounted() {
-    if (this.$store.state.userType !== 2) {
-      alert("권한이 없습니다. 로그인해주세요");
-      this.$router.push("/StoreLogin");
-    }
-  },
   methods: {},
   data() {
     return {};

@@ -184,7 +184,10 @@ export default {
       pw: "",
       signupDate: "",
       tel: "",
-      confirm: ""
+      confirm: "",
+      currentAddress: "",
+      dialog: false,
+      currentPW: ""
     };
   },
   validations: {
