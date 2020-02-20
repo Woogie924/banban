@@ -10,8 +10,20 @@
                   <p class="display-1 text-center font-weight-bold">회원가입</p>
                   <br />
                   <v-row>
-                    <v-text-field v-model="id" label="아이디" name="id" type="text" outlined dense></v-text-field>
+                    <v-text-field
+                      v-model="id"
+                      label="아이디"
+                      name="id"
+                      type="text"
+                      outlined
+                      dense
+                      @blur="$v.id.$touch()"
+                    ></v-text-field>
                   </v-row>
+                  <div v-if="$v.id.$error">
+                    <p v-if="!$v.id.required" class="errorMessage">* 아이디를 작성해 주세요.</p>
+                    <p v-if="!$v.id.maxLength" class="errorMessage">* 최대 길이를 초과했습니다. (10자)</p>
+                  </div>
                   <v-row>
                     <v-text-field
                       v-model="pw"
@@ -20,8 +32,13 @@
                       type="password"
                       outlined
                       dense
+                      @blur="$v.pw.$touch()"
                     />
                   </v-row>
+                  <div v-if="$v.pw.$error">
+                    <p v-if="!$v.pw.required" class="errorMessage">* 비밀번호를 작성해 주세요.</p>
+                    <p v-if="!$v.pw.minLength" class="errorMessage">* 4자 이상 작성해주세요.</p>
+                  </div>
                   <v-row>
                     <v-text-field
                       v-model="name"
@@ -30,8 +47,12 @@
                       type="text"
                       outlined
                       dense
+                      @blur="$v.name.$touch()"
                     />
                   </v-row>
+                  <div v-if="$v.name.$error">
+                    <p v-if="!$v.name.required" class="errorMessage">* 이름을 작성해 주세요.</p>
+                  </div>
                   <v-row>
                     <!-- 카테고리 -->
                     <v-container fluid>
@@ -40,11 +61,20 @@
                           <v-subheader>카테고리</v-subheader>
                         </v-flex>
                         <v-flex xs6>
-                          <v-select :items="items" v-model="category" label="Select" single-line></v-select>
+                          <v-select
+                            :items="items"
+                            v-model="category"
+                            label="Select"
+                            single-line
+                            @blur="$v.category.$touch()"
+                          ></v-select>
                         </v-flex>
                       </v-layout>
                     </v-container>
                   </v-row>
+                  <div v-if="$v.category.$error">
+                    <p v-if="!$v.category.required" class="errorMessage">* 카테고리를 선택 해주세요.</p>
+                  </div>
                   <v-row>
                     <v-btn @click="sample4_execDaumPostcode()" width="100%" outlined dense>우편번호찾기</v-btn>
                   </v-row>
@@ -58,8 +88,18 @@
                     <v-text-field v-model="address2" outlined dense />
                   </v-row>
                   <v-row>
-                    <v-text-field v-model="tel" label="핸드폰번호" name="tel" outlined dense />
+                    <v-text-field
+                      v-model="tel"
+                      label="핸드폰번호"
+                      name="tel"
+                      outlined
+                      dense
+                      @blur="$v.tel.$touch()"
+                    />
                   </v-row>
+                  <div v-if="$v.tel.$error">
+                    <p v-if="!$v.tel.required" class="errorMessage">* 전화번호를 작성해 주세요.</p>
+                  </div>
                   <v-row>
                     <v-btn
                       type="submit"
@@ -72,6 +112,7 @@
                       font-size="16"
                       font-family="SourceHanSansK-Bold, Source Han Sans K"
                       font-weight="700"
+                      :disabled="$v.$invalid"
                     >가입완료</v-btn>
                   </v-row>
                 </v-form>
@@ -85,6 +126,12 @@
 </template>
 
 <script>
+import {
+  required,
+  email,
+  minLength,
+  maxLength
+} from "vuelidate/lib/validators/";
 export default {
   data() {
     return {
@@ -116,26 +163,42 @@ export default {
       ]
     };
   },
+  validations: {
+    id: {
+      required,
+      maxLength: maxLength(10)
+    },
+    pw: {
+      required,
+      minLength: minLength(4)
+    },
+    name: { required },
+    tel: { required },
+    category: { required },
+    zipcode: { required }
+  },
   methods: {
     Sregister() {
-      this.$store
-        .dispatch("Sregister", {
-          id: this.id,
-          pw: this.pw,
-          category: this.category,
-          tel: this.tel,
-          name: this.name,
-          address: this.address,
-          latitude: this.lat,
-          longitude: this.lon,
-          chk: this.chk,
-          point: this.point,
-          signup_date: this.signupDate,
-          likes: this.likes
-        })
-        .then(() => {
-          this.$router.push({ path: "/" });
-        });
+      if (!this.$v.$invalid) {
+        this.$store
+          .dispatch("Sregister", {
+            id: this.id,
+            pw: this.pw,
+            category: this.category,
+            tel: this.tel,
+            name: this.name,
+            address: this.address,
+            latitude: this.lat,
+            longitude: this.lon,
+            chk: this.chk,
+            point: this.point,
+            signup_date: this.signupDate,
+            likes: this.likes
+          })
+          .then(() => {
+            this.$router.push({ path: "/" });
+          });
+      }
     },
     sample4_execDaumPostcode() {
       new daum.Postcode({
@@ -206,5 +269,9 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Jua|Nanum+Gothic|Sunflower:300");
 * {
   font-family: "Do Hyeon", sans-serif;
+}
+.errorMessage {
+  color: red;
+  padding-bottom: 0;
 }
 </style>

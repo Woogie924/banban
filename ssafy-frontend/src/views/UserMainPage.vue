@@ -17,12 +17,6 @@
           </v-flex>
         </v-layout>
       </v-container>
-
-      <v-layout>
-        <transition>
-          <Notification :value="true"></Notification>
-        </transition>
-      </v-layout>
     </v-container>
   </div>
 </template>
@@ -40,10 +34,6 @@ import Notification from "../components/Notification";
 
 export default {
   mounted() {
-    if (this.$store.state.userType !== 1) {
-      alert("권한이 없습니다. 로그인해주세요");
-      this.$router.push("/Mlogin");
-    }
     this.connect();
   },
   name: "UserMainPage",
