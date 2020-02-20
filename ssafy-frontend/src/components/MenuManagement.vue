@@ -35,7 +35,7 @@
           <v-layout mt-5 wrap>
             <v-flex v-for="item in list" :key="item.id">
               <menuCard
-                :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
+                :imageUrl="'http://54.180.163.74:8080/image/'+item.img"
                 :name="item.name"
                 :cost="item.cost"
                 :tip="item.tip"
@@ -180,7 +180,7 @@ export default {
 
       myFiles: [],
       serverConfig: {
-        url: "http://192.168.100.92:8080/Img/insertImg",
+        url: "http://54.180.163.74:8080/Img/insertImg",
         process: {
           method: "POST",
           withCredentials: false,
@@ -249,7 +249,7 @@ export default {
           // this.childName = response.data[0].name;
           // this.childCost = response.data[0].cost;
           // this.childTip = response.data[0].tip;
-          // this.childImg = "192.168.100.92:8080/" + response.data[0].img;
+          // this.childImg = "54.180.163.74:8080/" + response.data[0].img;
           // console.log("이미지 경로:" + this.childImg);
         },
         errorcallback => {
@@ -281,7 +281,7 @@ export default {
       alert("태그 정보:" + this.temp);
       axios({
         method: "POST",
-        url: "http://192.168.100.92:8080/shopkeeper/menu",
+        url: "http://54.180.163.74:8080/shopkeeper/menu",
         data: {
           id: this.myId,
           name: this.foodName,

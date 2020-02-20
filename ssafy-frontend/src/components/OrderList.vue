@@ -163,7 +163,7 @@ export default {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${store.state.token}`;
-      await axios.put("http://192.168.100.92:8080/order/" + onum).then(res => {
+      await axios.put("http://54.180.163.74:8080/order/" + onum).then(res => {
         this.getOrderList();
       });
     },

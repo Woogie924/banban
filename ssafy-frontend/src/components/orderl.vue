@@ -51,7 +51,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       await axios({
         method: "get",
-        url: `http://192.168.100.92:8080/api/order`
+        url: `http://54.180.163.74:8080/api/order`
       }).then(res => {
         this.info = res.data;
         console.log("주문내역!!!");

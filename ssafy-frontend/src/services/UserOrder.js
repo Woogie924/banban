@@ -9,7 +9,7 @@ export default {
         ] = `Bearer ${store.state.token}`;
         // console.log("management  mounted getMyImage gg" + myId);
         axios
-            .get("http://192.168.100.92:8080/api/menu/" + storeId)
+            .get("http://54.180.163.74:8080/api/menu/" + storeId)
             .then(response => {
                 // console.log(response.data);
                 callback(response);
@@ -30,7 +30,7 @@ export default {
 
 
         axios
-            .get(`http://192.168.100.92:8080/api/storeinfo/${storeId}`)
+            .get(`http://54.180.163.74:8080/api/storeinfo/${storeId}`)
             .then(response => {
                 console.log("UserOrder API then...");
                 console.log(response.data);
@@ -51,7 +51,7 @@ export default {
         ] = `Bearer ${store.state.token}`;
         axios({
                 method: "post",
-                url: "http://192.168.100.92:8080/api/starpoint/",
+                url: "http://54.180.163.74:8080/api/starpoint/",
                 data: {
                     "starnum": reviewVO.rating,
                     "storeid": reviewVO.storeid,

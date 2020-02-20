@@ -127,7 +127,7 @@ export default {
       // ] = `Bearer ${this.$store.state.token}`;
       // axios({
       //   method: "get",
-      //   url: `http://192.168.100.92:8080/api/address/${id}`
+      //   url: `http://54.180.163.74:8080/api/address/${id}`
       // }).then(res => {
       //   this.address = res.data;
       // });
@@ -146,7 +146,7 @@ export default {
     async create_order() {
       await axios({
         method: "post",
-        url: `http://192.168.100.92:8080/order`,
+        url: `http://54.180.163.74:8080/order`,
 
         data: {
           address1: this.address,
@@ -176,7 +176,7 @@ export default {
 
       axios({
         method: "post",
-        url: `http://192.168.100.92:8080/kakaoPay`,
+        url: `http://54.180.163.74:8080/kakaoPay`,
         data: {
           partner_order_id: this.order_num,
           partner_user_id: this.$store.state.userName,
@@ -193,7 +193,7 @@ export default {
       ] = `Bearer ${this.$store.state.token}`;
       axios({
         method: "get",
-        url: `http://192.168.100.92:8080/api/address/${id}`
+        url: `http://54.180.163.74:8080/api/address/${id}`
       }).then(res => {
         this.teamAddress = res.data;
       });

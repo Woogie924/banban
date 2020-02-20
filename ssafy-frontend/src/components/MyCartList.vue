@@ -103,7 +103,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "delete",
-        url: `http://192.168.100.92:8080/api/cart/${unum}`
+        url: `http://54.180.163.74:8080/api/cart/${unum}`
       }).then(() => {
         this.getCartList();
       });

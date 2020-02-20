@@ -119,7 +119,7 @@ export default {
     test() {
       axios({
         method: "post",
-        url: `http://192.168.100.92:8080/kakaoPay`
+        url: `http://54.180.163.74:8080/kakaoPay`
       }).then(res => {
         document.location.href = res.data;
       });

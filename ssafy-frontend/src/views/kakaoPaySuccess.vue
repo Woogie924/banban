@@ -134,7 +134,7 @@ export default {
   mounted() {},
   methods: {
     connect() {
-      this.socket = new SockJS("http://192.168.100.92:8082/order");
+      this.socket = new SockJS("http://54.180.163.74:8082/order");
       this.stompClient = Stomp.over(this.socket);
       this.stompClient.connect(
         {},
@@ -186,7 +186,7 @@ export default {
       ] = `Bearer ${this.$store.state.token}`;
       axios({
         method: "get",
-        url: `http://192.168.100.92:8080/order/${this.$route.query.partner_order_id}`
+        url: `http://54.180.163.74:8080/order/${this.$route.query.partner_order_id}`
       }).then(res => {
         this.board = res.data;
         console.log("zzzz");

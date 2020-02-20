@@ -63,7 +63,7 @@
             <v-flex xs12 sm12 md12 lg12>
               <deliveryMenuInfo
                 :storeId="myStoreId"
-                :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
+                :imageUrl="'http://54.180.163.74:8080/image/'+item.img"
                 :name="item.name"
                 :cost="item.cost"
                 :tip="item.tip"

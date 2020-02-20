@@ -231,7 +231,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       await axios({
         method: "get",
-        url: `http://192.168.100.92:8080/notice/comment/${this.contentId}`
+        url: `http://54.180.163.74:8080/notice/comment/${this.contentId}`
       }).then(res => {
         this.comment = res.data;
         this.len = res.data.length;
@@ -246,7 +246,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "get",
-        url: `http://192.168.100.92:8080/notice/board/${this.contentId}`
+        url: `http://54.180.163.74:8080/notice/board/${this.contentId}`
       }).then(res => {
         this.board = res.data;
         this.party_member = res.data.party;
@@ -265,7 +265,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "Delete",
-        url: `http://192.168.100.92:8080/notice/board/${num}`
+        url: `http://54.180.163.74:8080/notice/board/${num}`
       }).then(res => this.move());
     },
     updateData(num) {
@@ -283,7 +283,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       return await axios({
         method: "post",
-        url: `http://192.168.100.92:8080/notice/comment`,
+        url: `http://54.180.163.74:8080/notice/comment`,
         data: {
           cnum: 0,
           bnum: this.contentId,
@@ -303,7 +303,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "Delete",
-        url: `http://192.168.100.92:8080/notice/comment/${num}`
+        url: `http://54.180.163.74:8080/notice/comment/${num}`
       }).then(res => this.get_comment());
     },
     comment_update(cnum, bnum) {
@@ -312,7 +312,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "PUT",
-        url: `http://192.168.100.92:8080/notice/comment/`,
+        url: `http://54.180.163.74:8080/notice/comment/`,
         data: {
           cnum: cnum,
           bnum: bnum,
@@ -338,7 +338,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "POST",
-        url: `http://192.168.100.92:8080/notice/members/${bnum}/${username}`
+        url: `http://54.180.163.74:8080/notice/members/${bnum}/${username}`
       }).then(res => this.get_info());
     },
     party_out(bnum, username) {
@@ -347,7 +347,7 @@ export default {
       ] = `Bearer ${store.state.token}`;
       axios({
         method: "DELETE",
-        url: `http://192.168.100.92:8080/notice/members/${bnum}/${username}`
+        url: `http://54.180.163.74:8080/notice/members/${bnum}/${username}`
       }).then(res => this.get_info());
     },
     check() {

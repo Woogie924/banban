@@ -12,6 +12,7 @@
 		DELETE FROM orderFood WHERE onum = #{value}
 	</delete>
 	
+	
 	<select id="getOrderByOnum" parameterType="int" resultType="orderFood">
 		SELECT onum, menu, userid1, userid2, storeid, price, address1, address2, tel1, tel2, peonum, ordercheck, order_date orderDate
 		FROM orderFood
