@@ -159,6 +159,12 @@ export default {
           info: "내 정보입니다."
         },
         {
+          title: "주문 내역",
+          path: "/orderl",
+          icon: mdiCalendarTextOutline,
+          info: "주문 내역입니다."
+        },
+        {
           title: "FAQ",
           path: "/FAQ",
           icon: mdiHelp,

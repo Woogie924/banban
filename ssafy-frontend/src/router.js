@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Read from './components/Read'
+import Orderl from './components/orderl'
 import Create from './views/Create'
 import Detail from './views/Detail'
 import Mlogin from './views/Mlogin'
@@ -38,7 +39,11 @@ const router = new Router({
 			name: 'Read',
 			component: Read
 		},
-
+		{
+			path: '/orderl',
+			name: 'Orderl',
+			component: Orderl
+		},
 		{
 			path: '/detail/:contentId',
 			name: 'Detail',
