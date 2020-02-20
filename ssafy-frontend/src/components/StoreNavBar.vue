@@ -76,7 +76,7 @@
                       :key="item.title"
                       style="cursor:pointer;"
                     >
-                      <v-list-item-content v-on="on">
+                      <v-list-item-content>
                         <v-list-item-title @click="move(item,index)">
                           <span class="display-1 text-shadow font-weight-bold text-center">
                             <div class="link-7">

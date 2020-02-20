@@ -6,7 +6,11 @@
       </v-card-title>
       <v-card elevation="0">
         <div v-if="this.list.length === 0">
-          <v-card-text id="rank">주문 가능한 매장이 없습니다.</v-card-text>
+          <v-card-text id="rank">
+            주문 가능한
+            <br />매장이
+            <br />없습니다.
+          </v-card-text>
         </div>
         <div v-else>
           <v-card-text id="rankText" v-for="(value, idx) in this.list" :key="value.id">

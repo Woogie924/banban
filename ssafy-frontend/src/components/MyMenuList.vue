@@ -34,6 +34,9 @@ export default {
       list: []
     };
   },
+  created(){
+     this.getUserInfo();
+  },
   mounted() {
     this.getUserInfo();
   },
