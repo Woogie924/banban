@@ -24,31 +24,34 @@ import lombok.extern.java.Log;
 @RestController
 public class KakaoPayController {
 
-	 	@Setter(onMethod_ = @Autowired)
-	    private KakaoPay kakaopay;
-	    
-	 	@Autowired
-		private OrderService orderService;
-	 	
-	    @GetMapping("/kakaoPay")
-	    public void kakaoPayGet() {
-	        
-	    }
-	    
-	    @PostMapping("/kakaoPay")
-	    public String kakaoPay(@RequestBody kakaoPayVO kakaoPayVo ) {
-	        log.info("kakaoPay post............................................");
-	        System.out.println(kakaoPayVo);
-	        return kakaopay.kakaoPayReady(kakaoPayVo);
-	 
-	    }
-	    
-	    @GetMapping("/kakaoPaySuccess")
-	    public ResponseEntity<String> kakaoPaySuccess(@RequestParam("partner_order_id") int id,@RequestParam("pg_token") String pg_token, Model model) {
-	        log.info("kakaoPaySuccess get............................................");
-	        log.info("kakaoPaySuccess pg_token : " + pg_token);
-	        System.out.println("주문 상태 변경");
-	        String onum = kakaopay.kakaoPayInfo(pg_token);
-	        return new ResponseEntity<String>(onum,HttpStatus.OK);
-	    }
+	@Setter(onMethod_ = @Autowired)
+	private KakaoPay kakaopay;
+
+	@Autowired
+	private OrderService orderService;
+
+	@GetMapping("/kakaoPay")
+	public void kakaoPayGet() {
+
+	}
+
+	@PostMapping("/kakaoPay")
+	public String kakaoPay(@RequestBody kakaoPayVO kakaoPayVo ) {
+		log.info("kakaoPay post............................................");
+		System.out.println(kakaoPayVo);
+		return kakaopay.kakaoPayReady(kakaoPayVo);
+
+	}
+
+
+//	@GetMapping("/Success") public String
+//	kakaoPaySuccess(@RequestParam("partner_order_id") int
+//			id,@RequestParam("pg_token") String pg_token, Model model) {
+//		log.info("kakaoPaySuccess get............................................");
+//		log.info("kakaoPaySuccess pg_token : " + pg_token);
+//		System.out.println("주문 상태 변경"); System.out.println(id); String onum =
+//				kakaopay.kakaoPayInfo(pg_token); return
+//						"http://54.180.163.74:8080/#/kakaoPaySuccess?partner_order_id="+id+"&pg_token="
+//						+pg_token; }
+
 }

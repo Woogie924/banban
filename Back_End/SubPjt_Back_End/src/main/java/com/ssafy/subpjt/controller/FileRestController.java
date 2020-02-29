@@ -41,12 +41,22 @@ public class FileRestController {
 			{ 
 				continue; 
 			} 
-			String path = "C://git//sub_pjt_2//Back_End//SubPjt_Back_End//src//main//webapp//image//" + storeid +"//";
+			String path = "//home//ubuntu//image//" + storeid +"//";
+			File imgFolder = new File("image");
+			if (!imgFolder.exists()) {
+				try{
+					imgFolder.mkdir(); //폴더 생성합니다.
+					System.out.println(imgFolder + "폴더가 생성되었습니다.");
+				} 
+				catch(Exception e){
+					e.getStackTrace();
+				}        
+			}
 			File Folder = new File(path);
 			if (!Folder.exists()) {
 				try{
 					Folder.mkdir(); //폴더 생성합니다.
-					System.out.println("폴더가 생성되었습니다.");
+					System.out.println(Folder + "폴더가 생성되었습니다.");
 				} 
 				catch(Exception e){
 					e.getStackTrace();
