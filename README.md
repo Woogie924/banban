@@ -49,21 +49,20 @@
 > - SPA(Single Page Application)의 개념을 이해 
 > - 반응형 웹(Responsive Web)의 특징을 파악 
 > - 사용자 친화적이고 다양한 디바이스에 최적화 된 웹을 구현하는 것
+> - 혼자 사는 사용자에게 혼자 배달음식을 먹을 때의 최소 주문 금액, 너무 많은 양과 같은 문제를 푸드테크 서비스를 제공하는 웹 서비스 제작
 
 ### Used Technology
 >- Vue.js (FrontEnd)
 >    - 컴포넌트 단위의 관리로 유지보수와 재사용성이 높은 Vue.js 활용
->- FireBase (BackEnd)
->    - 구조를 단순화하고 초기 개발 시간을 단축하는 데에 도움이 되는 Firebase 활용
->- MySQL (BackEnd DB)
->- Spring Boot(BackEnd)
+>- AWS (BackEnd)
+>- goole cloud platform SQL (BackEnd DB)
+>- Spring Boot (BackEnd)
 
 ## ✨ Prequuisited<br>
 ### develop machine Spec
 >- Gitlab - SSAFY gitlab 사용합니다. 문제 발생시 [gitLab docs](https://lab.ssafy.com/help)를 활용합니다.
 >- Vue.js - VS Code 설치 및 [Vue.js 공식 웹사이트](https://kr.vuejs.org/index.html) 및 [StackOverflow](https://stackoverflow.com/)를 통해 시작합니다
 >- Node.js - Node.js 및 npm 패키지 관리자 다운로드 설치합니다
->- Firebase - [Firebase 공식 웹사이트](https://firebase.google.com/?hl=ko)를 방문하여 공식 메뉴얼 진행합니다
 >- Jira - [SSAFY jira](https://jira.ssafy.com/secure/Dashboard.jspa)를 사용합니다. jira를 통해 issue 및 WorkFlow 등 전반적인 스프린트를 관리합니다.
 >- MySQL
 >- Spring Boot
@@ -72,34 +71,22 @@
 
 ## 🎫 프로젝트 수행 목록
 <table>
-<tr><th>Sprint 01</th><th>Sprint 02</th></tr>
-<tr><td>1. 프로젝트 개발 환경 설정</td><td>1. 필요한 API항목 도출</td></tr>
-<tr><td>2. Firebase 연동</td><td>2. 로그인</td></tr>
-<tr><td>3. About Me 리사이징</td><td>3. 소셜 로그인</td></tr>
-<tr><td>4. Portfolio 리사이징</td><td>4. 권한 관련 기능</td></tr>
-<tr><td>5. 이미지 배너 리사이징</td><td>5. 이미지 업로더 기능</td></tr>
-<tr><td>6. 네비게이션 바</td><td>6. 게시판 CRUD</td></tr>
-<tr><td>7. 모바일 사이드 바</td><td>7. 게시판 상세페이지</td></tr>
-<tr><td>8. 사용자 정보 Drawer</td><td>8.게시판 백엔드 연동</td></tr>
-<tr><td>9. FrontEnd 배포</td><td>9. 회원 가입</td></tr>
-<tr><td>10. 기능 테스트</td><td>10. 최종 결과물을 master 가 master Branch 로 합병</td></tr>
-</table>
-<table>
-<tr><th>Sprint 03</th></tr>
-<tr><td>1. 필요한 API 항목 도출 및 정의</td></tr>
-<tr><td>2. 프로젝트 소개 페이지(Intro) 추가</td></tr>
-<tr><td>3. 신규 카테고리 추가</td></tr>
-<tr><td>4. ERD 작성</td></tr>
-<tr><td>5. 오프라인 기능 구현</td></tr>
-<tr><td>6. 관리자 기능</td></tr>
-<tr><td>7. Daum 주소 API, 카카오 지도 API 연동</td></tr>
-<tr><td>8. UI 레이아웃 및 CSS 개선</td></tr>
-<tr><td>9. FrontEnd 배포</td></tr>
-<tr><td>10. 기능 테스트</td></tr>
+<tr><th>Sprint 01</th><th>Sprint 02</th><th>Sprint 03</th></tr>
+<tr><td>1. 프로젝트 개발 환경 설정</td><td>1. 필요한 API항목 도출</td><td>1. 필요한 API 항목 도출 및 정의</td></tr>
+<tr><td>2. Firebase 연동</td><td>2. 로그인</td><td>2. 프로젝트 소개 페이지(Intro) 추가</td></tr>
+<tr><td>3. About Me 리사이징</td><td>3. 소셜 로그인</td><td>3. 신규 카테고리 추가</td></tr>
+<tr><td>4. Portfolio 리사이징</td><td>4. 권한 관련 기능</td><td>4. ERD 작성</td></tr>
+<tr><td>5. 이미지 배너 리사이징</td><td>5. 이미지 업로더 기능</td><td>5. 오프라인 기능 구현</td></tr>
+<tr><td>6. 네비게이션 바</td><td>6. 게시판 CRUD</td><td>6. 관리자 기능</td></tr>
+<tr><td>7. 모바일 사이드 바</td><td>7. 게시판 상세페이지</td><td>7. Daum 주소 API, 카카오 지도 API 연동</td></tr>
+<tr><td>8. 사용자 정보 Drawer</td><td>8.게시판 백엔드 연동</td><td>8. UI 레이아웃 및 CSS 개선</td></tr>
+<tr><td>9. FrontEnd 배포</td><td>9. 회원 가입</td><td>9. FrontEnd 배포</td></tr>
+<tr><td>10. 기능 테스트</td><td>10. 최종 결과물을 master 가 master Branch 로 합병</td><td>10. 기능 테스트</td></tr>
 </table>
 <br>
 
 ## 🎲 파일/디렉터리 구조
+#### Front-End
 > - assets
 >    - 프로젝트에 필요한 정적 리소스가 위치하는 디렉토리
 >    - 이미지, 외부 css, 외부 js등
@@ -115,6 +102,19 @@
 > - App.vue : 최상위 컴포넌트
 > - main.js : 최상위 컴포넌트를 최초 호출하는 JavaScript 파일
 
+#### Back-End
+> - controller
+>    - 정보 요청을 처리하는 각각의 controller가 위치하는 디렉토리
+> - vo
+>    - 정보를 save&load할 때 사용하는 객체가 위치하는 디렉토리
+> - service
+>    - @service단의 각각의 service가 위치하는 디렉토리
+> - dao
+>    - @Repository단의 각각의 dao가 위치하는 디렉토리
+> - error
+>    - 예외처리를 위한 클래스가 위치하는 디렉토리
+> - interceptor
+>    -사용자의 요청전 사용자의 권한을 인증하는 interceptor가 위치하는 디렉토리
 
 ## 🤦 SetUp
 ### NPM 설치
@@ -166,43 +166,112 @@
 
 
 ## 😆 Run
-### 프로젝트 실행
+### 프로젝트 로컬 실행
+#### Front-End
 > "App running" 메시지 확인
 > ```cmd
 > npm run serve
 > ```
+> cmd창에 뜨는 브라우저 주소로 접속
 
-### 프로젝트 로컬 실행
-> 1. 명령 프롬프트(cmd)에서 아래 커맨드 수행
-> ```cmd
-> vuejs-paginator@1.0.0 dev <프로젝트 경로>
-> node build/dev-server.js
-> ```
 
-2. 웹 브라우저에서 http://localhost:8080 접속
-
+#### Back-End
+> 1. SubPjt_Back_End 프로젝트와 socket 프로젝트 오른쪽 마우스 클릭
+> 2. Run As - Spring Boot App 실행
+> 3. 에러가 없으면 정상 작동한다는 뜻 
 
 
 ## 👌 Deploy 
- ### Firebase 서버 배포
-> 1. [](https://firebase.google.com) 접속 및 로그인
-> 2. firebase 프로젝트 시작하기 버튼 클릭
-> 3. 프로젝트 생성
-> 4. 생성된 프로젝트의 웹 속성 탭으로 이동
-> 5. 본인의 firebase SDK 확인 및 태그 첨부
-> 6. 로컬 개발 환경에서 명령 프롬프트(cmd) 실행 후 Deploy
+### AWS 서버 배포
+#### Front-End 
+---
+##### Build
+> 1. 해당 Front-End 프로젝트 폴더에서 cmd창을 실행
+> 2. cmd 창에서 아래의 명령어를 실행
 > ```cmd
-> firebase login
-> firebase init
-> firebase deploy
+> npm run build
 > ```
+> 3. build 완료 후 dist 폴더 안에 있는 파일들을 Back-End의 SubPjt_Back_End의 src-main-webapp 폴더 아래 복사
 
-> 7. Firebase 대시보드에서 배포 결과 및 URL 확인
-> 8. 해당 URL로 접속하여 웹 페이지 확인
 
-### AWS 서버 배포(예정)
+#### Back-End
+---
+##### 1. WinSCP
+- **WinSCP는 마이크로소프트 윈도용으로 개발된 자유 및 오픈 소스 SFTP, SCP 및 FTP 클라이언트**
+- **git bash로 aws ubuntu작업하는 것이 불편하기 때문에 설치**
+- **[다운로드 사이트(클릭시 바로 다운)](https://winscp.net/download/WinSCP-5.15.9-Setup.exe)**
 
-- - -
+- 설정 방법
+    1. **SCP 프로토콜 선택, 호스트 ip입력, 사용자이름에 ubuntu 입력**
+
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b590cf13-ef8a-454c-b7d3-b1b1ae64cd63/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b590cf13-ef8a-454c-b7d3-b1b1ae64cd63/Untitled.png)
+
+    **2. 고급 선택**
+
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/35dafe00-1a50-436c-ad92-4de80e65fbc9/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/35dafe00-1a50-436c-ad92-4de80e65fbc9/Untitled.png)
+
+    **3. 인증, 파일 선택 클릭(.pem 파일 넣어야함)**
+
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cdf924e1-1638-465b-9c52-5af2b920f6b1/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cdf924e1-1638-465b-9c52-5af2b920f6b1/Untitled.png)
+
+    **4. 모든 개인키 파일 선택**
+
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e17ae6f-e068-47be-97ba-15a316806e37/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e17ae6f-e068-47be-97ba-15a316806e37/Untitled.png)
+
+    **5. .pem 파일을 .ppk로 바꾸어 줌 → 확인 클릭**
+
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd8f3922-38c6-484a-b695-3843ddc6bf76/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd8f3922-38c6-484a-b695-3843ddc6bf76/Untitled.png)
+
+    **6.  변환된 키 저장하고 cert.ppk 파일 선택**
+
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/268c4c54-07fb-4436-8531-ef5798a802c6/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/268c4c54-07fb-4436-8531-ef5798a802c6/Untitled.png)
+
+    **7. 해당 윈도우 창이 뜨면 성공**
+
+    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b1f89c0-61e3-44b3-afcd-8d79a8227ac9/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b1f89c0-61e3-44b3-afcd-8d79a8227ac9/Untitled.png)
+
+    - **왼쪽이 내로컬 pc, 오른쪽이 원격(aws 서버)**
+    - **home/ubuntu/ 하위 폴더 아래에 .war 배포**
+##### 2. database(goole cloud platform SQL)
+[MySQL용 Cloud SQL 빠른 시작 | Google Cloud](https://cloud.google.com/sql/docs/mysql/quickstart?hl=ko)
+
+- **더하기 클릭**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6bbc66e3-4de3-4aa6-9007-85eb08a64319/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6bbc66e3-4de3-4aa6-9007-85eb08a64319/Untitled.png)
+
+- **아래 사진에 표시해둔 순서대로 클릭**
+    1. 커낵션 이름: 원하는 이름 사용
+    2. Hostname GCP(구글 클라우드 플랫폼)에 있는 sql 서버 ip를 호스트 사용 포트는 3306
+
+        ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f8e6a300-125b-414f-bdb5-0da64b5e4e88/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f8e6a300-125b-414f-bdb5-0da64b5e4e88/Untitled.png)
+
+      3.  구글 sql 인스턴스 생성시 root 비밀번호 설정한 것 기입
+
+      4. 테스트 연결 해서 성공하면 완료
+
+      5. ok 누르면  생성
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9576ae0a-8f76-4278-8a5a-616880ebbe33/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9576ae0a-8f76-4278-8a5a-616880ebbe33/Untitled.png)
+
+- **구글 mysql 서버는 public ip 사용 함으로 해당 ip로 접근한다는 것을 알려 줘야함**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e6488cb5-2f12-45aa-b84a-eb92528f6473/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e6488cb5-2f12-45aa-b84a-eb92528f6473/Untitled.png)
+
+- **연결 클릭**
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9c40a4b1-c484-447b-a14b-270522c16de4/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9c40a4b1-c484-447b-a14b-270522c16de4/Untitled.png)
+
+- **새 네트워크로 접속하려는 ip주소 입력 → ipv4 형식의 ip 주소 넣어야함**
+- **만약 배포했을 때 db서버와 WAS 서버가 다른경우 WAS서버가 배포되고 있는 컴퓨터의 ip를**
+
+    **구글mysql서버에다가 등록해주어야 함**
+
+- **aws host 입력하면 됨**
+
+##### 3. .war file build
+
+> 1. 해당 프로젝트 오른쪽 마우스 클릭 - Run As - 4 Maven Build 클릭
+> 2. goal에 package입력 후 war파일로 build 
 
 ## 🥨Commit/Branch Rules
 ### Commit
@@ -271,7 +340,7 @@
 
 
 ## 🍧 Interface
-> - 링크 : [인터페이스(Swagger)](http://192.168.100.92:8080/swagger-ui.html#/user-rest-controller)
+> - 링크 : [인터페이스(Swagger)](http://54.180.163.74:8080//swagger-ui.html#/)
 <tr>
     <td>
         ![file-rest-Controller](https://user-images.githubusercontent.com/58671945/74000688-5c4d6500-49ac-11ea-80e9-69601975ec51.png)
