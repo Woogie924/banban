@@ -59,7 +59,7 @@ public class KakaoPay {
 		params.add("quantity", "1");
 		params.add("total_amount", kakaoPayVo.getTotal_amount());
 		params.add("tax_free_amount", "100");
-		params.add("approval_url", "http://54.180.163.74:8080/kakaoPaySuccess?partner_order_id=" + kakaoPayVo.getPartner_order_id());
+		params.add("approval_url", "http://54.180.163.74:8080/#/kakaoPaySuccess?partner_order_id=" + kakaoPayVo.getPartner_order_id());
 		params.add("cancel_url", "http://54.180.163.74:8080/kakaoPayCancel");
 		params.add("fail_url", "http://54.180.163.74:8080/kakaoPaySuccessFail");
 
