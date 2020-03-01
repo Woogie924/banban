@@ -114,7 +114,7 @@
 > - error
 >    - 예외처리를 위한 클래스가 위치하는 디렉토리
 > - interceptor
->    -사용자의 요청전 사용자의 권한을 인증하는 interceptor가 위치하는 디렉토리
+>    - 사용자의 요청전 사용자의 권한을 인증하는 interceptor가 위치하는 디렉토리
 
 ## 🤦 SetUp
 ### NPM 설치
@@ -196,7 +196,7 @@
 
 #### Back-End
 ---
-##### 1. WinSCP
+#### 1. WinSCP
 - **WinSCP는 마이크로소프트 윈도용으로 개발된 자유 및 오픈 소스 SFTP, SCP 및 FTP 클라이언트**
 - **git bash로 aws ubuntu작업하는 것이 불편하기 때문에 설치**
 - **[다운로드 사이트(클릭시 바로 다운)](https://winscp.net/download/WinSCP-5.15.9-Setup.exe)**
@@ -204,71 +204,79 @@
 - 설정 방법
     1. **SCP 프로토콜 선택, 호스트 ip입력, 사용자이름에 ubuntu 입력**
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b590cf13-ef8a-454c-b7d3-b1b1ae64cd63/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b590cf13-ef8a-454c-b7d3-b1b1ae64cd63/Untitled.png)
+    ![WinSCP설정1](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win1.JPG)
 
     **2. 고급 선택**
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/35dafe00-1a50-436c-ad92-4de80e65fbc9/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/35dafe00-1a50-436c-ad92-4de80e65fbc9/Untitled.png)
+    ![WinSCP설정2](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win2.JPG)
 
     **3. 인증, 파일 선택 클릭(.pem 파일 넣어야함)**
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cdf924e1-1638-465b-9c52-5af2b920f6b1/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cdf924e1-1638-465b-9c52-5af2b920f6b1/Untitled.png)
+    ![WinSCP설정3](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win3.JPG)
 
     **4. 모든 개인키 파일 선택**
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e17ae6f-e068-47be-97ba-15a316806e37/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2e17ae6f-e068-47be-97ba-15a316806e37/Untitled.png)
+    ![WinSCP설정4](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win4.JPG)
 
     **5. .pem 파일을 .ppk로 바꾸어 줌 → 확인 클릭**
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd8f3922-38c6-484a-b695-3843ddc6bf76/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd8f3922-38c6-484a-b695-3843ddc6bf76/Untitled.png)
+    ![WinSCP설정5](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win5.JPG)
 
     **6.  변환된 키 저장하고 cert.ppk 파일 선택**
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/268c4c54-07fb-4436-8531-ef5798a802c6/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/268c4c54-07fb-4436-8531-ef5798a802c6/Untitled.png)
+    ![WinSCP설정6](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win6.JPG)
 
     **7. 해당 윈도우 창이 뜨면 성공**
 
-    ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b1f89c0-61e3-44b3-afcd-8d79a8227ac9/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7b1f89c0-61e3-44b3-afcd-8d79a8227ac9/Untitled.png)
+    ![WinSCP설정7](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win7.JPG)
 
     - **왼쪽이 내로컬 pc, 오른쪽이 원격(aws 서버)**
     - **home/ubuntu/ 하위 폴더 아래에 .war 배포**
-##### 2. database(goole cloud platform SQL)
+    
+    
+    
+#### 2. database(goole cloud platform SQL)
 [MySQL용 Cloud SQL 빠른 시작 | Google Cloud](https://cloud.google.com/sql/docs/mysql/quickstart?hl=ko)
 
-- **더하기 클릭**
+ **1.Database 추가 버튼 클릭**
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6bbc66e3-4de3-4aa6-9007-85eb08a64319/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6bbc66e3-4de3-4aa6-9007-85eb08a64319/Untitled.png)
+![Google Cloud 설정1](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db1.JPG)
 
-- **아래 사진에 표시해둔 순서대로 클릭**
-    1. 커낵션 이름: 원하는 이름 사용
-    2. Hostname GCP(구글 클라우드 플랫폼)에 있는 sql 서버 ip를 호스트 사용 포트는 3306
+ **2. Google Cloud Platform에 만든 SQL 인스턴스와 연결**
+ 
+![Google Cloud 설정2](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db2.JPG)
 
-        ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f8e6a300-125b-414f-bdb5-0da64b5e4e88/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f8e6a300-125b-414f-bdb5-0da64b5e4e88/Untitled.png)
 
+      1.  커낵션 이름: 원하는 이름 사용
+
+      2. Hostname GCP(구글 클라우드 플랫폼)에 있는 sql 서버 ip를 호스트 사용 포트는 3306
+    
       3.  구글 sql 인스턴스 생성시 root 비밀번호 설정한 것 기입
 
       4. 테스트 연결 해서 성공하면 완료
 
       5. ok 누르면  생성
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9576ae0a-8f76-4278-8a5a-616880ebbe33/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9576ae0a-8f76-4278-8a5a-616880ebbe33/Untitled.png)
 
-- **구글 mysql 서버는 public ip 사용 함으로 해당 ip로 접근한다는 것을 알려 줘야함**
+![Google Cloud 설정3](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db3.JPG)
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e6488cb5-2f12-45aa-b84a-eb92528f6473/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e6488cb5-2f12-45aa-b84a-eb92528f6473/Untitled.png)
 
-- **연결 클릭**
+ **3. 구글 mysql 서버는 public ip 사용 함으로 해당 ip로 접근한다는 것을 알려 줘야함**
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9c40a4b1-c484-447b-a14b-270522c16de4/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9c40a4b1-c484-447b-a14b-270522c16de4/Untitled.png)
+![Google Cloud 설정4](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db4.JPG)
 
-- **새 네트워크로 접속하려는 ip주소 입력 → ipv4 형식의 ip 주소 넣어야함**
-- **만약 배포했을 때 db서버와 WAS 서버가 다른경우 WAS서버가 배포되고 있는 컴퓨터의 ip를**
+ **4. 자신이 배포하는 서버컴퓨터의 아이지 & 서버 ip 등록**
 
-    **구글mysql서버에다가 등록해주어야 함**
+![Google Cloud 설정5](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db5.JPG)
 
-- **aws host 입력하면 됨**
+     새 네트워크로 접속하려는 ip주소 입력 → ipv4 형식의 ip 주소 넣어야함
+     만약 배포했을 때 db서버와 WAS 서버가 다른경우 WAS서버가 배포되고 있는 컴퓨터의 ip를
+        구글mysql서버에다가 등록해주어야 함
+     aws host 입력하면 됨
+     
+     
 
-##### 3. .war file build
+#### 3. .war file build
 
 > 1. 해당 프로젝트 오른쪽 마우스 클릭 - Run As - 4 Maven Build 클릭
 > 2. goal에 package입력 후 war파일로 build 
@@ -336,26 +344,29 @@
 
 
 ## 🎵 Entity-RelationShip Diagram
-![SubPJT3_erd모델링](https://user-images.githubusercontent.com/58671945/74000750-856df580-49ac-11ea-9d12-f590243215ec.png)
+![SubPJT3_erd모델링](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/ERD_%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8.png)
 
 
 ## 🍧 Interface
 > - 링크 : [인터페이스(Swagger)](http://54.180.163.74:8080//swagger-ui.html#/)
 <tr>
     <td>
-        ![file-rest-Controller](https://user-images.githubusercontent.com/58671945/74000688-5c4d6500-49ac-11ea-80e9-69601975ec51.png)
+        ![file-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/file_controller.JPG)
     </td>
     <td>
-        ![order-rest-Controller](https://user-images.githubusercontent.com/58671945/74000689-5ce5fb80-49ac-11ea-9f70-d6a7f771feff.png)
+        ![order-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/order_controller.JPG)
     </td>
     <td>
-        ![store-rest-Controller](https://user-images.githubusercontent.com/58671945/74000690-5d7e9200-49ac-11ea-8678-1b7cafd741d1.png)
+        ![store-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/store_controller.JPG)
     </td>
     <td>
-        ![user-rest-Controller](https://user-images.githubusercontent.com/58671945/74000693-5e172880-49ac-11ea-97e1-1ad7caa937c6.png)
+        ![user-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/user_controller.JPG)
     </td>
     <td>
-        ![board-rest-Controller](https://user-images.githubusercontent.com/58671945/74000694-5eafbf00-49ac-11ea-9151-f8e3b67d4d61.png)
+        ![board-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/board_controller.JPG)
+    </td>
+    <td>
+        ![kakao-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/kakaopay_controller.JPG)
     </td>
 
 </tr>
