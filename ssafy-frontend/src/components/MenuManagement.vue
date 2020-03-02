@@ -1,16 +1,25 @@
 <template>
-  <v-flex>
-    <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+  <div>
+    <v-dialog
+      v-model="dialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      xs12
+      lg6
+      md12
+      sm12
+    >
       <template v-slot:activator="{on}">
-        <div v-on="on">
-          <span>{{flag}}</span>
-          <v-icon>{{icon}}</v-icon>
-        </div>
+        <v-btn text large outlined v-on="on" height="5em">
+          <span>메뉴 관리</span>
+          <v-icon>{{iconPath}}</v-icon>
+        </v-btn>
       </template>
       <v-card>
         <v-toolbar dark color="grey">
           <v-btn icon dark @click="cancel">
-            <v-icon>mdi-close</v-icon>
+            <v-icon>{{reply}}</v-icon>
           </v-btn>
 
           <v-toolbar-title>{{flag}}</v-toolbar-title>
@@ -26,7 +35,7 @@
           <v-layout mt-5 wrap>
             <v-flex v-for="item in list" :key="item.id">
               <menuCard
-                :imageUrl="'http://192.168.100.92:8080/image/'+item.img"
+                :imageUrl="'http://54.180.163.74:8080/image/'+item.img"
                 :name="item.name"
                 :cost="item.cost"
                 :tip="item.tip"
@@ -103,7 +112,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-flex>
+  </div>
 </template>
 
 <script>
@@ -133,6 +142,8 @@ import axios from "axios";
 import store from "@/vuex/store.js";
 import menuCard from "../components/menuCard";
 import test from "../services/test";
+import { mdiApps } from "@mdi/js";
+import { mdiReply } from "@mdi/js";
 export default {
   name: "MenuManagement",
   components: {
@@ -141,6 +152,8 @@ export default {
   },
   data() {
     return {
+      iconPath: mdiApps,
+      reply: mdiReply,
       // menuCard Component용
       childId: null,
       childName: null,
@@ -167,7 +180,7 @@ export default {
 
       myFiles: [],
       serverConfig: {
-        url: "http://192.168.100.92:8080/Img/insertImg",
+        url: "http://54.180.163.74:8080/Img/insertImg",
         process: {
           method: "POST",
           withCredentials: false,
@@ -236,7 +249,7 @@ export default {
           // this.childName = response.data[0].name;
           // this.childCost = response.data[0].cost;
           // this.childTip = response.data[0].tip;
-          // this.childImg = "192.168.100.92:8080/" + response.data[0].img;
+          // this.childImg = "54.180.163.74:8080/" + response.data[0].img;
           // console.log("이미지 경로:" + this.childImg);
         },
         errorcallback => {
@@ -268,7 +281,7 @@ export default {
       alert("태그 정보:" + this.temp);
       axios({
         method: "POST",
-        url: "http://192.168.100.92:8080/shopkeeper/menu",
+        url: "http://54.180.163.74:8080/shopkeeper/menu",
         data: {
           id: this.myId,
           name: this.foodName,

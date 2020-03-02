@@ -1,72 +1,167 @@
 <template>
   <div>
-    <!-- 점주전용 NavBar -->
-    <v-layout my-5 absolute>
+    <v-layout my-5>
       <StoreNavBar></StoreNavBar>
     </v-layout>
 
-    <!-- StorePayment.vue + OrderList.vue -->
-
-    <v-container>
-      <v-layout row wrap>
-        <v-card elevation="6">
-          <v-toolbar>
-            <v-text-field hide-details prepend-icon="search" single-line></v-text-field>
-          </v-toolbar>
-        </v-card>
-      </v-layout>
-    </v-container>
-
     <v-container>
       <v-layout my-5 row wrap>
-        <v-flex xs12 sm6 md6 lg6>
-          <StorePayment></StorePayment>
-        </v-flex>
-
-        <v-flex xs12 sm6 md4 lg4>
-          <OrderList></OrderList>
+        <v-flex pa-2 xs12 sm6 md6 lg6>
+          <StorePayment :totalprice="totalprice"></StorePayment>
+        </v-flex>​
+        <v-flex pa-2 xs12 sm6 md4 lg4>
+          <OrderList :list="list" @child-userid="parents"></OrderList>
         </v-flex>
       </v-layout>
     </v-container>
     <v-layout>
       <bottomNav></bottomNav>
     </v-layout>
+    <!-- 알림상자 -->
+
+    <!-- <transition name="slide" mode="out-in" appear>
+      <notification :value="value"></notification>
+    </transition>-->
   </div>
 </template>
 
 
 <script>
 import StoreNavBar from "../components/StoreNavBar";
-import StorePayment from "../components/StorePayment";
-import OrderList from "../components/OrderList";
-import StoreMenuList from "../components/StoreMenuList";
-import MenuManagement from "../components/MenuManagement";
-import bottomNav from "../components/bottomNav";
 import store from "@/vuex/store.js";
+import StorePayment from "../components/StorePayment";
+import bottomNav from "../components/bottomNav";
+import OrderList from "../components/OrderList";
 import router from "@/router.js";
-
+import SockJS from "sockjs-client";
+import Stomp from "webstomp-client";
+import shopkeeper from "../services/shopkeeper";
+import { mdiFormatQuoteClose, mdiFormatQuoteOpen } from "@mdi/js";
 export default {
+  mounted() {
+    if (this.$store.state.socket === null) {
+      this.connect();
+    }
+    this.getOrderList();
+  },
   name: "StoreMainPage",
   components: {
     StoreNavBar,
     StorePayment,
     OrderList,
-    StoreMenuList,
-    MenuManagement,
     bottomNav
   },
-  mounted() {
-    if (this.$store.state.userType !== 2) {
-      alert("권한이 없습니다. 로그인해주세요");
-      this.$router.push("/StoreLogin");
-    }
-  },
-  methods: {},
   data() {
-    return {};
+    return {
+      list: [],
+      value: false,
+      quoteclose: mdiFormatQuoteClose,
+      quoteopen: mdiFormatQuoteOpen,
+      received_messages: [],
+      orderNumber: 0,
+      totalprice: 0
+    };
+  },
+  methods: {
+    parents(childUserId) {
+      console.log("ggg");
+      console.log(childUserId);
+      console.log("Send message:" + this.send_message);
+      if (this.stompClient && this.stompClient.connected) {
+        let msg = {
+          message: this.send_message,
+          sender: this.$store.state.userName,
+          receiver: childUserId,
+          data: null
+        };
+        console.log(JSON.stringify(msg));
+        this.stompClient.send("/push", JSON.stringify(msg), {});
+      }
+    },
+    async connect() {
+      this.socket = new SockJS("http://54.180.163.74:8082/order");
+      this.stompClient = Stomp.over(this.socket);
+      const that = this;
+      await this.stompClient.connect(
+        {},
+        frame => {
+          console.log("연결요");
+          this.status = "connected";
+          this.connected = true;
+          console.log(frame);
+          this.stompClient.subscribe(
+            `/topic/push/${this.$store.state.userName}`,
+            tick => {
+              this.$store.commit("ORDER_PLUS");
+              this.$store.commit("SOCKET_CONNECTED");
+              console.log("겟오더리스트");
+              that.getOrderList();
+              if (this.$store.state.socket === 1) {
+                this.playSound();
+              }
+              console.log(JSON.parse(tick.body));
+              this.received_messages.push(JSON.parse(tick.body));
+            }
+          );
+        },
+        error => {
+          console.log("에러요");
+          console.log(error);
+          this.connected = false;
+        }
+      );
+    },
+    disconnect() {
+      console.log("disconnected");
+      this.stompClient.disconnect();
+      this.connected = false;
+      this.status = "disconnected";
+      this.received_messages = [];
+    },
+    playSound() {
+      var audio = new Audio(
+        "http://chataholic2.homestead.com/files/Door-Doorbell.wav"
+      );
+      audio.play();
+      // await this.getOrderList();
+      // console.log("제발");
+      // console.log(this.list);
+    },
+    async getOrderList() {
+      await shopkeeper.getOrderList(
+        response => {
+          console.log("shopkeeper getOrderList start");
+          console.log(response);
+          this.list = response.data;
+          // for (let index = 0; index < response.data.length; index++) {
+          //   this.list[index] = response.data[index];
+          //   this.$set(this.list, index, response.data[index]);
+          //   console.log(this.list[index]);
+          // }
+          // console.log("shopkeeper getOrderList " + this.list);
+          if (!isNaN(this.list[0].totalprice)) {
+            this.totalprice = this.list[0].totalprice;
+          }
+        },
+        errorcallback => {
+          console.log("shopkeeper error:" + errorcallback);
+        }
+      );
+    }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
 </style>

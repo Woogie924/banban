@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="User">
+
+	<select id="allUsers" resultType="user">	
+		SELECT id, pw,tel, name, email, address, point, signup_date signupDate, chk, longitude, latitude  FROM user
+	</select>
+	
+	<select id="loginCheck" parameterType="user" resultType="user">
+		SELECT id, pw, tel, name, email, address, point, signup_date signupDate, chk, longitude, latitude  
+		FROM user
+		WHERE id like #{id} and pw like #{pw}
+	</select>
+	
+	<select id="getAddress" parameterType="string" resultType="string">
+		SELECT address 
+		FROM user
+		WHERE id = #{value}
+	</select>
+	
+	<select id="getTel" parameterType="string" resultType="string">
+		SELECT tel 
+		FROM user
+		WHERE id = #{value}
+	</select>
+	
+	<select id="socialLogin" parameterType="user" resultType="user">
+	SELECT id, pw, tel, name, email, address, point, signup_date signDate, chk, longitude, latitude
+	FROM user
+	WHERE id like #{email}
+	</select>
+	
+	<select id="getUser" parameterType="string" resultType="user">
+		SELECT id, pw, tel, name, email, address, point, signup_date signupDate, chk, longitude, latitude  
+		FROM user
+		WHERE id like #{value}
+	</select>
+	
+	<insert id="addUser" parameterType="user">
+		INSERT INTO
+		user(id, pw, tel, name, email, address, point, chk, longitude, latitude)
+		Values(#{id}, #{pw}, #{tel}, #{name}, #{email}, #{address}, 0, 1, #{longitude}, #{latitude})
+	</insert>
+	
+	<update id="updateUser" parameterType="user" >
+		UPDATE user SET pw = #{pw}, email = #{email}, tel = #{tel}, address = #{address}, longitude = #{longitude}, latitude = #{latitude}
+		WHERE id = #{id} 
+	</update>
+	
+	<insert id="insertUsercart" parameterType="usercart">
+		INSERT INTO
+		usercart(userid, storeid, storename, menuname, price, quantity)
+		VALUES(#{userid}, #{storeid}, storename, #{menuname}, #{price}, #{quantity})
+	</insert>
+	
+	<delete id="deleteUsercart" parameterType="int">
+		DELETE FROM usercart WHERE unum = #{value}
+	</delete>
+	
+	<delete id="deleteUsercarById" parameterType="string">
+		DELETE FROM usercart WHERE userid = #{value}
+	</delete>
+	
+	<delete id="deleteUser" parameterType="user">
+		DELETE FROM user
+		WHERE pw = #{pw} and id = #{id}
+	</delete>
+	
+	<select id="getUsercart" parameterType="string" resultType="usercart">
+		SELECT unum, userid, menuname, storeid, storename, price, quantity
+		FROM usercart
+		WHERE userid = #{value}
+	</select>
+	
+	<select id="getOrderByUserid" parameterType="string" resultType="orderFood">
+		SELECT onum, menu, price, userid1, userid2, address1, address2, tel1, tel2, peonum, storeid, ordercheck, order_date orderDate
+		FROM orderFood
+		WHERE userid1 = #{value} or userid2 = #{value}
+	</select>
+	
+	
+</mapper>

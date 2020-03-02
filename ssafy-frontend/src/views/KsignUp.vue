@@ -38,13 +38,28 @@
                     <v-btn @click="sample4_execDaumPostcode()" width="100%" outlined dense>우편번호찾기</v-btn>
                   </v-row>
                   <v-row>
-                    <v-text-field v-model="zipcode" outlined dense :disabled="true" />
+                    <v-text-field
+                      v-model="zipcode"
+                      outlined
+                      dense
+                      :disabled="true"
+                      @blur="$v.zipcode.$touch()"
+                    />
                   </v-row>
                   <v-row>
-                    <v-text-field v-model="address" outlined dense />
+                    <v-text-field v-model="address" outlined dense @blur="$v.address.$touch()" />
                   </v-row>
                   <v-row>
-                    <v-text-field v-model="address2" outlined dense />
+                    <v-text-field v-model="address2" outlined dense @blur="$v.address2.$touch()" />
+                  </v-row>
+                  <v-row>
+                    <v-text-field
+                      v-model="address3"
+                      label="상세주소"
+                      outlined
+                      dense
+                      @blur="$v.address3.$touch()"
+                    />
                   </v-row>
                   <v-row>
                     <v-text-field
@@ -95,6 +110,7 @@ export default {
       signupDate: 214,
       zipcode: "",
       address2: "",
+      address3: "",
       lat: 123,
       lon: 123
     };
@@ -108,17 +124,17 @@ export default {
           name: this.name,
           tel: this.tel,
           email: this.email,
-          address: this.address,
+          address: this.address + this.address3,
           latitude: this.latitude,
           longitude: this.longitude,
           chk: this.chk,
           point: this.point,
           signupDate: this.signupDate,
           latitude: this.lat,
-          longtitude: this.lon
+          longitude: this.lon
         })
         .then(() => {
-          this.$router.push({ path: "/UserMainPage" });
+          this.$router.push({ path: "/" });
         });
     },
     sample4_execDaumPostcode() {
@@ -182,9 +198,9 @@ export default {
   },
   mounted() {
     this.test = this.$store.state.res;
-    this.email = this.test.kaccount_email;
+    this.email = this.test.kakao_account["email"];
     this.name = this.test.properties["nickname"];
-    this.id = this.test.kaccount_email;
+    this.id = this.test.kakao_account["email"];
     // this.id = this.test.id;
     console.log(this.$store.state.res);
   }

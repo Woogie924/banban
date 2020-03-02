@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+
+	<select id="getAllBoards" resultMap="boardWithUser">
+		SELECT b.num, b.category, b.title, b.body, b.writer,  b.reg_date , u.id, u.latitude, u.longitude, u.address, u.signup_date, u.email, u.name  
+		FROM board b JOIN user u ON b.writer = u.id
+		ORDER BY reg_date DESC
+	</select>
+
+	<select id="getBoardByNum" parameterType="int"
+		resultType="board">
+		SELECT num, category, title, body, writer,
+		reg_date regDate
+		FROM board
+		WHERE num = #{value}
+	</select>
+
+	<select id="getBoardById" parameterType="board"
+		resultType="board">
+		SELECT num, category, title, body, writer,
+		reg_date regDate
+		FROM board
+		WHERE writer = #{writer} and body = #{body}
+		and title = #{title} and category = #{category}
+	</select>
+
+
+	<update id="updateBoard" parameterType="board">
+		UPDATE BOARD
+		SET category
+		= #{category}, title = #{title}, body = #{body}
+		WHERE num = #{num}
+	</update>
+
+	<insert id="insertBoard" parameterType="board">
+		INSERT INTO
+		board(category,  title, body, writer)
+		VALUES(#{category},#{title}, #{body}, #{writer})
+	</insert>
+
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		WHERE
+		num = #{value}
+	</delete>
+
+	<select id="getComment" parameterType="int" resultType="comment">
+		SELECT
+		cnum, bnum, writer, body, reg_date regDate
+		FROM comment
+		WHERE bnum =
+		#{value}
+		ORDER BY reg_date ASC
+	</select>
+
+	<insert id="insertComment" parameterType="comment">
+		INSERT INTO
+		comment(bnum, writer, body)
+		VALUES(#{bnum}, #{writer}, #{body})
+	</insert>
+
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM comment
+		WHERE cnum = #{value}
+	</delete>
+
+	<update id="updateComment" parameterType="comment">
+		UPDATE comment
+		SET body
+		= #{body}
+		WHERE cnum = #{cnum}
+	</update>
+
+	<select id="getPartyByBnum" parameterType="int"
+		resultType="party">
+		SELECT bnum, pnum, max, nowmember
+		FROM party
+		WHERE bnum = #{value}
+	</select>
+
+	<insert id="insertParty" parameterType="party">
+		INSERT INTO party(bnum,
+		max, nowmember)
+		VALUES(#{bnum}, #{max}, #{nowmember})
+	</insert>
+
+	<insert id="insertPartyMember" parameterType="partyMember">
+		INSERT INTO partyMember(pnum, id)
+		VALUES(#{pnum}, #{id})
+	</insert>
+
+	<update id="updateParty" parameterType="party">
+		UPDATE party
+		SET max =
+		#{max}, nowmember = #{nowmember}
+		WHERE bnum = #{bnum}
+	</update>
+
+	<delete id="deletePartyMember" parameterType="partyMember">
+		DELETE FROM partyMember
+		WHERE id = #{id} and pnum = #{pnum}
+	</delete>
+	<select id="getPartMembers" parameterType="int"
+		resultMap="partyMemberWithMax">
+		SELECT m.pnum, m.id, p.bnum, p.max, p.pnum, m.pmnum
+		FROM party p JOIN partyMember m
+		ON p.pnum = m.pnum
+        WHERE p.bnum = #{value};
+	</select>
+
+	<select id="getAllPartyMember" parameterType="int" resultType="partyMember">
+		SELECT pnum, id
+		FROM partyMember
+		WHERE pnum = #{value}
+	</select>
+
+	<resultMap type="partyMember" id="partyMemberWithMax">
+		<id column="pmnum" property="pmnum" />
+		<result column="pnum" property="pnum" />
+		<result column="id" property="id" />
+		<collection property="party" resultMap="party"/>
+	</resultMap>
+
+	<resultMap type="party" id="party">
+		<id column="bnum" property="bnum" />
+		<result column="pnum" property="pnum" />
+		<result column="max" property="max" />
+	</resultMap>
+	
+	<resultMap type="board" id="boardWithUser">
+		<id column="num" property="num" />
+		<result column="category" property="category" />
+		<result column="title" property="title" />
+		<result column="body" property="body" />
+		<result column="writer" property="writer" />
+		<result column="reg_date" property="regDate" />
+		<collection property="user" resultMap="user"/>
+	</resultMap>
+
+	<resultMap type="user" id="user">
+		<id column="id" property="id" />
+		<result column="pw" property="pw" />
+		<result column="tel" property="tel" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="address" property="address" />
+		<result column="point" property="point" />
+		<result column="latitude" property="latitude" />
+		<result column="longitude" property="longitude" />
+		<result column="signup_date" property="signupDate" />
+		<result column="chk" property="chk" />
+	</resultMap>
+</mapper>

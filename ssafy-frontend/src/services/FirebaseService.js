@@ -1,22 +1,9 @@
-import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
+import store from '@/vuex/store.js'
 
 const POSTS = 'posts'
 const PORTFOLIOS = 'portfolios'
-
-// Setup Firebase
-// Do change to your own firebase configuration
-const firebaseConfig = {
-	apiKey: "AIzaSyBs1shcJNlZqmCO9_negDiPoXZ8Vlahip8",
-	authDomain: "sub-pjt-1-1ce19.firebaseapp.com",
-	databaseURL: "https://sub-pjt-1-1ce19.firebaseio.com",
-	projectId: "sub-pjt-1-1ce19",
-	storageBucket: "sub-pjt-1-1ce19.appspot.com"
-}
-firebase.initializeApp(firebaseConfig)
-
-const firestore = firebase.firestore()
 
 export default {
 	getPosts() {

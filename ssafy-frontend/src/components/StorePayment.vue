@@ -1,19 +1,24 @@
 <template>
   <div>
-    <v-card>
-      <v-card-title class="display-1 font-weight-black">정산 예정 금액</v-card-title>
+    <v-card elevation="0" style="border:1px solid grey">
+      <v-card-title class="text-center justify-center">
+        <div class="underlined">정산 예정 금액</div>
+      </v-card-title>
 
-      <v-card-text>
-        <h1>{{store.point}} 원</h1>
+      <v-card-text class="text-center justify-center mb-1">
+        <h1 class="counter">{{totalprice}} 원</h1>
       </v-card-text>
-      <v-card-subtitle>
-        현재 기준으로 등록하신 2개 가게의 합계 금액이며,
-        정산 지급일 등 정산 관련 상세 정보는 정산 관리에서 확인하실 수 있습니다.
+      <v-card-subtitle class="grey-text caption text-center">
+        현재 기준으로 등록하신 1개 가게의 합계 금액이며,
+        <br />정산 지급일 등 정산 관련 상세 정보는 정산 관리에서 확인하실 수 있습니다.
       </v-card-subtitle>
     </v-card>
 
-    <v-card class="text-center" color="transparent">
-      <v-card-title class="display-1">주간 매출</v-card-title>
+    <br />
+    <v-card class="text-center" elevation="0" style="border:1px solid grey">
+      <v-card-title class="text-center justify-center">
+        <div class="underlined">주간 매출</div>
+      </v-card-title>
 
       <v-card-text>
         <!-- color="rgba(255,255,255,.7)" -->
@@ -37,12 +42,8 @@
           </v-sparkline>
         </v-sheet>
       </v-card-text>
-      <v-btn @click="test">테스트</v-btn>
-      <v-divider></v-divider>
-      <v-card-actions class="justify-center">
-        <v-btn block text>상세 보기</v-btn>
-      </v-card-actions>
     </v-card>
+    <br />
   </div>
 </template>
 
@@ -60,6 +61,9 @@ const gradients = [
 ];
 export default {
   name: "StorePayment",
+  props: {
+    totalprice: { type: Number }
+  },
   data() {
     return {
       store: [],
@@ -80,7 +84,7 @@ export default {
       idx: 0
     };
   },
-  mounted() {
+  created() {
     this.getProfit();
 
     this.timer = setTimeout(
@@ -90,6 +94,7 @@ export default {
       30000
     );
   },
+  mounted() {},
   methods: {
     test() {
       this.value[this.idx] = 100;
@@ -100,7 +105,7 @@ export default {
       shopkeeper.getProfit(
         response => {
           console.log("shopkeeper getProfit start");
-          // console.log(response.data);
+          console.log(response.data);
 
           for (let index = 0; index < response.data.length; index++) {
             this.list[index] = response.data[index].price;
@@ -124,5 +129,28 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.underlined {
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+}
+.underlined::before {
+  content: "";
+  width: 100%;
+  height: 80%;
+  background-image: linear-gradient(to top, #23c984 10%, rgba(0, 0, 0, 0) 30%);
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  z-index: -1;
+  will-change: width;
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
+}
 </style>

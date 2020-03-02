@@ -60,16 +60,18 @@
     <br />
     <br />
     <br />
-    <br />
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "index",
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      value: 0,
+      to: localStorage.getItem("mToken")
     };
   },
   methods: {

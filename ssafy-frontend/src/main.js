@@ -10,7 +10,10 @@ import router from './router'
 import store from './vuex/store'
 import './registerServiceWorker'
 import VueCookies from 'vue-cookies'
+import Vuelidate from 'vuelidate'
 
+
+Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
 

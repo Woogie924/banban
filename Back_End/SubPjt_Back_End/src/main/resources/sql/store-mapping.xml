@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Store">
+
+
+	<select id="loginCheck" parameterType="store" resultType="store">
+		SELECT
+		id, pw, tel, name, address, point, chk, signup_date signupDate, longitude, latitude, category
+		FROM store
+		WHERE id like #{id} and pw like #{pw}
+	</select>
+
+	<select id="socialLogin" parameterType="string"
+		resultType="store">
+		SELECT id, pw, tel, name, address, point, chk, signup_date signupDate, longitude, latitude, category
+		FROM store
+		WHERE id = #{value}
+	</select>
+
+	<select id="countLikes" resultType="string">
+		select storeid from orderFood group by storeid  ORDER BY
+		count(*) DESC LIMIT 10;
+	</select>
+
+	<select id="getMenu" parameterType="string" resultType="menu">
+		SELECT
+		m.id id, m.name name, m.cost cost, m.img img, m.tag tag, m.tip tip
+		FROM menu m LEFT JOIN store	s
+		ON s.id = m. id
+		WHERE m.id = #{value}
+	</select>
+
+	<select id="getStore" parameterType="string" resultType="store">
+		SELECT
+		id, pw, tel, address, name, point, signup_date signupDate, chk, longitude, latitude, category
+		FROM store
+		WHERE id = #{value}
+	</select>
+	
+	<select id="getStoreinfo" parameterType="string" resultType="storeinfo">
+		SELECT snum, storeid, minprice, deliverytip, deliverytime, storeintro
+		FROM storeinfo
+		WHERE storeid = #{value}
+	</select>
+	
+	<select id="getAllLikes" parameterType="string" resultType="likes">
+		SELECT id, userid, storeid FROM likes WHERE userid = #{value}
+		
+	</select>
+	
+	<select id="getAllStarpoint" parameterType="string" resultType="starpoint"> 
+		SELECT starnum, userid, storeid, starpoint, menu, body, reg_date regDate 
+		FROM starpoint 
+		WHERE storeid = #{value}
+	</select>
+	
+	<select id="getAllStorestarpoint" parameterType="string" resultType="storestarpoint"> 
+		SELECT starnum, storenum, storeid, body, reg_date regDate 
+		FROM storestarpoint 
+		WHERE storeid = #{value}
+	</select>
+	
+	<select id="getAllStores" resultType="store">
+		SELECT 
+		id, pw, tel, address, name, point, signup_date signupDate, chk, longitude, latitude, category
+		FROM store
+	</select>
+
+	<insert id="addStore" parameterType="store">
+		INSERT INTO
+		store(id, pw,
+		tel, name, address, point, chk, longitude, latitude, category)
+		Values(#{id}, #{pw}, #{tel},
+		#{name}, #{address}, 0, 2, #{longitude}, #{latitude}, #{category})
+	</insert>
+	
+	<insert id="insertMenu" parameterType="menu">
+		INSERT INTO menu(id, name, cost, img, tag, tip)
+		VALUES(#{id}, #{name}, #{cost}, #{img}, #{tag}, #{tip})
+	</insert>
+	
+	<insert id="upLikes" parameterType="likes">
+		INSERT INTO likes(userid, storeid) 
+		VALUES(#{userid}, #{storeid})
+	</insert>
+	
+	<insert id="insertStoreinfo" parameterType="storeinfo">
+		INSERT INTO storeinfo(storeid, minprice, deliverytip, deliverytime, storeintro)
+		VALUES(#{storeid}, #{minprice}, #{deliverytip}, #{deliverytime}, #{storeintro})
+	</insert>
+	
+	<insert id="insertStarpoint" parameterType="starpoint">
+		INSERT INTO starpoint(userid, storeid, starpoint, body, menu)
+		VALUES(#{userid}, #{storeid}, #{starpoint}, #{body}, #{menu})
+	</insert>
+	
+	<insert id="insertStorestarpoint" parameterType="storestarpoint">
+		INSERT INTO storestarpoint(starnum, storeid, body)
+		VALUES(#{starnum}, #{storeid}, #{body})
+	</insert>
+	
+	<update id="updateStore" parameterType="store">
+	UPDATE store SET pw = #{pw}, tel = #{tel}
+	WHERE id = #{id}
+	</update>
+	
+	<update id="updateStoreinfo" parameterType="storeinfo">
+		UPDATE storeinfo SET  minprice = #{minprice}, deliverytip = #{deliverytip},
+		deliverytime = #{deliverytime}, storeintro = #{storeintro}
+		WHERE snum = #{snum}
+	</update>
+	
+	<update id="updateStarpoint" parameterType="starpoint">
+		UPDATE starpoint SET starpoint = #{starpoint}, body = #{body}
+		WHERE userid = #{userid} and storeid = #{storeid}
+	</update>
+	
+	<update id="updateStorestarpoint" parameterType="storestarpoint" >
+		UPDATE storestarpoint SET body = #{body}
+		WHERE storeid = #{storeid} and storenum = #{storenum}
+	</update>
+	
+	
+	<delete id="deleteStore" parameterType="store">
+		DELETE FROM store
+		WHERE id = #{id} and pw = #{pw}
+	</delete>
+	
+	<delete id="deleteStarpoint" parameterType="int">
+		DELETE FROM starpoint
+		WHERE starnum = #{value}
+	</delete>
+	
+	<delete id="deleteStorestarpoint" parameterType="int">
+		DELETE FROM storestarpoint
+		WHERE storenum = #{value}
+	</delete>
+	
+	<delete id="downLikes" parameterType="likes">
+		DELETE FROM likes
+		WHERE userid = #{userid} and storeid = #{storeid}
+	</delete>
+	
+	<select id="getOrder" parameterType="string" resultType="orderFood">
+		SELECT onum, menu, price, userid1, userid2, address1, address2, tel1, tel2, peonum, storeid, ordercheck, order_date orderDate
+		FROM orderFood
+		WHERE (ordercheck = 1 or ordercheck = 2) and storeid = #{value}
+		ORDER BY order_date DESC
+	</select>
+	
+	 <select id="getRecentProfit" parameterType="string" resultType="orderFood">
+		SELECT  sum(price) price, date_format(order_date,'%Y%m%d') orderDate 
+		FROM orderFood
+        WHERE storeid = 'chiken01' and order_date BETWEEN DATE_ADD(NOW(),INTERVAL -1 WEEK ) AND NOW()
+		and (ordercheck = 2 or ordercheck = 1)
+        GROUP BY orderDate;
+	</select> 
+	
+	<select id="getStoreInfo" parameterType="string" resultType="storeinfo">
+		SELECT snum, storeid, minprice, deliverytip, deliverytime
+		FROM storeinfo
+		WHERE storeid = #{value}
+	</select>
+	
+	
+</mapper>
