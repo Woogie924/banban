@@ -11,32 +11,32 @@
 <table>
    <tr>
       <td>
-        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722198-685eb600-7030-11ea-922a-0fe53305c0ef.jpg"><br>
-         [홍성욱](https://github.com/Woogie924)<br>
+        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722198-685eb600-7030-11ea-922a-0fe53305c0ef.jpg"/><br>
+         <a href="https://github.com/Woogie924">홍성욱</a><br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
       <td>
-        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722299-b83d7d00-7030-11ea-9b49-1d79eedb307e.jpg"><br>
-         [이응재](https://github.com/Woogie924)<br>
+        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722299-b83d7d00-7030-11ea-9b49-1d79eedb307e.jpg"/><br>
+         이응재<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
       <td>
         <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722301-b96eaa00-7030-11ea-831b-83f158aff270.jpg"><br>
-         [김현우](https://github.com/Woogie924)<br>
+         김현우<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
       <td>
         <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722303-ba074080-7030-11ea-8b13-10092b6ead65.jpg"><br>
-         [박교열](https://github.com/Woogie924)<br>
+         박교열<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
       <td>
         <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722305-bb386d80-7030-11ea-9c45-a30d0fac4ba2.jpg"><br>
-         [김정덕](https://github.com/Woogie924)<br>
+         김정덕<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
