@@ -11,31 +11,31 @@
 <table>
    <tr>
       <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/KakaoTalk_20200109_090135135.jpg"><br>
+        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722198-685eb600-7030-11ea-922a-0fe53305c0ef.jpg"><br>
          [홍성욱](https://github.com/Woogie924)<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
       <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EC%9D%B4%EC%9D%91%EC%9E%AC.jpg"><br>
+        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722299-b83d7d00-7030-11ea-9b49-1d79eedb307e.jpg"><br>
          [이응재](https://github.com/Woogie924)<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
       <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EA%B9%80%ED%98%84%EC%9A%B0.jpg"><br>
+        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722301-b96eaa00-7030-11ea-831b-83f158aff270.jpg"><br>
          [김현우](https://github.com/Woogie924)<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
       <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EB%B0%95%EA%B5%90%EC%97%B4.jpg"><br>
+        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722303-ba074080-7030-11ea-8b13-10092b6ead65.jpg"><br>
          [박교열](https://github.com/Woogie924)<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
       </td>
       <td>
-        <img width="160px" src="https://lab.ssafy.com/webmobile1-sub1/s02p11d138/raw/develop/Profile/%EA%B9%80%EC%A0%95%EB%8D%95.jpg"><br>
+        <img width="160px" src="https://user-images.githubusercontent.com/58671945/77722305-bb386d80-7030-11ea-9c45-a30d0fac4ba2.jpg"><br>
          [김정덕](https://github.com/Woogie924)<br>
          <i>Project lead & Developer</i><br>
          <i>SSAFY 2기 교육생</i>
@@ -204,31 +204,31 @@
 - 설정 방법
     1. **SCP 프로토콜 선택, 호스트 ip입력, 사용자이름에 ubuntu 입력**
 
-    ![WinSCP설정1](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win1.JPG)
+    ![WinSCP설정1](https://user-images.githubusercontent.com/58671945/77723730-9c3bda80-7034-11ea-98e6-a861144155a2.jpg)
 
     **2. 고급 선택**
 
-    ![WinSCP설정2](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win2.JPG)
+    ![WinSCP설정2](https://user-images.githubusercontent.com/58671945/77723734-9cd47100-7034-11ea-849a-c6dea29a7a7b.jpg)
 
     **3. 인증, 파일 선택 클릭(.pem 파일 넣어야함)**
 
-    ![WinSCP설정3](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win3.JPG)
+    ![WinSCP설정3](https://user-images.githubusercontent.com/58671945/77723736-9e059e00-7034-11ea-9fb8-bb90ef4841ea.jpg)
 
     **4. 모든 개인키 파일 선택**
 
-    ![WinSCP설정4](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win4.JPG)
+    ![WinSCP설정4](https://user-images.githubusercontent.com/58671945/77723739-9e9e3480-7034-11ea-9922-4fbe0a7ce34e.jpg)
 
     **5. .pem 파일을 .ppk로 바꾸어 줌 → 확인 클릭**
 
-    ![WinSCP설정5](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win5.JPG)
+    ![WinSCP설정5](https://user-images.githubusercontent.com/58671945/77723743-9f36cb00-7034-11ea-9864-d05cd5e5b92d.jpg)
 
     **6.  변환된 키 저장하고 cert.ppk 파일 선택**
 
-    ![WinSCP설정6](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win6.JPG)
+    ![WinSCP설정6](https://user-images.githubusercontent.com/58671945/77723797-c55c6b00-7034-11ea-8652-32399d57399d.jpg)
 
     **7. 해당 윈도우 창이 뜨면 성공**
 
-    ![WinSCP설정7](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/win7.JPG)
+    ![WinSCP설정7](https://user-images.githubusercontent.com/58671945/77723799-c5f50180-7034-11ea-821f-ca79bffa27dd.jpg)
 
     - **왼쪽이 내로컬 pc, 오른쪽이 원격(aws 서버)**
     - **home/ubuntu/ 하위 폴더 아래에 .war 배포**
@@ -240,11 +240,11 @@
 
  **1.Database 추가 버튼 클릭**
 
-![Google Cloud 설정1](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db1.JPG)
+![Google Cloud 설정1](https://user-images.githubusercontent.com/58671945/77723844-e624c080-7034-11ea-976b-76d59d908a76.jpg)
 
  **2. Google Cloud Platform에 만든 SQL 인스턴스와 연결**
  
-![Google Cloud 설정2](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db2.JPG)
+![Google Cloud 설정2](https://user-images.githubusercontent.com/58671945/77723845-e755ed80-7034-11ea-9c1f-c12c3fa2341e.jpg)
 
 
       1.  커낵션 이름: 원하는 이름 사용
@@ -258,16 +258,16 @@
       5. ok 누르면  생성
 
 
-![Google Cloud 설정3](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db3.JPG)
+![Google Cloud 설정3](https://user-images.githubusercontent.com/58671945/77723846-e7ee8400-7034-11ea-98a5-d146c9d15435.jpg)
 
 
  **3. 구글 mysql 서버는 public ip 사용 함으로 해당 ip로 접근한다는 것을 알려 줘야함**
 
-![Google Cloud 설정4](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db4.JPG)
+![Google Cloud 설정4](https://user-images.githubusercontent.com/58671945/77723848-e8871a80-7034-11ea-91d4-41f2173af4be.jpg)
 
  **4. 자신이 배포하는 서버컴퓨터의 아이지 & 서버 ip 등록**
 
-![Google Cloud 설정5](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/db5.JPG)
+![Google Cloud 설정5](https://user-images.githubusercontent.com/58671945/77723849-e91fb100-7034-11ea-9674-df8c5c54e584.jpg)
 
      새 네트워크로 접속하려는 ip주소 입력 → ipv4 형식의 ip 주소 넣어야함
      만약 배포했을 때 db서버와 WAS 서버가 다른경우 WAS서버가 배포되고 있는 컴퓨터의 ip를
@@ -344,29 +344,29 @@
 
 
 ## 🎵 Entity-RelationShip Diagram
-![SubPJT3_erd모델링](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/ERD_%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8.png)
+![SubPJT3_erd모델링](https://user-images.githubusercontent.com/58671945/77723948-2421e480-7035-11ea-9402-fb51a2836de8.png)
 
 
 ## 🍧 Interface
 > - 링크 : [인터페이스(Swagger)](http://54.180.163.74:8080//swagger-ui.html#/)
 <tr>
     <td>
-        ![file-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/file_controller.JPG)
+       ![first-rest-Controller](https://user-images.githubusercontent.com/58671945/77723953-25eba800-7035-11ea-8699-418f4c102578.jpg)
     </td>
     <td>
-        ![order-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/order_controller.JPG)
+        ![order-rest-Controller](https://user-images.githubusercontent.com/58671945/77723954-26843e80-7035-11ea-90bf-8a4b70a72670.jpg)
     </td>
     <td>
-        ![store-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/store_controller.JPG)
+        ![store-rest-Controller](https://user-images.githubusercontent.com/58671945/77723956-271cd500-7035-11ea-8420-f3584b6ec884.jpg)
     </td>
     <td>
-        ![user-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/user_controller.JPG)
+        ![user-rest-Controller](https://user-images.githubusercontent.com/58671945/77723958-27b56b80-7035-11ea-9f17-caba95a96acd.jpg)
     </td>
     <td>
-        ![board-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/board_controller.JPG)
+        ![board-rest-Controller](https://user-images.githubusercontent.com/58671945/77723960-284e0200-7035-11ea-81b1-62701bd06cb3.jpg)
     </td>
     <td>
-        ![kakao-rest-Controller](https://lab.ssafy.com/webmobile1-sub3/s02p13d107/raw/develop/ssafy-frontend/public/img/kakaopay_controller.JPG)
+        ![kakao-rest-Controller](https://user-images.githubusercontent.com/58671945/77723963-28e69880-7035-11ea-93b4-e728541868de.jpg)
     </td>
 
 </tr>
